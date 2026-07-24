@@ -6,12 +6,12 @@ const port = 3000;
 app.use(express.json());
 
 app.get("/", (_, res) => {
-  res.send("SpoTICfy API working!");
+  res.send("LIFE-FIT");
 });
 
 
 const server = app.listen(port, () => {
-  console.log(`SpoTICfy API listening at http://localhost:${port}`);
+  console.log(`LIFE-FIT is listening at http://localhost:${port}`);
 });
 
 export { app, server };
