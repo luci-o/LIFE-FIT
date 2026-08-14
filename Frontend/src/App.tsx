@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-// Importación de componentes desde sus respectivas carpetas
+
 import Bienvenida from "./pages/Bienvenida/Bienvenida.tsx";
 import InicioSesion from "./pages/InicioSesion/InicioSesion.tsx";
 import Registrarse from "./pages/Registrarse/Registrarse.tsx";
@@ -18,13 +18,13 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rutas de Inicio y Autenticación */}
+        {}
         <Route path="/" element={<Bienvenida />} />
         <Route path="/login" element={<InicioSesion />} />
         <Route path="/registro" element={<Registrarse />} />
         <Route path="/formulario" element={<Formulario />} />
 
-        {/* Rutas Principales de la Aplicación */}
+        {}
         <Route path="/dashboard" element={<PaginaPrincipal />} />
         <Route path="/rutinas" element={<Rutinas />} />
         <Route path="/alimentacion" element={<Alimentacion />} />
@@ -34,7 +34,7 @@ function App() {
         <Route path="/perfil" element={<PerfilUsuario />} />
         <Route path="/actualizacion-semanal" element={<Actualizacion />} />
 
-        {/* Redirección ante rutas no encontradas */}
+        {}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
