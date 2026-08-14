@@ -10,10 +10,10 @@ app.get("/", (_, res) => {
   res.send("LIFE-FIT");
 });
 
-app.get("/usuarios/:id", usuarios.getUsuario);
-app.post("/usuarios", usuarios.createUsuario);
-app.put("/usuarios/:id", usuarios.updateUsuario);
-app.delete("/usuarios/:id", usuarios.deleteUsuario);
+app.get("/perfiles/:id", perfil.getPerfil);
+app.post("/perfiles", perfil.createPerfil);
+app.put("/perfiles/:id", perfil.updatePerfil);
+app.delete("/perfiles/:id", perfil.deletePerfil);
 
 
 const server = app.listen(port, () => {

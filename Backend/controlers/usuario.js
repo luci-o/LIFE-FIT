@@ -1,48 +1,46 @@
-
-
-const getUsuario = async (req, res) => {
+const getPerfil = async (req, res) => {
   const result = await query(
-    `SELECT u.id_usuario, u.mail,
-            p.id_perfil, p.nivel_fisico, p.peso, p.altura, p.edad, p.objetivo,
-            p.tiempo_disponible, p.lugar_entrena, p.dieta_personalizada
-     FROM usuarios u
-       LEFT JOIN perfiles p ON p.id_usuario = u.id_usuario
-     WHERE u.id_usuario = $1`,
+    `SELECT * FROM "PERFIL USUARIO" WHERE "ID PERFIL" = $1`,
     [req.params.id]
   );
-  res.json(result.rows[0]);
+  const perfil = result.rows[0];
+  res.json(perfil);
 };
 
-  const createUsuario = async (req, res) => {
-    const { email, contraseña, nombre, peso, edad } = req.body;
-    const result = await query(
-      "INSERT INTO usuarios (email, contraseña, nombre, peso, edad) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id",
-      [email,contraseña, nombre, peso, edad]
-    );
-    res.status(201).json({ id: result.rows[0].id, email, contraseña, nombre, peso, edad });
-  };
-
-
-  const updateUsuario = async (req, res) => {
-    const idUsuario = req.params.id;
-    const { peso, objetivo,
-            tiempo_disponible, lugar_entrena } = req.body;
-    await query(
-      `UPDATE perfiles SET
-        peso = $1, objetivo = $2,
-        tiempo_disponible = $3, lugar_entrena = $4,
-       WHERE id_usuario = $5`,
-      [ peso, objetivo,
-       tiempo_disponible, lugar_entrena, idUsuario]
-    );
-  
-    res.json({ mensaje: "Cuenta actualizada" });
+const createPerfil = async (req, res) => {
+  const { peso, edad, objetivo, altura, tiempo_disponible, lugar_entrena,
+          dieta, registro_id, mail, contrasena, rutina_id } = req.body;
+  const result = await query(
+    `INSERT INTO "PERFIL USUARIO"
+       ("PESO", "EDAD", "OBJETIVO", "ALTURA", "TIEMPO DISPONIBLE",
+        "LUGAR DONDE ENTRENA", "NUTRICION_DIETA PERSONALIZADA",
+        "REGISTRO DEL USUARIO_ID REGISR", "REGISTRO DEL USUARIO_MAIL",
+        "REGISTRO DEL USUARIO_CONTRASEÑA", "RUTINAS_ID ")
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+     RETURNING "ID PERFIL"`,
+    [peso, edad, objetivo, altura, tiempo_disponible, lugar_entrena,
+     dieta, registro_id, mail, contrasena, rutina_id]
+  );
+  res.status(201).json({ id_perfil: result.rows[0]["ID PERFIL"] });
 };
 
-const deleteUsuario = async (req, res) => {
-    await query("DELETE FROM usuarios WHERE id_usuario = $1", [req.params.id]);
-    res.sendStatus(204);
+const updatePerfil = async (req, res) => {
+  const { peso, edad, objetivo, altura, tiempo_disponible, lugar_entrena, dieta } = req.body;
+  await query(
+    `UPDATE "PERFIL USUARIO" SET
+       "PESO" = $1, "EDAD" = $2, "OBJETIVO" = $3, "ALTURA" = $4,
+       "TIEMPO DISPONIBLE" = $5, "LUGAR DONDE ENTRENA" = $6,
+       "NUTRICION_DIETA PERSONALIZADA" = $7
+     WHERE "ID PERFIL" = $8`,
+    [peso, edad, objetivo, altura, tiempo_disponible, lugar_entrena, dieta, req.params.id]
+  );
+  res.json({ mensaje: "Perfil actualizado" });
 };
 
-const usuarios = { getUsuario, createUsuario, updateUsuario, deleteUsuario };
+const deletePerfil = async (req, res) => {
+  await query(`DELETE FROM "PERFIL USUARIO" WHERE "ID PERFIL" = $1`, [req.params.id]);
+  res.sendStatus(204);
+};
+
+const usuarios = { getPerfil, createPerfil, updatePerfil, deletePerfil };
 export default usuarios;
