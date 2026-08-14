@@ -13,10 +13,11 @@ app.get("/", (_, res) => {
 app.get("/usuarios/:id", usuarios.getUsuario);
 app.post("/usuarios", usuarios.createUsuario);
 app.put("/usuarios/:id", usuarios.updateUsuario);
+app.delete("/usuarios/:id", usuarios.deleteUsuario);
 
 
 const server = app.listen(port, () => {
-  console.log(`LIFE-FIT is listening at https://localhost:${port}`);
+  console.log(`LIFE-FIT is listening at http://localhost:${port}`);
 });
 
 export { app, server };
