@@ -2,7 +2,7 @@ import express from "express";
 const app = express();
 const port = 3000;
 
-import usuarios from "../controlers/controles.js";
+import usuarios from "../controlers/usuario.js";
 
 app.use(express.json());
 
@@ -10,10 +10,10 @@ app.get("/", (_, res) => {
   res.send("LIFE-FIT");
 });
 
-app.get("/perfiles/:id", perfil.getPerfil);
-app.post("/perfiles", perfil.createPerfil);
-app.put("/perfiles/:id", perfil.updatePerfil);
-app.delete("/perfiles/:id", perfil.deletePerfil);
+app.get("/usuario/:id", usuarios.getPerfil);
+app.post("/usuario", usuarios.createPerfil);
+app.put("/usuario/:id", usuarios.updatePerfil);
+app.delete("/usuario/:id", usuarios.deletePerfil);
 
 
 const server = app.listen(port, () => {

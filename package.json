@@ -5,5 +5,12 @@
   },
   "devDependencies": {
     "vite": "^8.2.1"
+  },
+  
+    "type": "module",
+    "scripts": {
+      "start": "node Backend/llamadas/index.js",
+      "dev": "node --watch Backend/llamadas/index.js"
+    }
   }
-}
+

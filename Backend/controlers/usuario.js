@@ -1,3 +1,5 @@
+import { query } from "../DB/db.js";
+
 const getPerfil = async (req, res) => {
   const result = await query(
     `SELECT * FROM "PERFIL USUARIO" WHERE "ID PERFIL" = $1`,
