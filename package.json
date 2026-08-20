@@ -1,16 +1,15 @@
 {
   "dependencies": {
     "express": "^5.2.1",
+    "pg": "^8.23.0",
     "react-router-dom": "^7.18.2"
   },
   "devDependencies": {
     "vite": "^8.2.1"
   },
-  
-    "type": "module",
-    "scripts": {
-      "start": "node Backend/llamadas/index.js",
-      "dev": "node --watch Backend/llamadas/index.js"
-    }
+  "type": "module",
+  "scripts": {
+    "start": "node Backend/llamadas/index.js",
+    "dev": "node --watch Backend/llamadas/index.js"
   }
-
+}

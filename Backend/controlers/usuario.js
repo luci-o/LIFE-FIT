@@ -10,22 +10,21 @@ const getPerfil = async (req, res) => {
 };
 
 const createPerfil = async (req, res) => {
-  const { peso, edad, objetivo, altura, tiempo_disponible, lugar_entrena,
-          dieta, registro_id, mail, contrasena, rutina_id } = req.body;
-  const result = await query(
-    `INSERT INTO "PERFIL USUARIO"
-       ("PESO", "EDAD", "OBJETIVO", "ALTURA", "TIEMPO DISPONIBLE",
-        "LUGAR DONDE ENTRENA", "NUTRICION_DIETA PERSONALIZADA",
-        "REGISTRO DEL USUARIO_ID REGISR", "REGISTRO DEL USUARIO_MAIL",
-        "REGISTRO DEL USUARIO_CONTRASEÑA", "RUTINAS_ID ")
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-     RETURNING "ID PERFIL"`,
-    [peso, edad, objetivo, altura, tiempo_disponible, lugar_entrena,
-     dieta, registro_id, mail, contrasena, rutina_id]
-  );
-  res.status(201).json({ id_perfil: result.rows[0]["ID PERFIL"] });
-};
-
+  const { peso, edad, objetivo, altura, tiempo_disponible,
+          lugar_entrena, dieta, mail, contrasena } = req.body;
+          const result = await query(
+            `INSERT INTO "PERFIL USUARIO"
+               ("ID PERFIL", "PESO", "EDAD", "OBJETIVO", "ALTURA", "TIEMPO DISPONIBLE",
+                "LUGAR DONDE ENTRENA", "NUTRICION_DIETA PERSONALIZADA",
+                "REGISTRO DEL USUARIO_ID REGISR", "REGISTRO DEL USUARIO_MAIL",
+                "REGISTRO DEL USUARIO_CONTRASEÑA", "RUTINAS_ID ")
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+             RETURNING "ID PERFIL"`,
+            [nuevoId, peso, edad, objetivo, altura, tiempo_disponible,
+             lugar_entrena, dieta, nuevoId, mail, contrasena, 0]
+          );
+          res.status(201).json({ id_perfil: result.rows[0]["ID PERFIL"] });
+        };
 const updatePerfil = async (req, res) => {
   const { peso, edad, objetivo, altura, tiempo_disponible, lugar_entrena, dieta } = req.body;
   await query(
