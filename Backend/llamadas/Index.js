@@ -14,6 +14,7 @@ app.get("/usuario/:id", usuarios.getPerfil);
 app.post("/usuario", usuarios.createPerfil);
 app.put("/usuario/:id", usuarios.updatePerfil);
 app.delete("/usuario/:id", usuarios.deletePerfil);
+app.get("/perfiles/:id/ejercicios", ejercicios.getEjerciciosByPerfil);
 
 
 const server = app.listen(port, () => {
