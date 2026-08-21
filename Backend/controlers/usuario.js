@@ -10,30 +10,28 @@ const getPerfil = async (req, res) => {
 };
 
 const createPerfil = async (req, res) => {
-  const { peso, edad, objetivo, altura, tiempo_disponible,
+  const { nombre, peso, edad, objetivo, altura, tiempo_disponible,
           lugar_entrena, dieta, mail, contrasena } = req.body;
-          const result = await query(
-            `INSERT INTO "PERFIL USUARIO"
-               ("ID PERFIL", "PESO", "EDAD", "OBJETIVO", "ALTURA", "TIEMPO DISPONIBLE",
-                "LUGAR DONDE ENTRENA", "NUTRICION_DIETA PERSONALIZADA",
-                "REGISTRO DEL USUARIO_ID REGISR", "REGISTRO DEL USUARIO_MAIL",
-                "REGISTRO DEL USUARIO_CONTRASEÑA", "RUTINAS_ID ")
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-             RETURNING "ID PERFIL"`,
-            [nuevoId, peso, edad, objetivo, altura, tiempo_disponible,
-             lugar_entrena, dieta, nuevoId, mail, contrasena, 0]
-          );
-          res.status(201).json({ id_perfil: result.rows[0]["ID PERFIL"] });
-        };
+  const result = await query(
+    `INSERT INTO "PERFIL USUARIO"
+       ("NOMBRE", "PESO", "EDAD", "OBJETIVO", "ALTURA", "TIEMPO DISPONIBLE",
+        "LUGAR DONDE ENTRENA", "NUTRICION_DIETA PERSONALIZADA",
+        "REGISTRO DEL USUARIO_ID REGISR", "REGISTRO DEL USUARIO_MAIL",
+        "REGISTRO DEL USUARIO_CONTRASEÑA", "RUTINAS_ID ")
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+     RETURNING "NOMBRE"`,
+    [nombre, peso, edad, objetivo, altura, tiempo_disponible,
+     lugar_entrena, dieta, 0, mail, contrasena, 0]
+  );
+  res.status(201).json({ nombre: result.rows[0]["NOMBRE"] });
+};
 const updatePerfil = async (req, res) => {
-  const { peso, edad, objetivo, altura, tiempo_disponible, lugar_entrena, dieta } = req.body;
+  const { peso } = req.body;
   await query(
     `UPDATE "PERFIL USUARIO" SET
-       "PESO" = $1, "EDAD" = $2, "OBJETIVO" = $3, "ALTURA" = $4,
-       "TIEMPO DISPONIBLE" = $5, "LUGAR DONDE ENTRENA" = $6,
-       "NUTRICION_DIETA PERSONALIZADA" = $7
-     WHERE "ID PERFIL" = $8`,
-    [peso, edad, objetivo, altura, tiempo_disponible, lugar_entrena, dieta, req.params.id]
+        "PESO" = $1
+     WHERE "ID PERFIL" = $2`,
+    [peso, req.params.id]
   );
   res.json({ mensaje: "Perfil actualizado" });
 };
