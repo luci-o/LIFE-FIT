@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 
 import usuarios from "../controlers/usuario.js";
+import ejercicios from "../controlers/ejercicios.js";
 
 app.use(express.json());
 
