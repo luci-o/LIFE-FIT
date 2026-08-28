@@ -20,35 +20,48 @@ const getPerfil = async (req, res) => {
 };
 
 const createPerfil = async (req, res) => {
-  const { nombre, peso, edad, objetivo, altura, tiempo_disponible,
-          lugar_entrena, dieta, mail, contrasena, lesiones = [], preferencias = [] } = req.body;
-  const result = await query(
-    `INSERT INTO "PERFIL USUARIO"
-       ("NOMBRE", "PESO", "EDAD", "OBJETIVO", "ALTURA", "TIEMPO DISPONIBLE",
-        "LUGAR DONDE ENTRENA", "NUTRICION_DIETA PERSONALIZADA",
-        "REGISTRO DEL USUARIO_ID REGISR", "REGISTRO DEL USUARIO_MAIL",
-        "REGISTRO DEL USUARIO_CONTRASEÑA", "RUTINAS_ID ")
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-     RETURNING "ID PERFIL", "NOMBRE"`,
-    [nombre, peso, edad, objetivo, altura, tiempo_disponible,
-     lugar_entrena, dieta, 0, mail, contrasena, 0]
-  );
-  const idPerfil = result.rows[0]["ID PERFIL"];
-  for (const preferencia of preferencias) {
-    await query(
-      `INSERT INTO "PREFERNCIAS ALIMENTARIAS" ("COMIDAS RESTRINGIDAS", "ID PERFIL")
-       VALUES ($1, $2)`,
-      [preferencia.comidas_restringidas, idPerfil]
-    );
+  const user = req.body; 
+  if (!user.nombre || !user.mail || !user.password) {
+    return res.status(400).json({ message: "Debe completar todos los campos" });
   }
-  for (const lesion of lesiones) {
-    await query(
-      `INSERT INTO "LESIONES" ("ZONAS LESIONADAS", "TIEMPO HASTA RECUPERAR", "ID PERFIL")
-       VALUES ($1, $2, $3)`,
-      [lesion.zonas_lesionadas, lesion.tiempo_recuperar, idPerfil]
+  try {
+    const client = new Client(config);
+    await client.connect();
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    const result = await client.query(
+      `INSERT INTO "PERFIL USUARIO"
+        ("NOMBRE","EDAD","PESO","ALTURA","OBJETIVO","TIEMPO DISPONIBLE","LUGAR DONDE ENTRENA",
+         "REGISTRO DEL USUARIO_MAIL","REGISTRO DEL USUARIO_CONTRASEÑA",
+         "NUTRICION_DIETA PERSONALIZADA","REGISTRO DEL USUARIO_ID REGISR","RUTINAS_ID ")
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+       RETURNING "ID PERFIL"`,
+      [user.nombre, user.edad, user.peso, user.altura, user.objetivo,
+       user.tiempoDisponible, user.lugar, user.mail, hashedPassword,
+       "", 0, 0]
     );
+    const idPerfil = result.rows[0]["ID PERFIL"];
+    const lesiones = user.lesiones || [];
+    for (const l of lesiones) {
+      await client.query(
+        `INSERT INTO "LESIONES" ("ZONAS LESIONADAS","TIEMPO HASTA RECUPERAR","ID PERFIL")
+         VALUES ($1,$2,$3)`,
+        [l.zona, l.tiempo, idPerfil]
+      );
+    }
+    const preferencias = user.preferencias || [];
+    for (const p of preferencias) {
+      await client.query(
+        `INSERT INTO "PREFERNCIAS ALIMENTARIAS" ("COMIDAS RESTRINGIDAS","ID PERFIL")
+         VALUES ($1,$2)`,
+        [p, idPerfil]
+      );
+    }
+    await client.end();
+    console.log("Perfil creado, id:", idPerfil);
+    res.status(201).json({ message: "Perfil creado", idPerfil });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
-  res.status(201).json({ id_perfil: idPerfil, nombre: result.rows[0]["NOMBRE"] });
 };
 const updatePerfil = async (req, res) => {
   const { peso } = req.body;

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "express": "^5.2.1",
     "pg": "^8.23.0",
     "react-router-dom": "^7.18.2"

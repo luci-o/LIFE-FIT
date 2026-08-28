@@ -19,8 +19,8 @@ app.put("/usuario/:id", usuarios.updatePerfil);
 app.delete("/usuario/:id", usuarios.deletePerfil);
 app.get("/perfiles/:id/ejercicios", ejercicios.getEjerciciosByPerfil);
 app.post("/perfiles/:id/ejercicios", ejercicios.guardarEjercicio);
-app.get("/perfiles/:id/progreso", progreso.verProgreso);
-app.post("/perfiles/:id/progreso", progreso.registrarProgreso);
+app.get("/perfiles/:id/progreso", Progreso.verProgreso);
+app.post("/perfiles/:id/progreso", Progreso.registrarProgreso);
 app.get("/perfiles/:id/nutricion", Nutricion.verDieta);
 app.post("/perfiles/:id/nutricion", Nutricion.guardarDieta);
 
