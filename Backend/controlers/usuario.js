@@ -32,13 +32,11 @@ const createPerfil= async (req, res) => {
     const result = await query(
       `INSERT INTO "PERFIL USUARIO"
         ("NOMBRE","EDAD","PESO","ALTURA","OBJETIVO","TIEMPO DISPONIBLE","LUGAR DONDE ENTRENA",
-         "REGISTRO DEL USUARIO_MAIL","REGISTRO DEL USUARIO_CONTRASEÑA",
-         "NUTRICION_DIETA PERSONALIZADA")
+         "REGISTRO DEL USUARIO_MAIL","REGISTRO DEL USUARIO_CONTRASEÑA","NUTRICION_DIETA PERSONALIZADA")
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
        RETURNING "NOMBRE"`,
       [user.nombre, user.edad, user.peso, user.altura, user.objetivo,
-       user.tiempoDisponible, user.lugar, user.mail, hashedPassword,
-      ""]
+       user.tiempoDisponible, user.lugar, user.mail, hashedPassword, ""]
     );
     const idPerfil = result.rows[0]["ID PERFIL"];
     const lesiones = user.lesiones || [];
