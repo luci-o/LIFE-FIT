@@ -24,28 +24,23 @@ const getPerfil = async (req, res) => {
 
 const createPerfil= async (req, res) => {
   const user = req.body;
-
   if (!user.nombre || !user.mail || !user.password) {
     return res.status(400).json({ message: "Debe completar todos los campos" });
   }
-
   try {
     const hashedPassword = await bcrypt.hash(user.password, 10);
-
     const result = await query(
       `INSERT INTO "PERFIL USUARIO"
         ("NOMBRE","EDAD","PESO","ALTURA","OBJETIVO","TIEMPO DISPONIBLE","LUGAR DONDE ENTRENA",
          "REGISTRO DEL USUARIO_MAIL","REGISTRO DEL USUARIO_CONTRASEÑA",
-         "NUTRICION_DIETA PERSONALIZADA","REGISTRO DEL USUARIO_ID REGISR","RUTINAS_ID ")
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
-       RETURNING "ID PERFIL"`,
+         "NUTRICION_DIETA PERSONALIZADA")
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+       RETURNING "NOMBRE"`,
       [user.nombre, user.edad, user.peso, user.altura, user.objetivo,
        user.tiempoDisponible, user.lugar, user.mail, hashedPassword,
-       "", 0, 0]
+      ""]
     );
-
     const idPerfil = result.rows[0]["ID PERFIL"];
-
     const lesiones = user.lesiones || [];
     for (const l of lesiones) {
       await query(
@@ -54,7 +49,6 @@ const createPerfil= async (req, res) => {
         [l.zona, l.tiempo, idPerfil]
       );
     }
-
     const preferencias = user.preferencias || [];
     for (const p of preferencias) {
       await query(
@@ -63,7 +57,6 @@ const createPerfil= async (req, res) => {
         [p, idPerfil]
       );
     }
-
     res.status(201).json({ message: "Perfil creado", idPerfil });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -86,5 +79,32 @@ const deletePerfil = async (req, res) => {
   res.sendStatus(204);
 };
 
-const usuarios = { getPerfil, createPerfil, updatePerfil, deletePerfil };
+const login = async (req, res) => {
+  const { mail, password } = req.body;
+  if (!mail || !password) {
+    return res.status(400).json({ message: "Debe completar mail y contraseña" });
+  }
+  try {
+    const result = await query(
+      `SELECT * FROM "PERFIL USUARIO" WHERE "REGISTRO DEL USUARIO_MAIL" = $1`,
+      [mail]
+    );
+    if (result.rows.length === 0) {
+      return res.status(401).json({ message: "Usuario o contraseña incorrectos" });
+    }
+    const perfil = result.rows[0];
+    const comparar = await bcrypt.compare(password, perfil["REGISTRO DEL USUARIO_CONTRASEÑA"]);
+    if (!comparar) {
+      return res.status(401).json({ message: "Usuario o contraseña incorrectos" });
+    }
+    res.json({
+      message: "Login correcto",
+      idPerfil: perfil["ID PERFIL"],
+      nombre: perfil["NOMBRE"]
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+const usuarios = { getPerfil, createPerfil, updatePerfil, deletePerfil, login };
 export default usuarios;
