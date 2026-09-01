@@ -1,32 +1,44 @@
 import { peticionApi } from "./api";
 import type { PerfilUsuario } from "../types/usuario";
 
-export interface Credenciales {
-  usuario: string;
-  contrasena: string;
+export interface CredencialesLogin {
+  mail: string;
+  password: string;
 }
 
 export interface DatosRegistro {
-  usuario: string;
-  email: string;
-  contrasena: string;
+  nombre: string;
+  mail: string;
+  password: string;
 }
 
-export interface RespuestaAuth {
-  token: string;
-  usuario: PerfilUsuario;
+interface RespuestaLogin {
+  message: string;
+  idPerfil: string;
+  nombre: string;
 }
 
-export const login = (credenciales: Credenciales): Promise<RespuestaAuth> => {
-  return peticionApi<RespuestaAuth>("/auth/login", {
+interface RespuestaRegistro {
+  message: string;
+  idPerfil: string;
+  nombre: string;
+}
+
+export const login = async (credenciales: CredencialesLogin): Promise<PerfilUsuario> => {
+  const respuesta = await peticionApi<RespuestaLogin>("/login", {
     method: "POST",
     body: JSON.stringify(credenciales),
   });
+
+  // El login solo devuelve id y nombre, así que traemos el perfil completo aparte
+  return peticionApi<PerfilUsuario>(`/usuario/${respuesta.idPerfil}`);
 };
 
-export const registrar = (datos: DatosRegistro): Promise<RespuestaAuth> => {
-  return peticionApi<RespuestaAuth>("/auth/registro", {
+export const registrar = async (datos: DatosRegistro): Promise<PerfilUsuario> => {
+  const respuesta = await peticionApi<RespuestaRegistro>("/usuario", {
     method: "POST",
     body: JSON.stringify(datos),
   });
+
+  return peticionApi<PerfilUsuario>(`/usuario/${respuesta.idPerfil}`);
 };

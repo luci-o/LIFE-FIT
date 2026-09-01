@@ -34,7 +34,7 @@ const createPerfil= async (req, res) => {
         ("NOMBRE","EDAD","PESO","ALTURA","OBJETIVO","TIEMPO DISPONIBLE","LUGAR DONDE ENTRENA",
          "REGISTRO DEL USUARIO_MAIL","REGISTRO DEL USUARIO_CONTRASEÑA","NUTRICION_DIETA PERSONALIZADA")
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
-       RETURNING "NOMBRE"`,
+        RETURNING "ID PERFIL", "NOMBRE"`,
       [user.nombre, user.edad, user.peso, user.altura, user.objetivo,
        user.tiempoDisponible, user.lugar, user.mail, hashedPassword, ""]
     );

@@ -4,9 +4,9 @@ import { registrar } from "../../services/authService";
 import { usoAutenticacion } from "../../context/AuthContext";
 
 function Registrarse() {
-  const [email, setEmail] = useState("");
-  const [usuario, setUsuario] = useState("");
-  const [contrasena, setContrasena] = useState("");
+  const [mail, setMail] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [password, setPassword] = useState("");
   const [aceptaTerminos, setAceptaTerminos] = useState(false);
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(false);
@@ -25,8 +25,8 @@ function Registrarse() {
 
     setCargando(true);
     try {
-      const respuesta = await registrar({ usuario, email, contrasena });
-      iniciarSesion(respuesta.usuario);
+      const perfil = await registrar({ nombre, mail, password });
+      iniciarSesion(perfil);
       navigate("/formulario");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error al registrarse.");
@@ -95,35 +95,35 @@ function Registrarse() {
           </svg>
 
           <form className="registro-form" onSubmit={handleSubmit} autoComplete="off">
-            <label className="field">
+            <label className="field campo-email">
               <span className="field-label">Email</span>
               <input
                 type="email"
                 name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={mail}
+                onChange={(e) => setMail(e.target.value)}
                 required
               />
             </label>
 
-            <label className="field">
+            <label className="field campo-usuario">
               <span className="field-label">Usuario</span>
               <input
                 type="text"
                 name="usuario"
-                value={usuario}
-                onChange={(e) => setUsuario(e.target.value)}
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
                 required
               />
             </label>
 
-            <label className="field">
+            <label className="field campo-contrasena">
               <span className="field-label">Contraseña</span>
               <input
                 type="password"
                 name="contrasena"
-                value={contrasena}
-                onChange={(e) => setContrasena(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </label>
