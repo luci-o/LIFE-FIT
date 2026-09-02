@@ -2,6 +2,8 @@ import { query } from "../DB/db.js";
 import pkg from "pg";
 const { Client } = pkg;
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { SECRET } from "../auth.js";
 
 const getPerfil = async (req, res) => {
   const result = await query(
