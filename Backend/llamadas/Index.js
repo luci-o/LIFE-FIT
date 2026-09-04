@@ -6,6 +6,7 @@ import usuarios from "../controlers/usuario.js";
 import ejercicios from "../controlers/ejercicios.js";
 import Nutricion from "../controlers/Nutricion.js";
 import Progreso from "../controlers/Progreso.js";
+import { verificarToken } from "../Auth.js";
 
 app.use(express.json());
 
