@@ -1,5 +1,5 @@
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";//ejemplo, despues va la direccion de chhoue
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";//ejemplo, despues va la direccion de chhoue
 
 interface OpcionesPeticion extends RequestInit {
   headers?: Record<string, string>;
