@@ -97,8 +97,14 @@ const login = async (req, res) => {
     if (!comparar) {
       return res.status(401).json({ message: "Usuario o contraseña incorrectos" });
     }
+    const token = jwt.sign(
+      { idPerfil: perfil["ID PERFIL"], nombre: perfil["NOMBRE"] },
+      SECRET,
+      { expiresIn: "7d" }
+    );
     res.json({
       message: "Login correcto",
+      token,
       idPerfil: perfil["ID PERFIL"],
       nombre: perfil["NOMBRE"]
     });

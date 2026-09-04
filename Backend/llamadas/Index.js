@@ -5,7 +5,7 @@ const port = 3000;
 import usuarios from "../controlers/usuario.js";
 import ejercicios from "../controlers/ejercicios.js";
 import Nutricion from "../controlers/Nutricion.js";
-import Progreso from "../controlers/Progreso.js";
+import progreso from "../controlers/progreso.js";
 import { verificarToken } from "../Auth.js";
 
 app.use(express.json());
@@ -21,8 +21,8 @@ app.delete("/usuario/:id", usuarios.deletePerfil);
 app.post("/login", usuarios.login);
 app.get("/perfiles/:id/ejercicios", ejercicios.getEjerciciosByPerfil);
 app.post("/perfiles/:id/ejercicios", ejercicios.guardarEjercicio);
-app.get("/perfiles/:id/progreso", Progreso.verProgreso);
-app.post("/perfiles/:id/progreso", Progreso.registrarProgreso);
+app.get("/usuario/:id/progreso",  verificarToken, progreso.verProgreso);
+app.post("/usuario/:id/progreso", verificarToken, progreso.registrarProgreso)
 app.get("/perfiles/:id/nutricion", Nutricion.verDieta);
 app.post("/perfiles/:id/nutricion", Nutricion.guardarDieta);
 
