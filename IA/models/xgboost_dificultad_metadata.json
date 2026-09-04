@@ -1,0 +1,25 @@
+{
+    "columnas": [
+        "edad",
+        "peso_kg",
+        "dias_disponibles",
+        "tiempo_disponible",
+        "objetivo_bajar peso",
+        "objetivo_ganar fuerza",
+        "objetivo_mejorar resistencia",
+        "experiencia_avanzado",
+        "experiencia_intermedio",
+        "experiencia_principiante",
+        "lugar_entrenamiento_aire libre",
+        "lugar_entrenamiento_gym",
+        "lugar_entrenamiento_hogar",
+        "lesiones_Espalda",
+        "lesiones_Pierna",
+        "lesiones_nada"
+    ],
+    "clases": {
+        "0": "Facil",
+        "1": "Medio",
+        "2": "Dificil"
+    }
+}

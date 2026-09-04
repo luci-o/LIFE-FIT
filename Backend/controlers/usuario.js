@@ -39,7 +39,14 @@ const createPerfil= async (req, res) => {
         RETURNING "ID PERFIL", "NOMBRE"`,
       [user.nombre, user.edad, user.peso, user.altura, user.objetivo,
        user.tiempoDisponible, user.lugar, user.mail, hashedPassword, ""]
+    )
+    const existe = await query(
+      `SELECT 1 FROM "PERFIL USUARIO" WHERE "REGISTRO DEL USUARIO_MAIL" = $1`,
+      [user.mail]
     );
+    if (existe.rows.length > 0) {
+      return res.status(400).json({ message: "Ese mail ya está registrado" });
+    }
     const idPerfil = result.rows[0]["ID PERFIL"];
     const lesiones = user.lesiones || [];
     for (const l of lesiones) {
@@ -97,8 +104,14 @@ const login = async (req, res) => {
     if (!comparar) {
       return res.status(401).json({ message: "Usuario o contraseña incorrectos" });
     }
+    const token = jwt.sign(
+      { idPerfil: perfil["ID PERFIL"], nombre: perfil["NOMBRE"] },
+      SECRET,
+      { expiresIn: "7d" }
+    );
     res.json({
       message: "Login correcto",
+      token,
       idPerfil: perfil["ID PERFIL"],
       nombre: perfil["NOMBRE"]
     });
