@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 export const SECRET = "life_fit_clave_secreta_cambiar";
-export const verificarToken = (req, res, next) => {
+const verificarToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     return res.status(401).json({ message: "Falta el token" });
@@ -13,4 +13,12 @@ export const verificarToken = (req, res, next) => {
   } catch (error) {
     return res.status(401).json({ message: "Token inválido o vencido" });
   }
-};
+}
+const verificarUsuario = (req, res, next) => {
+  if (Number(req.params.id) !== req.usuario.idPerfil) {
+    return res.status(403).json({ message: "No podés acceder a datos de otro usuario" });
+  }
+  next();
+}
+const Auth = { verificarToken, verificarUsuario}
+export default Auth;
