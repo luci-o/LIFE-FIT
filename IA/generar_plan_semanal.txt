@@ -1,0 +1,191 @@
+def generar_plan_semanal(
+    dias,
+    lugar,
+    dificultad,
+    objetivo,
+    zona_lesion="nada",
+    cantidad_por_dia=3
+):
+    division = obtener_division(
+        dias,
+        objetivo
+    )
+
+    plan = {}
+    ejercicios_usados = set()
+
+    if dificultad == "Dificil":
+        niveles = [
+            "Dificil",
+            "Medio",
+            "Facil"
+        ]
+
+    elif dificultad == "Medio":
+        niveles = [
+            "Medio",
+            "Facil"
+        ]
+
+    else:
+        niveles = [
+            "Facil"
+        ]
+
+    def filtrar_ejercicios(grupos):
+
+        ejercicios = ejercicios_df[
+            (ejercicios_df["lugar"] == lugar) &
+            (
+                ejercicios_df[
+                    "grupo_muscular"
+                ].isin(grupos)
+            ) &
+            (
+                ejercicios_df[
+                    "dificultad"
+                ].isin(niveles)
+            )
+        ].copy()
+
+        if zona_lesion != "nada":
+
+            ejercicios = ejercicios[
+                ejercicios[
+                    "restricciones"
+                ].apply(
+                    lambda restricciones:
+                    zona_lesion
+                    not in restricciones
+                )
+            ].copy()
+
+        ejercicios["ya_usado"] = ejercicios[
+            "ejercicio"
+        ].apply(
+            lambda ejercicio:
+            1
+            if ejercicio in ejercicios_usados
+            else 0
+        )
+
+        ejercicios[
+            "prioridad_dificultad"
+        ] = ejercicios[
+            "dificultad"
+        ].apply(
+            lambda nivel:
+            niveles.index(nivel)
+            if nivel in niveles
+            else 999
+        )
+
+        # Agrega variedad aleatoria
+        ejercicios["azar"] = (
+            np.random.random(
+                len(ejercicios)
+            )
+        )
+
+        ejercicios = ejercicios.sort_values(
+            [
+                "ya_usado",
+                "prioridad_dificultad",
+                "azar"
+            ]
+        )
+
+        return ejercicios
+
+    for dia, grupos_dia in division.items():
+
+        candidatos = filtrar_ejercicios(
+            grupos_dia
+        )
+
+        if candidatos.empty:
+
+            plan[dia] = ejercicios_df.iloc[
+                0:0
+            ].copy()
+
+            continue
+
+        seleccionados = []
+        nombres_seleccionados = set()
+
+        while (
+            len(seleccionados)
+            < cantidad_por_dia
+        ):
+
+            agregado = False
+
+            for grupo in grupos_dia:
+
+                opciones = candidatos[
+                    candidatos[
+                        "grupo_muscular"
+                    ] == grupo
+                ]
+
+                opciones = opciones[
+                    ~opciones[
+                        "ejercicio"
+                    ].isin(
+                        nombres_seleccionados
+                    )
+                ]
+
+                if not opciones.empty:
+
+                    ejercicio = opciones.iloc[0]
+
+                    seleccionados.append(
+                        ejercicio.to_dict()
+                    )
+
+                    nombres_seleccionados.add(
+                        ejercicio["ejercicio"]
+                    )
+
+                    agregado = True
+
+                if (
+                    len(seleccionados)
+                    >= cantidad_por_dia
+                ):
+                    break
+
+            if not agregado:
+                break
+
+        seleccionados_df = pd.DataFrame(
+            seleccionados
+        )
+
+        if not seleccionados_df.empty:
+
+            seleccionados_df = (
+                seleccionados_df.drop(
+                    columns=[
+                        "ya_usado",
+                        "prioridad_dificultad",
+                        "azar"
+                    ],
+                    errors="ignore"
+                )
+            )
+
+            ejercicios_usados.update(
+                seleccionados_df[
+                    "ejercicio"
+                ].tolist()
+            )
+
+        plan[dia] = (
+            seleccionados_df
+            .reset_index(drop=True)
+        )
+
+    return plan
