@@ -63,7 +63,36 @@ clases = metadata[
 # PREDICCIÓN
 # -----------------------------
 
-def predecir_dificultad(usuario):
+def predecir_dificultad(*args):
+
+    # Forma 1:
+    # predecir_dificultad({...})
+    if len(args) == 1 and isinstance(args[0], dict):
+
+        usuario = args[0]
+
+    # Forma 2:
+    # predecir_dificultad(
+    #     edad, peso, objetivo, dias,
+    #     tiempo, experiencia, lugar, lesiones
+    # )
+    elif len(args) == 8:
+
+        usuario = {
+            "edad": args[0],
+            "peso": args[1],
+            "objetivo": args[2],
+            "dias": args[3],
+            "tiempo": args[4],
+            "experiencia": args[5],
+            "lugar": args[6],
+            "lesiones": args[7]
+        }
+
+    else:
+        raise ValueError(
+            "Formato de usuario no válido"
+        )
 
     usuario_df = pd.DataFrame([{
         "edad": usuario["edad"],
@@ -75,6 +104,23 @@ def predecir_dificultad(usuario):
         "lugar_entrenamiento": usuario["lugar"],
         "lesiones": usuario["lesiones"]
     }])
+
+    usuario_convertido = pd.get_dummies(
+        usuario_df
+    )
+
+    usuario_convertido = usuario_convertido.reindex(
+        columns=columnas_modelo,
+        fill_value=False
+    )
+
+    prediccion = modelo.predict(
+        usuario_convertido
+    )[0]
+
+    return clases[
+        str(int(prediccion))
+    ]
 
     usuario_convertido = pd.get_dummies(
         usuario_df

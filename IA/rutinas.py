@@ -463,12 +463,24 @@ def parametros_entrenamiento(dificultad):
 
 def agregar_parametros_plan(plan_semanal, dificultad):
     parametros = parametros_entrenamiento(dificultad)
+
     plan_con_parametros = {}
 
     for dia, rutina in plan_semanal.items():
         rutina = rutina.copy()
-        rutina["series"] = parametros["series"]
-        rutina["repeticiones"] = parametros["repeticiones"]
+
+        rutina["series"] = rutina["grupo_muscular"].apply(
+            lambda grupo:
+            "-" if grupo == "cardio"
+            else parametros["series"]
+        )
+
+        rutina["repeticiones"] = rutina["grupo_muscular"].apply(
+            lambda grupo:
+            "por tiempo" if grupo == "cardio"
+            else parametros["repeticiones"]
+        )
+
         plan_con_parametros[dia] = rutina
 
     return plan_con_parametros
