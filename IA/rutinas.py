@@ -247,16 +247,20 @@ def evaluar_usuario(
 
 
 def cantidad_ejercicios_segun_tiempo(tiempo):
-    if tiempo <= 15:
+    if tiempo <= 20:
         return 2
-    elif tiempo <= 30:
+    elif tiempo <= 35:
         return 4
-    elif tiempo <= 60:
+    elif tiempo <= 50:
         return 5
-    elif tiempo <= 90:
+    elif tiempo <= 65:
         return 6
-    else:
+    elif tiempo <= 80:
         return 7
+    elif tiempo <= 100:
+        return 8
+    else:
+        return 9
 
 
 def generar_plan_semanal(
@@ -498,15 +502,15 @@ def generar_plan_personalizado(
     estado_lesion="ninguna"
 ):
     evaluacion = evaluar_usuario(
-        edad=edad,
-        peso=peso,
-        objetivo=objetivo,
-        dias=dias,
-        tiempo=tiempo,
-        experiencia=experiencia,
-        lugar=lugar,
-        zona_lesion=zona_lesion,
-        estado_lesion=estado_lesion
+        edad,
+        peso,
+        objetivo,
+        dias,
+        tiempo,
+        experiencia,
+        lugar,
+        zona_lesion,
+        estado_lesion
     )
 
     cantidad = cantidad_ejercicios_segun_tiempo(tiempo)
@@ -520,12 +524,107 @@ def generar_plan_personalizado(
         cantidad_por_dia=cantidad
     )
 
-    plan = agregar_parametros_plan(plan, evaluacion["dificultad"])
+    plan = agregar_parametros_plan(
+        plan,
+        evaluacion["dificultad"]
+    )
+
+    # Ajuste de tiempo integrado para no depender del orden de celdas.
+    def _estimar_duracion_local(rutina):
+        minutos_totales = 0
+
+        for _, ejercicio in rutina.iterrows():
+            if ejercicio["grupo_muscular"] == "cardio":
+                duracion = ejercicio.get("duracion", "-")
+
+                if isinstance(duracion, str) and "min" in duracion:
+                    try:
+                        minutos_totales += int(
+                            duracion.replace(" min", "").strip()
+                        )
+                    except ValueError:
+                        minutos_totales += 10
+                else:
+                    minutos_totales += 10
+            else:
+                series = ejercicio["series"]
+                minutos_totales += series * 2.5 + 1.5
+
+        return round(minutos_totales)
+
+    dificultad = evaluacion["dificultad"]
+
+    if dificultad == "Dificil":
+        niveles = ["Dificil", "Medio", "Facil"]
+    elif dificultad == "Medio":
+        niveles = ["Medio", "Facil"]
+    else:
+        niveles = ["Facil"]
+
+    parametros = parametros_entrenamiento(dificultad)
+    plan_ajustado = {}
+
+    ejercicios_usados = set()
+    for rutina in plan.values():
+        if not rutina.empty:
+            ejercicios_usados.update(rutina["ejercicio"].tolist())
+
+    for dia, rutina_original in plan.items():
+        rutina = rutina_original.copy()
+        extras_agregados = 0
+
+        while extras_agregados < 2:
+            duracion_actual = _estimar_duracion_local(rutina)
+            tiempo_sobrante = tiempo - duracion_actual
+
+            if tiempo_sobrante <= 15:
+                break
+
+            if rutina.empty:
+                break
+
+            grupos_dia = rutina["grupo_muscular"].unique().tolist()
+
+            candidatos = ejercicios_df[
+                (ejercicios_df["lugar"] == lugar) &
+                (ejercicios_df["grupo_muscular"].isin(grupos_dia)) &
+                (ejercicios_df["dificultad"].isin(niveles)) &
+                (~ejercicios_df["ejercicio"].isin(ejercicios_usados))
+            ].copy()
+
+            if zona_lesion != "nada":
+                candidatos = candidatos[
+                    candidatos["restricciones"].apply(
+                        lambda restricciones:
+                        zona_lesion not in restricciones
+                    )
+                ].copy()
+
+            if candidatos.empty:
+                break
+
+            candidatos["azar"] = np.random.random(len(candidatos))
+            candidatos = candidatos.sort_values("azar")
+
+            nuevo = candidatos.iloc[0].to_dict()
+            nuevo.pop("azar", None)
+            nuevo["series"] = parametros["series"]
+            nuevo["repeticiones"] = parametros["repeticiones"]
+
+            rutina = pd.concat(
+                [rutina, pd.DataFrame([nuevo])],
+                ignore_index=True
+            )
+
+            ejercicios_usados.add(nuevo["ejercicio"])
+            extras_agregados += 1
+
+        plan_ajustado[dia] = rutina
 
     return {
         "evaluacion": evaluacion,
         "cantidad_ejercicios_por_dia": cantidad,
-        "plan_semanal": plan
+        "plan_semanal": plan_ajustado
     }
 
 
