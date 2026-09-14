@@ -1,6 +1,10 @@
 import jwt from "jsonwebtoken";
 
-export const SECRET = "life_fit_clave_secreta_cambiar";
+export const SECRET = process.env.JWT_SECRET;
+if (!SECRET) {
+  throw new Error("Falta JWT_SECRET en el archivo .env");
+}
+
 const verificarToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
