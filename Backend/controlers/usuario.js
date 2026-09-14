@@ -30,6 +30,13 @@ const createPerfil= async (req, res) => {
     return res.status(400).json({ message: "Debe completar todos los campos" });
   }
   try {
+    const existe = await query(
+      `SELECT 1 FROM "PERFIL USUARIO" WHERE "REGISTRO DEL USUARIO_MAIL" = $1`,
+      [user.mail]
+    );
+    if (existe.rows.length > 0) {
+      return res.status(400).json({ message: "Ese mail ya está registrado" });
+    }
     const hashedPassword = await bcrypt.hash(user.password, 10);
     const result = await query(
       `INSERT INTO "PERFIL USUARIO"
@@ -40,13 +47,6 @@ const createPerfil= async (req, res) => {
       [user.nombre, user.edad, user.peso, user.altura, user.objetivo,
        user.tiempoDisponible, user.lugar, user.mail, hashedPassword, ""]
     )
-    const existe = await query(
-      `SELECT 1 FROM "PERFIL USUARIO" WHERE "REGISTRO DEL USUARIO_MAIL" = $1`,
-      [user.mail]
-    );
-    if (existe.rows.length > 0) {
-      return res.status(400).json({ message: "Ese mail ya está registrado" });
-    }
     const idPerfil = result.rows[0]["ID PERFIL"];
     const lesiones = user.lesiones || [];
     for (const l of lesiones) {

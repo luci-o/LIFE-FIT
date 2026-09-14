@@ -11,7 +11,7 @@
   },
   "type": "module",
   "scripts": {
-    "start": "node Backend/llamadas/index.js",
-    "dev": "node --watch Backend/llamadas/index.js"
+    "start": "node --env-file=.env Backend/llamadas/Index.js",
+    "dev": "node --watch --env-file=.env Backend/llamadas/Index.js"
   }
 }

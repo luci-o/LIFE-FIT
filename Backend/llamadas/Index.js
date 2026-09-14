@@ -17,9 +17,9 @@ app.get("/", (_, res) => {
 
 app.post("/usuario", usuarios.createPerfil);
 app.post("/login", usuarios.login);
-app.get("/usuario/:id",    verificarToken, verificarUsuario, usuario.getPerfil);
-app.put("/usuario/:id",    verificarToken, verificarUsuario, usuario.updatePerfil);
-app.delete("/usuario/:id", verificarToken, verificarUsuario, usuario.deletePerfil);
+app.get("/usuario/:id",    verificarToken, verificarUsuario, usuarios.getPerfil);
+app.put("/usuario/:id",    verificarToken, verificarUsuario, usuarios.updatePerfil);
+app.delete("/usuario/:id", verificarToken, verificarUsuario, usuarios.deletePerfil);
 app.get("/usuario/:id/ejericicio",  verificarToken, verificarUsuario, ejercicios.getEjerciciosByPerfil);
 app.post("/usuario/:id/ejericicio", verificarToken, verificarUsuario, ejercicios.guardarEjercicio);
 app.get("/usuario/:id/progreso",  verificarToken, verificarUsuario, progreso.verProgreso);
