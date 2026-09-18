@@ -37,7 +37,38 @@ def formatear_rutina_completa(rutina):
 
     return "\n".join(lineas)
 
+def obtener_ejercicio_actual(
+    rutina,
+    dia_actual,
+    ejercicio_actual
+):
+    if dia_actual is None:
+        return None, "No recibí el día actual de tu rutina."
 
+    if ejercicio_actual is None:
+        return None, "No recibí el ejercicio actual."
+
+    clave = str(dia_actual)
+
+    if clave not in rutina:
+        return None, (
+            f"No tenés una rutina cargada "
+            f"para el día {dia_actual}."
+        )
+
+    ejercicios = rutina[clave]
+
+    indice_actual = ejercicio_actual - 1
+
+    if (
+        indice_actual < 0
+        or indice_actual >= len(ejercicios)
+    ):
+        return None, (
+            "El número de ejercicio actual no es válido."
+        )
+
+    return ejercicios[indice_actual], None
 def responder_chat(
     mensaje,
     rutina,
