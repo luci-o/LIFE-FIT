@@ -37,7 +37,38 @@ def formatear_rutina_completa(rutina):
 
     return "\n".join(lineas)
 
+def obtener_ejercicio_actual(
+    rutina,
+    dia_actual,
+    ejercicio_actual
+):
+    if dia_actual is None:
+        return None, "No recibí el día actual de tu rutina."
 
+    if ejercicio_actual is None:
+        return None, "No recibí el ejercicio actual."
+
+    clave = str(dia_actual)
+
+    if clave not in rutina:
+        return None, (
+            f"No tenés una rutina cargada "
+            f"para el día {dia_actual}."
+        )
+
+    ejercicios = rutina[clave]
+
+    indice_actual = ejercicio_actual - 1
+
+    if (
+        indice_actual < 0
+        or indice_actual >= len(ejercicios)
+    ):
+        return None, (
+            "El número de ejercicio actual no es válido."
+        )
+
+    return ejercicios[indice_actual], None
 def responder_chat(
     mensaje,
     rutina,
@@ -63,9 +94,7 @@ def responder_chat(
         or "rutina de hoy" in mensaje
     ):
         if dia_actual is None:
-            return (
-                "No recibí el día actual de tu rutina."
-            )
+            return "No recibí el día actual de tu rutina."
 
         clave = str(dia_actual)
 
@@ -89,14 +118,10 @@ def responder_chat(
         or "cual sigue" in mensaje
     ):
         if dia_actual is None:
-            return (
-                "No recibí el día actual de tu rutina."
-            )
+            return "No recibí el día actual de tu rutina."
 
         if ejercicio_actual is None:
-            return (
-                "No recibí el ejercicio actual."
-            )
+            return "No recibí el ejercicio actual."
 
         clave = str(dia_actual)
 
@@ -115,9 +140,7 @@ def responder_chat(
                 "Ya terminaste todos los ejercicios de hoy."
             )
 
-        siguiente = ejercicios[
-            indice_siguiente
-        ]
+        siguiente = ejercicios[indice_siguiente]
 
         nombre = siguiente.get(
             "ejercicio",
@@ -148,14 +171,10 @@ def responder_chat(
         or "por que hago este ejercicio" in mensaje
     ):
         if dia_actual is None:
-            return (
-                "No recibí el día actual de tu rutina."
-            )
+            return "No recibí el día actual de tu rutina."
 
         if ejercicio_actual is None:
-            return (
-                "No recibí el ejercicio actual."
-            )
+            return "No recibí el ejercicio actual."
 
         clave = str(dia_actual)
 
@@ -166,7 +185,6 @@ def responder_chat(
             )
 
         ejercicios = rutina[clave]
-
         indice_actual = ejercicio_actual - 1
 
         if (
@@ -177,9 +195,7 @@ def responder_chat(
                 "El número de ejercicio actual no es válido."
             )
 
-        ejercicio = ejercicios[
-            indice_actual
-        ]
+        ejercicio = ejercicios[indice_actual]
 
         nombre = ejercicio.get(
             "ejercicio",
@@ -218,9 +234,115 @@ def responder_chat(
             f"{dificultad}."
         )
 
+    # Cuántas series y repeticiones hago
+    if (
+        "cuántas series" in mensaje
+        or "cuantas series" in mensaje
+        or "cuántas repeticiones" in mensaje
+        or "cuantas repeticiones" in mensaje
+        or "series y repeticiones" in mensaje
+    ):
+        if dia_actual is None:
+            return "No recibí el día actual de tu rutina."
+
+        if ejercicio_actual is None:
+            return "No recibí el ejercicio actual."
+
+        clave = str(dia_actual)
+
+        if clave not in rutina:
+            return (
+                f"No tenés una rutina cargada "
+                f"para el día {dia_actual}."
+            )
+
+        ejercicios = rutina[clave]
+        indice_actual = ejercicio_actual - 1
+
+        if (
+            indice_actual < 0
+            or indice_actual >= len(ejercicios)
+        ):
+            return (
+                "El número de ejercicio actual no es válido."
+            )
+
+        ejercicio = ejercicios[indice_actual]
+
+        nombre = ejercicio.get(
+            "ejercicio",
+            "Este ejercicio"
+        )
+
+        series = ejercicio.get(
+            "series",
+            "-"
+        )
+
+        repeticiones = ejercicio.get(
+            "repeticiones",
+            "-"
+        )
+
+        return (
+            f"En {nombre} tenés que hacer "
+            f"{series} series de "
+            f"{repeticiones} repeticiones."
+        )
+
+    # Qué músculo trabaja este ejercicio
+    if (
+        "qué músculo trabaja" in mensaje
+        or "que musculo trabaja" in mensaje
+        or "qué musculo trabaja" in mensaje
+        or "que músculo trabaja" in mensaje
+    ):
+        if dia_actual is None:
+            return "No recibí el día actual de tu rutina."
+
+        if ejercicio_actual is None:
+            return "No recibí el ejercicio actual."
+
+        clave = str(dia_actual)
+
+        if clave not in rutina:
+            return (
+                f"No tenés una rutina cargada "
+                f"para el día {dia_actual}."
+            )
+
+        ejercicios = rutina[clave]
+        indice_actual = ejercicio_actual - 1
+
+        if (
+            indice_actual < 0
+            or indice_actual >= len(ejercicios)
+        ):
+            return (
+                "El número de ejercicio actual no es válido."
+            )
+
+        ejercicio = ejercicios[indice_actual]
+
+        nombre = ejercicio.get(
+            "ejercicio",
+            "Este ejercicio"
+        )
+
+        musculo = ejercicio.get(
+            "musculo_principal",
+            ejercicio.get(
+                "grupo_muscular",
+                "grupo muscular no disponible"
+            )
+        )
+
+        return (
+            f"{nombre} trabaja principalmente {musculo}."
+        )
+
     # Día específico
     for numero_dia in range(1, 8):
-
         if (
             f"día {numero_dia}" in mensaje
             or f"dia {numero_dia}" in mensaje
@@ -242,8 +364,10 @@ def responder_chat(
     return (
         "Puedo mostrarte tu rutina completa, "
         "tu rutina de hoy, un día específico, "
-        "decirte qué ejercicio sigue "
-        "o explicarte por qué tenés un ejercicio."
+        "decirte qué ejercicio sigue, "
+        "explicarte por qué tenés un ejercicio, "
+        "decirte sus series y repeticiones "
+        "o qué músculo trabaja."
     )
 
 
