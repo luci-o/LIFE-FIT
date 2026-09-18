@@ -24,7 +24,7 @@ const getPerfil = async (req, res) => {
   res.json(perfil);
 };
 
-const createPerfil= async (req, res) => {
+const createPerfil = async (req, res) => {
   const user = req.body;
   if (!user.nombre || !user.mail || !user.password) {
     return res.status(400).json({ message: "Debe completar todos los campos" });
@@ -40,13 +40,15 @@ const createPerfil= async (req, res) => {
     const hashedPassword = await bcrypt.hash(user.password, 10);
     const result = await query(
       `INSERT INTO "PERFIL USUARIO"
-        ("NOMBRE","EDAD","PESO","ALTURA","OBJETIVO","TIEMPO DISPONIBLE","LUGAR DONDE ENTRENA",
+        ("NOMBRE","EDAD","PESO","ALTURA","OBJETIVO",
+         "TIEMPO DISPONIBLE","DIAS POR SEMANA","NIVEL DE ENTRENAMIENTO","LUGAR DONDE ENTRENA",
          "REGISTRO DEL USUARIO_MAIL","REGISTRO DEL USUARIO_CONTRASEÑA","NUTRICION_DIETA PERSONALIZADA")
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
-        RETURNING "ID PERFIL", "NOMBRE"`,
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+       RETURNING "ID PERFIL", "NOMBRE"`,
       [user.nombre, user.edad, user.peso, user.altura, user.objetivo,
-       user.tiempoDisponible, user.lugar, user.mail, hashedPassword, ""]
-    )
+       user.tiempoDisponible, user.diasPorSemana, user.nivel, user.lugar,
+       user.mail, hashedPassword, ""]
+    );
     const idPerfil = result.rows[0]["ID PERFIL"];
     const lesiones = user.lesiones || [];
     for (const l of lesiones) {
@@ -59,13 +61,24 @@ const createPerfil= async (req, res) => {
     const preferencias = user.preferencias || [];
     for (const p of preferencias) {
       await query(
-        `INSERT INTO "PREFERNCIAS ALIMENTARIAS" ("COMIDAS RESTRINGIDAS","ID PERFIL")
-         VALUES ($1,$2)`,
-        [p, idPerfil]
+        `INSERT INTO "PREFERNCIAS ALIMENTARIAS" ("COMIDAS RESTRINGIDAS","TIPO","ID PERFIL")
+         VALUES ($1,$2,$3)`,
+        [p, "PREFERENCIA", idPerfil]
+      );
+    }
+    const alergias = user.alergias || [];
+    for (const a of alergias) {
+      await query(
+        `INSERT INTO "PREFERNCIAS ALIMENTARIAS" ("COMIDAS RESTRINGIDAS","TIPO","ID PERFIL")
+         VALUES ($1,$2,$3)`,
+        [a, "ALERGIA", idPerfil]
       );
     }
     res.status(201).json({ message: "Perfil creado", idPerfil });
   } catch (error) {
+    if (error.code === "23505") {
+      return res.status(400).json({ message: "Ese mail ya está registrado" });
+    }
     return res.status(500).json({ message: error.message });
   }
 };
