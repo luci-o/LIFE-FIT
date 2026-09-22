@@ -1,0 +1,98 @@
+mensaje,intencion
+mostrame mi rutina,rutina_completa
+quiero ver toda mi rutina,rutina_completa
+cual es mi rutina completa,rutina_completa
+mostrame todos los dias,rutina_completa
+que tengo esta semana,rutina_completa
+quiero ver mi plan completo,rutina_completa
+mostrame el entrenamiento completo,rutina_completa
+cual es todo mi entrenamiento,rutina_completa
+quiero consultar mi rutina,rutina_completa
+mostrame todo el plan,rutina_completa
+que ejercicios tengo esta semana,rutina_completa
+quiero ver todos mis ejercicios,rutina_completa
+
+que me toca hoy,rutina_hoy
+cual es mi rutina de hoy,rutina_hoy
+que hago hoy,rutina_hoy
+mostrame lo de hoy,rutina_hoy
+entrenamiento de hoy,rutina_hoy
+que entreno hoy,rutina_hoy
+cuales son mis ejercicios de hoy,rutina_hoy
+mostrame el entrenamiento de hoy,rutina_hoy
+que tengo que hacer hoy,rutina_hoy
+cual es el plan de hoy,rutina_hoy
+que toca entrenar hoy,rutina_hoy
+quiero ver la rutina de hoy,rutina_hoy
+
+mostrame el dia 1,dia_especifico
+quiero ver el dia 2,dia_especifico
+que tengo el dia 3,dia_especifico
+rutina del dia 4,dia_especifico
+mostrame un dia de mi rutina,dia_especifico
+que hago el dia 1,dia_especifico
+cual es mi entrenamiento del dia 2,dia_especifico
+quiero ver el entrenamiento del dia 3,dia_especifico
+que ejercicios tengo el dia 4,dia_especifico
+mostrame la rutina del dia 1,dia_especifico
+que toca el dia 2,dia_especifico
+entrenamiento dia 3,dia_especifico
+
+que ejercicio sigue,siguiente_ejercicio
+cual sigue,siguiente_ejercicio
+que hago despues,siguiente_ejercicio
+cual es el proximo ejercicio,siguiente_ejercicio
+que viene ahora,siguiente_ejercicio
+que ejercicio hago ahora,siguiente_ejercicio
+que viene despues,siguiente_ejercicio
+cual es el siguiente,siguiente_ejercicio
+que hago despues de este,siguiente_ejercicio
+mostrame el proximo ejercicio,siguiente_ejercicio
+que ejercicio viene,siguiente_ejercicio
+cual toca ahora,siguiente_ejercicio
+
+cuantas series hago,series_repeticiones
+cuantas repeticiones hago,series_repeticiones
+series y repeticiones,series_repeticiones
+cuanto tengo que hacer,series_repeticiones
+cuantas series y repeticiones tengo,series_repeticiones
+cuantas reps hago,series_repeticiones
+decime las series,series_repeticiones
+decime las repeticiones,series_repeticiones
+cuantas veces hago este ejercicio,series_repeticiones
+que cantidad de repeticiones hago,series_repeticiones
+cuantas series son,series_repeticiones
+cuantas repeticiones son,series_repeticiones
+
+que musculo trabaja,musculo
+que musculo trabaja este ejercicio,musculo
+que parte del cuerpo trabaja,musculo
+que estoy trabajando,musculo
+cual es el musculo principal,musculo
+que parte trabajo con esto,musculo
+que zona muscular trabaja,musculo
+que musculos entreno,musculo
+que trabaja este ejercicio,musculo
+cual es el grupo muscular,musculo
+que musculo estoy entrenando,musculo
+que parte del cuerpo estoy entrenando,musculo
+
+por que tengo este ejercicio,explicacion
+por que hago este ejercicio,explicacion
+para que tengo este ejercicio,explicacion
+por que me pusieron este ejercicio,explicacion
+para que sirve este ejercicio,explicacion
+por que esta este ejercicio en mi rutina,explicacion
+explicame este ejercicio,explicacion
+por que tengo que hacer esto,explicacion
+para que hago este ejercicio,explicacion
+por que elegiste este ejercicio,explicacion
+cual es la razon de este ejercicio,explicacion
+por que forma parte de mi rutina,explicacion
+
+que viene despues de este ejercicio,siguiente_ejercicio
+que hago despues de este ejercicio,siguiente_ejercicio
+cual viene despues de este,siguiente_ejercicio
+despues de este cual hago,siguiente_ejercicio
+que ejercicio toca despues,siguiente_ejercicio
+cual es el ejercicio que viene despues,siguiente_ejercicio
