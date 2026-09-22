@@ -1,11 +1,14 @@
 {
   "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
+    "lucide-react": "^1.47.0",
     "pg": "^8.23.0",
-    "react-router-dom": "^7.18.2"
+    "react-router-dom": "^7.18.2",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "vite": "^8.2.1"
