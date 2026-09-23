@@ -1,7 +1,29 @@
 import json
 import sys
+import os
+import joblib
 
-from clasificador_intenciones import predecir_intencion
+
+BASE_DIR = os.path.dirname(
+    os.path.abspath(__file__)
+)
+
+RUTA_MODELO_INTENCIONES = os.path.join(
+    BASE_DIR,
+    "models",
+    "clasificador_intenciones.joblib"
+)
+
+modelo_intenciones = joblib.load(
+    RUTA_MODELO_INTENCIONES
+)
+
+
+def predecir_intencion(mensaje):
+    return modelo_intenciones.predict(
+        [mensaje]
+    )[0]
+
 
 
 def formatear_rutina_completa(rutina):

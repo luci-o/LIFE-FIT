@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import joblib
 
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -7,7 +8,25 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score
 
+BASE_DIR = os.path.dirname(
+    os.path.abspath(__file__)
+)
 
+RUTA_MODELO_INTENCIONES = os.path.join(
+    BASE_DIR,
+    "models",
+    "clasificador_intenciones.joblib"
+)
+
+modelo_intenciones = joblib.load(
+    RUTA_MODELO_INTENCIONES
+)
+
+
+def predecir_intencion(mensaje):
+    return modelo_intenciones.predict(
+        [mensaje]
+    )[0]
 BASE_DIR = os.path.dirname(
     os.path.abspath(__file__)
 )
@@ -58,6 +77,21 @@ modelo_intenciones = Pipeline(
 modelo_intenciones.fit(
     X_train,
     y_train
+)
+RUTA_MODELO = os.path.join(
+    BASE_DIR,
+    "models",
+    "clasificador_intenciones.joblib"
+)
+
+joblib.dump(
+    modelo_intenciones,
+    RUTA_MODELO
+)
+
+print(
+    "Modelo guardado en:",
+    RUTA_MODELO
 )
 
 
