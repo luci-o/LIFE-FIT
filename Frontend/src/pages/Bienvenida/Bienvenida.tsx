@@ -6,7 +6,7 @@ export const Bienvenida: React.FC = () => {
   const navigate = useNavigate();
   const { iniciarSesion } = usoAutenticacion();
 
-  // Estados del formulario
+
   const [email, setEmail] = useState("");
   const [usuario, setUsuario] = useState("");
   const [contrasena, setContrasena] = useState("");
@@ -26,15 +26,15 @@ export const Bienvenida: React.FC = () => {
     setCargando(true);
 
     try {
-      // Llamada al backend a través de nuestro servicio
+      
       const respuesta = await peticionApi("/auth/registro", {
         method: "POST",
         body: JSON.stringify({ email, nombreUsuario: usuario, contrasena }),
       });
 
-      // Guardamos la sesión en el context global
+     
       iniciarSesion(respuesta.usuario);
-      // Redirigimos al panel principal
+
       navigate("/dashboard");
     } catch (err: any) {
       setError(err.message || "Ocurrió un error al intentar registrarse.");
@@ -45,10 +45,10 @@ export const Bienvenida: React.FC = () => {
 
   return (
     <div style={estilos.contenedorPrincipal}>
-      {/* Navbar Superior */}
+   
       <header style={estilos.header}>
         <div style={estilos.logoContenedor}>
-          <span style={estilos.logoIcono}>💚</span>
+          <span style={estilos.logoIcono}></span>
           <h1 style={estilos.logoTexto}>Life Fit</h1>
         </div>
 
@@ -59,7 +59,7 @@ export const Bienvenida: React.FC = () => {
         </nav>
       </header>
 
-      {/* Tarjeta de Registro Central */}
+      {}
       <main style={estilos.main}>
         <div style={estilos.tarjeta}>
           <h2 style={estilos.tituloTarjeta}>Bienvenido</h2>
@@ -114,7 +114,7 @@ export const Bienvenida: React.FC = () => {
   );
 };
 
-// Estilos inline basados en el diseño visual de Figma
+
 const estilos: { [key: string]: React.CSSProperties } = {
   contenedorPrincipal: {
     minHeight: "100vh",
@@ -130,6 +130,7 @@ const estilos: { [key: string]: React.CSSProperties } = {
     justifyContent: "space-between",
     alignItems: "center",
     padding: "20px 40px",
+    position: "relative",
   },
   logoContenedor: {
     display: "flex",
@@ -149,8 +150,11 @@ const estilos: { [key: string]: React.CSSProperties } = {
     padding: "6px 8px",
     borderRadius: "30px",
     display: "flex",
-    gap: "5px",
+    gap: "7px",
     border: "1px solid rgba(255, 255, 255, 0.1)",
+    position: "absolute",
+    left: "50%",
+    transform: "translateX(-50%)",
   },
   btnNav: {
     background: "transparent",
