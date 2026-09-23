@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import joblib
+import json
 
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -104,7 +105,39 @@ accuracy = accuracy_score(
     y_test,
     predicciones
 )
+RUTA_METADATA = os.path.join(
+    BASE_DIR,
+    "models",
+    "clasificador_intenciones_metadata.json"
+)
 
+metadata = {
+    "accuracy": round(float(accuracy), 3),
+    "cantidad_mensajes": int(len(datos)),
+    "cantidad_entrenamiento": int(len(X_train)),
+    "cantidad_prueba": int(len(X_test)),
+    "clases": sorted(
+        datos["intencion"].unique().tolist()
+    ),
+    "umbral_confianza": 0.25
+}
+
+with open(
+    RUTA_METADATA,
+    "w",
+    encoding="utf-8"
+) as archivo:
+    json.dump(
+        metadata,
+        archivo,
+        ensure_ascii=False,
+        indent=2
+    )
+
+print(
+    "Metadata guardado en:",
+    RUTA_METADATA
+)
 
 print("=== CLASIFICADOR DE INTENCIONES ===")
 

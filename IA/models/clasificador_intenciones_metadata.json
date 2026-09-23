@@ -1,0 +1,16 @@
+{
+  "accuracy": 0.81,
+  "cantidad_mensajes": 84,
+  "cantidad_entrenamiento": 63,
+  "cantidad_prueba": 21,
+  "clases": [
+    "dia_especifico",
+    "explicacion",
+    "musculo",
+    "rutina_completa",
+    "rutina_hoy",
+    "series_repeticiones",
+    "siguiente_ejercicio"
+  ],
+  "umbral_confianza": 0.25
+}

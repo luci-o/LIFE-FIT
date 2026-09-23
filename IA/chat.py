@@ -20,10 +20,21 @@ modelo_intenciones = joblib.load(
 
 
 def predecir_intencion(mensaje):
-    return modelo_intenciones.predict(
+    probabilidades = modelo_intenciones.predict_proba(
         [mensaje]
     )[0]
 
+    indice = probabilidades.argmax()
+
+    intencion = modelo_intenciones.classes_[
+        indice
+    ]
+
+    confianza = probabilidades[
+        indice
+    ]
+
+    return intencion, confianza
 
 
 def formatear_rutina_completa(rutina):
@@ -106,9 +117,17 @@ def responder_chat(
     dia_actual=None,
     ejercicio_actual=None
 ):
-    intencion = predecir_intencion(
+    intencion, confianza = predecir_intencion(
         mensaje
     )
+    if confianza < 0.25:
+        return (
+            "No entendí bien tu consulta. "
+            "Podés preguntarme por tu rutina, "
+            "el ejercicio siguiente, "
+            "series y repeticiones "
+            "o el músculo trabajado."
+        )
 
     # Rutina completa
     if intencion == "rutina_completa":
