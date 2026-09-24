@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { usoAutenticacion } from "../../context/AuthContext";
 import { peticionApi } from "../../services/api";
+
 export const Bienvenida: React.FC = () => {
   const navigate = useNavigate();
   const { iniciarSesion } = usoAutenticacion();
-
 
   const [email, setEmail] = useState("");
   const [usuario, setUsuario] = useState("");
@@ -26,13 +26,11 @@ export const Bienvenida: React.FC = () => {
     setCargando(true);
 
     try {
-      
       const respuesta = await peticionApi("/auth/registro", {
         method: "POST",
         body: JSON.stringify({ email, nombreUsuario: usuario, contrasena }),
       });
 
-     
       iniciarSesion(respuesta.usuario);
 
       navigate("/dashboard");
@@ -45,7 +43,6 @@ export const Bienvenida: React.FC = () => {
 
   return (
     <div style={estilos.contenedorPrincipal}>
-   
       <header style={estilos.header}>
         <div style={estilos.logoContenedor}>
           <span style={estilos.logoIcono}></span>
@@ -53,9 +50,24 @@ export const Bienvenida: React.FC = () => {
         </div>
 
         <nav style={estilos.navContenedor}>
-          <button style={{ ...estilos.btnNav, ...estilos.btnNavActivo }}>Bienvenido</button>
-          <button style={estilos.btnNav}>Acerca de</button>
-          <button style={{ ...estilos.btnNav, ...estilos.btnNavDestacado }}>Crear cuenta</button>
+          <button 
+            onClick={() => navigate("/bienvenida")} 
+            style={{ ...estilos.btnNav, ...estilos.btnNavActivo }}
+          >
+            Bienvenido
+          </button>
+          <button 
+            onClick={() => navigate("/acerca-de")} 
+            style={estilos.btnNav}
+          >
+            Acerca de
+          </button>
+          <button 
+            onClick={() => navigate("/crear-cuenta")} 
+            style={{ ...estilos.btnNav, ...estilos.btnNavDestacado }}
+          >
+            Crear cuenta
+          </button>
         </nav>
       </header>
 
@@ -113,7 +125,6 @@ export const Bienvenida: React.FC = () => {
     </div>
   );
 };
-
 
 const estilos: { [key: string]: React.CSSProperties } = {
   contenedorPrincipal: {
