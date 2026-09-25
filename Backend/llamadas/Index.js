@@ -4,8 +4,8 @@ const app = express();
 const port = 3000;
 
 const objetivo = ["bajar de peso", "aumentar resistencia", "ganar fuerza"];
-const niveles = ["principiante", "intermedio", "avanzado"];
-const lugares = ["gym", "hogar", "aire libre"];
+const niveles  = ["principiante", "intermedio", "avanzado"];
+const lugares  = ["gym", "hogar", "aire libre"];
 
 import usuarios from "../controlers/usuario.js";
 import ejercicios from "../controlers/ejercicios.js";
@@ -27,8 +27,9 @@ app.post("/login", usuarios.login);
 app.get("/usuarios/:id", verificarToken, verificarUsuario, usuarios.getPerfil);
 app.put("/usuarios/:id", verificarToken, verificarUsuario, usuarios.updatePerfil);
 app.delete("/usuarios/:id", verificarToken, verificarUsuario, usuarios.deletePerfil);
-app.get("/usuarios/:id/ejericicio",  verificarToken, verificarUsuario, ejercicios.getEjerciciosByPerfil);
-app.post("/usuarios/:id/ejericicio", verificarToken, verificarUsuario, ejercicios.guardarEjercicio);
+app.get("/usuarios/:id/rutina",  verificarToken, verificarUsuario, ejercicios.getEjerciciosByPerfil);
+app.post("/usuarios/:id/rutina", verificarToken, verificarUsuario, ejercicios.guardarEjercicio);
+app.post("/usuarios/:id/rutina/generar", verificarToken, verificarUsuario, ia.generarRutina);
 app.get("/usuarios/:id/progreso",  verificarToken, verificarUsuario, progreso.verProgreso);
 app.post("/usuarios/:id/progreso", verificarToken, verificarUsuario, progreso.registrarProgreso);
 app.get("/usuarios/:id/nutricion", verificarToken, verificarUsuario, Nutricion.verDieta);

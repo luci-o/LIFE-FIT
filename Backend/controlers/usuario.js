@@ -11,23 +11,33 @@ const LUGARES   = ["gym", "hogar", "aire libre"];
 
 
 const getPerfil = async (req, res) => {
-  const result = await query(
-    `SELECT * FROM "PERFIL USUARIO" WHERE "ID PERFIL" = $1`,
-    [req.params.id]
-  );
+  try {
+    const result = await query(
+      `SELECT "ID PERFIL","NOMBRE","EDAD","PESO","ALTURA","OBJETIVO",
+              "TIEMPO DISPONIBLE","DIAS POR SEMANA","NIVEL DE ENTRENAMIENTO",
+              "LUGAR DONDE ENTRENA","REGISTRO DEL USUARIO_MAIL"
+       FROM "PERFIL USUARIO" WHERE "ID PERFIL" = $1`,
+      [req.params.id]
+    )
+    const perfil = result.rows[0];
+    if (!perfil) {
+      return res.status(404).json({ message: "Perfil no encontrado" });
+    }
     const lesion = await query(
-    `SELECT * FROM "LESIONES" WHERE "ID PERFIL" = $1`,
-    [req.params.id]
-  );
+      `SELECT * FROM "LESIONES" WHERE "ID PERFIL" = $1`,
+      [req.params.id]
+    );
     const preferencia = await query(
-    `SELECT * FROM "PREFERNCIAS ALIMENTARIAS" WHERE "ID PERFIL" = $1`,
-    [req.params.id]
-  );
-  const perfil = result.rows[0];
-  perfil.lesiones = lesion.rows;
-  perfil.preferencias = preferencia.rows;
-  res.json(perfil);
-};
+      `SELECT * FROM "PREFERNCIAS ALIMENTARIAS" WHERE "ID PERFIL" = $1`,
+      [req.params.id]
+    )
+    perfil.lesiones = lesion.rows;
+    perfil.preferencias = preferencia.rows;
+    res.json(perfil);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
 
 const createPerfil = async (req, res) => {
   const user = req.body;
