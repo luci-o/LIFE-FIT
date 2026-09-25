@@ -5,6 +5,11 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { SECRET } from "../Auth.js";
 
+const OBJETIVOS = ["bajar peso", "ganar fuerza", "mejorar resistencia"];
+const NIVELES   = ["principiante", "intermedio", "avanzado"];
+const LUGARES   = ["gym", "hogar", "aire libre"];
+
+
 const getPerfil = async (req, res) => {
   const result = await query(
     `SELECT * FROM "PERFIL USUARIO" WHERE "ID PERFIL" = $1`,
@@ -26,8 +31,22 @@ const getPerfil = async (req, res) => {
 
 const createPerfil = async (req, res) => {
   const user = req.body;
-  if (!user.nombre || !user.mail || !user.password) {
-    return res.status(400).json({ message: "Debe completar todos los campos" });
+  const obligatorios = [
+    "nombre", "mail", "password", "edad", "peso", "altura",
+    "objetivo", "tiempoDisponible", "diasPorSemana", "nivel", "lugar",
+  ];
+  const faltantes = obligatorios.filter((campo) => !user[campo]);
+  if (faltantes.length > 0) {
+    return res.status(400).json({ message: `Faltan completar: ${faltantes.join(", ")}` });
+  }
+  if (!OBJETIVOS.includes(user.objetivo)) {
+    return res.status(400).json({ message: `Objetivo inválido. Valores permitidos: ${OBJETIVOS.join(", ")}` });
+  }
+  if (!NIVELES.includes(user.nivel)) {
+    return res.status(400).json({ message: `Nivel inválido. Valores permitidos: ${NIVELES.join(", ")}` });
+  }
+  if (!LUGARES.includes(user.lugar)) {
+    return res.status(400).json({ message: `Lugar inválido. Valores permitidos: ${LUGARES.join(", ")}` });
   }
   try {
     const existe = await query(
@@ -48,8 +67,8 @@ const createPerfil = async (req, res) => {
       [user.nombre, user.edad, user.peso, user.altura, user.objetivo,
        user.tiempoDisponible, user.diasPorSemana, user.nivel, user.lugar,
        user.mail, hashedPassword, ""]
-    );
-    const idPerfil = result.rows[0]["ID PERFIL"];
+    )
+    const idPerfil = result.rows[0]["ID PERFIL"]
     const lesiones = user.lesiones || [];
     for (const l of lesiones) {
       await query(
@@ -74,7 +93,17 @@ const createPerfil = async (req, res) => {
         [a, "ALERGIA", idPerfil]
       );
     }
-    res.status(201).json({ message: "Perfil creado", idPerfil });
+    const token = jwt.sign(
+      { idPerfil, nombre: user.nombre },
+      SECRET,
+      { expiresIn: "7d" }
+    );
+    res.status(201).json({
+      message: "Perfil creado",
+      token,
+      idPerfil,
+      nombre: user.nombre,
+    });
   } catch (error) {
     if (error.code === "23505") {
       return res.status(400).json({ message: "Ese mail ya está registrado" });
