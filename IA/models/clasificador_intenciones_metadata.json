@@ -1,9 +1,9 @@
 {
   "accuracy_train": 1.0,
-  "accuracy_test": 0.88,
-  "cantidad_mensajes": 100,
-  "cantidad_entrenamiento": 75,
-  "cantidad_prueba": 25,
+  "accuracy_test": 0.889,
+  "cantidad_mensajes": 105,
+  "cantidad_entrenamiento": 78,
+  "cantidad_prueba": 27,
   "clases": [
     "dia_especifico",
     "explicacion",
@@ -15,11 +15,11 @@
   ],
   "cross_validation": [
     1.0,
-    0.85,
-    0.85,
-    0.8,
-    1.0
+    0.714,
+    0.857,
+    0.81,
+    0.952
   ],
-  "promedio_cv": 0.9,
+  "promedio_cv": 0.867,
   "umbral_confianza": 0.25
 }
