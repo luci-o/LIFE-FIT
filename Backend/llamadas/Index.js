@@ -3,6 +3,10 @@ import cors from "cors";
 const app = express();
 const port = 3000;
 
+const objetivo = ["bajar de peso", "aumentar resistencia", "ganar fuerza"];
+const niveles = ["principiante", "intermedio", "avanzado"];
+const lugares = ["gym", "hogar", "aire libre"];
+
 import usuarios from "../controlers/usuario.js";
 import ejercicios from "../controlers/ejercicios.js";
 import Nutricion from "../controlers/Nutricion.js";
