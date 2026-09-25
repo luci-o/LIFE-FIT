@@ -105,3 +105,9 @@ que ejercicio va despues,siguiente_ejercicio
 despues de este que hago,siguiente_ejercicio
 cual ejercicio viene a continuacion,siguiente_ejercicio
 termine este ejercicio cual sigue,siguiente_ejercicio
+
+que entreno ahora,rutina_hoy
+que tengo para entrenar ahora,rutina_hoy
+que rutina hago ahora,rutina_hoy
+mostrame lo que entreno ahora,rutina_hoy
+que tengo que entrenar ahora,rutina_hoy
