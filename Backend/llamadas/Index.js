@@ -8,6 +8,7 @@ import ejercicios from "../controlers/ejercicios.js";
 import Nutricion from "../controlers/Nutricion.js";
 import progreso from "../controlers/progreso.js";
 import { verificarToken, verificarUsuario } from "../Auth.js";
+import ia from "../controlers/ia.js";
 
 app.use(cors());
 app.use(express.json());
@@ -17,17 +18,17 @@ app.get("/", (_, res) => {
 });
 
 
-app.post("/usuario", usuarios.createPerfil);
+app.post("/usuarios", usuarios.createPerfil);
 app.post("/login", usuarios.login);
-app.get("/usuario/:id",    verificarToken, verificarUsuario, usuarios.getPerfil);
-app.put("/usuario/:id",    verificarToken, verificarUsuario, usuarios.updatePerfil);
-app.delete("/usuario/:id", verificarToken, verificarUsuario, usuarios.deletePerfil);
-app.get("/usuario/:id/ejericicio",  verificarToken, verificarUsuario, ejercicios.getEjerciciosByPerfil);
-app.post("/usuario/:id/ejericicio", verificarToken, verificarUsuario, ejercicios.guardarEjercicio);
-app.get("/usuario/:id/progreso",  verificarToken, verificarUsuario, progreso.verProgreso);
-app.post("/usuario/:id/progreso", verificarToken, verificarUsuario, progreso.registrarProgreso);
-app.get("/perfiles/:id/nutricion", verificarToken, verificarUsuario, Nutricion.verDieta);
-app.post("/perfiles/:id/nutricion", verificarToken, verificarUsuario, Nutricion.guardarDieta);
+app.get("/usuarios/:id", verificarToken, verificarUsuario, usuarios.getPerfil);
+app.put("/usuarios/:id", verificarToken, verificarUsuario, usuarios.updatePerfil);
+app.delete("/usuarios/:id", verificarToken, verificarUsuario, usuarios.deletePerfil);
+app.get("/usuarios/:id/ejericicio",  verificarToken, verificarUsuario, ejercicios.getEjerciciosByPerfil);
+app.post("/usuarios/:id/ejericicio", verificarToken, verificarUsuario, ejercicios.guardarEjercicio);
+app.get("/usuarios/:id/progreso",  verificarToken, verificarUsuario, progreso.verProgreso);
+app.post("/usuarios/:id/progreso", verificarToken, verificarUsuario, progreso.registrarProgreso);
+app.get("/usuarios/:id/nutricion", verificarToken, verificarUsuario, Nutricion.verDieta);
+app.post("/usuarios/:id/nutricion", verificarToken, verificarUsuario, Nutricion.guardarDieta);
 
 
 const server = app.listen(port, () => {
