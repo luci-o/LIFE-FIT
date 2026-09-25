@@ -1,33 +1,25 @@
 import os
-import pandas as pd
-import joblib
 import json
+import joblib
+import pandas as pd
 
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import (
+    train_test_split,
+    cross_val_score
+)
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import accuracy_score
-
-BASE_DIR = os.path.dirname(
-    os.path.abspath(__file__)
-)
-
-RUTA_MODELO_INTENCIONES = os.path.join(
-    BASE_DIR,
-    "models",
-    "clasificador_intenciones.joblib"
-)
-
-modelo_intenciones = joblib.load(
-    RUTA_MODELO_INTENCIONES
+from sklearn.metrics import (
+    accuracy_score,
+    confusion_matrix
 )
 
 
-def predecir_intencion(mensaje):
-    return modelo_intenciones.predict(
-        [mensaje]
-    )[0]
+# =========================
+# RUTAS
+# =========================
+
 BASE_DIR = os.path.dirname(
     os.path.abspath(__file__)
 )
@@ -38,17 +30,37 @@ RUTA_DATOS = os.path.join(
     "intenciones.csv"
 )
 
+RUTA_MODELO = os.path.join(
+    BASE_DIR,
+    "models",
+    "clasificador_intenciones.joblib"
+)
+
+RUTA_METADATA = os.path.join(
+    BASE_DIR,
+    "models",
+    "clasificador_intenciones_metadata.json"
+)
+
+
+# =========================
+# DATOS
+# =========================
 
 datos = pd.read_csv(
     RUTA_DATOS
 )
 
-
+# X = mensajes
 X = datos["mensaje"]
 
-
+# y = intención
 y = datos["intencion"]
 
+
+# =========================
+# TRAIN / TEST
+# =========================
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -58,6 +70,10 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y
 )
 
+
+# =========================
+# MODELO
+# =========================
 
 modelo_intenciones = Pipeline(
     [
@@ -75,52 +91,124 @@ modelo_intenciones = Pipeline(
 )
 
 
+# =========================
+# ENTRENAMIENTO
+# =========================
+
 modelo_intenciones.fit(
     X_train,
     y_train
 )
-RUTA_MODELO = os.path.join(
-    BASE_DIR,
-    "models",
-    "clasificador_intenciones.joblib"
+
+
+# =========================
+# PREDICCIONES TEST
+# =========================
+
+predicciones = modelo_intenciones.predict(
+    X_test
 )
+
+accuracy_test = accuracy_score(
+    y_test,
+    predicciones
+)
+
+
+# =========================
+# ACCURACY TRAIN
+# =========================
+
+pred_train = modelo_intenciones.predict(
+    X_train
+)
+
+accuracy_train = accuracy_score(
+    y_train,
+    pred_train
+)
+
+
+# =========================
+# CROSS VALIDATION
+# =========================
+
+scores = cross_val_score(
+    modelo_intenciones,
+    X,
+    y,
+    cv=5,
+    scoring="accuracy"
+)
+
+
+# =========================
+# MATRIZ DE CONFUSIÓN
+# =========================
+
+matriz = confusion_matrix(
+    y_test,
+    predicciones,
+    labels=modelo_intenciones.classes_
+)
+
+
+# =========================
+# GUARDAR MODELO
+# =========================
 
 joblib.dump(
     modelo_intenciones,
     RUTA_MODELO
 )
 
-print(
-    "Modelo guardado en:",
-    RUTA_MODELO
-)
 
-
-predicciones = modelo_intenciones.predict(
-    X_test
-)
-
-
-accuracy = accuracy_score(
-    y_test,
-    predicciones
-)
-RUTA_METADATA = os.path.join(
-    BASE_DIR,
-    "models",
-    "clasificador_intenciones_metadata.json"
-)
+# =========================
+# METADATA
+# =========================
 
 metadata = {
-    "accuracy": round(float(accuracy), 3),
-    "cantidad_mensajes": int(len(datos)),
-    "cantidad_entrenamiento": int(len(X_train)),
-    "cantidad_prueba": int(len(X_test)),
-    "clases": sorted(
-        datos["intencion"].unique().tolist()
+    "accuracy_train": round(
+        float(accuracy_train),
+        3
     ),
+
+    "accuracy_test": round(
+        float(accuracy_test),
+        3
+    ),
+
+    "cantidad_mensajes": int(
+        len(datos)
+    ),
+
+    "cantidad_entrenamiento": int(
+        len(X_train)
+    ),
+
+    "cantidad_prueba": int(
+        len(X_test)
+    ),
+
+    "clases": sorted(
+        datos[
+            "intencion"
+        ].unique().tolist()
+    ),
+
+    "cross_validation": [
+        round(float(score), 3)
+        for score in scores
+    ],
+
+    "promedio_cv": round(
+        float(scores.mean()),
+        3
+    ),
+
     "umbral_confianza": 0.25
 }
+
 
 with open(
     RUTA_METADATA,
@@ -134,12 +222,43 @@ with open(
         indent=2
     )
 
+
+# =========================
+# FUNCIÓN DE PREDICCIÓN
+# =========================
+
+def predecir_intencion(mensaje):
+    prediccion = modelo_intenciones.predict(
+        [mensaje]
+    )[0]
+
+    return prediccion
+
+
+# =========================
+# INFORMACIÓN
+# =========================
+
 print(
-    "Metadata guardado en:",
-    RUTA_METADATA
+    "Modelo guardado en:",
+    RUTA_MODELO
 )
 
-print("=== CLASIFICADOR DE INTENCIONES ===")
+print(
+    "\n=== MATRIZ DE CONFUSIÓN ==="
+)
+
+print(
+    modelo_intenciones.classes_
+)
+
+print(
+    matriz
+)
+
+print(
+    "\n=== CLASIFICADOR DE INTENCIONES ==="
+)
 
 print(
     "Mensajes para entrenar:",
@@ -152,20 +271,46 @@ print(
 )
 
 print(
-    "Accuracy:",
-    round(accuracy, 3)
+    "Accuracy train:",
+    round(
+        accuracy_train,
+        3
+    )
+)
+
+print(
+    "Accuracy test:",
+    round(
+        accuracy_test,
+        3
+    )
+)
+
+print(
+    "Cross-validation:",
+    scores
+)
+
+print(
+    "Promedio CV:",
+    round(
+        scores.mean(),
+        3
+    )
+)
+
+print(
+    "Metadata guardado en:",
+    RUTA_METADATA
 )
 
 
-def predecir_intencion(mensaje):
-    prediccion = modelo_intenciones.predict(
-        [mensaje]
-    )[0]
-
-    return prediccion
-
+# =========================
+# PRUEBA
+# =========================
 
 if __name__ == "__main__":
+
     mensaje_prueba = (
         "que tengo que hacer hoy"
     )
