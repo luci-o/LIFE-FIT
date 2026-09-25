@@ -52,6 +52,11 @@ def formatear_rutina_completa(rutina):
                 "Ejercicio"
             )
 
+            grupo = ejercicio.get(
+                "grupo_muscular",
+                ""
+            )
+
             series = ejercicio.get(
                 "series",
                 "-"
@@ -62,11 +67,17 @@ def formatear_rutina_completa(rutina):
                 "-"
             )
 
-            lineas.append(
-                f"{numero}. {nombre} "
-                f"- {series} series "
-                f"- {repeticiones} repeticiones"
-            )
+            if grupo == "cardio":
+                lineas.append(
+                    f"{numero}. {nombre} - por tiempo"
+                )
+
+            else:
+                lineas.append(
+                    f"{numero}. {nombre} "
+                    f"- {series} series "
+                    f"- {repeticiones} repeticiones"
+                )
 
         lineas.append("")
 
@@ -309,6 +320,15 @@ def responder_chat(
             "repeticiones",
             "-"
         )
+                if ejercicio.get("grupo_muscular") == "cardio":
+            nombre = ejercicio.get(
+                "ejercicio",
+                "Este ejercicio"
+            )
+
+            return (
+                f"{nombre} se realiza por tiempo."
+            )
 
         return (
             f"En {nombre} tenés que hacer "
