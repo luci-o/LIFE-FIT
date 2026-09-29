@@ -1596,5 +1596,77 @@
     "restricciones":[
       "Pierna"
     ]
-  }
+  },
+  {
+  "ejercicio": "plancha en polea",
+  "grupo_muscular": "core",
+  "dificultad": "Medio",
+  "lugar": "gym",
+  "evitar_si_lesion": "Espalda",
+  "musculo_principal": "core",
+  "imagen": "images/plancha_en_polea.png",
+  "restricciones": [
+    "Espalda"
+  ]
+},
+{
+  "ejercicio": "woodchopper en polea",
+  "grupo_muscular": "core",
+  "dificultad": "Medio",
+  "lugar": "gym",
+  "evitar_si_lesion": "Espalda",
+  "musculo_principal": "core",
+  "imagen": "images/woodchopper_en_polea.png",
+  "restricciones": [
+    "Espalda"
+  ]
+},
+{
+  "ejercicio": "elevacion de rodillas en silla romana",
+  "grupo_muscular": "core",
+  "dificultad": "Medio",
+  "lugar": "gym",
+  "evitar_si_lesion": "Espalda",
+  "musculo_principal": "core",
+  "imagen": "images/elevacion_rodillas_silla_romana.png",
+  "restricciones": [
+    "Espalda"
+  ]
+},
+{
+  "ejercicio": "cinta de correr",
+  "grupo_muscular": "cardio",
+  "dificultad": "Facil",
+  "lugar": "gym",
+  "evitar_si_lesion": "Pierna",
+  "musculo_principal": "cardio",
+  "imagen": "images/cinta_de_correr.png",
+  "restricciones": [
+    "Pierna"
+  ]
+},
+{
+  "ejercicio": "escaladora",
+  "grupo_muscular": "cardio",
+  "dificultad": "Medio",
+  "lugar": "gym",
+  "evitar_si_lesion": "Pierna",
+  "musculo_principal": "cardio",
+  "imagen": "images/escaladora.png",
+  "restricciones": [
+    "Pierna"
+  ]
+},
+{
+  "ejercicio": "air bike",
+  "grupo_muscular": "cardio",
+  "dificultad": "Medio",
+  "lugar": "gym",
+  "evitar_si_lesion": "Pierna",
+  "musculo_principal": "cardio",
+  "imagen": "images/air_bike.png",
+  "restricciones": [
+    "Pierna"
+  ]
+}
 ]

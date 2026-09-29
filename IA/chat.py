@@ -295,7 +295,7 @@ def responder_chat(
             f"{dificultad}."
         )
 
-    # Series y repeticiones
+      # Series y repeticiones
     if intencion == "series_repeticiones":
         ejercicio, error = obtener_ejercicio_actual(
             rutina,
@@ -311,6 +311,11 @@ def responder_chat(
             "Este ejercicio"
         )
 
+        if ejercicio.get("grupo_muscular") == "cardio":
+            return (
+                f"{nombre} se realiza por tiempo."
+            )
+
         series = ejercicio.get(
             "series",
             "-"
@@ -320,22 +325,12 @@ def responder_chat(
             "repeticiones",
             "-"
         )
-                if ejercicio.get("grupo_muscular") == "cardio":
-            nombre = ejercicio.get(
-                "ejercicio",
-                "Este ejercicio"
-            )
-
-            return (
-                f"{nombre} se realiza por tiempo."
-            )
 
         return (
             f"En {nombre} tenés que hacer "
             f"{series} series de "
             f"{repeticiones} repeticiones."
         )
-
     # Músculo
     if intencion == "musculo":
         ejercicio, error = obtener_ejercicio_actual(
