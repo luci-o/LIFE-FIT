@@ -15,12 +15,12 @@ while True:
             input("Edad: ")
         )
 
-        if 1 <= edad <= 120:
+        if 13 <= edad <= 100:
             break
 
         print(
-            "Valor inválido. Ingresá una edad válida."
-        )
+    "Valor inválido. Ingresá una edad entre 13 y 100, En numeros"
+)
 
     except ValueError:
         print(
@@ -358,19 +358,51 @@ else:
 
 if rutina:
 
-    dia_actual = int(
-        input(
-            "\n¿Qué día de la rutina "
-            "estás haciendo? "
-        )
-    )
+    while True:
+        try:
+            dia_actual = int(
+                input(
+                    "\n¿Qué día de la rutina estás haciendo? "
+                )
+            )
 
-    ejercicio_actual = int(
-        input(
-            "¿Qué número de ejercicio "
-            "estás haciendo? "
-        )
-    )
+            if str(dia_actual) in rutina:
+                break
+
+            print(
+                "Día inválido. Elegí un día disponible "
+                "en tu rutina."
+            )
+
+        except ValueError:
+            print(
+                "Valor inválido. Ingresá un número entero."
+            )
+
+    while True:
+        try:
+            ejercicio_actual = int(
+                input(
+                    "¿Qué número de ejercicio estás haciendo? "
+                )
+            )
+
+            cantidad_ejercicios = len(
+                rutina[str(dia_actual)]
+            )
+
+            if 1 <= ejercicio_actual <= cantidad_ejercicios:
+                break
+
+            print(
+                f"Ejercicio inválido. Elegí un número "
+                f"entre 1 y {cantidad_ejercicios}."
+            )
+
+        except ValueError:
+            print(
+                "Valor inválido. Ingresá un número entero."
+            )
 
     print(
         "\nChat listo."

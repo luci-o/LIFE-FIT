@@ -1,4 +1,5 @@
 import os
+
 import pandas as pd
 import numpy as np
 
@@ -503,15 +504,12 @@ def evaluar_usuario(
         tiempo,
         experiencia,
         lugar,
-        zona_lesion
-        if zona_lesion != "nada"
-        else "nada"
+        zona_lesion if zona_lesion != "nada" else "nada"
     )
 
     if estado_lesion == "actual":
         requiere_adaptacion = "si"
         tipo_adaptacion = "especial"
-
         accion = (
             f"limitar ejercicios de {zona_lesion} "
             "y requerir revision profesional"
@@ -520,7 +518,6 @@ def evaluar_usuario(
     elif estado_lesion == "pasada":
         requiere_adaptacion = "si"
         tipo_adaptacion = "preventiva"
-
         accion = (
             f"adaptar ejercicios para cuidar "
             f"{zona_lesion}"
@@ -609,8 +606,7 @@ def generar_plan_semanal(
 
         ejercicios = ejercicios_df[
             (
-                ejercicios_df["lugar"]
-                == lugar
+                ejercicios_df["lugar"] == lugar
             )
             & (
                 ejercicios_df[
@@ -625,14 +621,12 @@ def generar_plan_semanal(
         ].copy()
 
         if zona_lesion != "nada":
-
             ejercicios = ejercicios[
                 ejercicios[
                     "restricciones"
                 ].apply(
                     lambda restricciones:
-                    zona_lesion
-                    not in restricciones
+                    zona_lesion not in restricciones
                 )
             ].copy()
 
@@ -643,8 +637,7 @@ def generar_plan_semanal(
         ].apply(
             lambda ejercicio:
             1
-            if ejercicio
-            in ejercicios_usados
+            if ejercicio in ejercicios_usados
             else 0
         )
 
@@ -682,11 +675,9 @@ def generar_plan_semanal(
         )
 
         if candidatos.empty:
-
             plan[dia] = ejercicios_df.iloc[
                 0:0
             ].copy()
-
             continue
 
         seleccionados = []
@@ -820,6 +811,10 @@ def agregar_parametros_plan(
     for dia, rutina in plan_semanal.items():
 
         rutina = rutina.copy()
+
+        if rutina.empty:
+            plan_con_parametros[dia] = rutina
+            continue
 
         rutina["series"] = rutina[
             "grupo_muscular"
@@ -990,7 +985,6 @@ def generar_plan_personalizado(
     for rutina in plan.values():
 
         if not rutina.empty:
-
             ejercicios_usados.update(
                 rutina[
                     "ejercicio"
@@ -1001,8 +995,6 @@ def generar_plan_personalizado(
 
         rutina = rutina_original.copy()
 
-        # Solo agrega si todavía está por debajo
-        # de la cantidad máxima permitida.
         while len(rutina) < cantidad:
 
             duracion_actual = (
@@ -1019,17 +1011,27 @@ def generar_plan_personalizado(
             if tiempo_sobrante <= 15:
                 break
 
+            # Si la rutina está vacía, usamos los grupos
+            # definidos originalmente para ese día.
             if rutina.empty:
-                break
+                grupos_dia = obtener_division(
+                    dias,
+                    objetivo
+                ).get(
+                    dia,
+                    []
+                )
+            else:
+                grupos_dia = (
+                    rutina[
+                        "grupo_muscular"
+                    ]
+                    .unique()
+                    .tolist()
+                )
 
-            grupos_dia = (
-                rutina[
-                    "grupo_muscular"
-                ]
-                .unique()
-                .tolist()
-            )
-
+            # Primero intentamos completar con los grupos
+            # musculares planeados para ese día.
             candidatos = ejercicios_df[
                 (
                     ejercicios_df[
@@ -1060,7 +1062,6 @@ def generar_plan_personalizado(
             ].copy()
 
             if zona_lesion != "nada":
-
                 candidatos = candidatos[
                     candidatos[
                         "restricciones"
@@ -1070,6 +1071,44 @@ def generar_plan_personalizado(
                         not in restricciones
                     )
                 ].copy()
+
+            # FALLBACK:
+            # si ya no quedan opciones de los grupos del día,
+            # buscamos otros ejercicios seguros del mismo lugar.
+            if candidatos.empty:
+
+                candidatos = ejercicios_df[
+                    (
+                        ejercicios_df[
+                            "lugar"
+                        ] == lugar
+                    )
+                    & (
+                        ejercicios_df[
+                            "dificultad"
+                        ].isin(
+                            niveles
+                        )
+                    )
+                    & (
+                        ~ejercicios_df[
+                            "ejercicio"
+                        ].isin(
+                            ejercicios_usados
+                        )
+                    )
+                ].copy()
+
+                if zona_lesion != "nada":
+                    candidatos = candidatos[
+                        candidatos[
+                            "restricciones"
+                        ].apply(
+                            lambda restricciones:
+                            zona_lesion
+                            not in restricciones
+                        )
+                    ].copy()
 
             if candidatos.empty:
                 break
@@ -1137,8 +1176,6 @@ def generar_plan_personalizado(
                 ]
             )
 
-        # Seguridad final:
-        # nunca superar la cantidad calculada.
         rutina = rutina.head(
             cantidad
         )
