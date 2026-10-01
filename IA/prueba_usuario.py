@@ -9,77 +9,204 @@ print("=== LIFE FIT ===")
 # DATOS DEL USUARIO
 # =========================
 
-edad = int(
-    input("Edad: ")
-)
+while True:
+    try:
+        edad = int(
+            input("Edad: ")
+        )
 
-peso = float(
-    input("Peso: ")
-)
+        if 1 <= edad <= 120:
+            break
 
-objetivo = input(
-    "Objetivo: "
-).strip().lower()
+        print(
+            "Valor inválido. Ingresá una edad válida."
+        )
 
-dias = int(
-    input("Días disponibles: ")
-)
+    except ValueError:
+        print(
+            "Valor inválido. Ingresá un número entero."
+        )
 
-tiempo = int(
-    input("Minutos por entrenamiento: ")
-)
+while True:
+    try:
+        peso = float(
+            input("Peso: ")
+        )
 
-experiencia = input(
-    "Experiencia: "
-).strip().lower()
+        if peso > 0:
+            break
 
-lugar = input(
-    "Lugar (gym/hogar/aire libre): "
-).strip().lower()
+        print(
+            "Valor inválido. Ingresá un peso mayor a 0."
+        )
 
-zona_lesion = input(
-    "Zona de lesión (nada si no tenés): "
-).strip().lower()
-
-
-# =========================
-# NORMALIZAR DATOS
-# =========================
-
-if objetivo in [
-    "perder peso",
-    "bajar de peso"
-]:
-    objetivo = "bajar peso"
+    except ValueError:
+        print(
+            "Valor inválido. Ingresá un número."
+        )
 
 
-if experiencia in [
-    "media",
-    "medio",
-    "intermedia"
-]:
-    experiencia = "intermedio"
+while True:
+    objetivo = input(
+        "Objetivo "
+        "(ganar fuerza/mejorar resistencia/bajar peso): "
+    ).strip().lower()
 
-elif experiencia in [
-    "baja",
-    "inicial"
-]:
-    experiencia = "principiante"
+    alias_objetivo = {
+        "ganar fuerza": "ganar fuerza",
+        "fuerza": "ganar fuerza",
 
-elif experiencia in [
-    "alta"
-]:
-    experiencia = "avanzado"
+        "mejorar resistencia": "mejorar resistencia",
+        "resistencia": "mejorar resistencia",
+
+        "bajar peso": "bajar peso",
+        "bajar de peso": "bajar peso",
+        "perder peso": "bajar peso"
+    }
+
+    if objetivo in alias_objetivo:
+        objetivo = alias_objetivo[
+            objetivo
+        ]
+        break
+
+    print(
+        "Valor inválido. Escribí "
+        "ganar fuerza, mejorar resistencia "
+        "o bajar peso."
+    )
 
 
-if zona_lesion in [
-    "no",
-    "ninguna",
-    "ninguno",
-    "sin lesion",
-    "sin lesión"
-]:
-    zona_lesion = "nada"
+while True:
+    try:
+        dias = int(
+            input(
+                "Días disponibles (1-7): "
+            )
+        )
+
+        if 1 <= dias <= 7:
+            break
+
+        print(
+            "Valor inválido. Ingresá "
+            "un número entre 1 y 7."
+        )
+
+    except ValueError:
+        print(
+            "Valor inválido. Ingresá "
+            "un número entero."
+        )
+
+
+while True:
+    try:
+        tiempo = int(
+            input(
+                "Minutos por entrenamiento "
+                "(15-120): "
+            )
+        )
+
+        if 15 <= tiempo <= 120:
+            break
+
+        print(
+            "Valor inválido. Ingresá "
+            "un número entre 15 y 120."
+        )
+
+    except ValueError:
+        print(
+            "Valor inválido. Ingresá "
+            "un número entero."
+        )
+
+
+while True:
+    experiencia = input(
+        "Experiencia "
+        "(principiante/intermedio/avanzado): "
+    ).strip().lower()
+
+    alias_experiencia = {
+        "inicial": "principiante",
+        "baja": "principiante",
+        "principiante": "principiante",
+
+        "medio": "intermedio",
+        "media": "intermedio",
+        "intermedia": "intermedio",
+        "intermedio": "intermedio",
+
+        "alta": "avanzado",
+        "avanzada": "avanzado",
+        "avanzado": "avanzado"
+    }
+
+    if experiencia in alias_experiencia:
+        experiencia = alias_experiencia[
+            experiencia
+        ]
+        break
+
+    print(
+        "Valor inválido. Escribí "
+        "principiante, intermedio "
+        "o avanzado."
+    )
+
+
+while True:
+    lugar = input(
+        "Lugar "
+        "(gym/hogar/aire libre): "
+    ).strip().lower()
+
+    if lugar in [
+        "gym",
+        "hogar",
+        "aire libre"
+    ]:
+        break
+
+    print(
+        "Valor inválido. Escribí "
+        "gym, hogar o aire libre."
+    )
+
+
+while True:
+    zona_lesion = input(
+        "Zona de lesión "
+        "(nada/pierna/espalda/hombro): "
+    ).strip().lower()
+
+    alias_lesion = {
+        "nada": "nada",
+        "no": "nada",
+        "ninguna": "nada",
+        "ninguno": "nada",
+        "sin lesion": "nada",
+        "sin lesión": "nada",
+
+        "pierna": "Pierna",
+        "espalda": "Espalda",
+        "hombro": "Hombro"
+    }
+
+    if zona_lesion in alias_lesion:
+        zona_lesion = alias_lesion[
+            zona_lesion
+        ]
+        break
+
+    print(
+        "Valor inválido. Escribí "
+        "nada, pierna, espalda "
+        "o hombro."
+    )
 
 
 # =========================
@@ -87,14 +214,25 @@ if zona_lesion in [
 # =========================
 
 if zona_lesion == "nada":
-
     estado_lesion = "ninguna"
 
 else:
+    while True:
+        estado_lesion = input(
+            "Estado de lesión "
+            "(pasada/actual): "
+        ).strip().lower()
 
-    estado_lesion = input(
-        "Estado de lesión (pasada/actual): "
-    ).strip().lower()
+        if estado_lesion in [
+            "pasada",
+            "actual"
+        ]:
+            break
+
+        print(
+            "Valor inválido. Escribí "
+            "pasada o actual."
+        )
 
 
 # =========================
@@ -127,16 +265,24 @@ rutina = {
 # RESULTADO
 # =========================
 
-print("\n=== RESULTADO ===")
+print(
+    "\n=== RESULTADO ==="
+)
 
 print(
     "Dificultad:",
-    resultado["evaluacion"]["dificultad"]
+    resultado[
+        "evaluacion"
+    ][
+        "dificultad"
+    ]
 )
 
 print(
     "Ejercicios por día:",
-    resultado["cantidad_ejercicios_por_dia"]
+    resultado[
+        "cantidad_ejercicios_por_dia"
+    ]
 )
 
 
@@ -144,7 +290,9 @@ print(
 # MOSTRAR RUTINA COMPLETA
 # =========================
 
-print("\n=== TU RUTINA COMPLETA ===")
+print(
+    "\n=== TU RUTINA COMPLETA ==="
+)
 
 
 if not rutina:
@@ -172,6 +320,11 @@ else:
                 "Ejercicio"
             )
 
+            grupo = ejercicio.get(
+                "grupo_muscular",
+                ""
+            )
+
             series = ejercicio.get(
                 "series",
                 "-"
@@ -182,11 +335,21 @@ else:
                 "-"
             )
 
-            print(
-                f"{numero}. {nombre} "
-                f"- {series} series "
-                f"- {repeticiones} repeticiones"
-            )
+            if grupo == "cardio":
+
+                print(
+                    f"{numero}. "
+                    f"{nombre} - por tiempo"
+                )
+
+            else:
+
+                print(
+                    f"{numero}. {nombre} "
+                    f"- {series} series "
+                    f"- {repeticiones} "
+                    f"repeticiones"
+                )
 
 
 # =========================
@@ -197,13 +360,15 @@ if rutina:
 
     dia_actual = int(
         input(
-            "\n¿Qué día de la rutina estás haciendo? "
+            "\n¿Qué día de la rutina "
+            "estás haciendo? "
         )
     )
 
     ejercicio_actual = int(
         input(
-            "¿Qué número de ejercicio estás haciendo? "
+            "¿Qué número de ejercicio "
+            "estás haciendo? "
         )
     )
 
@@ -224,7 +389,8 @@ if rutina:
         if mensaje.lower() == "salir":
 
             print(
-                "LIFE FIT: Sesión terminada."
+                "LIFE FIT: "
+                "Sesión terminada."
             )
 
             break
