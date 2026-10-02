@@ -61,7 +61,7 @@ export default function Chat() {
 
   return (
     <div className="min-h-screen bg-zinc-800 flex flex-col items-center justify-between p-3 md:p-5 font-sans text-black">
-      {/* Navbar con navegación funcional */}
+      {}
       <nav className="flex items-center gap-6 bg-zinc-300 px-6 py-2 rounded-full shadow-md mb-3 border border-zinc-400">
         {/* boton home  */}
         <button
