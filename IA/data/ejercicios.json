@@ -1669,4 +1669,51 @@
     "Pierna"
   ]
 }
+,
+{
+  "ejercicio": "remo con toalla",
+  "grupo_muscular": "espalda",
+  "dificultad": "Facil",
+  "lugar": "hogar",
+  "evitar_si_lesion": "Espalda",
+  "musculo_principal": "espalda",
+  "imagen": "images/remo_con_toalla.png",
+  "restricciones": [
+    "Espalda"
+  ]
+},
+{
+  "ejercicio": "press de pecho con banda",
+  "grupo_muscular": "pecho",
+  "dificultad": "Facil",
+  "lugar": "hogar",
+  "evitar_si_lesion": "Hombro",
+  "musculo_principal": "pecho",
+  "imagen": "images/press_pecho_con_banda.png",
+  "restricciones": [
+    "Hombro"
+  ]
+},
+{
+  "ejercicio": "curl isometrico con banda",
+  "grupo_muscular": "biceps",
+  "dificultad": "Facil",
+  "lugar": "hogar",
+  "evitar_si_lesion": "nada",
+  "musculo_principal": "biceps",
+  "imagen": "images/curl_isometrico_con_banda.png",
+  "restricciones": []
+},
+{
+  "ejercicio": "extension de triceps acostado",
+  "grupo_muscular": "triceps",
+  "dificultad": "Medio",
+  "lugar": "hogar",
+  "evitar_si_lesion": "Hombro",
+  "musculo_principal": "triceps",
+  "imagen": "images/extension_triceps_acostado.png",
+  "restricciones": [
+    "Hombro"
+  ]
+}
 ]
