@@ -13,6 +13,7 @@ import Nutricion from "../controlers/Nutricion.js";
 import progreso from "../controlers/progreso.js";
 import { verificarToken, verificarUsuario } from "../Auth.js";
 import ia from "../controlers/ia.js";
+import chat from "../controlers/chat.js";
 
 app.use(cors());
 app.use(express.json());
@@ -34,6 +35,11 @@ app.get("/usuarios/:id/progreso",  verificarToken, verificarUsuario, progreso.ve
 app.post("/usuarios/:id/progreso", verificarToken, verificarUsuario, progreso.registrarProgreso);
 app.get("/usuarios/:id/nutricion", verificarToken, verificarUsuario, Nutricion.verDieta);
 app.post("/usuarios/:id/nutricion", verificarToken, verificarUsuario, Nutricion.guardarDieta);
+app.get   ("/usuarios/:id/chat",verificarToken, verificarUsuario, chat.listarConversaciones);
+app.post  ("/usuarios/:id/chat", verificarToken, verificarUsuario, chat.crearConversacion);
+app.delete("/usuarios/:id/chat/:idConv", verificarToken, verificarUsuario, chat.borrarConversacion);
+app.get   ("/usuarios/:id/chat/:idConv/mensajes", verificarToken, verificarUsuario, chat.verMensajes);
+app.post  ("/usuarios/:id/chat/:idConv/mensajes", verificarToken, verificarUsuario, chat.enviarMensaje);
 
 
 const server = app.listen(port, () => {
