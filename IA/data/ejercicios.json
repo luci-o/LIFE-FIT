@@ -482,18 +482,6 @@
     ]
   },
   {
-    "ejercicio":"elevaciones de piernas",
-    "grupo_muscular":"core",
-    "dificultad":"Medio",
-    "lugar":"hogar",
-    "evitar_si_lesion":"Espalda",
-    "musculo_principal":"core",
-    "imagen":"images\/elevaciones_de_piernas.png",
-    "restricciones":[
-      "Espalda"
-    ]
-  },
-  {
     "ejercicio":"mountain climbers lentos",
     "grupo_muscular":"core",
     "dificultad":"Medio",
@@ -885,18 +873,6 @@
     "evitar_si_lesion":"Pierna",
     "musculo_principal":"gluteos",
     "imagen":"images\/hip_thrust.png",
-    "restricciones":[
-      "Pierna"
-    ]
-  },
-  {
-    "ejercicio":"step up",
-    "grupo_muscular":"piernas",
-    "dificultad":"Medio",
-    "lugar":"hogar",
-    "evitar_si_lesion":"Pierna",
-    "musculo_principal":"piernas",
-    "imagen":"images\/step_up.png",
     "restricciones":[
       "Pierna"
     ]
