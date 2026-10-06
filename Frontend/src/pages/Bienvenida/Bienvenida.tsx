@@ -26,13 +26,31 @@ export const Bienvenida: React.FC = () => {
     setCargando(true);
 
     try {
-      const respuesta = await peticionApi("/auth/registro", {
+      const cuerpoPeticion = {
+        nombre: usuario,
+        mail: email,
+        password: contrasena,
+        edad: 25,                  // Valores por defecto para cumplir con el backend
+        peso: 70,
+        altura: 170,
+        objetivo: "bajar peso",     // "bajar peso", "ganar fuerza", "mejorar resistencia"
+        tiempoDisponible: 60,
+        diasPorSemana: 3,
+        nivel: "principiante",      // "principiante", "intermedio", "avanzado"
+        lugar: "gym",               // "gym", "hogar", "aire libre"
+      };
+
+      const respuesta = await peticionApi("/usuarios", {
         method: "POST",
-        body: JSON.stringify({ email, nombreUsuario: usuario, contrasena }),
+        body: JSON.stringify(cuerpoPeticion),
       });
 
-      iniciarSesion(respuesta.usuario);
+      // Guardar Token en localStorage
+      if (respuesta.token) {
+        localStorage.setItem("token", respuesta.token);
+      }
 
+      iniciarSesion(respuesta);
       navigate("/dashboard");
     } catch (err: any) {
       setError(err.message || "Ocurrió un error al intentar registrarse.");
@@ -45,24 +63,26 @@ export const Bienvenida: React.FC = () => {
     <div style={estilos.contenedorPrincipal}>
       <header style={estilos.header}>
         <div style={estilos.logoContenedor}>
-          <span style={estilos.logoIcono}></span>
           <h1 style={estilos.logoTexto}>Life Fit</h1>
         </div>
 
         <nav style={estilos.navContenedor}>
           <button 
+            type="button"
             onClick={() => navigate("/bienvenida")} 
             style={{ ...estilos.btnNav, ...estilos.btnNavActivo }}
           >
             Bienvenido
           </button>
           <button 
+            type="button"
             onClick={() => navigate("/acerca-de")} 
             style={estilos.btnNav}
           >
             Acerca de
           </button>
           <button 
+            type="button"
             onClick={() => navigate("/crear-cuenta")} 
             style={{ ...estilos.btnNav, ...estilos.btnNavDestacado }}
           >
@@ -71,7 +91,6 @@ export const Bienvenida: React.FC = () => {
         </nav>
       </header>
 
-      {}
       <main style={estilos.main}>
         <div style={estilos.tarjeta}>
           <h2 style={estilos.tituloTarjeta}>Bienvenido</h2>
@@ -147,9 +166,6 @@ const estilos: { [key: string]: React.CSSProperties } = {
     display: "flex",
     alignItems: "center",
     gap: "10px",
-  },
-  logoIcono: {
-    fontSize: "1.8rem",
   },
   logoTexto: {
     fontSize: "1.8rem",

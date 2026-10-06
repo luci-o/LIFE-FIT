@@ -12,8 +12,8 @@ interface Mensaje {
 }
 
 export default function Chat() {
-  const navigate = useNavigate(); // <--- redirige
-  const location = useLocation(); // <--- en que ruta esta
+  const navigate = useNavigate(); 
+  const location = useLocation(); 
 
   const [mensajes, setMensajes] = useState<Mensaje[]>([
     {
