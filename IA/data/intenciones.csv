@@ -111,3 +111,36 @@ que tengo para entrenar ahora,rutina_hoy
 que rutina hago ahora,rutina_hoy
 mostrame lo que entreno ahora,rutina_hoy
 que tengo que entrenar ahora,rutina_hoy
+
+cambiame este ejercicio,cambiar_ejercicio
+cambia este ejercicio,cambiar_ejercicio
+quiero cambiar este ejercicio,cambiar_ejercicio
+reemplaza este ejercicio,cambiar_ejercicio
+reemplazame este ejercicio,cambiar_ejercicio
+quiero otro ejercicio,cambiar_ejercicio
+poneme otro ejercicio,cambiar_ejercicio
+no quiero hacer este ejercicio,cambiar_ejercicio
+cambia el ejercicio,cambiar_ejercicio
+quiero reemplazar el ejercicio,cambiar_ejercicio
+cambiame el ejercicio 1,cambiar_ejercicio
+cambiame el ejercicio 2,cambiar_ejercicio
+cambiame el ejercicio 3,cambiar_ejercicio
+reemplaza el ejercicio 1,cambiar_ejercicio
+reemplaza el ejercicio 2,cambiar_ejercicio
+reemplaza el ejercicio 3,cambiar_ejercicio
+
+hoy tengo menos tiempo,menos_tiempo
+hoy tengo 30 minutos,menos_tiempo
+hoy tengo 20 minutos,menos_tiempo
+solo tengo 30 minutos,menos_tiempo
+solo tengo 20 minutos,menos_tiempo
+tengo menos tiempo para entrenar,menos_tiempo
+acortame la rutina de hoy,menos_tiempo
+haceme la rutina mas corta,menos_tiempo
+quiero entrenar menos tiempo hoy,menos_tiempo
+hoy puedo entrenar solo 30 minutos,menos_tiempo
+hoy puedo entrenar solo 20 minutos,menos_tiempo
+reduce la rutina de hoy,menos_tiempo
+recortame la rutina,menos_tiempo
+tengo poco tiempo hoy,menos_tiempo
+hoy estoy corto de tiempo,menos_tiempo

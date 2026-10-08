@@ -1,0 +1,1361 @@
+{
+    "usuario_prueba": {
+        "rutinas": [
+            {
+                "fecha": "2026-10-08T09:41:01.600549",
+                "rutina": {
+                    "dia_1": [
+                        "sentadilla",
+                        "flexiones",
+                        "remo con banda"
+                    ]
+                }
+            }
+        ],
+        "sesiones": [
+            {
+                "fecha": "2026-10-08T09:41:01.657261",
+                "dia": 1,
+                "completada": true,
+                "dificultad_percibida": "bien",
+                "comentario": "La rutina estuvo bien"
+            }
+        ]
+    },
+    "usuario_prueba_1": {
+        "rutinas": [
+            {
+                "fecha": "2026-10-08T09:52:04.977827",
+                "rutina": {
+                    "1": [
+                        {
+                            "ejercicio": "press inclinado con mancuernas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho superior",
+                            "imagen": "images/press_inclinado_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "cruce de poleas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/cruce_de_poleas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "extension de triceps por encima de la cabeza",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/extension_de_triceps_por_encima_de_la_cabeza.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press frances",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/press_frances.png",
+                            "restricciones": [],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pallof press",
+                            "grupo_muscular": "core",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "core",
+                            "imagen": "images/pallof_press.png",
+                            "restricciones": [],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "2": [
+                        {
+                            "ejercicio": "remo con mancuerna",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_mancuerna.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pullover en polea",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/pullover_en_polea.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "curl concentrado",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_concentrado.png",
+                            "restricciones": [],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "extension de triceps",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/extension_de_triceps.png",
+                            "restricciones": [],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "patada de triceps",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/patada_de_triceps.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "3": [
+                        {
+                            "ejercicio": "zancadas",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/zancadas.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "prensa de piernas",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/prensa_de_piernas.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "jalon al pecho",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/jalon_al_pecho.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "elevacion de rodillas en silla romana",
+                            "grupo_muscular": "core",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/elevacion_rodillas_silla_romana.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "crunch en polea",
+                            "grupo_muscular": "core",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/crunch_en_polea.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "4": [
+                        {
+                            "ejercicio": "press banca con barra",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/press_banca_barra.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "aperturas con mancuernas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/aperturas_con_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press arnold",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/press_arnold.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pajaros con mancuernas",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/pajaros_con_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "eliptico",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/eliptico.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        }
+                    ]
+                }
+            },
+            {
+                "fecha": "2026-10-08T10:06:38.670705",
+                "rutina": {
+                    "1": [
+                        {
+                            "ejercicio": "press inclinado con mancuernas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho superior",
+                            "imagen": "images/press_inclinado_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "cruce de poleas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/cruce_de_poleas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "extension de triceps por encima de la cabeza",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/extension_de_triceps_por_encima_de_la_cabeza.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press frances",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/press_frances.png",
+                            "restricciones": [],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pallof press",
+                            "grupo_muscular": "core",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "core",
+                            "imagen": "images/pallof_press.png",
+                            "restricciones": [],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "2": [
+                        {
+                            "ejercicio": "remo con mancuerna",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_mancuerna.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pullover en polea",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/pullover_en_polea.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "curl concentrado",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_concentrado.png",
+                            "restricciones": [],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "extension de triceps",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/extension_de_triceps.png",
+                            "restricciones": [],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "patada de triceps",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/patada_de_triceps.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "3": [
+                        {
+                            "ejercicio": "zancadas",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/zancadas.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "prensa de piernas",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/prensa_de_piernas.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "jalon al pecho",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/jalon_al_pecho.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "elevacion de rodillas en silla romana",
+                            "grupo_muscular": "core",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/elevacion_rodillas_silla_romana.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "crunch en polea",
+                            "grupo_muscular": "core",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/crunch_en_polea.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "4": [
+                        {
+                            "ejercicio": "press banca con barra",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/press_banca_barra.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "aperturas con mancuernas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/aperturas_con_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press arnold",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/press_arnold.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pajaros con mancuernas",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/pajaros_con_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 4,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "eliptico",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/eliptico.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        }
+                    ]
+                }
+            },
+            {
+                "fecha": "2026-10-08T10:21:43.541281",
+                "rutina": {
+                    "1": [
+                        {
+                            "ejercicio": "dominadas asistidas",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/dominadas_asistidas.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press banca",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/press_banca.png",
+                            "restricciones": [],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "cruce de poleas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/cruce_de_poleas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "patada de triceps",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/patada_de_triceps.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "fondos asistidos",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/fondos_asistidos.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "2": [
+                        {
+                            "ejercicio": "aduccion de cadera",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/aduccion_de_cadera.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "sentadilla en maquina",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/sentadilla_maquina.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "remo con mancuerna",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_mancuerna.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pullover con mancuerna",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/pullover_con_mancuerna.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "curl concentrado",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_concentrado.png",
+                            "restricciones": [],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "3": [
+                        {
+                            "ejercicio": "sentadilla",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/sentadilla.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "hip thrust",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "gluteos",
+                            "imagen": "images/hip_thrust.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pallof press",
+                            "grupo_muscular": "core",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "core",
+                            "imagen": "images/pallof_press.png",
+                            "restricciones": [],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "plancha en polea",
+                            "grupo_muscular": "core",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/plancha_en_polea.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "bicicleta",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/bicicleta.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        }
+                    ],
+                    "4": [
+                        {
+                            "ejercicio": "abduccion de cadera",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/abduccion_de_cadera.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press inclinado con mancuernas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho superior",
+                            "imagen": "images/press_inclinado_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "aperturas con mancuernas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/aperturas_con_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pajaros con mancuernas",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/pajaros_con_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press de hombros",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/press_hombros.png",
+                            "restricciones": [],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ]
+                }
+            },
+            {
+                "fecha": "2026-10-08T10:21:43.595394",
+                "rutina": {
+                    "1": [
+                        {
+                            "ejercicio": "dominadas asistidas",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/dominadas_asistidas.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press banca",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/press_banca.png",
+                            "restricciones": [],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "cruce de poleas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/cruce_de_poleas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "patada de triceps",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/patada_de_triceps.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "fondos asistidos",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/fondos_asistidos.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "2": [
+                        {
+                            "ejercicio": "aduccion de cadera",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/aduccion_de_cadera.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "sentadilla en maquina",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/sentadilla_maquina.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "remo pecho apoyado",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_pecho_apoyado.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pullover con mancuerna",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/pullover_con_mancuerna.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "curl concentrado",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_concentrado.png",
+                            "restricciones": [],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "3": [
+                        {
+                            "ejercicio": "sentadilla",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/sentadilla.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "hip thrust",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "gluteos",
+                            "imagen": "images/hip_thrust.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pallof press",
+                            "grupo_muscular": "core",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "core",
+                            "imagen": "images/pallof_press.png",
+                            "restricciones": [],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "plancha en polea",
+                            "grupo_muscular": "core",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/plancha_en_polea.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "bicicleta",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/bicicleta.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        }
+                    ],
+                    "4": [
+                        {
+                            "ejercicio": "abduccion de cadera",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/abduccion_de_cadera.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press inclinado con mancuernas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho superior",
+                            "imagen": "images/press_inclinado_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "aperturas con mancuernas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/aperturas_con_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pajaros con mancuernas",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/pajaros_con_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press de hombros",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/press_hombros.png",
+                            "restricciones": [],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ]
+                }
+            }
+        ],
+        "sesiones": [
+            {
+                "fecha": "2026-10-08T10:06:38.550949",
+                "dia": 1,
+                "completada": true,
+                "dificultad_percibida": "facil",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:06:38.576709",
+                "dia": 2,
+                "completada": true,
+                "dificultad_percibida": "facil",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:06:38.597816",
+                "dia": 3,
+                "completada": true,
+                "dificultad_percibida": "facil",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:06:38.620096",
+                "dia": 4,
+                "completada": true,
+                "dificultad_percibida": "bien",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:06:38.646826",
+                "dia": 4,
+                "completada": true,
+                "dificultad_percibida": "bien",
+                "comentario": ""
+            }
+        ]
+    },
+    "usuario_adaptacion_prueba": {
+        "rutinas": [],
+        "sesiones": [
+            {
+                "fecha": "2026-10-08T09:59:18.443940",
+                "dia": 1,
+                "completada": true,
+                "dificultad_percibida": "facil",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T09:59:18.557901",
+                "dia": 2,
+                "completada": true,
+                "dificultad_percibida": "facil",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T09:59:18.608877",
+                "dia": 3,
+                "completada": true,
+                "dificultad_percibida": "facil",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T09:59:18.666042",
+                "dia": 4,
+                "completada": true,
+                "dificultad_percibida": "bien",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T09:59:18.702040",
+                "dia": 5,
+                "completada": true,
+                "dificultad_percibida": "bien",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:04:30.065020",
+                "dia": 1,
+                "completada": true,
+                "dificultad_percibida": "facil",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:04:30.091436",
+                "dia": 2,
+                "completada": true,
+                "dificultad_percibida": "facil",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:04:30.117101",
+                "dia": 3,
+                "completada": true,
+                "dificultad_percibida": "facil",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:04:30.137427",
+                "dia": 4,
+                "completada": true,
+                "dificultad_percibida": "bien",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:04:30.161566",
+                "dia": 5,
+                "completada": true,
+                "dificultad_percibida": "bien",
+                "comentario": ""
+            }
+        ]
+    },
+    "usuario_mantener_prueba": {
+        "rutinas": [],
+        "sesiones": [
+            {
+                "fecha": "2026-10-08T10:09:09.525738",
+                "dia": 1,
+                "completada": true,
+                "dificultad_percibida": "bien",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:09:09.557621",
+                "dia": 2,
+                "completada": true,
+                "dificultad_percibida": "bien",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:09:09.581409",
+                "dia": 3,
+                "completada": true,
+                "dificultad_percibida": "bien",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:09:09.608264",
+                "dia": 4,
+                "completada": true,
+                "dificultad_percibida": "facil",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:09:09.633559",
+                "dia": 5,
+                "completada": true,
+                "dificultad_percibida": "bien",
+                "comentario": ""
+            }
+        ]
+    },
+    "usuario_bajar_prueba": {
+        "rutinas": [],
+        "sesiones": [
+            {
+                "fecha": "2026-10-08T10:10:17.899095",
+                "dia": 1,
+                "completada": true,
+                "dificultad_percibida": "dificil",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:10:17.921990",
+                "dia": 2,
+                "completada": true,
+                "dificultad_percibida": "dificil",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:10:17.950567",
+                "dia": 3,
+                "completada": true,
+                "dificultad_percibida": "dificil",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:10:17.974440",
+                "dia": 4,
+                "completada": true,
+                "dificultad_percibida": "bien",
+                "comentario": ""
+            },
+            {
+                "fecha": "2026-10-08T10:10:18.001132",
+                "dia": 5,
+                "completada": true,
+                "dificultad_percibida": "bien",
+                "comentario": ""
+            }
+        ]
+    }
+}
