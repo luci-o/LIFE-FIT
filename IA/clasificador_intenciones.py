@@ -133,11 +133,19 @@ accuracy_train = accuracy_score(
 # CROSS VALIDATION
 # =========================
 
+from sklearn.model_selection import StratifiedKFold
+
+cv = StratifiedKFold(
+    n_splits=5,
+    shuffle=True,
+    random_state=42
+)
+
 scores = cross_val_score(
     modelo_intenciones,
-    X,
-    y,
-    cv=5,
+    X_train,
+    y_train,
+    cv=cv,
     scoring="accuracy"
 )
 

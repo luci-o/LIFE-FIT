@@ -17,12 +17,12 @@
     "siguiente_ejercicio"
   ],
   "cross_validation": [
-    1.0,
-    0.8,
-    0.833,
-    0.833,
-    0.867
+    0.739,
+    0.826,
+    0.913,
+    0.682,
+    0.818
   ],
-  "promedio_cv": 0.867,
+  "promedio_cv": 0.796,
   "umbral_confianza": 0.25
 }

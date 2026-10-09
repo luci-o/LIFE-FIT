@@ -1,1533 +1,423 @@
 import os
-
 import pandas as pd
-
 import numpy as np
-
 from predictor import predecir_dificultad
 
-BASE_DIR = os.path.dirname(
-
-    os.path.abspath(__file__)
-
-)
-
-RUTA_EJERCICIOS = os.path.join(
-
-    BASE_DIR,
-
-    "data",
-
-    "ejercicios.json"
-
-)
-
-ejercicios_df = pd.read_json(
-
-    RUTA_EJERCICIOS
-
-)
-
-
-
-# =========================================================
-
-# DIVISIÓN SEMANAL
-
-
-
-# =========================================================
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+RUTA_EJERCICIOS = os.path.join(BASE_DIR, "data", "ejercicios.json")
+ejercicios_df = pd.read_json(RUTA_EJERCICIOS)
 
 
 def obtener_division(dias, objetivo):
-
-    # GANAR FUERZA
-
     if objetivo == "ganar fuerza":
-
-        if dias == 1:
-
-            return {
-
-                1: [
-
-                    "pecho",
-
-                    "espalda",
-
-                    "piernas",
-
-                    "hombros",
-
-                    "core"
-
-                ]
-
+        divisiones = {
+            1: {1: ["pecho", "espalda", "piernas", "hombros", "core"]},
+            2: {
+                1: ["pecho", "espalda", "piernas"],
+                2: ["hombros", "biceps", "triceps", "core"]
+            },
+            3: {
+                1: ["pecho", "piernas"],
+                2: ["espalda", "biceps"],
+                3: ["hombros", "triceps", "core"]
+            },
+            4: {
+                1: ["pecho", "triceps"],
+                2: ["espalda", "biceps"],
+                3: ["piernas", "core"],
+                4: ["hombros", "pecho"]
+            },
+            5: {
+                1: ["pecho", "triceps"],
+                2: ["espalda", "biceps"],
+                3: ["piernas"],
+                4: ["hombros", "core"],
+                5: ["pecho", "espalda"]
+            },
+            6: {
+                1: ["pecho", "triceps"],
+                2: ["espalda", "biceps"],
+                3: ["piernas", "core"],
+                4: ["pecho", "hombros"],
+                5: ["espalda", "biceps"],
+                6: ["piernas", "core"]
+            },
+            7: {
+                1: ["pecho", "triceps"],
+                2: ["espalda", "biceps"],
+                3: ["piernas", "core"],
+                4: ["pecho", "hombros"],
+                5: ["espalda", "biceps"],
+                6: ["piernas", "core"],
+                7: ["cardio", "core"]
             }
-
-        elif dias == 2:
-
-            return {
-
-                1: [
-
-                    "pecho",
-
-                    "espalda",
-
-                    "piernas"
-
-                ],
-
-                2: [
-
-                    "hombros",
-
-                    "biceps",
-
-                    "triceps",
-
-                    "core"
-
-                ]
-
-            }
-
-        elif dias == 3:
-
-            return {
-
-                1: [
-
-                    "pecho",
-
-                    "piernas"
-
-                ],
-
-                2: [
-
-                    "espalda",
-
-                    "biceps"
-
-                ],
-
-                3: [
-
-                    "hombros",
-
-                    "triceps",
-
-                    "core"
-
-                ]
-
-            }
-
-        elif dias == 4:
-
-            return {
-
-                1: [
-
-                    "pecho",
-
-                    "triceps"
-
-                ],
-
-                2: [
-
-                    "espalda",
-
-                    "biceps"
-
-                ],
-
-                3: [
-
-                    "piernas",
-
-                    "core"
-
-                ],
-
-                4: [
-
-                    "hombros",
-
-                    "pecho"
-
-                ]
-
-            }
-
-        elif dias == 5:
-
-            return {
-
-                1: [
-
-                    "pecho",
-
-                    "triceps"
-
-                ],
-
-                2: [
-
-                    "espalda",
-
-                    "biceps"
-
-                ],
-
-                3: [
-
-                    "piernas"
-
-                ],
-
-                4: [
-
-                    "hombros",
-
-                    "core"
-
-                ],
-
-                5: [
-
-                    "pecho",
-
-                    "espalda"
-
-                ]
-
-            }
-
-        elif dias == 6:
-
-            return {
-
-                1: [
-
-                    "pecho",
-
-                    "triceps"
-
-                ],
-
-                2: [
-
-                    "espalda",
-
-                    "biceps"
-
-                ],
-
-                3: [
-
-                    "piernas",
-
-                    "core"
-
-                ],
-
-                4: [
-
-                    "pecho",
-
-                    "hombros"
-
-                ],
-
-                5: [
-
-                    "espalda",
-
-                    "biceps"
-
-                ],
-
-                6: [
-
-                    "piernas",
-
-                    "core"
-
-                ]
-
-            }
-
-        elif dias == 7:
-
-            return {
-
-                1: [
-
-                    "pecho",
-
-                    "triceps"
-
-                ],
-
-                2: [
-
-                    "espalda",
-
-                    "biceps"
-
-                ],
-
-                3: [
-
-                    "piernas",
-
-                    "core"
-
-                ],
-
-                4: [
-
-                    "pecho",
-
-                    "hombros"
-
-                ],
-
-                5: [
-
-                    "espalda",
-
-                    "biceps"
-
-                ],
-
-                6: [
-
-                    "piernas",
-
-                    "core"
-
-                ],
-
-                7: [
-
-                    "cardio",
-
-                    "core"
-
-                ]
-
-            }
-
-    # MEJORAR RESISTENCIA
+        }
 
     elif objetivo == "mejorar resistencia":
-
-        if dias == 1:
-
-            return {
-
-                1: [
-
-                    "cardio",
-
-                    "piernas",
-
-                    "core",
-
-                    "espalda",
-
-                    "pecho"
-
-                ]
-
+        divisiones = {
+            1: {1: ["cardio", "piernas", "core", "espalda", "pecho"]},
+            2: {
+                1: ["cardio", "piernas", "core"],
+                2: ["cardio", "pecho", "espalda"]
+            },
+            3: {
+                1: ["cardio", "piernas"],
+                2: ["espalda", "core", "cardio"],
+                3: ["pecho", "hombros", "cardio"]
+            },
+            4: {
+                1: ["cardio", "piernas"],
+                2: ["espalda", "core"],
+                3: ["cardio", "pecho"],
+                4: ["hombros", "piernas", "core"]
+            },
+            5: {
+                1: ["cardio", "piernas"],
+                2: ["espalda", "core"],
+                3: ["cardio", "pecho"],
+                4: ["hombros", "piernas"],
+                5: ["cardio", "core"]
+            },
+            6: {
+                1: ["cardio", "piernas"],
+                2: ["espalda", "core"],
+                3: ["cardio", "pecho"],
+                4: ["piernas", "hombros"],
+                5: ["cardio", "espalda"],
+                6: ["core", "pecho"]
+            },
+            7: {
+                1: ["cardio", "piernas"],
+                2: ["espalda", "core"],
+                3: ["cardio", "pecho"],
+                4: ["piernas", "hombros"],
+                5: ["cardio", "espalda"],
+                6: ["core", "pecho"],
+                7: ["cardio", "core"]
             }
-
-        elif dias == 2:
-
-            return {
-
-                1: [
-
-                    "cardio",
-
-                    "piernas",
-
-                    "core"
-
-                ],
-
-                2: [
-
-                    "cardio",
-
-                    "pecho",
-
-                    "espalda"
-
-                ]
-
-            }
-
-        elif dias == 3:
-
-            return {
-
-                1: [
-
-                    "cardio",
-
-                    "piernas"
-
-                ],
-
-                2: [
-
-                    "espalda",
-
-                    "core",
-
-                    "cardio"
-
-                ],
-
-                3: [
-
-                    "pecho",
-
-                    "hombros",
-
-                    "cardio"
-
-                ]
-
-            }
-
-        elif dias == 4:
-
-            return {
-
-                1: [
-
-                    "cardio",
-
-                    "piernas"
-
-                ],
-
-                2: [
-
-                    "espalda",
-
-                    "core"
-
-                ],
-
-                3: [
-
-                    "cardio",
-
-                    "pecho"
-
-                ],
-
-                4: [
-
-                    "hombros",
-
-                    "piernas",
-
-                    "core"
-
-                ]
-
-            }
-
-        elif dias == 5:
-
-            return {
-
-                1: [
-
-                    "cardio",
-
-                    "piernas"
-
-                ],
-
-                2: [
-
-                    "espalda",
-
-                    "core"
-
-                ],
-
-                3: [
-
-                    "cardio",
-
-                    "pecho"
-
-                ],
-
-                4: [
-
-                    "hombros",
-
-                    "piernas"
-
-                ],
-
-                5: [
-
-                    "cardio",
-
-                    "core"
-
-                ]
-
-            }
-
-        elif dias == 6:
-
-            return {
-
-                1: [
-
-                    "cardio",
-
-                    "piernas"
-
-                ],
-
-                2: [
-
-                    "espalda",
-
-                    "core"
-
-                ],
-
-                3: [
-
-                    "cardio",
-
-                    "pecho"
-
-                ],
-
-                4: [
-
-                    "piernas",
-
-                    "hombros"
-
-                ],
-
-                5: [
-
-                    "cardio",
-
-                    "espalda"
-
-                ],
-
-                6: [
-
-                    "core",
-
-                    "pecho"
-
-                ]
-
-            }
-
-        elif dias == 7:
-
-            return {
-
-                1: [
-
-                    "cardio",
-
-                    "piernas"
-
-                ],
-
-                2: [
-
-                    "espalda",
-
-                    "core"
-
-                ],
-
-                3: [
-
-                    "cardio",
-
-                    "pecho"
-
-                ],
-
-                4: [
-
-                    "piernas",
-
-                    "hombros"
-
-                ],
-
-                5: [
-
-                    "cardio",
-
-                    "espalda"
-
-                ],
-
-                6: [
-
-                    "core",
-
-                    "pecho"
-
-                ],
-
-                7: [
-
-                    "cardio",
-
-                    "core"
-
-                ]
-
-            }
-
-    # BAJAR PESO
+        }
 
     elif objetivo == "bajar peso":
-
-        if dias == 1:
-
-            return {
-
-                1: [
-
-                    "cardio",
-
-                    "piernas",
-
-                    "core",
-
-                    "pecho",
-
-                    "espalda"
-
-                ]
-
+        divisiones = {
+            1: {1: ["cardio", "piernas", "core", "pecho", "espalda"]},
+            2: {
+                1: ["piernas", "pecho", "espalda", "core", "cardio"],
+                2: ["piernas", "pecho", "espalda", "core", "cardio"]
+            },
+            3: {
+                1: ["cardio", "piernas"],
+                2: ["pecho", "espalda", "core"],
+                3: ["cardio", "hombros", "piernas"]
+            },
+            4: {
+                1: ["cardio", "piernas"],
+                2: ["pecho", "espalda"],
+                3: ["cardio", "core"],
+                4: ["hombros", "piernas"]
+            },
+            5: {
+                1: ["cardio", "piernas"],
+                2: ["pecho", "espalda"],
+                3: ["cardio", "core"],
+                4: ["hombros", "piernas"],
+                5: ["cardio", "pecho", "espalda"]
+            },
+            6: {
+                1: ["cardio", "piernas"],
+                2: ["pecho", "espalda"],
+                3: ["cardio", "core"],
+                4: ["piernas", "hombros"],
+                5: ["cardio", "espalda"],
+                6: ["pecho", "core"]
+            },
+            7: {
+                1: ["cardio", "piernas"],
+                2: ["pecho", "espalda"],
+                3: ["cardio", "core"],
+                4: ["piernas", "hombros"],
+                5: ["cardio", "espalda"],
+                6: ["pecho", "core"],
+                7: ["cardio", "piernas"]
             }
+        }
 
-        elif dias == 2:
+    else:
+        return {}
 
-            return {
-
-                1: [
-
-                    "piernas",
-
-                    "pecho",
-
-                    "espalda",
-
-                    "core",
-
-                    "cardio"
-
-                ],
-
-                2: [
-
-                    "piernas",
-
-                    "pecho",
-
-                    "espalda",
-
-                    "core",
-
-                    "cardio"
-
-                ]
-
-            }
-
-        elif dias == 3:
-
-            return {
-
-                1: [
-
-                    "cardio",
-
-                    "piernas"
-
-                ],
-
-                2: [
-
-                    "pecho",
-
-                    "espalda",
-
-                    "core"
-
-                ],
-
-                3: [
-
-                    "cardio",
-
-                    "hombros",
-
-                    "piernas"
-
-                ]
-
-            }
-
-        elif dias == 4:
-
-            return {
-
-                1: [
-
-                    "cardio",
-
-                    "piernas"
-
-                ],
-
-                2: [
-
-                    "pecho",
-
-                    "espalda"
-
-                ],
-
-                3: [
-
-                    "cardio",
-
-                    "core"
-
-                ],
-
-                4: [
-
-                    "hombros",
-
-                    "piernas"
-
-                ]
-
-            }
-
-        elif dias == 5:
-
-            return {
-
-                1: [
-
-                    "cardio",
-
-                    "piernas"
-
-                ],
-
-                2: [
-
-                    "pecho",
-
-                    "espalda"
-
-                ],
-
-                3: [
-
-                    "cardio",
-
-                    "core"
-
-                ],
-
-                4: [
-
-                    "hombros",
-
-                    "piernas"
-
-                ],
-
-                5: [
-
-                    "cardio",
-
-                    "pecho",
-
-                    "espalda"
-
-                ]
-
-            }
-
-        elif dias == 6:
-
-            return {
-
-                1: [
-
-                    "cardio",
-
-                    "piernas"
-
-                ],
-
-                2: [
-
-                    "pecho",
-
-                    "espalda"
-
-                ],
-
-                3: [
-
-                    "cardio",
-
-                    "core"
-
-                ],
-
-                4: [
-
-                    "piernas",
-
-                    "hombros"
-
-                ],
-
-                5: [
-
-                    "cardio",
-
-                    "espalda"
-
-                ],
-
-                6: [
-
-                    "pecho",
-
-                    "core"
-
-                ]
-
-            }
-
-        elif dias == 7:
-
-            return {
-
-                1: [
-
-                    "cardio",
-
-                    "piernas"
-
-                ],
-
-                2: [
-
-                    "pecho",
-
-                    "espalda"
-
-                ],
-
-                3: [
-
-                    "cardio",
-
-                    "core"
-
-                ],
-
-                4: [
-
-                    "piernas",
-
-                    "hombros"
-
-                ],
-
-                5: [
-
-                    "cardio",
-
-                    "espalda"
-
-                ],
-
-                6: [
-
-                    "pecho",
-
-                    "core"
-
-                ],
-
-                7: [
-
-                    "cardio",
-
-                    "piernas"
-
-                ]
-
-            }
-
-    return {}
-
-
-
-# =========================================================
-
-# EVALUACIÓN DEL USUARIO
-
-
-
-# =========================================================
-
+    return divisiones.get(dias, {})
 
 
 def evaluar_usuario(
-
     edad,
-
     peso,
-
     objetivo,
-
     dias,
-
     tiempo,
-
     experiencia,
-
     lugar,
-
     zona_lesion,
-
     estado_lesion
-
 ):
-
     dificultad = predecir_dificultad(
-
         edad,
-
         peso,
-
         objetivo,
-
         dias,
-
         tiempo,
-
         experiencia,
-
         lugar,
-
         zona_lesion if zona_lesion != "nada" else "nada"
-
     )
 
     if estado_lesion == "actual":
-
         requiere_adaptacion = "si"
-
         tipo_adaptacion = "especial"
-
         accion = (
-
             f"limitar ejercicios de {zona_lesion} "
-
             "y requerir revision profesional"
-
         )
 
     elif estado_lesion == "pasada":
-
         requiere_adaptacion = "si"
-
         tipo_adaptacion = "preventiva"
-
-        accion = (
-
-            f"adaptar ejercicios para cuidar "
-
-            f"{zona_lesion}"
-
-        )
+        accion = f"adaptar ejercicios para cuidar {zona_lesion}"
 
     else:
-
         requiere_adaptacion = "no"
-
         tipo_adaptacion = "ninguna"
-
         accion = "rutina normal"
 
     return {
-
         "dificultad": dificultad,
-
         "requiere_adaptacion": requiere_adaptacion,
-
         "tipo_adaptacion": tipo_adaptacion,
-
         "accion_rutina": accion
-
     }
 
 
-
-# =========================================================
-
-# CANTIDAD DE EJERCICIOS SEGÚN TIEMPO
-
-
-
-# =========================================================
-
-
-
 def cantidad_ejercicios_segun_tiempo(tiempo):
-
     if tiempo <= 20:
-
         return 2
-
     elif tiempo <= 35:
-
         return 4
-
     elif tiempo <= 50:
-
         return 5
-
     elif tiempo <= 65:
-
         return 6
-
     elif tiempo <= 80:
-
         return 7
-
     elif tiempo <= 100:
-
         return 8
-
     else:
-
         return 9
 
 
-
-# =========================================================
-
-# GENERAR PLAN SEMANAL
-
-
-
-# =========================================================
-
-
-
 def obtener_familia_ejercicio(nombre):
-
     nombre = nombre.lower()
 
     if "flexion" in nombre:
-
         return "flexiones"
 
     if "remo" in nombre:
-
         return "remos"
 
     if "curl" in nombre:
-
         return "curls"
 
     if "elevacion" in nombre:
-
         return "elevaciones"
 
     if "mountain climber" in nombre:
-
         return "mountain_climbers"
 
     return nombre
 
 
-
 def generar_plan_semanal(
-
     dias,
-
     lugar,
-
     dificultad,
-
     objetivo,
-
     zona_lesion="nada",
-
     cantidad_por_dia=3
-
 ):
-
     division = obtener_division(dias, objetivo)
 
-
-
     plan = {}
-
     ejercicios_usados = set()
 
-
-
     if dificultad == "Dificil":
-
         niveles = ["Dificil", "Medio", "Facil"]
-
     elif dificultad == "Medio":
-
         niveles = ["Medio", "Facil"]
-
     else:
-
         niveles = ["Facil"]
 
-
-
     def filtrar_ejercicios(grupos):
-
         ejercicios = ejercicios_df[
-
             (ejercicios_df["lugar"] == lugar)
-
             & (ejercicios_df["grupo_muscular"].isin(grupos))
-
             & (ejercicios_df["dificultad"].isin(niveles))
-
         ].copy()
 
-
-
         if zona_lesion != "nada":
-
             ejercicios = ejercicios[
-
                 ejercicios["restricciones"].apply(
-
                     lambda restricciones:
-
                     zona_lesion not in restricciones
-
                 )
-
             ].copy()
 
-
-
         ejercicios["ya_usado"] = ejercicios["ejercicio"].apply(
-
-            lambda ejercicio:
-
-            1 if ejercicio in ejercicios_usados else 0
-
+            lambda nombre: int(nombre in ejercicios_usados)
         )
-
-
 
         ejercicios["prioridad_dificultad"] = ejercicios[
-
             "dificultad"
-
         ].apply(
-
             lambda nivel:
-
-            niveles.index(nivel)
-
-            if nivel in niveles
-
-            else 999
-
+            niveles.index(nivel) if nivel in niveles else 999
         )
-
-
 
         ejercicios["azar"] = np.random.random(len(ejercicios))
 
-
-
-        ejercicios = ejercicios.sort_values(
-
-            [
-
-                "ya_usado",
-
-                "prioridad_dificultad",
-
-                "azar"
-
-            ]
-
+        return ejercicios.sort_values(
+            ["ya_usado", "prioridad_dificultad", "azar"]
         )
 
-
-
-        return ejercicios
-
-
-
     for dia, grupos_dia in division.items():
-
         candidatos = filtrar_ejercicios(grupos_dia)
 
-
-
         if candidatos.empty:
-
             plan[dia] = ejercicios_df.iloc[0:0].copy()
-
             continue
 
-
-
         seleccionados = []
-
         nombres_seleccionados = set()
-
         conteo_grupos = {}
-
         familias_usadas = set()
 
-
-
         while len(seleccionados) < cantidad_por_dia:
-
             agregado = False
 
-
-
             for grupo in grupos_dia:
-
                 if conteo_grupos.get(grupo, 0) >= 2:
-
                     continue
 
-
-
                 opciones = candidatos[
-
                     candidatos["grupo_muscular"] == grupo
-
                 ]
-
-
 
                 opciones = opciones[
-
-                    ~opciones["ejercicio"].isin(
-
-                        nombres_seleccionados
-
-                    )
-
+                    ~opciones["ejercicio"].isin(nombres_seleccionados)
                 ]
 
-
-
                 if not opciones.empty:
-
                     agregado_grupo = False
 
-
-
                     for _, ejercicio in opciones.iterrows():
-
                         if ejercicio["ejercicio"] in ejercicios_usados:
-
                             continue
-
-
 
                         familia = obtener_familia_ejercicio(
-
                             ejercicio["ejercicio"]
-
                         )
-
-
 
                         if familia in familias_usadas:
-
                             continue
 
-
-
-                        seleccionados.append(
-
-                            ejercicio.to_dict()
-
-                        )
-
-
-
-                        nombres_seleccionados.add(
-
-                            ejercicio["ejercicio"]
-
-                        )
-
-
-
+                        seleccionados.append(ejercicio.to_dict())
+                        nombres_seleccionados.add(ejercicio["ejercicio"])
                         familias_usadas.add(familia)
 
-
-
                         conteo_grupos[grupo] = (
-
                             conteo_grupos.get(grupo, 0) + 1
-
                         )
 
-
-
                         agregado = True
-
                         agregado_grupo = True
-
                         break
 
-
-
-                    if agregado_grupo and len(seleccionados) >= cantidad_por_dia:
-
+                    if (
+                        agregado_grupo
+                        and len(seleccionados) >= cantidad_por_dia
+                    ):
                         break
-
-
 
                 if len(seleccionados) >= cantidad_por_dia:
-
                     break
 
-
-
             if not agregado:
-
                 break
 
-
-
         seleccionados_df = pd.DataFrame(
-
-            seleccionados
-
+            seleccionados,
+            columns=ejercicios_df.columns
         ).head(cantidad_por_dia)
 
-
-
         if not seleccionados_df.empty:
-
             seleccionados_df = seleccionados_df.drop(
-
                 columns=[
-
                     "ya_usado",
-
                     "prioridad_dificultad",
-
                     "azar"
-
                 ],
-
                 errors="ignore"
-
             )
-
-
 
             ejercicios_usados.update(
-
                 seleccionados_df["ejercicio"].tolist()
-
             )
 
-
-
         plan[dia] = seleccionados_df.reset_index(drop=True)
-
-
 
     return plan
 
 
-
-# =========================================================
-
-# SERIES Y REPETICIONES
-
-
-
-# =========================================================
-
-
-
-def parametros_entrenamiento(
-
-    dificultad
-
-):
-
+def parametros_entrenamiento(dificultad):
     if dificultad == "Facil":
-
         return {
-
             "series": 2,
-
             "repeticiones": "8-10"
-
         }
-
     elif dificultad == "Medio":
-
         return {
-
             "series": 3,
-
             "repeticiones": "10-12"
-
         }
-
     else:
-
         return {
-
             "series": 4,
-
             "repeticiones": "10-15"
-
         }
 
 
-
-def agregar_parametros_plan(
-
-    plan_semanal,
-
-    dificultad
-
-):
-
-    parametros = parametros_entrenamiento(
-
-        dificultad
-
-    )
-
+def agregar_parametros_plan(plan_semanal, dificultad):
+    parametros = parametros_entrenamiento(dificultad)
     plan_con_parametros = {}
 
     for dia, rutina in plan_semanal.items():
-
         rutina = rutina.copy()
 
         if rutina.empty:
-
             plan_con_parametros[dia] = rutina
-
             continue
 
-        rutina["series"] = rutina[
-
-            "grupo_muscular"
-
-        ].apply(
-
+        rutina["series"] = rutina["grupo_muscular"].apply(
             lambda grupo:
-
-            "-"
-
-            if grupo == "cardio"
-
-            else parametros["series"]
-
+            "-" if grupo == "cardio" else parametros["series"]
         )
 
-        rutina[
-
-            "repeticiones"
-
-        ] = rutina[
-
-            "grupo_muscular"
-
-        ].apply(
-
+        rutina["repeticiones"] = rutina["grupo_muscular"].apply(
             lambda grupo:
-
             "por tiempo"
-
             if grupo == "cardio"
-
-            else parametros[
-
-                "repeticiones"
-
-            ]
-
+            else parametros["repeticiones"]
         )
 
-        plan_con_parametros[
-
-            dia
-
-        ] = rutina
+        plan_con_parametros[dia] = rutina
 
     return plan_con_parametros
-
-
-
-# =========================================================
-
-# GENERAR PLAN PERSONALIZADO
-
-
-
-# =========================================================
-
 
 
 def generar_plan_personalizado(
@@ -1585,6 +475,7 @@ def generar_plan_personalizado(
                         minutos_totales += 10
                 else:
                     minutos_totales += 10
+
             else:
                 series = ejercicio["series"]
                 minutos_totales += series * 2.5 + 1.5
@@ -1627,16 +518,12 @@ def generar_plan_personalizado(
                     objetivo
                 ).get(dia, [])
             else:
-                grupos_dia = (
-                    rutina["grupo_muscular"]
-                    .unique()
-                    .tolist()
-                )
+                grupos_dia = rutina[
+                    "grupo_muscular"
+                ].unique().tolist()
 
             conteo_grupos_actual = (
-                rutina["grupo_muscular"]
-                .value_counts()
-                .to_dict()
+                rutina["grupo_muscular"].value_counts().to_dict()
                 if not rutina.empty
                 else {}
             )
@@ -1677,22 +564,23 @@ def generar_plan_personalizado(
                         zona_lesion not in restricciones
                     )
                 ].copy()
-            if candidatos.empty:
-                break
-            candidatos = candidatos[
-                candidatos["grupo_muscular"].apply(
-                    lambda grupo:
-                    conteo_grupos_actual.get(grupo, 0) < 2
-                )
-            ].copy()
 
-            candidatos = candidatos[
-                candidatos["ejercicio"].apply(
-                    lambda nombre:
-                    obtener_familia_ejercicio(nombre)
-                    not in familias_actuales
-                )
-            ].copy()
+            if not candidatos.empty:
+                candidatos = candidatos.loc[
+                    candidatos["grupo_muscular"].map(
+                        lambda grupo:
+                        conteo_grupos_actual.get(grupo, 0) < 2
+                    ).astype(bool)
+                ].copy()
+
+            if not candidatos.empty:
+                candidatos = candidatos.loc[
+                    candidatos["ejercicio"].map(
+                        lambda nombre:
+                        obtener_familia_ejercicio(nombre)
+                        not in familias_actuales
+                    ).astype(bool)
+                ].copy()
 
             if candidatos.empty:
                 candidatos = ejercicios_df[
@@ -1717,20 +605,22 @@ def generar_plan_personalizado(
                         )
                     ].copy()
 
-                candidatos = candidatos[
-                    candidatos["grupo_muscular"].apply(
-                        lambda grupo:
-                        conteo_grupos_actual.get(grupo, 0) < 2
-                    )
-                ].copy()
+                if not candidatos.empty:
+                    candidatos = candidatos.loc[
+                        candidatos["grupo_muscular"].map(
+                            lambda grupo:
+                            conteo_grupos_actual.get(grupo, 0) < 2
+                        ).astype(bool)
+                    ].copy()
 
-                candidatos = candidatos[
-                    candidatos["ejercicio"].apply(
-                        lambda nombre:
-                        obtener_familia_ejercicio(nombre)
-                        not in familias_actuales
-                    )
-                ].copy()
+                if not candidatos.empty:
+                    candidatos = candidatos.loc[
+                        candidatos["ejercicio"].map(
+                            lambda nombre:
+                            obtener_familia_ejercicio(nombre)
+                            not in familias_actuales
+                        ).astype(bool)
+                    ].copy()
 
             if candidatos.empty:
                 break
@@ -1762,7 +652,38 @@ def generar_plan_personalizado(
             ejercicios_usados.add(
                 nuevo["ejercicio"]
             )
+        if rutina.empty:
+            alternativas = ejercicios_df[
+                (ejercicios_df["lugar"] == lugar)
+                & (ejercicios_df["dificultad"].isin(niveles))
+            ].copy()
 
+            if zona_lesion != "nada":
+                alternativas = alternativas.loc[
+                    alternativas["restricciones"].map(
+                        lambda restricciones:
+                        zona_lesion not in restricciones
+                    ).astype(bool)
+                ].copy()
+
+            if not alternativas.empty:
+                alternativas = alternativas.sample(
+                    n=min(cantidad, len(alternativas))
+                )
+
+                rutina = alternativas.copy()
+
+                rutina["series"] = rutina["grupo_muscular"].apply(
+                    lambda grupo:
+                    "-" if grupo == "cardio"
+                    else parametros["series"]
+                )
+
+                rutina["repeticiones"] = rutina["grupo_muscular"].apply(
+                    lambda grupo:
+                    "por tiempo" if grupo == "cardio"
+                    else parametros["repeticiones"]
+                )
         rutina = rutina.head(cantidad)
 
         orden_grupos = {
@@ -1776,15 +697,20 @@ def generar_plan_personalizado(
             "cardio": 8
         }
 
-        rutina["orden_grupo"] = rutina[
-            "grupo_muscular"
-        ].map(orden_grupos).fillna(99)
+        if rutina.empty:
+            rutina = ejercicios_df.iloc[0:0].copy()
+            rutina["series"] = pd.Series(dtype="object")
+            rutina["repeticiones"] = pd.Series(dtype="object")
+        else:
+            rutina["orden_grupo"] = rutina[
+                "grupo_muscular"
+            ].map(orden_grupos).fillna(99)
 
-        rutina = rutina.sort_values(
-            "orden_grupo"
-        ).drop(
-            columns=["orden_grupo"]
-        )
+            rutina = rutina.sort_values(
+                "orden_grupo"
+            ).drop(
+                columns=["orden_grupo"]
+            )
 
         plan_ajustado[dia] = rutina.reset_index(
             drop=True
