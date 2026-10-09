@@ -1,12 +1,13 @@
 {
   "accuracy_train": 1.0,
-  "accuracy_test": 0.853,
-  "cantidad_mensajes": 136,
-  "cantidad_entrenamiento": 102,
-  "cantidad_prueba": 34,
+  "accuracy_test": 0.921,
+  "cantidad_mensajes": 151,
+  "cantidad_entrenamiento": 113,
+  "cantidad_prueba": 38,
   "clases": [
     "cambiar_ejercicio",
     "dia_especifico",
+    "evitar_zona",
     "explicacion",
     "menos_tiempo",
     "musculo",
@@ -17,11 +18,11 @@
   ],
   "cross_validation": [
     1.0,
-    0.741,
-    0.815,
-    0.815,
-    0.889
+    0.8,
+    0.833,
+    0.833,
+    0.867
   ],
-  "promedio_cv": 0.852,
+  "promedio_cv": 0.867,
   "umbral_confianza": 0.25
 }

@@ -144,3 +144,19 @@ reduce la rutina de hoy,menos_tiempo
 recortame la rutina,menos_tiempo
 tengo poco tiempo hoy,menos_tiempo
 hoy estoy corto de tiempo,menos_tiempo
+
+hoy no puedo hacer piernas,evitar_zona
+no puedo entrenar piernas hoy,evitar_zona
+hoy no quiero hacer piernas,evitar_zona
+evita piernas hoy,evitar_zona
+me duele el hombro,evitar_zona
+hoy me duele el hombro,evitar_zona
+no puedo hacer hombros hoy,evitar_zona
+evita hombro hoy,evitar_zona
+me duele la espalda,evitar_zona
+hoy me duele la espalda,evitar_zona
+no quiero trabajar espalda hoy,evitar_zona
+evita espalda hoy,evitar_zona
+tengo molestia en la pierna,evitar_zona
+tengo molestia en el hombro,evitar_zona
+tengo molestia en la espalda,evitar_zona

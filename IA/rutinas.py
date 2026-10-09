@@ -1677,7 +1677,8 @@ def generar_plan_personalizado(
                         zona_lesion not in restricciones
                     )
                 ].copy()
-
+            if candidatos.empty:
+                break
             candidatos = candidatos[
                 candidatos["grupo_muscular"].apply(
                     lambda grupo:
