@@ -482,6 +482,18 @@
     ]
   },
   {
+    "ejercicio":"elevaciones de piernas",
+    "grupo_muscular":"core",
+    "dificultad":"Medio",
+    "lugar":"hogar",
+    "evitar_si_lesion":"Espalda",
+    "musculo_principal":"core",
+    "imagen":"images\/elevaciones_de_piernas.png",
+    "restricciones":[
+      "Espalda"
+    ]
+  },
+  {
     "ejercicio":"mountain climbers lentos",
     "grupo_muscular":"core",
     "dificultad":"Medio",
@@ -873,6 +885,18 @@
     "evitar_si_lesion":"Pierna",
     "musculo_principal":"gluteos",
     "imagen":"images\/hip_thrust.png",
+    "restricciones":[
+      "Pierna"
+    ]
+  },
+  {
+    "ejercicio":"step up",
+    "grupo_muscular":"piernas",
+    "dificultad":"Medio",
+    "lugar":"hogar",
+    "evitar_si_lesion":"Pierna",
+    "musculo_principal":"piernas",
+    "imagen":"images\/step_up.png",
     "restricciones":[
       "Pierna"
     ]
@@ -1572,124 +1596,5 @@
     "restricciones":[
       "Pierna"
     ]
-  },
-  {
-  "ejercicio": "plancha en polea",
-  "grupo_muscular": "core",
-  "dificultad": "Medio",
-  "lugar": "gym",
-  "evitar_si_lesion": "Espalda",
-  "musculo_principal": "core",
-  "imagen": "images/plancha_en_polea.png",
-  "restricciones": [
-    "Espalda"
-  ]
-},
-{
-  "ejercicio": "woodchopper en polea",
-  "grupo_muscular": "core",
-  "dificultad": "Medio",
-  "lugar": "gym",
-  "evitar_si_lesion": "Espalda",
-  "musculo_principal": "core",
-  "imagen": "images/woodchopper_en_polea.png",
-  "restricciones": [
-    "Espalda"
-  ]
-},
-{
-  "ejercicio": "elevacion de rodillas en silla romana",
-  "grupo_muscular": "core",
-  "dificultad": "Medio",
-  "lugar": "gym",
-  "evitar_si_lesion": "Espalda",
-  "musculo_principal": "core",
-  "imagen": "images/elevacion_rodillas_silla_romana.png",
-  "restricciones": [
-    "Espalda"
-  ]
-},
-{
-  "ejercicio": "cinta de correr",
-  "grupo_muscular": "cardio",
-  "dificultad": "Facil",
-  "lugar": "gym",
-  "evitar_si_lesion": "Pierna",
-  "musculo_principal": "cardio",
-  "imagen": "images/cinta_de_correr.png",
-  "restricciones": [
-    "Pierna"
-  ]
-},
-{
-  "ejercicio": "escaladora",
-  "grupo_muscular": "cardio",
-  "dificultad": "Medio",
-  "lugar": "gym",
-  "evitar_si_lesion": "Pierna",
-  "musculo_principal": "cardio",
-  "imagen": "images/escaladora.png",
-  "restricciones": [
-    "Pierna"
-  ]
-},
-{
-  "ejercicio": "air bike",
-  "grupo_muscular": "cardio",
-  "dificultad": "Medio",
-  "lugar": "gym",
-  "evitar_si_lesion": "Pierna",
-  "musculo_principal": "cardio",
-  "imagen": "images/air_bike.png",
-  "restricciones": [
-    "Pierna"
-  ]
-}
-,
-{
-  "ejercicio": "remo con toalla",
-  "grupo_muscular": "espalda",
-  "dificultad": "Facil",
-  "lugar": "hogar",
-  "evitar_si_lesion": "Espalda",
-  "musculo_principal": "espalda",
-  "imagen": "images/remo_con_toalla.png",
-  "restricciones": [
-    "Espalda"
-  ]
-},
-{
-  "ejercicio": "press de pecho con banda",
-  "grupo_muscular": "pecho",
-  "dificultad": "Facil",
-  "lugar": "hogar",
-  "evitar_si_lesion": "Hombro",
-  "musculo_principal": "pecho",
-  "imagen": "images/press_pecho_con_banda.png",
-  "restricciones": [
-    "Hombro"
-  ]
-},
-{
-  "ejercicio": "curl isometrico con banda",
-  "grupo_muscular": "biceps",
-  "dificultad": "Facil",
-  "lugar": "hogar",
-  "evitar_si_lesion": "nada",
-  "musculo_principal": "biceps",
-  "imagen": "images/curl_isometrico_con_banda.png",
-  "restricciones": []
-},
-{
-  "ejercicio": "extension de triceps acostado",
-  "grupo_muscular": "triceps",
-  "dificultad": "Medio",
-  "lugar": "hogar",
-  "evitar_si_lesion": "Hombro",
-  "musculo_principal": "triceps",
-  "imagen": "images/extension_triceps_acostado.png",
-  "restricciones": [
-    "Hombro"
-  ]
-}
+  }
 ]

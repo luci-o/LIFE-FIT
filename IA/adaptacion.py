@@ -1,6 +1,5 @@
 from historial import obtener_ultimas_sesiones
 
-
 def analizar_feedback_semanal(
     usuario_id,
     cantidad_sesiones=5
@@ -16,6 +15,12 @@ def analizar_feedback_semanal(
             "motivo": "No hay sesiones registradas"
         }
 
+    if len(sesiones) < cantidad_sesiones:
+        return {
+            "accion": "datos_insuficientes",
+            "motivo": "Todavía no hay suficientes sesiones para evaluar la progresión",
+            "sesiones_analizadas": len(sesiones)
+        }
     completadas = 0
     faciles = 0
     normales = 0
