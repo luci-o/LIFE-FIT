@@ -3,15 +3,11 @@ import cors from "cors";
 const app = express();
 const port = 3000;
 
-const objetivo = ["bajar de peso", "aumentar resistencia", "ganar fuerza"];
-const niveles  = ["principiante", "intermedio", "avanzado"];
-const lugares  = ["gym", "hogar", "aire libre"];
-
 import usuarios from "../controlers/usuario.js";
 import ejercicios from "../controlers/ejercicios.js";
 import Nutricion from "../controlers/Nutricion.js";
 import progreso from "../controlers/progreso.js";
-import { verificarToken, verificarUsuario } from "../Auth.js";
+import { verificarToken, verificarUsuario } from "../middleware/Auth.js";
 import ia from "../controlers/ia.js";
 import chat from "../controlers/chat.js";
 
@@ -35,6 +31,7 @@ app.get("/usuarios/:id/progreso",  verificarToken, verificarUsuario, progreso.ve
 app.post("/usuarios/:id/progreso", verificarToken, verificarUsuario, progreso.registrarProgreso);
 app.get("/usuarios/:id/nutricion", verificarToken, verificarUsuario, Nutricion.verDieta);
 app.post("/usuarios/:id/nutricion", verificarToken, verificarUsuario, Nutricion.guardarDieta);
+app.put("/usuarios/:id/rutina/:idEjercicio/realizado", verificarToken, verificarUsuario, ejercicios.marcarRealizado);
 app.get   ("/usuarios/:id/chat",verificarToken, verificarUsuario, chat.listarConversaciones);
 app.post  ("/usuarios/:id/chat", verificarToken, verificarUsuario, chat.crearConversacion);
 app.delete("/usuarios/:id/chat/:idConv", verificarToken, verificarUsuario, chat.borrarConversacion);
