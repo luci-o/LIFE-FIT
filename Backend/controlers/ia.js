@@ -25,13 +25,23 @@ const generarRutina = async (req, res) => {
       lugar:       p["LUGAR DONDE ENTRENA"],
       lesiones:    lesiones.rows[0]?.["ZONAS LESIONADAS"] || "nada",
     }
-    const respuesta = await fetch(`${IA_URL}/generar-rutina`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(datosIA),
-    });
+    let respuesta;
+    try {
+      respuesta = await fetch(`${IA_URL}/generar-rutina`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(datosIA),
+      });
+    } catch {
+      return res.status(502).json({
+        message: "No se pudo contactar a la IA. Probá de nuevo en un rato.",
+      });
+    }
+
     if (!respuesta.ok) {
-      return res.status(502).json({ message: "La IA no respondió correctamente" });
+      return res.status(502).json({
+        message: "La IA no respondió correctamente. Probá de nuevo en un rato.",
+      });
     }
     const { dificultad, plan } = await respuesta.json();
     let cantidad = 0;
