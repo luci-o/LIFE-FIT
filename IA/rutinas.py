@@ -18,6 +18,18 @@ RUTA_EJERCICIOS = os.path.join(
 ejercicios_df = pd.read_json(
     RUTA_EJERCICIOS
 )
+def obtener_familia_ejercicio(nombre):
+    ejercicio = ejercicios_df[
+        ejercicios_df["ejercicio"] == nombre
+    ]
+
+    if ejercicio.empty:
+        return str(nombre).strip().lower()
+
+    return str(
+        ejercicio.iloc[0]["musculo_principal"]
+    ).strip().lower()
+
 
 def obtener_division(dias, objetivo):
 
@@ -626,5 +638,4 @@ def generar_plan_personalizado(
         "cantidad_ejercicios_por_dia": cantidad,
         "plan_semanal": plan_ajustado
     }
-
 

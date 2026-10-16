@@ -2,12 +2,16 @@ from historial import obtener_ultimas_sesiones
 
 def analizar_feedback_semanal(
     usuario_id,
-    cantidad_sesiones=5
+    cantidad_sesiones=5,
+    sesiones=None
 ):
-    sesiones = obtener_ultimas_sesiones(
-        usuario_id,
-        cantidad_sesiones
-    )
+    if sesiones is None:
+        sesiones = obtener_ultimas_sesiones(
+            usuario_id,
+            cantidad_sesiones
+        )
+    else:
+        sesiones = sesiones[-cantidad_sesiones:]
 
     if not sesiones:
         return {
