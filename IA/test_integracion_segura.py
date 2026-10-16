@@ -1,3 +1,4 @@
+
 import os
 import json
 import tempfile
@@ -24,16 +25,21 @@ def probar_adaptacion(dificultad, accion_esperada, series_esperadas):
 
         datos = {
             "usuario_test": {
-                "rutinas": [{
-                    "fecha": "2026-10-09T10:00:00",
-                    "rutina": {
-                        "1": [{
-                            "ejercicio": "sentadilla",
-                            "grupo_muscular": "piernas",
-                            "series": 3
-                        }]
+                "rutinas": [
+                    {
+                        "fecha": "2026-10-09T10:00:00",
+                        "rutina": {
+                            "1": [
+                                {
+                                    "ejercicio": "sentadilla",
+                                    "grupo_muscular": "piernas",
+                                    "series": 3,
+                                    "restricciones": ["Pierna"]
+                                }
+                            ]
+                        }
                     }
-                }],
+                ],
                 "sesiones": sesiones
             }
         }
@@ -42,23 +48,45 @@ def probar_adaptacion(dificultad, accion_esperada, series_esperadas):
             json.dump(datos, archivo)
 
         with patch.object(historial, "RUTA_HISTORIAL", ruta):
-            primera = procesar_adaptacion("usuario_test")
-            segunda = procesar_adaptacion("usuario_test")
+            primera = procesar_adaptacion(
+                usuario_id="usuario_test",
+                zona_lesion="nada"
+            )
 
-            usuario = historial.obtener_historial_usuario("usuario_test")
+            usuario = historial.obtener_historial_usuario(
+                "usuario_test"
+            )
 
             series = usuario["rutinas"][-1]["rutina"]["1"][0]["series"]
 
             assert primera["ok"] is True, primera
             assert primera["accion"] == accion_esperada, primera
-            assert series == series_esperadas
-            assert segunda["accion"] == "datos_insuficientes"
-            assert len(historial.obtener_sesiones_pendientes("usuario_test")) == 0
+            assert series == series_esperadas, (
+                f"Esperaba {series_esperadas} series, obtuve {series}"
+            )
 
-            cantidad_rutinas = 1 if accion_esperada == "mantener" else 2
+            segunda = procesar_adaptacion(
+                usuario_id="usuario_test",
+                zona_lesion="nada"
+            )
+
+            assert segunda["accion"] == "datos_insuficientes", segunda
+
+            pendientes = historial.obtener_sesiones_pendientes(
+                "usuario_test"
+            )
+
+            assert len(pendientes) == 0
+
+            cantidad_rutinas = (
+                1 if accion_esperada == "mantener" else 2
+            )
+
             assert len(usuario["rutinas"]) == cantidad_rutinas
 
-            print(f"{accion_esperada.upper()}: OK | Series: {series}")
+            print(
+                f"{accion_esperada.upper()}: OK | Series: {series}"
+            )
             print("Sin adaptación duplicada: OK")
 
 

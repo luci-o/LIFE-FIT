@@ -353,7 +353,13 @@ def ejercicio_afecta_zona(ejercicio, zona):
     )
 
 
-def adaptar_rutina_evitar_zona(rutina, dia_actual, zona):
+
+def adaptar_rutina_evitar_zona(
+    rutina,
+    dia_actual,
+    zona,
+    zona_lesion="nada"
+):
     if dia_actual is None:
         return False, "No recibí el día actual de tu rutina."
 
@@ -363,29 +369,57 @@ def adaptar_rutina_evitar_zona(rutina, dia_actual, zona):
     clave = str(dia_actual)
 
     if clave not in rutina:
-        return False, f"No tenés una rutina cargada para el día {dia_actual}."
+        return False, (
+            f"No tenés una rutina cargada para el día {dia_actual}."
+        )
+
+    zonas_activas = (
+        normalizar_zonas_lesion(zona_lesion)
+        | normalizar_zonas_lesion(zona)
+    )
+
+    grupos_restringidos = {
+        "Pierna": "piernas",
+        "Hombro": "hombros",
+        "Espalda": "espalda"
+    }
+
+    grupos_a_evitar = {
+        grupos_restringidos[z]
+        for z in zonas_activas
+    }
+
+    def es_incompatible(ejercicio):
+        restricciones = set(
+            ejercicio.get("restricciones") or []
+        )
+
+        grupo = ejercicio.get("grupo_muscular")
+
+        return (
+            bool(restricciones & zonas_activas)
+            or grupo in grupos_a_evitar
+        )
 
     originales = rutina[clave]
 
     afectados = [
         ejercicio
         for ejercicio in originales
-        if ejercicio_afecta_zona(ejercicio, zona)
+        if es_incompatible(ejercicio)
     ]
 
     if not afectados:
         return (
             False,
-            f"No hay ejercicios de la zona {zona.lower()} para cambiar."
+            "La rutina ya respeta todas las restricciones activas."
         )
 
-    conservados = [
+    nuevos = [
         ejercicio.copy()
         for ejercicio in originales
-        if not ejercicio_afecta_zona(ejercicio, zona)
+        if not es_incompatible(ejercicio)
     ]
-
-    nuevos = list(conservados)
 
     nombres_usados = {
         ejercicio.get("ejercicio")
@@ -428,23 +462,22 @@ def adaptar_rutina_evitar_zona(rutina, dia_actual, zona):
                 niveles.get(dificultad, 99) <= nivel_maximo
             )
             & ~ejercicios_df["ejercicio"].isin(nombres_usados)
-            & ejercicios_df["restricciones"].apply(
-                lambda restricciones:
-                zona not in (restricciones or [])
+        ].copy()
+
+        candidatos = candidatos[
+            candidatos["restricciones"].apply(
+                lambda restricciones: not bool(
+                    set(restricciones or []) & zonas_activas
+                )
             )
         ].copy()
 
-        grupos_a_evitar = {
-            "Pierna": ["piernas"],
-            "Hombro": ["hombros"],
-            "Espalda": ["espalda"]
-        }.get(zona, [])
-
         candidatos = candidatos[
             candidatos["grupo_muscular"].apply(
-                lambda grupo:
-                grupo not in grupos_a_evitar
-                and conteo.get(grupo, 0) < 2
+                lambda grupo: (
+                    grupo not in grupos_a_evitar
+                    and conteo.get(grupo, 0) < 2
+                )
             )
         ].copy()
 
@@ -506,17 +539,16 @@ def adaptar_rutina_evitar_zona(rutina, dia_actual, zona):
     sin_reemplazo = len(afectados) - reemplazos
 
     texto = (
-        f"Quité {len(afectados)} ejercicio(s) "
-        f"de la zona {zona.lower()} "
-        f"y agregué {reemplazos} alternativa(s) "
-        f"para el día {dia_actual}."
+        f"Revisé las restricciones: "
+        f"{', '.join(sorted(zonas_activas))}. "
+        f"Quité {len(afectados)} ejercicio(s) incompatible(s) "
+        f"y agregué {reemplazos} alternativa(s)."
     )
 
     if sin_reemplazo:
         texto += (
             f" {sin_reemplazo} ejercicio(s) quedaron "
-            "sin reemplazo compatible; "
-            "no completé esos espacios."
+            "sin reemplazo compatible."
         )
 
     return True, texto
@@ -664,7 +696,8 @@ def responder_chat(
         _, respuesta = adaptar_rutina_evitar_zona(
             rutina=rutina,
             dia_actual=dia_actual,
-            zona=zona
+            zona=zona,
+            zona_lesion=zona_lesion
         )
 
         return respuesta
