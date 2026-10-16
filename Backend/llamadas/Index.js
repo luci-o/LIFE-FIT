@@ -19,23 +19,23 @@ app.get("/", (_, res) => {
 });
 
 
-app.post("/usuarios", usuarios.createPerfil);
+app.post("/usuario", usuarios.createPerfil);
 app.post("/login", usuarios.login);
-app.get("/usuarios/:id", verificarToken, verificarUsuario, usuarios.getPerfil);
+app.get("/usuario/:id", verificarToken, verificarUsuario, usuarios.getPerfil);
 app.put("/usuarios/:id", verificarToken, verificarUsuario, usuarios.updatePerfil);
 app.delete("/usuarios/:id", verificarToken, verificarUsuario, usuarios.deletePerfil);
 app.get("/usuarios/:id/rutina",  verificarToken, verificarUsuario, ejercicios.getEjerciciosByPerfil);
 app.post("/usuarios/:id/rutina", verificarToken, verificarUsuario, ejercicios.guardarEjercicio);
 app.post("/usuarios/:id/rutina/generar", verificarToken, verificarUsuario, ia.generarRutina);
-app.get("/usuarios/:id/progreso",  verificarToken, verificarUsuario, progreso.verProgreso);
+app.get("/perfil/:id/progreso",  verificarToken, verificarUsuario, progreso.verProgreso);
 app.post("/usuarios/:id/progreso", verificarToken, verificarUsuario, progreso.registrarProgreso);
 app.get("/usuarios/:id/nutricion", verificarToken, verificarUsuario, Nutricion.verDieta);
 app.post("/usuarios/:id/nutricion", verificarToken, verificarUsuario, Nutricion.guardarDieta);
 app.put("/usuarios/:id/rutina/:idEjercicio/realizado", verificarToken, verificarUsuario, ejercicios.marcarRealizado);
-app.get   ("/usuarios/:id/chat",verificarToken, verificarUsuario, chat.listarConversaciones);
+app.get   ("/perfil/:id/conversacion",verificarToken, verificarUsuario, chat.listarConversaciones);
 app.post  ("/usuarios/:id/chat", verificarToken, verificarUsuario, chat.crearConversacion);
 app.delete("/usuarios/:id/chat/:idConv", verificarToken, verificarUsuario, chat.borrarConversacion);
-app.get   ("/usuarios/:id/chat/:idConv/mensajes", verificarToken, verificarUsuario, chat.verMensajes);
+app.get   ("/perfil/:id/convesacion/:idConv/mensajes", verificarToken, verificarUsuario, chat.verMensajes);
 app.post  ("/usuarios/:id/chat/:idConv/mensajes", verificarToken, verificarUsuario, chat.enviarMensaje);
 
 
