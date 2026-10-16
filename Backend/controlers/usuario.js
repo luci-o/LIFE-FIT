@@ -79,14 +79,16 @@ const createPerfil = async (req, res) => {
        user.mail, hashedPassword, ""]
     )
     const idPerfil = result.rows[0]["ID PERFIL"]
-    const lesiones = user.lesiones || [];
-    for (const l of lesiones) {
-      await query(
-        `INSERT INTO "LESIONES" ("ZONAS LESIONADAS","TIEMPO HASTA RECUPERAR","ID PERFIL")
-         VALUES ($1,$2,$3)`,
-        [l.zona, l.tiempo, idPerfil]
-      );
-    }
+const lesiones = user.lesiones || [];
+for (const l of lesiones) {
+  await query(
+    `INSERT INTO "LESIONES"
+      ("ZONAS LESIONADAS","TIEMPO HASTA RECUPERAR","FECHA_INICIO","FECHA_FIN","DESCRIPCION","ID PERFIL")
+     VALUES ($1,$2,$3,$4,$5,$6)`,
+    [l.zona ?? null, l.tiempo ?? null, l.fechaInicio ?? null,
+     l.fechaFin ?? null, l.descripcion ?? null, idPerfil]
+  );
+}
     const preferencias = user.preferencias || [];
     for (const p of preferencias) {
       await query(
