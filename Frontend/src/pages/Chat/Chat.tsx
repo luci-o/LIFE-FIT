@@ -132,14 +132,15 @@ export default function Chat() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-800 flex flex-col items-center justify-between p-3 md:p-5 font-sans text-black">
-      <nav className="flex items-center gap-6 bg-zinc-300 px-6 py-2 rounded-full shadow-md mb-3 border border-zinc-400">
+    <div className="min-h-screen bg-[#0b0f19] flex flex-col items-center justify-between p-3 md:p-5 font-sans text-white">
+      {/* Navegación superior */}
+      <nav className="flex items-center gap-6 bg-[#1f293d]/80 px-6 py-2 rounded-full shadow-md mb-3 border border-[#2d3a54]">
         <button
           onClick={() => navigate('/home')}
           className={`p-1.5 rounded-2xl transition-colors text-2xl cursor-pointer ${
             location.pathname === '/home'
-              ? 'text-white bg-zinc-400 shadow-inner'
-              : 'text-zinc-800 hover:text-black'
+              ? 'text-[#00ff87] bg-[#2a3854] shadow-inner'
+              : 'text-gray-300 hover:text-white'
           }`}
           title="Inicio"
         >
@@ -150,8 +151,8 @@ export default function Chat() {
           onClick={() => navigate('/rutinas')}
           className={`p-1.5 rounded-2xl transition-colors text-2xl cursor-pointer ${
             location.pathname === '/rutinas'
-              ? 'text-white bg-zinc-400 shadow-inner'
-              : 'text-zinc-800 hover:text-black'
+              ? 'text-[#00ff87] bg-[#2a3854] shadow-inner'
+              : 'text-gray-300 hover:text-white'
           }`}
           title="Rutinas"
         >
@@ -162,8 +163,8 @@ export default function Chat() {
           onClick={() => navigate('/chat')}
           className={`p-1.5 rounded-2xl transition-colors text-2xl cursor-pointer ${
             location.pathname === '/chat'
-              ? 'text-white bg-zinc-400 shadow-inner'
-              : 'text-zinc-800 hover:text-black'
+              ? 'text-[#00ff87] bg-[#2a3854] shadow-inner'
+              : 'text-gray-300 hover:text-white'
           }`}
           title="Chat"
         >
@@ -171,7 +172,10 @@ export default function Chat() {
         </button>
       </nav>
 
-      <main className="w-full max-w-[95%] bg-zinc-300 rounded-[40px] p-6 md:p-10 flex flex-col justify-between h-[88vh] shadow-2xl relative overflow-hidden flex-1">
+      {/* Contenedor principal con borde verde esmeralda */}
+      <main className="w-full max-w-[95%] bg-[#1a2332] border-2 border-[#00e676] rounded-[40px] p-6 md:p-10 flex flex-col justify-between h-[88vh] shadow-2xl relative overflow-hidden flex-1">
+        
+        {/* Historial de mensajes */}
         <div className="flex-1 overflow-y-auto space-y-6 pr-2">
           {mensajes.map((msg) => {
             const esBot = msg.remitente === 'bot';
@@ -182,21 +186,21 @@ export default function Chat() {
               >
                 <div className="flex-shrink-0 mb-1">
                   {esBot ? (
-                    <div className="w-7 h-7 flex items-center justify-center text-xl text-black">
-                      <FaRobot />
+                    <div className="w-8 h-8 rounded-full border border-[#00e676] bg-[#111827] flex items-center justify-center text-[#00e676]">
+                      <FaRobot className="text-sm" />
                     </div>
                   ) : (
-                    <div className="w-7 h-7 rounded-full bg-black flex items-center justify-center text-white text-xs">
+                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#1a2332] text-xs">
                       <FaUserAlt />
                     </div>
                   )}
                 </div>
 
                 <div
-                  className={`max-w-[80%] md:max-w-[65%] px-6 py-4 text-sm md:text-base leading-relaxed whitespace-pre-line shadow-sm ${
+                  className={`max-w-[80%] md:max-w-[65%] px-6 py-4 text-sm md:text-base leading-relaxed whitespace-pre-line shadow-md ${
                     esBot
-                      ? 'bg-white text-black rounded-[24px] rounded-bl-none'
-                      : 'bg-black text-white rounded-[24px] rounded-br-none'
+                      ? 'bg-[#4a525d] text-white rounded-[24px] rounded-bl-none'
+                      : 'bg-[#00e676] text-black font-medium rounded-[24px] rounded-br-none'
                   }`}
                 >
                   {msg.texto}
@@ -207,10 +211,10 @@ export default function Chat() {
 
           {cargandoRespuesta && (
             <div className="flex items-end gap-3 flex-row">
-              <div className="flex-shrink-0 mb-1 w-7 h-7 flex items-center justify-center text-xl text-black">
-                <FaRobot />
+              <div className="flex-shrink-0 mb-1 w-8 h-8 rounded-full border border-[#00e676] bg-[#111827] flex items-center justify-center text-[#00e676]">
+                <FaRobot className="text-sm" />
               </div>
-              <div className="bg-white text-black px-6 py-4 rounded-[24px] rounded-bl-none text-sm animate-pulse">
+              <div className="bg-[#4a525d] text-white px-6 py-4 rounded-[24px] rounded-bl-none text-sm animate-pulse">
                 Procesando mensaje con la IA...
               </div>
             </div>
@@ -219,19 +223,20 @@ export default function Chat() {
           <div ref={chatEndRef} />
         </div>
 
-        <form onSubmit={handleEnviar} className="mt-4 relative flex items-center">
+        {/* Input de mensajes */}
+        <form onSubmit={handleEnviar} className="mt-4 flex items-center gap-3">
           <input
             type="text"
             value={inputTexto}
             onChange={(e) => setInputTexto(e.target.value)}
             placeholder="Escribe..."
             disabled={cargandoRespuesta}
-            className="w-full bg-white text-black text-base md:text-lg rounded-full px-8 py-4 pr-16 focus:outline-none shadow-md placeholder-zinc-500 disabled:opacity-50"
+            className="flex-1 bg-[#e0e0e0] text-black text-base md:text-lg rounded-full px-8 py-3.5 focus:outline-none shadow-md placeholder-zinc-500 disabled:opacity-50"
           />
           <button
             type="submit"
             disabled={!inputTexto.trim() || cargandoRespuesta}
-            className="absolute right-4 text-black hover:scale-110 disabled:opacity-40 transition-all p-2 text-2xl cursor-pointer"
+            className="bg-[#00e676] text-black w-12 h-12 rounded-full flex items-center justify-center text-xl hover:scale-105 active:scale-95 disabled:opacity-40 transition-all cursor-pointer flex-shrink-0"
           >
             <FiSend />
           </button>
