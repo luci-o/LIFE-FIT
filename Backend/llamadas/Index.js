@@ -6,7 +6,7 @@ const port = 3000;
 import usuarios from "../controlers/usuario.js";
 import ejercicios from "../controlers/ejercicios.js";
 import Nutricion from "../controlers/Nutricion.js";
-import progreso from "../controlers/progreso.js";
+import progreso from "../controlers/Progreso.js";
 import { verificarToken, verificarUsuario } from "../middleware/Auth.js";
 import ia from "../controlers/ia.js";
 import chat from "../controlers/chat.js";

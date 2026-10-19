@@ -3,7 +3,7 @@ import pkg from "pg";
 const { Client } = pkg;
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { SECRET } from "../Auth.js";
+import { SECRET } from "../middleware/Auth.js";
 
 const OBJETIVOS = ["bajar peso", "ganar fuerza", "mejorar resistencia"];
 const NIVELES   = ["principiante", "intermedio", "avanzado"];
@@ -125,14 +125,44 @@ for (const l of lesiones) {
 };
 
 const updatePerfil = async (req, res) => {
-  const { peso } = req.body;
-  await query(
-    `UPDATE "PERFIL USUARIO" SET
-        "PESO" = $1
-     WHERE "ID PERFIL" = $2`,
-    [peso, req.params.id]
-  );
-  res.json({ mensaje: "Perfil actualizado" });
+  const u = req.body;
+
+  if (u.objetivo !== undefined && !OBJETIVOS.includes(u.objetivo)) {
+    return res.status(400).json({ message: `Objetivo inválido. Valores permitidos: ${OBJETIVOS.join(", ")}` });
+  }
+  if (u.nivel !== undefined && !NIVELES.includes(u.nivel)) {
+    return res.status(400).json({ message: `Nivel inválido. Valores permitidos: ${NIVELES.join(", ")}` });
+  }
+  if (u.lugar !== undefined && !LUGARES.includes(u.lugar)) {
+    return res.status(400).json({ message: `Lugar inválido. Valores permitidos: ${LUGARES.join(", ")}` });
+  }
+
+  try {
+    const result = await query(
+      `UPDATE "PERFIL USUARIO" SET
+         "PESO"                   = COALESCE($1, "PESO"),
+         "ALTURA"                 = COALESCE($2, "ALTURA"),
+         "OBJETIVO"               = COALESCE($3, "OBJETIVO"),
+         "TIEMPO DISPONIBLE"      = COALESCE($4, "TIEMPO DISPONIBLE"),
+         "DIAS POR SEMANA"        = COALESCE($5, "DIAS POR SEMANA"),
+         "NIVEL DE ENTRENAMIENTO" = COALESCE($6, "NIVEL DE ENTRENAMIENTO"),
+         "LUGAR DONDE ENTRENA"    = COALESCE($7, "LUGAR DONDE ENTRENA")
+       WHERE "ID PERFIL" = $8
+       RETURNING "ID PERFIL","NOMBRE","EDAD","PESO","ALTURA","OBJETIVO",
+                 "TIEMPO DISPONIBLE","DIAS POR SEMANA","NIVEL DE ENTRENAMIENTO",
+                 "LUGAR DONDE ENTRENA","REGISTRO DEL USUARIO_MAIL"`,
+      [ u.peso ?? null, u.altura ?? null,
+       u.objetivo ?? null, u.tiempoDisponible ?? null, u.diasPorSemana ?? null,
+       u.nivel ?? null, u.lugar ?? null, req.params.id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "Perfil no encontrado" });
+    }
+    res.json({ message: "Perfil actualizado", perfil: result.rows[0] });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
 const deletePerfil = async (req, res) => {

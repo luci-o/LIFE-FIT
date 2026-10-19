@@ -12,7 +12,9 @@ const generarRutina = async (req, res) => {
     }
     const p = perfil.rows[0];
     const lesiones = await query(
-      `SELECT "ZONAS LESIONADAS" FROM "LESIONES" WHERE "ID PERFIL" = $1`,
+      `SELECT "ZONAS LESIONADAS" FROM "LESIONES"
+ WHERE "ID PERFIL" = $1
+   AND ("FECHA_FIN" IS NULL OR "FECHA_FIN" > CURRENT_DATE)`,
       [req.params.id]
     )
     const datosIA = {
