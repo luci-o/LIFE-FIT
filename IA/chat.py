@@ -251,22 +251,39 @@ def cambiar_ejercicio_rutina(
     )
 
 
+
 def extraer_minutos(mensaje):
+    import unicodedata
+
+    texto = str(mensaje).lower().strip()
+
+    texto = "".join(
+        caracter
+        for caracter in unicodedata.normalize("NFD", texto)
+        if unicodedata.category(caracter) != "Mn"
+    )
+
+    if "media hora" in texto or "medio hora" in texto:
+        return 30
+
     coincidencia = re.search(
-        r"(\d+)\s*min",
-        mensaje.lower()
+        r"\b(\d+)\s*(?:minutos?|mins?|min)\b",
+        texto
     )
 
     if coincidencia:
         return int(coincidencia.group(1))
 
     coincidencia = re.search(
-        r"(\d+)\s*minutos",
-        mensaje.lower()
+        r"\b(\d+(?:[.,]\d+)?)\s*horas?\b",
+        texto
     )
 
     if coincidencia:
-        return int(coincidencia.group(1))
+        horas = float(
+            coincidencia.group(1).replace(",", ".")
+        )
+        return round(horas * 60)
 
     return None
 

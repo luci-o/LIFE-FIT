@@ -12,17 +12,16 @@ from xgboost import XGBClassifier
 BASE_DIR = os.path.dirname(
     os.path.abspath(__file__)
 )
-
 RUTA_MODELO = os.path.join(
     BASE_DIR,
     "models",
-    "xgboost_dificultad.json"
+    "xgboost_dificultad_v2.json"
 )
 
 RUTA_METADATA = os.path.join(
     BASE_DIR,
     "models",
-    "xgboost_dificultad_metadata.json"
+    "xgboost_dificultad_v2_metadata.json"
 )
 
 
