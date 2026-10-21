@@ -10,6 +10,7 @@ import progreso from "../controlers/Progreso.js";
 import { verificarToken, verificarUsuario } from "../middleware/Auth.js";
 import ia from "../controlers/ia.js";
 import chat from "../controlers/chat.js";
+import comida from "../controlers/comidas.js";
 
 app.use(cors());
 app.use(express.json());
@@ -37,7 +38,7 @@ app.post  ("/usuarios/:id/chat", verificarToken, verificarUsuario, chat.crearCon
 app.delete("/usuarios/:id/chat/:idConv", verificarToken, verificarUsuario, chat.borrarConversacion);
 app.get   ("/perfil/:id/convesacion/:idConv/mensajes", verificarToken, verificarUsuario, chat.verMensajes);
 app.post  ("/usuarios/:id/chat/:idConv/mensajes", verificarToken, verificarUsuario, chat.enviarMensaje);
-
+app.get("/usuarios/:id/comidas", verificarToken, verificarUsuario, comidas.verComidas);
 
 const server = app.listen(port, () => {
   console.log(`LIFE-FIT is listening at http://localhost:${port}`);
