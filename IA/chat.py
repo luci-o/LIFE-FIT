@@ -14,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RUTA_MODELO_INTENCIONES = os.path.join(
     BASE_DIR,
     "models",
-    "clasificador_intenciones.joblib"
+    "clasificador_intenciones_v41.joblib"
 )
 
 modelo_intenciones = joblib.load(RUTA_MODELO_INTENCIONES)
@@ -668,6 +668,23 @@ def responder_chat(
         )
 
     if intencion == "cambiar_ejercicio":
+        texto = mensaje.strip().lower()
+
+        preguntas = (
+            "¿puedo",
+            "puedo ",
+            "¿se puede",
+            "se puede ",
+            "¿podría",
+            "podría "
+        )
+
+        if texto.startswith(preguntas):
+            return (
+                "Sí, puedo ayudarte a cambiar un ejercicio. "
+                "Si querés hacerlo, decime: "
+                "'Cambiá el ejercicio 2'."
+            )
         numero_mensaje = extraer_numero_ejercicio(mensaje)
 
         numero_a_cambiar = (
