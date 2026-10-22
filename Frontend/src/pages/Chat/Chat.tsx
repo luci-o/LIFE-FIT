@@ -28,7 +28,7 @@ export default function Chat() {
   const [cargandoRespuesta, setCargandoRespuesta] = useState(false);
   const [idConversacion, setIdConversacion] = useState<number | null>(null);
 
-  // Obtener idPerfil guardado o usar '1' por defecto
+
   const idPerfil = localStorage.getItem('idPerfil') || '1';
   const chatEndRef = useRef<HTMLDivElement>(null);
 
@@ -36,7 +36,7 @@ export default function Chat() {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [mensajes, cargandoRespuesta]);
 
-  // Al cargar el componente, intentamos obtener la conversación activa o sus mensajes
+  
   useEffect(() => {
     const cargarHistorial = async () => {
       try {
@@ -71,7 +71,7 @@ export default function Chat() {
     setInputTexto('');
     setCargandoRespuesta(true);
 
-    // Agregar mensaje del usuario inmediatamente al chat
+    
     const nuevoMensajeUsuario: Mensaje = {
       id: Date.now().toString(),
       remitente: 'usuario',
@@ -82,7 +82,7 @@ export default function Chat() {
     try {
       let convId = idConversacion;
 
-      // Si no hay ID de conversación, la creamos en el momento
+     
       if (!convId) {
         const nuevaConv = await peticionApi(`/perfil/${idPerfil}/conversacion`, {
           method: 'POST',
@@ -96,13 +96,12 @@ export default function Chat() {
         }
       }
 
-      // Enviar mensaje al backend
+
       const res = await peticionApi(`/perfil/${idPerfil}/conversacion/${convId}/mensaje`, {
         method: 'POST',
         body: JSON.stringify({ texto: consulta }),
       });
 
-      // Extraer el texto retornado por la IA o el Backend
       const respuestaTexto = 
         res?.respuesta?.TEXTO || 
         res?.respuesta?.texto || 
@@ -133,7 +132,7 @@ export default function Chat() {
 
   return (
     <div className="min-h-screen bg-[#0b0f19] flex flex-col items-center justify-between p-3 md:p-5 font-sans text-white">
-      {/* Navegación superior */}
+     
       <nav className="flex items-center gap-6 bg-[#1f293d]/80 px-6 py-2 rounded-full shadow-md mb-3 border border-[#2d3a54]">
         <button
           onClick={() => navigate('/home')}
@@ -172,10 +171,10 @@ export default function Chat() {
         </button>
       </nav>
 
-      {/* Contenedor principal con borde verde esmeralda */}
+    
       <main className="w-full max-w-[95%] bg-[#1a2332] border-2 border-[#00e676] rounded-[40px] p-6 md:p-10 flex flex-col justify-between h-[88vh] shadow-2xl relative overflow-hidden flex-1">
         
-        {/* Historial de mensajes */}
+
         <div className="flex-1 overflow-y-auto space-y-6 pr-2">
           {mensajes.map((msg) => {
             const esBot = msg.remitente === 'bot';
@@ -223,7 +222,7 @@ export default function Chat() {
           <div ref={chatEndRef} />
         </div>
 
-        {/* Input de mensajes */}
+    
         <form onSubmit={handleEnviar} className="mt-4 flex items-center gap-3">
           <input
             type="text"
