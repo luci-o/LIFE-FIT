@@ -1357,5 +1357,14 @@
                 "comentario": ""
             }
         ]
+    },
+    "prueba_punto5_consulta": {
+        "rutinas": [
+            {
+                "fecha": "2026-10-22T10:14:55.550695",
+                "rutina": {}
+            }
+        ],
+        "sesiones": []
     }
 }

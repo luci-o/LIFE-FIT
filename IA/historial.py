@@ -85,8 +85,39 @@ def registrar_sesion(
     dia,
     completada,
     dificultad_percibida,
-    comentario=""
+    comentario="",
+    duracion_minutos=None,
+    rutina_fecha=None
 ):
+    if duracion_minutos is not None:
+        if (
+            isinstance(duracion_minutos, bool)
+            or not isinstance(duracion_minutos, (int, float))
+            or not 0 < duracion_minutos <= 300
+        ):
+            raise ValueError(
+                "La duración debe estar entre 1 y 300 minutos."
+            )
+
+    historial = cargar_historial()
+    usuario_id = str(usuario_id)
+
+    usuario = historial.setdefault(
+        usuario_id,
+        {"rutinas": [], "sesiones": []}
+    )
+
+    usuario["sesiones"].append({
+        "rutina_fecha": rutina_fecha,
+        "fecha": datetime.now().isoformat(),
+        "dia": dia,
+        "completada": completada,
+        "dificultad_percibida": dificultad_percibida,
+        "comentario": comentario,
+        "duracion_minutos": duracion_minutos
+    })
+
+    guardar_historial(historial)
     historial = cargar_historial()
     usuario_id = str(usuario_id)
 
@@ -275,3 +306,39 @@ def guardar_restricciones_adicionales(
     guardar_historial(historial)
 
     return restricciones_combinadas
+def obtener_dataset_entrenamiento():
+    historial = cargar_historial()
+    registros = []
+
+    for usuario in historial.values():
+        for sesion in usuario.get("sesiones", []):
+            dificultad = sesion.get("dificultad_percibida")
+            duracion = sesion.get("duracion_minutos")
+
+            if (
+                isinstance(dificultad, bool)
+                or not isinstance(dificultad, (int, float))
+                or dificultad < 1
+                or dificultad > 5
+            ):
+                continue
+
+            if (
+                duracion is None
+                or isinstance(duracion, bool)
+                or not isinstance(duracion, (int, float))
+                or duracion <= 0
+            ):
+                continue
+
+            if not isinstance(sesion.get("completada"), bool):
+                continue
+
+            registros.append({
+                "dia": sesion.get("dia"),
+                "duracion_minutos": duracion,
+                "dificultad_percibida": dificultad,
+                "completada": int(sesion["completada"])
+            })
+
+    return registros

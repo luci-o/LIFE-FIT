@@ -67,16 +67,31 @@ def procesar_solicitud(
         sort_keys=True
     )
     texto = mensaje.lower()
+    texto = mensaje.strip().lower()
 
-    solicitud_evitar = any(
-        expresion in texto
-        for expresion in (
-            "evitar",
-            "no quiero hacer",
-            "no trabajar",
-            "sin ejercicios de"
-        )
+    preguntas = (
+        "¿puedo",
+        "puedo ",
+        "¿se puede",
+        "se puede ",
+        "¿podría",
+        "podría "
     )
+
+    es_pregunta = texto.startswith(preguntas)
+
+    solicitud_evitar = (
+        not es_pregunta
+        and any(
+            expresion in texto
+            for expresion in (
+                "evitar",
+                "no quiero hacer",
+                "no trabajar",
+                "sin ejercicios de"
+            )
+        )
+    ) 
 
     zona_solicitada = detectar_zona_a_evitar(mensaje)
 

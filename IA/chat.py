@@ -488,7 +488,8 @@ def adaptar_rutina_evitar_zona(
                 )
             )
         ].copy()
-
+        if candidatos.empty:
+            continue
         candidatos = candidatos[
             candidatos["grupo_muscular"].apply(
                 lambda grupo: (
@@ -714,6 +715,24 @@ def responder_chat(
         return respuesta
 
     if intencion == "evitar_zona":
+        texto = mensaje.strip().lower()
+
+        preguntas = (
+            "¿puedo",
+            "puedo ",
+            "¿se puede",
+            "se puede ",
+            "¿podría",
+            "podría "
+        )
+
+        if texto.startswith(preguntas):
+            return (
+                "Sí, podemos adaptar tu rutina para evitar esa zona. "
+                "Si querés hacerlo, decime: "
+                "'Quiero evitar ejercicios de pierna'."
+            )
+
         zona = detectar_zona_a_evitar(mensaje)
 
         if mensaje_indica_dolor(mensaje):
