@@ -41,6 +41,10 @@ app.post  ("/usuarios/:id/chat/:idConv/mensajes", verificarToken, verificarUsuar
 app.get("/usuarios/:id/comidas", verificarToken, verificarUsuario, comidas.verComidas);
 app.put("/usuarios/:id/comidas/:idComida/realizada", verificarToken, verificarUsuario, comidas.marcarComidaRealizada);
 
+app.use((req, res) => {
+  res.status(404).json({ message: `La ruta ${req.method} ${req.originalUrl} no existe` })
+})
+
 const server = app.listen(port, () => {
   console.log(`LIFE-FIT is listening at http://localhost:${port}`);
 });
