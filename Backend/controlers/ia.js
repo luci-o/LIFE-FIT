@@ -46,17 +46,31 @@ const generarRutina = async (req, res) => {
       });
     }
     const { dificultad, plan } = await respuesta.json();
-    let cantidad = 0;
-    for (const dia of Object.keys(plan)) {
-      for (const ej of plan[dia]) {
-        await query(
-          `INSERT INTO "EJERCICIOS" ("ID_PERFIL","EJERCICIO","SERIES","REPETICIONES")
-           VALUES ($1,$2,$3,$4)`,
-          [req.params.id, ej.ejercicio, ej.series, ej.repeticiones]
-        );
-        cantidad++;
-      }
+
+    if (!plan || typeof plan !== "object") {
+      return res.status(502).json({ message: "La IA no devolvió un plan válido" });
     }
+    
+    const cantidad = await transaction(async (client) => {
+      await client.query(`DELETE FROM "EJERCICIOS" WHERE "ID_PERFIL" = $1`, [req.params.id]);
+    
+      let n = 0;
+      let numeroDia = 0;
+      for (const dia of Object.keys(plan)) {
+        numeroDia++;
+        for (const ej of plan[dia]) {
+          await client.query(
+            `INSERT INTO "EJERCICIOS"
+              ("ID_PERFIL","EJERCICIO","SERIES","REPETICIONES","DIA")
+             VALUES ($1,$2,$3,$4,$5)`,
+            [req.params.id, ej.ejercicio, ej.series ?? null, ej.repeticiones ?? null, numeroDia]
+          );
+          n++;
+        }
+      }
+      return n;
+    });
+    
     res.status(201).json({ message: "Rutina generada", dificultad, cantidad, plan });
   } catch (error) {
     return res.status(500).json({ message: error.message });
