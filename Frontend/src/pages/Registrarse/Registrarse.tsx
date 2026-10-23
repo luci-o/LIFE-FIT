@@ -1,152 +1,283 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { registrar } from "../../services/authService";
-import { usoAutenticacion } from "../../context/AuthContext";
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import logoBg from '../../assets/Group 75.png';
+import cardBg from '../../assets/Rectangle 188.png';
+import ojoIcono from '../../assets/bx_show.png';
 
-function Registrarse() {
-  const [mail, setMail] = useState("");
-  const [nombre, setNombre] = useState("");
-  const [password, setPassword] = useState("");
-  const [aceptaTerminos, setAceptaTerminos] = useState(false);
-  const [error, setError] = useState("");
-  const [cargando, setCargando] = useState(false);
-
+export const Registrarse = () => {
+  const [usuario, setUsuario] = useState('');
+  const [email, setEmail] = useState('');
+  const [contrasena, setContrasena] = useState('');
+  const [mostrarPassword, setMostrarPassword] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { iniciarSesion } = usoAutenticacion();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setError('');
 
-    if (!aceptaTerminos) {
-      setError("Tenés que aceptar los términos y condiciones.");
+    if (!usuario || !email || !contrasena) {
+      setError('Por favor, completa todos los campos.');
       return;
     }
 
-    setCargando(true);
     try {
-      const perfil = await registrar({ nombre, mail, password });
-      iniciarSesion(perfil);
-      navigate("/formulario");
+      const response = await fetch('http://localhost:3000/usuario', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          nombre: usuario,
+          email: email,
+          password: contrasena
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        if (data.id) localStorage.setItem('idPerfil', data.id);
+        if (data.token) localStorage.setItem('token', data.token);
+        navigate('/formulario');
+      } else {
+        setError(data.mensaje || 'Ocurrió un error al crear la cuenta.');
+      }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Error al registrarse.");
-    } finally {
-      setCargando(false);
+      console.error('Error de red:', err);
+      setError('No se pudo conectar con el servidor.');
     }
   };
 
-  return (
-    <div className="registrarse-page">
-      <header className="topbar">
-        <div className="logo">
-          <svg className="logo-icon" viewBox="0 0 24 24" width="30" height="30">
-            <path
-              d="M12 21s-6.7-4.35-9.3-8.1C.8 10.1 1.4 6.3 4.6 4.9c2.2-1 4.6-.1 6 1.7 1.4-1.8 3.8-2.7 6-1.7 3.2 1.4 3.8 5.2 1.9 8-2.6 3.75-9.3 8.1-9.3 8.1z"
-              fill="none"
-              stroke="#39e07a"
-              strokeWidth={1.5}
-            />
-            <polyline
-              points="4 12 8 12 10 8 13 16 15 12 20 12"
-              fill="none"
-              stroke="#39e07a"
-              strokeWidth={1.5}
-              strokeLinejoin="round"
-              strokeLinecap="round"
-            />
-          </svg>
-          <span className="logo-text">Life Fit</span>
-        </div>
+  const inputStyle: React.CSSProperties = {
+    width: '100%',
+    padding: '16px 20px',
+    borderRadius: '20px',
+    border: '1px solid #FFF',
+    backgroundColor: '#D9D9D933',
+    color: '#FFF',
+    fontFamily: '"Plus Jakarta Sans", sans-serif',
+    fontSize: '28px',
+    fontWeight: 700,
+    fontStyle: 'normal',
+    lineHeight: '28px',
+    boxSizing: 'border-box',
+    outline: 'none'
+  };
 
-        <nav className="nav">
-          <button className="nav-item" onClick={() => navigate("/")}>
-            Bienvenido
-          </button>
-          <button className="nav-item" onClick={() => navigate("/acerca-de")}>
-            Acerca de
-          </button>
-          <button className="nav-item active">Crear cuenta</button>
-        </nav>
+  return (
+    <div style={{
+      backgroundColor: '#090d16',
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      color: '#ffffff',
+      fontFamily: '"Plus Jakarta Sans", sans-serif',
+      overflow: 'hidden'
+    }}>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&display=swap" rel="stylesheet" />
+
+      {/* Navbar Superior */}
+      <header style={{
+        padding: '16px 32px',
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: '#0d1117',
+        zIndex: 10
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="2.5">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+          </svg>
+          <h1 style={{ fontSize: '24px', margin: 0, fontWeight: 'bold' }}>Life Fit</h1>
+        </div>
       </header>
 
-      <main className="main">
-        <div className="card">
-          <h1 className="card-title">Bienvenido</h1>
+      {/* Línea Separadora Superior Exacta (#2E3648) */}
+      <div style={{
+        width: '100%',
+        height: '1px',
+        backgroundColor: '#2E3648',
+        zIndex: 10
+      }} />
 
-          <svg className="runner" viewBox="0 0 100 140" aria-hidden="true">
-            <path
-              d="M50 30
-                 c-6 2 -10 8 -10 16
-                 l4 22
-                 c-8 6 -18 12 -24 18
-                 c-3 3 1 8 5 6
-                 c9 -5 20 -12 27 -18
-                 l6 10
-                 c3 8 6 18 8 28
-                 c1 4 7 4 7 -1
-                 c-1 -14 -4 -26 -8 -36
-                 l-2 -18
-                 c6 2 12 6 16 11
-                 c3 4 8 0 5 -4
-                 c-6 -8 -14 -14 -22 -17
-                 c-4 -12 -6 -16 -12 -17 Z"
+      {/* Área Central */}
+      <main style={{
+        flex: 1,
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        paddingBottom: 0
+      }}>
+        
+        {/* LOGO DE FONDO */}
+        <img 
+          src={logoBg} 
+          alt="Life Fit Background Logo" 
+          style={{
+            position: 'absolute',
+            width: '950px',
+            maxWidth: '95vw',
+            height: 'auto',
+            top: '48%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            opacity: 0.4,
+            filter: 'drop-shadow(0px 0px 8px #00E676)',
+            pointerEvents: 'none',
+            zIndex: 1
+          }} 
+        />
+
+        {/* CONTENEDOR TARJETA GENERAL */}
+        <div style={{
+          position: 'relative',
+          zIndex: 2,
+          width: '100%',
+          maxWidth: '440px',
+          padding: '36px 32px 28px 32px',
+          boxSizing: 'border-box'
+        }}>
+          {/* Imagen de Fondo Rectangle 188 */}
+          <img 
+            src={cardBg} 
+            alt="Tarjeta General" 
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              borderTopLeftRadius: '30px',
+              borderTopRightRadius: '30px',
+              borderBottomLeftRadius: '0px',
+              borderBottomRightRadius: '0px',
+              zIndex: -1
+            }} 
+          />
+
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+            
+            {/* Campo Usuario */}
+            <input
+              type="text"
+              placeholder="Usuario"
+              value={usuario}
+              onChange={(e) => setUsuario(e.target.value)}
+              style={inputStyle}
             />
-            <circle cx="55" cy="18" r="12" />
-          </svg>
 
-          <form className="registro-form" onSubmit={handleSubmit} autoComplete="off">
-            <label className="field campo-email">
-              <span className="field-label">Email</span>
+            {/* Campo Email */}
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={inputStyle}
+            />
+
+            {/* Campo Contraseña */}
+            <div style={{ position: 'relative', width: '100%' }}>
               <input
-                type="email"
-                name="email"
-                value={mail}
-                onChange={(e) => setMail(e.target.value)}
-                required
+                type={mostrarPassword ? 'text' : 'password'}
+                placeholder="Contraseña"
+                value={contrasena}
+                onChange={(e) => setContrasena(e.target.value)}
+                style={{
+                  ...inputStyle,
+                  paddingRight: '56px'
+                }}
               />
-            </label>
+              <button
+                type="button"
+                onClick={() => setMostrarPassword(!mostrarPassword)}
+                style={{
+                  position: 'absolute',
+                  right: '16px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                <img 
+                  src={ojoIcono} 
+                  alt="Mostrar u ocultar contraseña" 
+                  style={{
+                    width: '28px',
+                    height: 'auto',
+                    filter: mostrarPassword ? 'none' : 'opacity(0.6)'
+                  }}
+                />
+              </button>
+            </div>
 
-            <label className="field campo-usuario">
-              <span className="field-label">Usuario</span>
-              <input
-                type="text"
-                name="usuario"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-                required
-              />
-            </label>
+            {error && (
+              <p style={{ color: '#ff5252', fontSize: '14px', margin: 0, textAlign: 'center' }}>
+                {error}
+              </p>
+            )}
 
-            <label className="field campo-contrasena">
-              <span className="field-label">Contraseña</span>
-              <input
-                type="password"
-                name="contrasena"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </label>
-
-            <label className="checkbox-field">
-              <input
-                type="checkbox"
-                checked={aceptaTerminos}
-                onChange={(e) => setAceptaTerminos(e.target.checked)}
-              />
-              <span>Acepto los términos y condiciones</span>
-            </label>
-
-            {error && <p className="form-error">{error}</p>}
-
-            <button type="submit" className="btn-registro" disabled={cargando}>
-              {cargando ? "Creando cuenta..." : "Unirse a Life Fit"}
+            {/* Botón Crear Cuenta */}
+            <button
+              type="submit"
+              style={{
+                width: '100%',
+                padding: '14px',
+                borderRadius: '12px',
+                backgroundColor: '#00E676',
+                color: '#000000',
+                border: 'none',
+                fontWeight: 'bold',
+                fontSize: '16px',
+                cursor: 'pointer',
+                marginTop: '6px'
+              }}
+            >
+              Crear cuenta
             </button>
+
+            {/* Botón Continuar con Google */}
+            <button
+              type="button"
+              style={{
+                width: '100%',
+                padding: '12px',
+                borderRadius: '12px',
+                backgroundColor: '#2d3748',
+                color: '#ffffff',
+                border: '1px solid #4a5568',
+                fontSize: '15px',
+                fontWeight: '600',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                cursor: 'pointer'
+              }}
+            >
+              <span style={{ fontWeight: 'bold', fontSize: '18px' }}>G</span> Continuar con Google
+            </button>
+
+            {/* Link Iniciar Sesión */}
+            <p style={{ textAlign: 'center', fontSize: '14px', color: '#cbd5e1', margin: '8px 0 0 0' }}>
+              ¿Ya tienes cuenta?{' '}
+              <Link to="/login" style={{ color: '#ffffff', fontWeight: 'bold', textDecoration: 'underline' }}>
+                Iniciá sesión
+              </Link>
+            </p>
+
           </form>
         </div>
       </main>
     </div>
   );
-}
+};
 
 export default Registrarse;
