@@ -1,0 +1,2678 @@
+[
+  {
+    "comida": "avena con fruta",
+    "tipo": "desayuno",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_001",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "avena",
+      "fruta"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "avena",
+        "cantidad": 40,
+        "unidad": "g"
+      },
+      {
+        "nombre": "banana",
+        "cantidad": 1,
+        "unidad": "unidad"
+      },
+      {
+        "nombre": "agua",
+        "cantidad": 150,
+        "unidad": "ml"
+      }
+    ],
+    "preparacion": "Cocinar la avena con agua y agregar la banana cortada.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "yogur con fruta",
+    "tipo": "desayuno",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "lactosa"
+    ],
+    "id": "comida_002",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "fruta",
+      "yogur"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "leche"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "yogur natural",
+        "cantidad": 170,
+        "unidad": "g"
+      },
+      {
+        "nombre": "banana",
+        "cantidad": 1,
+        "unidad": "unidad"
+      }
+    ],
+    "preparacion": "Servir el yogur y agregar la banana cortada.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "tostadas con huevo",
+    "tipo": "desayuno",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten",
+      "huevo"
+    ],
+    "id": "comida_003",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "huevo",
+      "pan"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "huevo"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pan",
+        "cantidad": 2,
+        "unidad": "rebanadas"
+      },
+      {
+        "nombre": "huevo",
+        "cantidad": 1,
+        "unidad": "unidad"
+      }
+    ],
+    "preparacion": "Tostar el pan, cocinar el huevo y servir juntos.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "arroz con pollo",
+    "tipo": "almuerzo",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "no",
+    "restricciones": [],
+    "id": "comida_004",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "pollo"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": 70,
+        "unidad": "g en seco"
+      },
+      {
+        "nombre": "pollo",
+        "cantidad": 120,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "pasta con verduras",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_005",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "pasta",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pasta",
+        "cantidad": 80,
+        "unidad": "g en seco"
+      },
+      {
+        "nombre": "verduras variadas",
+        "cantidad": 150,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "ensalada con legumbres",
+    "tipo": "almuerzo",
+    "objetivo": "mejorar resistencia",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_006",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "legumbres"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "legumbres cocidas",
+        "cantidad": 150,
+        "unidad": "g"
+      },
+      {
+        "nombre": "hojas verdes",
+        "cantidad": 50,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Cocinar los ingredientes que lo requieran, dejar enfriar y combinar con los vegetales lavados.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "sandwich de pollo",
+    "tipo": "merienda",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "no",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_007",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "pan",
+      "pollo"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pan",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "pollo",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "omelette con verduras",
+    "tipo": "cena",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "huevo"
+    ],
+    "id": "comida_008",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "huevo",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "huevo"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "huevo",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "verduras",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "fruta con yogur",
+    "tipo": "merienda",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "lactosa"
+    ],
+    "id": "comida_009",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "fruta",
+      "yogur"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "leche"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "fruta",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "yogur",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "arroz con lentejas",
+    "tipo": "almuerzo",
+    "objetivo": "mejorar resistencia",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_010",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "lentejas"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": 70,
+        "unidad": "g en seco"
+      },
+      {
+        "nombre": "lentejas cocidas",
+        "cantidad": 150,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "pollo con verduras",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "no",
+    "restricciones": [],
+    "id": "comida_011",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "pollo",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pollo",
+        "cantidad": 120,
+        "unidad": "g"
+      },
+      {
+        "nombre": "verduras variadas",
+        "cantidad": 150,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "wrap de verduras",
+    "tipo": "cena",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_012",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "verduras",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "tostadas con palta",
+    "tipo": "desayuno",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_013",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "palta",
+      "pan"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pan",
+        "cantidad": 2,
+        "unidad": "rebanadas"
+      },
+      {
+        "nombre": "palta",
+        "cantidad": 0.5,
+        "unidad": "unidad"
+      }
+    ],
+    "preparacion": "Tostar el pan y agregar la palta pisada.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "fruta con avena",
+    "tipo": "merienda",
+    "objetivo": "mejorar resistencia",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_014",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "avena",
+      "fruta"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "avena",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "fruta",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "hummus con tostadas",
+    "tipo": "merienda",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_015",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "hummus",
+      "pan"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "sesamo_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "hummus",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "pan",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "sandwich de huevo",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten",
+      "huevo"
+    ],
+    "id": "comida_016",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "huevo",
+      "pan"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "huevo"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "huevo",
+        "cantidad": 2,
+        "unidad": "unidades"
+      },
+      {
+        "nombre": "pan",
+        "cantidad": 2,
+        "unidad": "rebanadas"
+      }
+    ],
+    "preparacion": "Preparar el relleno, cocinar lo necesario y armar el sandwich.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "ensalada de arroz y verduras",
+    "tipo": "cena",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_017",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "verduras",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "pasta con pollo",
+    "tipo": "almuerzo",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "no",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_018",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "pasta",
+      "pollo"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pollo",
+        "cantidad": 120,
+        "unidad": "g"
+      },
+      {
+        "nombre": "pasta",
+        "cantidad": 80,
+        "unidad": "g en seco"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "lentejas con verduras",
+    "tipo": "cena",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_019",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "lentejas",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "lentejas",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "verduras",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "wrap de pollo",
+    "tipo": "cena",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "no",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_020",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "pollo"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pollo",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "yogur con avena",
+    "tipo": "merienda",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "lactosa"
+    ],
+    "id": "comida_021",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "avena",
+      "yogur"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "leche"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "avena",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "yogur",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "fruta con frutos secos",
+    "tipo": "merienda",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_022",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "fruta",
+      "frutos secos"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "frutos_secos"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "fruta",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "frutos secos",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "avena con banana",
+    "tipo": "desayuno",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_023",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "avena",
+      "banana"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "avena",
+        "cantidad": 40,
+        "unidad": "g"
+      },
+      {
+        "nombre": "banana",
+        "cantidad": 1,
+        "unidad": "unidad"
+      },
+      {
+        "nombre": "agua",
+        "cantidad": 150,
+        "unidad": "ml"
+      }
+    ],
+    "preparacion": "Cocinar la avena con agua y agregar banana.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "avena con manzana",
+    "tipo": "desayuno",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_024",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "avena",
+      "manzana"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "avena",
+        "cantidad": 40,
+        "unidad": "g"
+      },
+      {
+        "nombre": "manzana",
+        "cantidad": 1,
+        "unidad": "unidad"
+      },
+      {
+        "nombre": "agua",
+        "cantidad": 150,
+        "unidad": "ml"
+      }
+    ],
+    "preparacion": "Cocinar la avena con agua y agregar manzana cortada.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "tostadas con queso untable",
+    "tipo": "desayuno",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "lactosa",
+      "gluten"
+    ],
+    "id": "comida_025",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "pan",
+      "queso"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "leche"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pan",
+        "cantidad": 2,
+        "unidad": "rebanadas"
+      },
+      {
+        "nombre": "queso untable",
+        "cantidad": 30,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Tostar el pan y untar con queso.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "tostadas con tomate",
+    "tipo": "desayuno",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_026",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "pan",
+      "tomate"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pan",
+        "cantidad": 2,
+        "unidad": "rebanadas"
+      },
+      {
+        "nombre": "tomate",
+        "cantidad": 1,
+        "unidad": "unidad"
+      }
+    ],
+    "preparacion": "Tostar el pan y agregar tomate en rodajas.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "panqueques de avena",
+    "tipo": "desayuno",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten",
+      "huevo"
+    ],
+    "id": "comida_027",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "avena"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "avena molida",
+        "cantidad": 40,
+        "unidad": "g"
+      },
+      {
+        "nombre": "huevo",
+        "cantidad": 1,
+        "unidad": "unidad"
+      },
+      {
+        "nombre": "agua",
+        "cantidad": 60,
+        "unidad": "ml"
+      }
+    ],
+    "preparacion": "Mezclar los ingredientes y cocinar panqueques de ambos lados en una sart?n.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "yogur con avena y fruta",
+    "tipo": "desayuno",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "lactosa"
+    ],
+    "id": "comida_028",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "avena",
+      "fruta",
+      "yogur"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "leche"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "yogur natural",
+        "cantidad": 170,
+        "unidad": "g"
+      },
+      {
+        "nombre": "avena",
+        "cantidad": 30,
+        "unidad": "g"
+      },
+      {
+        "nombre": "banana",
+        "cantidad": 1,
+        "unidad": "unidad"
+      }
+    ],
+    "preparacion": "Mezclar el yogur con avena y banana cortada.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "huevo revuelto con tostadas",
+    "tipo": "desayuno",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten",
+      "huevo"
+    ],
+    "id": "comida_029",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "huevo",
+      "pan"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "huevo"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "huevo",
+        "cantidad": 2,
+        "unidad": "unidades"
+      },
+      {
+        "nombre": "pan",
+        "cantidad": 2,
+        "unidad": "rebanadas"
+      }
+    ],
+    "preparacion": "Revolver y cocinar los huevos. Servir con pan tostado.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "licuado de fruta con yogur",
+    "tipo": "desayuno",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "lactosa"
+    ],
+    "id": "comida_030",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "fruta",
+      "yogur"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "leche"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "yogur natural",
+        "cantidad": 170,
+        "unidad": "g"
+      },
+      {
+        "nombre": "banana",
+        "cantidad": 1,
+        "unidad": "unidad"
+      },
+      {
+        "nombre": "agua",
+        "cantidad": 100,
+        "unidad": "ml"
+      }
+    ],
+    "preparacion": "Licuar todos los ingredientes hasta integrar.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "arroz con verduras",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_031",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": 70,
+        "unidad": "g en seco"
+      },
+      {
+        "nombre": "verduras variadas",
+        "cantidad": 150,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "arroz con huevo",
+    "tipo": "cena",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "huevo"
+    ],
+    "id": "comida_032",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "huevo"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "huevo"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "huevo",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "arroz con atún",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "no",
+    "restricciones": [],
+    "id": "comida_033",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "atun"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "pescado"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": 70,
+        "unidad": "g en seco"
+      },
+      {
+        "nombre": "atun en conserva",
+        "cantidad": 100,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "pasta con salsa de tomate",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_034",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "pasta",
+      "tomate"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pasta",
+        "cantidad": 80,
+        "unidad": "g en seco"
+      },
+      {
+        "nombre": "tomate",
+        "cantidad": 1,
+        "unidad": "unidad"
+      },
+      {
+        "nombre": "tomate triturado",
+        "cantidad": 100,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "pasta con atún",
+    "tipo": "almuerzo",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "no",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_035",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "atun",
+      "pasta"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "pescado"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pasta",
+        "cantidad": 80,
+        "unidad": "g en seco"
+      },
+      {
+        "nombre": "atun en conserva",
+        "cantidad": 100,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "pasta con lentejas",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_036",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "lentejas",
+      "pasta"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pasta",
+        "cantidad": 80,
+        "unidad": "g en seco"
+      },
+      {
+        "nombre": "lentejas cocidas",
+        "cantidad": 150,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "ensalada con huevo",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "huevo"
+    ],
+    "id": "comida_037",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "huevo"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "huevo"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "huevo",
+        "cantidad": 2,
+        "unidad": "unidades"
+      },
+      {
+        "nombre": "hojas verdes",
+        "cantidad": 50,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Cocinar los ingredientes que lo requieran, dejar enfriar y combinar con los vegetales lavados.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "ensalada con pollo",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "no",
+    "restricciones": [],
+    "id": "comida_038",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "pollo"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pollo",
+        "cantidad": 120,
+        "unidad": "g"
+      },
+      {
+        "nombre": "hojas verdes",
+        "cantidad": 50,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Cocinar los ingredientes que lo requieran, dejar enfriar y combinar con los vegetales lavados.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "ensalada con arroz",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_039",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": 70,
+        "unidad": "g en seco"
+      },
+      {
+        "nombre": "hojas verdes",
+        "cantidad": 50,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Cocinar los ingredientes que lo requieran, dejar enfriar y combinar con los vegetales lavados.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "ensalada con garbanzos",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_040",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "garbanzos"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "garbanzos cocidos",
+        "cantidad": 150,
+        "unidad": "g"
+      },
+      {
+        "nombre": "hojas verdes",
+        "cantidad": 50,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Cocinar los ingredientes que lo requieran, dejar enfriar y combinar con los vegetales lavados.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "tortilla de papa y verduras",
+    "tipo": "desayuno",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "huevo"
+    ],
+    "id": "comida_041",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "papa",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "papa",
+        "cantidad": 150,
+        "unidad": "g"
+      },
+      {
+        "nombre": "huevo",
+        "cantidad": 2,
+        "unidad": "unidades"
+      },
+      {
+        "nombre": "espinaca",
+        "cantidad": 40,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Cocinar la papa, mezclar con huevo y espinaca y cocinar la tortilla completamente.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "wrap de huevo",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten",
+      "huevo"
+    ],
+    "id": "comida_042",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "huevo"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "huevo"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "huevo",
+        "cantidad": 2,
+        "unidad": "unidades"
+      },
+      {
+        "nombre": "tortilla para wrap",
+        "cantidad": 1,
+        "unidad": "unidad"
+      }
+    ],
+    "preparacion": "Cocinar los ingredientes que lo requieran y colocarlos dentro de la tortilla.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "wrap de pollo y verduras",
+    "tipo": "almuerzo",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "no",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_043",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "pollo",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pollo",
+        "cantidad": 120,
+        "unidad": "g"
+      },
+      {
+        "nombre": "verduras variadas",
+        "cantidad": 150,
+        "unidad": "g"
+      },
+      {
+        "nombre": "tortilla para wrap",
+        "cantidad": 1,
+        "unidad": "unidad"
+      }
+    ],
+    "preparacion": "Cocinar los ingredientes que lo requieran y colocarlos dentro de la tortilla.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "sandwich de atún",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "no",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_044",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "atun",
+      "pan"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "pescado"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "atun en conserva",
+        "cantidad": 100,
+        "unidad": "g"
+      },
+      {
+        "nombre": "pan",
+        "cantidad": 2,
+        "unidad": "rebanadas"
+      }
+    ],
+    "preparacion": "Preparar el relleno, cocinar lo necesario y armar el sandwich.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "fruta con yogur y avena",
+    "tipo": "merienda",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "lactosa"
+    ],
+    "id": "comida_045",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "avena",
+      "fruta",
+      "yogur"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "leche"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "avena",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "fruta",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "yogur",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "tostadas con hummus",
+    "tipo": "desayuno",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_046",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "hummus",
+      "pan"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "sesamo_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pan",
+        "cantidad": 2,
+        "unidad": "rebanadas"
+      },
+      {
+        "nombre": "hummus",
+        "cantidad": 50,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Tostar el pan y untar con hummus. Revisar los ingredientes del hummus.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "tostadas con palta y tomate",
+    "tipo": "merienda",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_047",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "palta",
+      "pan",
+      "tomate"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "palta",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "pan",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "tomate",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "sandwich de huevo y tomate",
+    "tipo": "merienda",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten",
+      "huevo"
+    ],
+    "id": "comida_048",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "huevo",
+      "pan",
+      "tomate"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "huevo"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "huevo",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "pan",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "tomate",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "yogur con fruta y frutos secos",
+    "tipo": "merienda",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "lactosa"
+    ],
+    "id": "comida_049",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "fruta",
+      "frutos secos",
+      "yogur"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "frutos_secos",
+      "leche"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "fruta",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "frutos secos",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "yogur",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "banana con avena",
+    "tipo": "merienda",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_050",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "avena",
+      "banana"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "avena",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "banana",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "manzana con frutos secos",
+    "tipo": "merienda",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_051",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "frutos secos",
+      "manzana"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "frutos_secos"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "frutos secos",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "manzana",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "pollo con arroz",
+    "tipo": "almuerzo",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "no",
+    "restricciones": [],
+    "id": "comida_052",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "pollo"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": 70,
+        "unidad": "g en seco"
+      },
+      {
+        "nombre": "pollo",
+        "cantidad": 120,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "pollo con papa",
+    "tipo": "almuerzo",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "no",
+    "restricciones": [],
+    "id": "comida_053",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "papa",
+      "pollo"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pollo",
+        "cantidad": 120,
+        "unidad": "g"
+      },
+      {
+        "nombre": "papa",
+        "cantidad": 180,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "pollo con arroz y verduras",
+    "tipo": "cena",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "no",
+    "restricciones": [],
+    "id": "comida_054",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "pollo",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "pollo",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "verduras",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "omelette con queso y verduras",
+    "tipo": "cena",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "lactosa",
+      "huevo"
+    ],
+    "id": "comida_055",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "huevo",
+      "queso",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "huevo",
+      "leche"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "huevo",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "queso",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "verduras",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "omelette con papa",
+    "tipo": "cena",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "huevo"
+    ],
+    "id": "comida_056",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "huevo",
+      "papa"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "huevo"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "huevo",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "papa",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "lentejas con arroz",
+    "tipo": "cena",
+    "objetivo": "mejorar resistencia",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_057",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "lentejas"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "lentejas",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "garbanzos con verduras",
+    "tipo": "cena",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_058",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "garbanzos",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "garbanzos",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "verduras",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "arroz con garbanzos",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_059",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "garbanzos"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": 70,
+        "unidad": "g en seco"
+      },
+      {
+        "nombre": "garbanzos cocidos",
+        "cantidad": 150,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "pasta con verduras y huevo",
+    "tipo": "cena",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten",
+      "huevo"
+    ],
+    "id": "comida_060",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "huevo",
+      "pasta",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "huevo"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "huevo",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "pasta",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "verduras",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "wrap de hummus y verduras",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_061",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "hummus",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "sesamo_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "verduras variadas",
+        "cantidad": 150,
+        "unidad": "g"
+      },
+      {
+        "nombre": "hummus",
+        "cantidad": 60,
+        "unidad": "g"
+      },
+      {
+        "nombre": "tortilla para wrap",
+        "cantidad": 1,
+        "unidad": "unidad"
+      }
+    ],
+    "preparacion": "Cocinar los ingredientes que lo requieran y colocarlos dentro de la tortilla.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "avena con banana y canela",
+    "tipo": "desayuno",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_062",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "avena",
+      "banana",
+      "canela"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "avena",
+        "cantidad": 40,
+        "unidad": "g"
+      },
+      {
+        "nombre": "banana",
+        "cantidad": 1,
+        "unidad": "unidad"
+      },
+      {
+        "nombre": "canela",
+        "cantidad": 1,
+        "unidad": "g"
+      },
+      {
+        "nombre": "agua",
+        "cantidad": 150,
+        "unidad": "ml"
+      }
+    ],
+    "preparacion": "Cocinar la avena con agua y agregar banana y canela.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "huevo revuelto con tomate",
+    "tipo": "desayuno",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "si",
+    "restricciones": [
+      "huevo"
+    ],
+    "id": "comida_063",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "huevo",
+      "tomate"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "huevo"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "huevo",
+        "cantidad": 2,
+        "unidad": "unidades"
+      },
+      {
+        "nombre": "tomate",
+        "cantidad": 1,
+        "unidad": "unidad"
+      }
+    ],
+    "preparacion": "Cocinar los huevos revueltos y servir con tomate.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "arroz con huevo y verduras",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "huevo"
+    ],
+    "id": "comida_065",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "huevo",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "huevo"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": 70,
+        "unidad": "g en seco"
+      },
+      {
+        "nombre": "verduras variadas",
+        "cantidad": 150,
+        "unidad": "g"
+      },
+      {
+        "nombre": "huevo",
+        "cantidad": 2,
+        "unidad": "unidades"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "ensalada con lentejas",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_066",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "lentejas"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "lentejas cocidas",
+        "cantidad": 150,
+        "unidad": "g"
+      },
+      {
+        "nombre": "hojas verdes",
+        "cantidad": 50,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Cocinar los ingredientes que lo requieran, dejar enfriar y combinar con los vegetales lavados.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "ensalada con atun",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "no",
+    "restricciones": [],
+    "id": "comida_067",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "atun"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "pescado"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "atun en conserva",
+        "cantidad": 100,
+        "unidad": "g"
+      },
+      {
+        "nombre": "hojas verdes",
+        "cantidad": 50,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Cocinar los ingredientes que lo requieran, dejar enfriar y combinar con los vegetales lavados.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "pollo con batata",
+    "tipo": "almuerzo",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "no",
+    "restricciones": [],
+    "id": "comida_068",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "batata",
+      "pollo"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pollo",
+        "cantidad": 120,
+        "unidad": "g"
+      },
+      {
+        "nombre": "batata",
+        "cantidad": 180,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "pasta con garbanzos",
+    "tipo": "almuerzo",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_070",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "garbanzos",
+      "pasta"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "pasta",
+        "cantidad": 80,
+        "unidad": "g en seco"
+      },
+      {
+        "nombre": "garbanzos cocidos",
+        "cantidad": 150,
+        "unidad": "g"
+      }
+    ],
+    "preparacion": "Lavar y preparar los ingredientes. Cocinar completamente los que lo requieran y combinarlos para servir.",
+    "porciones": 1,
+    "receta_verificada": false
+  },
+  {
+    "comida": "banana con frutos secos",
+    "tipo": "merienda",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_072",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "banana",
+      "frutos secos"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "frutos_secos"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "banana",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "frutos secos",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "hummus con verduras",
+    "tipo": "merienda",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_073",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "hummus",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "sesamo_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "hummus",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "verduras",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "tostadas con hummus y tomate",
+    "tipo": "merienda",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "gluten"
+    ],
+    "id": "comida_074",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "hummus",
+      "pan",
+      "tomate"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "gluten_posible",
+      "sesamo_posible"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "hummus",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "pan",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "tomate",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "arroz con lentejas y verduras",
+    "tipo": "cena",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [],
+    "id": "comida_075",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "lentejas",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "lentejas",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "verduras",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "tortilla de verduras",
+    "tipo": "cena",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "huevo"
+    ],
+    "id": "comida_076",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "verduras",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "pollo con verduras y arroz",
+    "tipo": "cena",
+    "objetivo": "ganar fuerza",
+    "vegetariano": "no",
+    "restricciones": [],
+    "id": "comida_077",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "pollo",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "pollo",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "verduras",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "atun con arroz y verduras",
+    "tipo": "cena",
+    "objetivo": "general",
+    "vegetariano": "no",
+    "restricciones": [],
+    "id": "comida_078",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "arroz",
+      "atun",
+      "verduras"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "pescado"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "arroz",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "atun",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "verduras",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  },
+  {
+    "comida": "ensalada de papa y huevo",
+    "tipo": "cena",
+    "objetivo": "general",
+    "vegetariano": "si",
+    "restricciones": [
+      "huevo"
+    ],
+    "id": "comida_079",
+    "alergenos_verificados": false,
+    "ingredientes": [
+      "huevo",
+      "papa"
+    ],
+    "alergenos": [],
+    "ingredientes_verificados": false,
+    "alergenos_posibles": [
+      "huevo"
+    ],
+    "ingredientes_detallados": [
+      {
+        "nombre": "huevo",
+        "cantidad": null,
+        "unidad": null
+      },
+      {
+        "nombre": "papa",
+        "cantidad": null,
+        "unidad": null
+      }
+    ],
+    "preparacion": "",
+    "porciones": null,
+    "receta_verificada": false
+  }
+]

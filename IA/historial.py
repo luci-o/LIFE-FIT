@@ -342,3 +342,34 @@ def obtener_dataset_entrenamiento():
             })
 
     return registros
+def registrar_menu(usuario_id, menu, perfil_alimentario=None):
+    historial = cargar_historial()
+    usuario_id = str(usuario_id)
+
+    usuario = historial.setdefault(
+        usuario_id,
+        {"rutinas": [], "sesiones": []}
+    )
+
+    usuario.setdefault("menus", [])
+
+    usuario["menus"].append({
+        "fecha": datetime.now().isoformat(),
+        "menu": menu,
+        "perfil_alimentario": perfil_alimentario
+    })
+
+    guardar_historial(historial)
+
+
+def obtener_ultimo_menu(usuario_id):
+    usuario = obtener_historial_usuario(usuario_id)
+    menus = usuario.get("menus", [])
+
+    return menus[-1] if menus else None
+
+def obtener_ultimo_menu(usuario_id):
+    usuario = obtener_historial_usuario(usuario_id)
+    menus = usuario.get("menus", [])
+
+    return menus[-1] if menus else None

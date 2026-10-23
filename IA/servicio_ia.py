@@ -1,5 +1,6 @@
 import json
-
+from alimentacion import generar_menu_semanal
+from historial import registrar_menu, obtener_ultimo_menu
 from historial import (
     registrar_rutina,
     obtener_ultima_rutina,
@@ -134,14 +135,40 @@ def procesar_solicitud(
     if rutina_despues_chat != rutina_antes_chat:
         registrar_rutina(usuario_id, rutina)
 
+    perfil_alimentario = usuario.get("alimentacion")
+    registro_menu = obtener_ultimo_menu(usuario_id)
+
+    if perfil_alimentario is None:
+        menu = None
+
+    elif (
+        registro_menu is not None
+        and registro_menu.get("perfil_alimentario") == perfil_alimentario
+    ):
+        menu = registro_menu["menu"]
+
+    else:
+        resultado_menu = generar_menu_semanal(
+            perfil_alimentario
+        )
+
+        if resultado_menu.get("ok"):
+            menu = resultado_menu["menu"]
+
+            registrar_menu(
+                usuario_id,
+                menu,
+                perfil_alimentario
+            )
+        else:
+            menu = None
     return {
         "ok": True,
         "evaluacion": evaluacion,
         "rutina": rutina,
+        "menu": menu,
         "respuesta_chat": respuesta_chat
     }
-
-
 
 def procesar_adaptacion(usuario_id, zona_lesion=None):
     if zona_lesion is None:
@@ -283,4 +310,32 @@ def procesar_adaptacion(usuario_id, zona_lesion=None):
         "sesiones_utilizadas": 5,
         "zonas_restringidas": sorted(zonas_activas),
         "ejercicios_eliminados": ejercicios_eliminados
+    }
+def procesar_cuestionario_inicial(respuestas):
+    from perfil_inicial import preparar_perfiles, preguntas_pendientes
+
+    pendientes = preguntas_pendientes(respuestas)
+
+    if pendientes:
+        return {
+            "ok": False,
+            "estado": "cuestionario_incompleto",
+            "preguntas_pendientes": pendientes
+        }
+
+    perfiles = preparar_perfiles(respuestas)
+
+    usuario = perfiles["entrenamiento"]
+    usuario["alimentacion"] = perfiles["alimentacion"]
+
+    resultado = procesar_solicitud(
+        usuario=usuario,
+        mensaje="Mostrame mi rutina completa"
+    )
+
+    return {
+        "ok": resultado["ok"],
+        "rutina": resultado["rutina"],
+        "menu": resultado["menu"],
+        "respuesta_chat": resultado["respuesta_chat"]
     }
