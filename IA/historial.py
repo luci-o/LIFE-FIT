@@ -63,7 +63,10 @@ def guardar_historial(historial):
             os.remove(ruta_temporal)
 
 
-def registrar_rutina(usuario_id, rutina):
+def registrar_rutina(usuario_id, rutina, perfil_entrenamiento=None):
+    if not isinstance(rutina, dict) or not rutina:
+        raise ValueError("No se puede guardar una rutina vacia.")
+
     historial = cargar_historial()
     usuario_id = str(usuario_id)
 
@@ -72,10 +75,15 @@ def registrar_rutina(usuario_id, rutina):
         {"rutinas": [], "sesiones": []}
     )
 
-    usuario["rutinas"].append({
+    registro = {
         "fecha": datetime.now().isoformat(),
         "rutina": rutina
-    })
+    }
+
+    if perfil_entrenamiento is not None:
+        registro["perfil_entrenamiento"] = perfil_entrenamiento
+
+    usuario["rutinas"].append(registro)
 
     guardar_historial(historial)
 
@@ -96,7 +104,7 @@ def registrar_sesion(
             or not 0 < duracion_minutos <= 300
         ):
             raise ValueError(
-                "La duración debe estar entre 1 y 300 minutos."
+                "La duraci?n debe estar entre 1 y 300 minutos."
             )
 
     historial = cargar_historial()
@@ -118,24 +126,6 @@ def registrar_sesion(
     })
 
     guardar_historial(historial)
-    historial = cargar_historial()
-    usuario_id = str(usuario_id)
-
-    usuario = historial.setdefault(
-        usuario_id,
-        {"rutinas": [], "sesiones": []}
-    )
-
-    usuario["sesiones"].append({
-        "fecha": datetime.now().isoformat(),
-        "dia": dia,
-        "completada": completada,
-        "dificultad_percibida": dificultad_percibida,
-        "comentario": comentario
-    })
-
-    guardar_historial(historial)
-
 
 def obtener_historial_usuario(usuario_id):
     historial = cargar_historial()

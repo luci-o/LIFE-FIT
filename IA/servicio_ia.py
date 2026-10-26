@@ -1,3 +1,4 @@
+from validaciones import validar_perfil_entrenamiento
 import json
 from alimentacion import generar_menu_semanal
 from historial import registrar_menu, obtener_ultimo_menu
@@ -33,14 +34,37 @@ def procesar_solicitud(
     dia_actual=None,
     ejercicio_actual=None
 ):
+    validar_perfil_entrenamiento(usuario)
+
     usuario_id = usuario.get("id", "usuario_sin_id")
+
+    campos_perfil = (
+        "edad", "peso", "objetivo", "dias", "tiempo",
+        "experiencia", "lugar", "zona_lesion", "estado_lesion"
+    )
+
+    perfil_actual = {
+        campo: usuario.get(
+            campo,
+            "nada" if campo == "zona_lesion"
+            else "ninguna" if campo == "estado_lesion"
+            else None
+        )
+        for campo in campos_perfil
+    }
 
     registro_anterior = obtener_ultima_rutina(usuario_id)
 
-    if registro_anterior is not None:
+    reutilizar = (
+        registro_anterior is not None
+        and registro_anterior.get("perfil_entrenamiento") == perfil_actual
+        and isinstance(registro_anterior.get("rutina"), dict)
+        and bool(registro_anterior["rutina"])
+    )
+
+    if reutilizar:
         rutina = registro_anterior["rutina"]
         evaluacion = None
-
     else:
         resultado_rutina = generar_plan_personalizado(
             edad=usuario["edad"],
@@ -60,7 +84,11 @@ def procesar_solicitud(
 
         evaluacion = resultado_rutina["evaluacion"]
 
-        registrar_rutina(usuario_id, rutina)
+        registrar_rutina(
+            usuario_id,
+            rutina,
+            perfil_entrenamiento=perfil_actual
+        )
 
     rutina_antes_chat = json.dumps(
         rutina,
@@ -133,7 +161,11 @@ def procesar_solicitud(
     )
 
     if rutina_despues_chat != rutina_antes_chat:
-        registrar_rutina(usuario_id, rutina)
+        registrar_rutina(
+            usuario_id,
+            rutina,
+            perfil_entrenamiento=perfil_actual
+        )
 
     perfil_alimentario = usuario.get("alimentacion")
     registro_menu = obtener_ultimo_menu(usuario_id)
