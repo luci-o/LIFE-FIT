@@ -111,19 +111,19 @@ export const Registrarse = () => {
         paddingBottom: 0
       }}>
         
-        {/* LOGO DE FONDO */}
+        {/* logo fondo*/}
         <img 
           src={logoBg} 
           alt="Life Fit Background Logo" 
           style={{
             position: 'absolute',
-            width: '950px',
+            width: '800px',
             maxWidth: '95vw',
             height: 'auto',
-            top: '48%',
+            top: '60%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            opacity: 0.4,
+            opacity: 0.6,
             filter: 'drop-shadow(0px 0px 8px #00E676)',
             pointerEvents: 'none',
             zIndex: 1
