@@ -325,16 +325,28 @@ def generar_plan_semanal(
         ].copy()
 
         if zona_lesion != "nada":
-
-            ejercicios = ejercicios[
-                ejercicios[
-                    "restricciones"
-                ].apply(
-                    lambda restricciones:
-                    zona_lesion
-                    not in restricciones
+            mascara = ejercicios["restricciones"].apply(
+                lambda restricciones: (
+                    zona_lesion not in restricciones
+                    if isinstance(restricciones, (list, tuple, set))
+                    else False
                 )
-            ].copy()
+            ).astype(bool)
+
+            ejercicios = ejercicios.loc[mascara].copy()
+
+            grupos_lesion = {
+                "Pierna": "piernas",
+                "Espalda": "espalda",
+                "Hombro": "hombros"
+            }
+
+            grupo_restringido = grupos_lesion.get(zona_lesion)
+
+            if grupo_restringido is not None:
+                ejercicios = ejercicios.loc[
+                    ejercicios["grupo_muscular"] != grupo_restringido
+                ].copy()
 
         ejercicios["ya_usado"] = ejercicios[
             "ejercicio"
@@ -512,6 +524,23 @@ def generar_plan_personalizado(
     zona_lesion="nada",
     estado_lesion="ninguna"
 ):
+    lugares = {
+        "gimnasio": "gym",
+        "gym": "gym",
+        "casa": "hogar",
+        "hogar": "hogar",
+        "exterior": "aire libre",
+        "aire libre": "aire libre"
+    }
+
+    if not isinstance(lugar, str):
+        raise ValueError("Lugar de entrenamiento invalido.")
+
+    lugar = lugares.get(lugar.strip().lower())
+
+    if lugar is None:
+        raise ValueError("Lugar de entrenamiento no reconocido.")
+
     evaluacion = evaluar_usuario(
         edad,
         peso,
