@@ -52,8 +52,10 @@ const generarRutina = async (req, res) => {
     }
     
     const cantidad = await transaction(async (client) => {
-      await client.query(`DELETE FROM "EJERCICIOS" WHERE "ID_PERFIL" = $1`, [req.params.id]);
-    
+      await client.query(
+        `DELETE FROM "EJERCICIOS" WHERE "ID_PERFIL" = $1 AND "FECHA" >= CURRENT_DATE`,
+        [req.params.id]
+      )    
       let n = 0;
       let numeroDia = 0;
       for (const dia of Object.keys(plan)) {
@@ -61,8 +63,8 @@ const generarRutina = async (req, res) => {
         for (const ej of plan[dia]) {
           await client.query(
             `INSERT INTO "EJERCICIOS"
-              ("ID_PERFIL","EJERCICIO","SERIES","REPETICIONES","DIA")
-             VALUES ($1,$2,$3,$4,$5)`,
+                            ("ID_PERFIL","EJERCICIO","SERIES","REPETICIONES","FECHA")
+             VALUES ($1,$2,$3,$4, date_trunc('week', CURRENT_DATE)::date + ($5::int - 1))`,
             [req.params.id, ej.ejercicio, ej.series ?? null, ej.repeticiones ?? null, numeroDia]
           );
           n++;

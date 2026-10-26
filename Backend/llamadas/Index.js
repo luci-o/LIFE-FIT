@@ -30,13 +30,14 @@ app.post("/usuarios/:id/rutina", verificarToken, verificarUsuario, ejercicios.gu
 app.post("/usuarios/:id/rutina/generar", verificarToken, verificarUsuario, ia.generarRutina);
 app.get("/perfil/:id/progreso",  verificarToken, verificarUsuario, progreso.verProgreso);
 app.post("/usuarios/:id/progreso", verificarToken, verificarUsuario, progreso.registrarProgreso);
+app.get("/usuarios/:id/progreso/resumen", verificarToken, verificarUsuario, progreso.verResumen);
 app.get("/usuarios/:id/nutricion", verificarToken, verificarUsuario, Nutricion.verDieta);
 app.post("/usuarios/:id/nutricion", verificarToken, verificarUsuario, Nutricion.guardarDieta);
 app.put("/usuarios/:id/rutina/:idEjercicio/realizado", verificarToken, verificarUsuario, ejercicios.marcarRealizado);
 app.get   ("/perfil/:id/conversacion",verificarToken, verificarUsuario, chat.listarConversaciones);
 app.post  ("/usuarios/:id/chat", verificarToken, verificarUsuario, chat.crearConversacion);
 app.delete("/usuarios/:id/chat/:idConv", verificarToken, verificarUsuario, chat.borrarConversacion);
-app.get   ("/perfil/:id/convesacion/:idConv/mensajes", verificarToken, verificarUsuario, chat.verMensajes);
+app.get   ("/perfil/:id/conversacion/:idConv/mensajes", verificarToken, verificarUsuario, chat.verMensajes);
 app.post  ("/usuarios/:id/chat/:idConv/mensajes", verificarToken, verificarUsuario, chat.enviarMensaje);
 app.get("/usuarios/:id/comidas", verificarToken, verificarUsuario, comidas.verComidas);
 app.put("/usuarios/:id/comidas/:idComida/realizada", verificarToken, verificarUsuario, comidas.marcarComidaRealizada);

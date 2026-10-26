@@ -5,13 +5,13 @@ const MOMENTOS = ["desayuno", "almuerzo", "merienda", "cena"]
 const verComidas = async (req, res) => {
   try {
     const result = await query(
-      `SELECT c."ID_COMIDA", c."DIA", c."MOMENTO", c."REALIZADA",
+      `SELECT c."ID_COMIDA", c."FECHA", c."MOMENTO", c."REALIZADA",
               a."ID_ALIMENTO", a."NOMBRE", l."CANTIDAD"
        FROM "COMIDA" c
        LEFT JOIN "LLEVA" l     ON l."ID_COMIDA"   = c."ID_COMIDA"
        LEFT JOIN "ALIMENTOS" a ON a."ID_ALIMENTO" = l."ID_ALIMENTO"
        WHERE c."ID_PERFIL" = $1
-       ORDER BY c."DIA", c."ID_COMIDA", a."NOMBRE"`,
+       ORDER BY c."FECHA", c."ID_COMIDA", a."NOMBRE"`,
       [req.params.id]
     );
 
@@ -21,7 +21,7 @@ const verComidas = async (req, res) => {
       if (!comida) {
         comida = {
           idComida: fila["ID_COMIDA"],
-          dia: fila["DIA"],
+          fecha: fila["FECHA"],
           momento: fila["MOMENTO"],
           realizada: fila["REALIZADA"],
           alimentos: [],
@@ -67,10 +67,9 @@ const crearComida = async (req, res) => {
   try {
     const idComida = await transaction(async (client) => {
       const comida = await client.query(
-        `INSERT INTO "COMIDA" ("ID_PERFIL","DIA","MOMENTO")
-         VALUES ($1,$2,$3)
-         ON CONFLICT ("ID_PERFIL","DIA","MOMENTO")
-         DO UPDATE SET "REALIZADA" = false
+        `INSERT INTO "COMIDA" ("ID_PERFIL","FECHA","MOMENTO")
+         VALUES ($1, date_trunc('week', CURRENT_DATE)::date + ($2::int - 1), $3)
+         ON CONFLICT ("ID_PERFIL","FECHA","MOMENTO")
          RETURNING "ID_COMIDA"`,
         [req.params.id, dia, momento]
       )
@@ -107,7 +106,7 @@ const marcarComidaRealizada = async (req, res) => {
       `UPDATE "COMIDA"
        SET "REALIZADA" = $1
        WHERE "ID_COMIDA" = $2 AND "ID_PERFIL" = $3
-       RETURNING "ID_COMIDA","DIA","MOMENTO","REALIZADA"`,
+       RETURNING "ID_COMIDA","FECHA","MOMENTO","REALIZADA"`,
       [realizada, req.params.idComida, req.params.id]
     )
     if (result.rows.length === 0) {
