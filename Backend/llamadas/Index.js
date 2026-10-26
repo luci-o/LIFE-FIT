@@ -40,6 +40,7 @@ app.get   ("/perfil/:id/convesacion/:idConv/mensajes", verificarToken, verificar
 app.post  ("/usuarios/:id/chat/:idConv/mensajes", verificarToken, verificarUsuario, chat.enviarMensaje);
 app.get("/usuarios/:id/comidas", verificarToken, verificarUsuario, comidas.verComidas);
 app.put("/usuarios/:id/comidas/:idComida/realizada", verificarToken, verificarUsuario, comidas.marcarComidaRealizada);
+app.post("/usuarios/:id/comidas", verificarToken, verificarUsuario, comidas.crearComida);
 
 app.use((req, res) => {
   res.status(404).json({ message: `La ruta ${req.method} ${req.originalUrl} no existe` })

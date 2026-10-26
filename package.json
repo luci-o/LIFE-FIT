@@ -16,8 +16,9 @@
     "vite": "^8.2.1"
   },
   "type": "module",
-  "scripts": {
-    "start": "node --env-file=.env Backend/llamadas/Index.js",
-    "dev": "node --watch --env-file=.env Backend/llamadas/Index.js"
-  }
+"scripts": {
+  "start": "node --env-file=.env Backend/llamadas/Index.js",
+  "dev": "node --watch --env-file=.env Backend/llamadas/Index.js",
+  "cargar-alimentos": "node --env-file=.env Backend/scripts/cargarAlimentos.js"
+}
 }

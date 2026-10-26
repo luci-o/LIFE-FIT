@@ -64,11 +64,19 @@ const enviarMensaje = async (req, res) => {
        RETURNING "ID_MENSAJE","EMISOR","TEXTO","FECHA_HORA"`,
       [req.params.idConv, texto]
     )
-    const r = await fetch(`${IA_URL}/chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ texto, idPerfil: Number(req.params.id) }),
-    })
+    let r;
+    try {
+      r = await fetch(`${IA_URL}/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ texto, idPerfil: Number(req.params.id) }),
+      })
+    } catch {
+      return res.status(502).json({
+        message: "No se pudo contactar a la IA. Tu mensaje se guardó, probá de nuevo.",
+        mensaje: mio.rows[0],
+      })
+    }
     if (!r.ok) {
       return res.status(502).json({
         message: "La IA no respondió. Tu mensaje se guardó, probá de nuevo.",
