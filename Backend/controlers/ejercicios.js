@@ -1,16 +1,16 @@
 import { query } from "../DB/db.js";
 
 const getEjerciciosByPerfil = async (req, res) => {
-  const { dia } = req.query;
+  const { fecha } = req.query;
   try {
     const result = await query(
       `SELECT "ID EJERCICIOS","EJERCICIO","SERIES","REPETICIONES",
-              "DIA","DISTANCIA_KM","DURACION_MIN","REALIZADO"
+               "FECHA","DISTANCIA_KM","DURACION_MIN","REALIZADO"
        FROM "EJERCICIOS"
        WHERE "ID_PERFIL" = $1
-         AND ($2::int IS NULL OR "DIA" = $2::int)
-       ORDER BY "DIA", "ID EJERCICIOS"`,
-      [req.params.id, dia ?? null]
+         AND ($2::date IS NULL OR "FECHA" = $2::date)
+       ORDER BY "FECHA", "ID EJERCICIOS"`,
+      [req.params.id, fecha ?? null]
     );
     res.json(result.rows);
   } catch (error) {
@@ -35,8 +35,11 @@ const guardarEjercicio = async (req, res) => {
     for (const ejercicio of ejercicios) {
       await query(
         `INSERT INTO "EJERCICIOS"
-          ("ID_PERFIL","EJERCICIO","SERIES","REPETICIONES","DIA","DISTANCIA_KM","DURACION_MIN")
-         VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+          ("ID_PERFIL","EJERCICIO","SERIES","REPETICIONES","FECHA","DISTANCIA_KM","DURACION_MIN")
+         VALUES ($1,$2,$3,$4,
+                 CASE WHEN $5::int IS NULL THEN NULL
+                      ELSE date_trunc('week', CURRENT_DATE)::date + ($5::int - 1) END,
+                 $6,$7)`,
         [req.params.id, ejercicio.nombre,
          ejercicio.series ?? null, ejercicio.repeticiones ?? null,
          ejercicio.dia ?? null, ejercicio.distanciaKm ?? null, ejercicio.duracionMin ?? null]

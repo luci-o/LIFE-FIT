@@ -36,5 +36,5 @@ const registrarProgreso = async (req, res) => {
   }
 };
 
-const Progreso = { verProgreso, registrarProgreso}
+const Progreso = { verProgreso, registrarProgreso, verResumen };
 export default Progreso;
