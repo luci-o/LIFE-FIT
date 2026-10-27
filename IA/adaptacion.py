@@ -43,7 +43,32 @@ def analizar_feedback_semanal(
         dificultad = sesion.get(
             "dificultad_percibida",
             "bien"
-        ).lower()
+        )
+
+        if type(dificultad) in (int, float):
+            if 1 <= dificultad <= 2:
+                dificultad = "facil"
+            elif dificultad == 3:
+                dificultad = "bien"
+            elif 4 <= dificultad <= 5:
+                dificultad = "dificil"
+            else:
+                return {
+                    "accion": "datos_invalidos",
+                    "motivo": "Dificultad percibida fuera de rango."
+                }
+        elif isinstance(dificultad, str):
+            dificultad = dificultad.strip().lower()
+            if dificultad not in ("facil", "bien", "dificil"):
+                return {
+                    "accion": "datos_invalidos",
+                    "motivo": "Dificultad percibida no reconocida."
+                }
+        else:
+            return {
+                "accion": "datos_invalidos",
+                "motivo": "Formato de dificultad no v?lido."
+            }
 
         if dificultad == "facil":
             faciles += 1

@@ -67,6 +67,9 @@ def obtener_ejercicio_actual(rutina, dia_actual, ejercicio_actual):
     if clave not in rutina:
         return None, f"No tenés una rutina cargada para el día {dia_actual}."
 
+    if isinstance(ejercicio_actual, bool) or not isinstance(ejercicio_actual, int):
+        return None, "El ejercicio actual debe ser un n?mero."
+
     ejercicios = rutina[clave]
     indice_actual = ejercicio_actual - 1
 
@@ -140,6 +143,9 @@ def cambiar_ejercicio_rutina(
     if clave not in rutina:
         return False, f"No tenés una rutina cargada para el día {dia_actual}."
 
+    if isinstance(ejercicio_actual, bool) or not isinstance(ejercicio_actual, int):
+        return False, "El ejercicio actual debe ser un n?mero."
+
     ejercicios_dia = rutina[clave]
     indice = ejercicio_actual - 1
 
@@ -185,13 +191,30 @@ def cambiar_ejercicio_rutina(
         ~candidatos["ejercicio"].isin(nombres_usados)
     ].copy()
 
-    candidatos = candidatos[
-        candidatos["restricciones"].apply(
-            lambda restricciones: not (
-                zonas_restringidas
-                & set(restricciones or [])
-            )
+    mascara = candidatos["restricciones"].apply(
+        lambda restricciones: not (
+            zonas_restringidas & set(restricciones)
+            if isinstance(restricciones, (list, tuple, set))
+            else bool(zonas_restringidas)
         )
+    ).astype(bool)
+
+    candidatos = candidatos.loc[mascara].copy()
+
+    grupos_lesion = {
+        "Pierna": "piernas",
+        "Espalda": "espalda",
+        "Hombro": "hombros"
+    }
+
+    grupos_bloqueados = {
+        grupos_lesion[zona]
+        for zona in zonas_restringidas
+        if zona in grupos_lesion
+    }
+
+    candidatos = candidatos.loc[
+        ~candidatos["grupo_muscular"].isin(grupos_bloqueados)
     ].copy()
 
     familias_usadas = {
@@ -214,7 +237,24 @@ def cambiar_ejercicio_rutina(
             ejercicio_anterior.get("restricciones") or []
         )
 
-        if zonas_restringidas & restricciones_original:
+        grupos_lesion = {
+            "Pierna": "piernas",
+            "Espalda": "espalda",
+            "Hombro": "hombros"
+        }
+
+        grupos_bloqueados = {
+            grupos_lesion[zona]
+            for zona in zonas_restringidas
+            if zona in grupos_lesion
+        }
+
+        ejercicio_incompatible = (
+            bool(zonas_restringidas & restricciones_original)
+            or grupo in grupos_bloqueados
+        )
+
+        if ejercicio_incompatible:
             ejercicios_dia.pop(indice)
 
             return (
@@ -644,6 +684,12 @@ def responder_chat(
             return (
                 f"No tenés una rutina cargada para el día {dia_actual}."
             )
+
+        if isinstance(ejercicio_actual, bool) or not isinstance(ejercicio_actual, int):
+            return "El ejercicio actual debe ser un n?mero."
+
+        if ejercicio_actual < 1:
+            return "El n?mero de ejercicio actual no es v?lido."
 
         ejercicios = rutina[clave]
         indice_siguiente = ejercicio_actual
