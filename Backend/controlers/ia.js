@@ -94,7 +94,6 @@ if (dias.some((d) => !Number.isInteger(d) || d < 1 || d > 7)) {
         }
       }
       return n;
-      return n;
     });
     
     res.status(201).json({ message: "Rutina generada", dificultad, cantidad, plan });
