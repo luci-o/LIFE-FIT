@@ -151,7 +151,7 @@ def obtener_division(dias, objetivo):
             }
 
     # BAJAR PESO
-    elif objetivo == "bajar peso":
+    elif objetivo in ("bajar peso", "bajar grasa"):
 
         if dias == 1:
             return {
