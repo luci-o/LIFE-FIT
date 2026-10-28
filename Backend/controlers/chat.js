@@ -1,4 +1,5 @@
 import { query } from "../DB/db.js";
+import { consultarIA } from "../services/iaService.js";
 const IA_URL = process.env.IA_URL || "http://localhost:5000"
 
 const esDelUsuario = async (idConv, idPerfil) => {
@@ -64,26 +65,80 @@ const enviarMensaje = async (req, res) => {
        RETURNING "ID_MENSAJE","EMISOR","TEXTO","FECHA_HORA"`,
       [req.params.idConv, texto]
     )
-    let r;
+
+    let datosIA;
+
     try {
-      r = await fetch(`${IA_URL}/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ texto, idPerfil: Number(req.params.id) }),
-      })
-    } catch {
+      const resultadoPerfil = await query(
+        `SELECT * FROM "PERFIL USUARIO"
+         WHERE "ID PERFIL" = $1`,
+        [req.params.id]
+      );
+    
+      if (resultadoPerfil.rows.length === 0) {
+        return res.status(404).json({
+          message: "Perfil no encontrado",
+          mensaje: mio.rows[0]
+        });
+      }
+    
+      const p = resultadoPerfil.rows[0];
+    
+      const lesiones = await query(
+        `SELECT "ZONAS LESIONADAS" AS zona,
+                CASE WHEN "FECHA_FIN" IS NULL
+                          OR "FECHA_FIN" > CURRENT_DATE
+                     THEN 'actual'
+                     ELSE 'pasada'
+                END AS estado
+         FROM "LESIONES"
+         WHERE "ID PERFIL" = $1
+         ORDER BY ("FECHA_FIN" IS NULL
+                   OR "FECHA_FIN" > CURRENT_DATE) DESC,
+                  "FECHA_INICIO" DESC NULLS LAST
+         LIMIT 1`,
+        [req.params.id]
+      );
+    
+      const lesion = lesiones.rows[0];
+    
+      const usuario = {
+        id: Number(req.params.id),
+        edad: Number(p["EDAD"]),
+        peso: Number(p["PESO"]),
+        objetivo: p["OBJETIVO"],
+        dias: Number(p["DIAS POR SEMANA"]),
+        tiempo: Number(p["TIEMPO DISPONIBLE"]) * 60,
+        experiencia: p["NIVEL DE ENTRENAMIENTO"],
+        lugar: p["LUGAR DONDE ENTRENA"],
+        zona_lesion: lesion?.zona ?? "nada",
+        estado_lesion: lesion?.estado ?? "ninguna"
+      };
+    
+      datosIA = await consultarIA("chat", {
+        usuario,
+        mensaje: texto
+      });
+    
+      if (datosIA.ok !== true ||
+          typeof datosIA.respuesta !== "string") {
+        return res.status(502).json({
+          message: datosIA.error || "La IA no pudo responder",
+          mensaje: mio.rows[0]
+        });
+      }
+    
+    } catch (error) {
+      console.error("Error del chat con Python:", error);
+    
       return res.status(502).json({
-        message: "No se pudo contactar a la IA. Tu mensaje se guardó, probá de nuevo.",
-        mensaje: mio.rows[0],
-      })
+        message: "No se pudo ejecutar el chat de LIFE FIT AI.",
+        mensaje: mio.rows[0]
+      });
     }
-    if (!r.ok) {
-      return res.status(502).json({
-        message: "La IA no respondió. Tu mensaje se guardó, probá de nuevo.",
-        mensaje: mio.rows[0],
-      })
-    }
-    const { respuesta } = await r.json()
+    
+    const respuesta = datosIA.respuesta;
+    
     const suya = await query(
       `INSERT INTO "MENSAJE" ("ID_CONVERSACION","EMISOR","TEXTO") VALUES ($1,'IA',$2)
        RETURNING "ID_MENSAJE","EMISOR","TEXTO","FECHA_HORA"`,

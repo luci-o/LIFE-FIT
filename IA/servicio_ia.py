@@ -202,7 +202,7 @@ def procesar_solicitud(
         "respuesta_chat": respuesta_chat
     }
 
-def procesar_adaptacion(usuario_id, zona_lesion=None):
+def procesar_adaptacion(usuario_id, zona_lesion=None, guardar=True):
     if zona_lesion is None:
         return {
             "ok": False,
@@ -315,6 +315,19 @@ def procesar_adaptacion(usuario_id, zona_lesion=None):
         or ejercicios_eliminados > 0
     )
 
+    if not guardar:
+        return {
+            "ok": True,
+            "accion": accion,
+            "motivo": analisis["motivo"],
+            "rutina": rutina_adaptada,
+            "sesiones_utilizadas": 5,
+            "fechas_utilizadas": fechas_utilizadas,
+            "zonas_restringidas": sorted(zonas_activas),
+            "ejercicios_eliminados": ejercicios_eliminados,
+            "preparada": True
+        }
+
     guardado = guardar_resultado_adaptacion(
         usuario_id=usuario_id,
         accion=accion,
@@ -370,4 +383,32 @@ def procesar_cuestionario_inicial(respuestas):
         "rutina": resultado["rutina"],
         "menu": resultado["menu"],
         "respuesta_chat": resultado["respuesta_chat"]
+    }
+
+
+def confirmar_adaptacion(usuario_id, accion, fechas_utilizadas, rutina=None):
+    """Confirma una adaptacion previamente preparada."""
+    if not isinstance(fechas_utilizadas, list):
+        return {"ok": False, "error": "Fechas invalidas"}
+
+    if accion not in ("subir", "bajar", "mantener"):
+        return {"ok": False, "error": "Accion invalida"}
+
+    guardado = guardar_resultado_adaptacion(
+        usuario_id=usuario_id,
+        accion=accion,
+        fechas_utilizadas=fechas_utilizadas,
+        rutina_adaptada=rutina
+    )
+
+    if not guardado:
+        return {
+            "ok": False,
+            "error": "No se pudo confirmar la adaptacion"
+        }
+
+    return {
+        "ok": True,
+        "mensaje": "Adaptacion confirmada",
+        "sesiones_utilizadas": 5
     }

@@ -53,6 +53,23 @@ def responder(solicitud):
                     duracion_minutos=datos["duracion_minutos"]
                 )
 
+            if accion == "preparar_adaptacion":
+                from servicio_ia import procesar_adaptacion
+                return procesar_adaptacion(
+                    usuario_id=datos["usuario_id"],
+                    zona_lesion=datos["zona_lesion"],
+                    guardar=False
+                )
+
+            if accion == "confirmar_adaptacion":
+                from servicio_ia import confirmar_adaptacion
+                return confirmar_adaptacion(
+                    usuario_id=datos["usuario_id"],
+                    accion=datos["accion"],
+                    fechas_utilizadas=datos["fechas_utilizadas"],
+                    rutina=datos.get("rutina")
+                )
+
             if accion == "adaptar_entrenamiento":
                 return adaptar_entrenamiento(
                     usuario_id=datos["usuario_id"],
