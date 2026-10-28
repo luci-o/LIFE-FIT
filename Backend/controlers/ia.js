@@ -1,4 +1,5 @@
 import { query, transaction } from "../DB/db.js";
+import { consultarIA } from "../services/iaService.js";
 const IA_URL = process.env.IA_URL || "http://localhost:5000"
 
 const generarRutina = async (req, res) => {
@@ -35,25 +36,27 @@ const generarRutina = async (req, res) => {
       zona_lesion:   lesion?.zona ?? "nada",
       estado_lesion: lesion?.estado ?? "ninguna",
     };
-    let respuesta;
-    try {
-      respuesta = await fetch(`${IA_URL}/generar-rutina`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(datosIA),
-      });
-    } catch {
-      return res.status(502).json({
-        message: "No se pudo contactar a la IA. Probá de nuevo en un rato.",
-      });
-    }
 
-    if (!respuesta.ok) {
+    let datos;
+
+    try {
+      datos = await consultarIA("crear_plan", {
+        respuestas: {
+          ...datosIA,
+          tipo_alimentacion: "omnivora",
+          alergias: [],
+          intolerancias: [],
+          alimentos_a_evitar: []
+        }
+      });
+    } catch (error) {
+      console.error("Error de conexión con Python:", error);
+    
       return res.status(502).json({
-        message: "La IA no respondió correctamente. Probá de nuevo en un rato.",
+        message: "No se pudo ejecutar LIFE FIT AI."
       });
     }
-    const datos = await respuesta.json();
+    
 
 if (datos.ok === false) {
   return res.status(502).json({
