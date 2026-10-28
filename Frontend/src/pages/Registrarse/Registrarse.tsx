@@ -54,7 +54,7 @@ export const Registrarse = () => {
     padding: '16px 20px',
     borderRadius: '20px',
     border: '1px solid #FFF',
-    backgroundColor: '#D9D9D933',
+    backgroundColor: 'rgba(217, 217, 217, 0.20)',
     color: '#FFF',
     fontFamily: '"Plus Jakarta Sans", sans-serif',
     fontSize: '28px',
@@ -75,23 +75,41 @@ export const Registrarse = () => {
       fontFamily: '"Plus Jakarta Sans", sans-serif',
       overflow: 'hidden'
     }}>
-      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
 
-      {/* Navbar Superior */}
-      <header style={{
-        padding: '16px 32px',
-        display: 'flex',
-        alignItems: 'center',
-        backgroundColor: '#0d1117',
-        zIndex: 10
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="2.5">
-            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-          </svg>
-          <h1 style={{ fontSize: '24px', margin: 0, fontWeight: 'bold' }}>Life Fit</h1>
-        </div>
-      </header>
+{/* Navbar Superior Compacto Exacto a Figma */}
+<header style={{
+  padding: '8px 24px',
+  display: 'flex',
+  alignItems: 'center',
+  backgroundColor: 'rgba(42, 52, 71, 0.60)',
+  backdropFilter: 'blur(10px)',
+  zIndex: 10
+}}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+    <img 
+      src={logoBg} 
+      alt="Life Fit Logo" 
+      style={{
+        width: '36px',
+        height: 'auto'
+      }}
+    />
+
+    <h1 style={{
+      color: '#FFF',
+      fontFamily: '"Plus Jakarta Sans", sans-serif',
+      fontSize: '36px',
+      fontStyle: 'normal',
+      fontWeight: 800,
+      lineHeight: '1',
+      letterSpacing: '-1.2px',
+      margin: 0
+    }}>
+      Life Fit
+    </h1>
+  </div>
+</header>
 
       {/* Línea Separadora Superior Exacta (#2E3648) */}
       <div style={{
@@ -111,7 +129,7 @@ export const Registrarse = () => {
         paddingBottom: 0
       }}>
         
-        {/* logo fondo*/}
+        {/* logo de fondo */}
         <img 
           src={logoBg} 
           alt="Life Fit Background Logo" 
@@ -130,7 +148,7 @@ export const Registrarse = () => {
           }} 
         />
 
-        {/* CONTENEDOR TARJETA GENERAL */}
+        {/* tarjeta general */}
         <div style={{
           position: 'relative',
           zIndex: 2,
@@ -139,7 +157,7 @@ export const Registrarse = () => {
           padding: '36px 32px 28px 32px',
           boxSizing: 'border-box'
         }}>
-          {/* Imagen de Fondo Rectangle 188 */}
+         
           <img 
             src={cardBg} 
             alt="Tarjeta General" 
@@ -160,7 +178,7 @@ export const Registrarse = () => {
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
             
-            {/* Campo Usuario */}
+            {/* usuario */}
             <input
               type="text"
               placeholder="Usuario"
@@ -169,7 +187,7 @@ export const Registrarse = () => {
               style={inputStyle}
             />
 
-            {/* Campo Email */}
+            {/* email */}
             <input
               type="email"
               placeholder="Email"
@@ -178,7 +196,7 @@ export const Registrarse = () => {
               style={inputStyle}
             />
 
-            {/* Campo Contraseña */}
+            {/* contraseña */}
             <div style={{ position: 'relative', width: '100%' }}>
               <input
                 type={mostrarPassword ? 'text' : 'password'}
@@ -224,18 +242,21 @@ export const Registrarse = () => {
               </p>
             )}
 
-            {/* Botón Crear Cuenta */}
+            {/* btn crear cuenta */}
             <button
               type="submit"
               style={{
                 width: '100%',
                 padding: '14px',
-                borderRadius: '12px',
+                borderRadius: '20px',
+                border: '1px solid #FFF',
                 backgroundColor: '#00E676',
-                color: '#000000',
-                border: 'none',
-                fontWeight: 'bold',
-                fontSize: '16px',
+                color: '#000',
+                fontFamily: '"Plus Jakarta Sans", sans-serif',
+                fontSize: '24px',
+                fontStyle: 'normal',
+                fontWeight: 700,
+                lineHeight: '28px',
                 cursor: 'pointer',
                 marginTop: '6px'
               }}
@@ -243,18 +264,21 @@ export const Registrarse = () => {
               Crear cuenta
             </button>
 
-            {/* Botón Continuar con Google */}
+            {/* btn google */}
             <button
               type="button"
               style={{
                 width: '100%',
                 padding: '12px',
-                borderRadius: '12px',
-                backgroundColor: '#2d3748',
-                color: '#ffffff',
-                border: '1px solid #4a5568',
-                fontSize: '15px',
-                fontWeight: '600',
+                borderRadius: '20px',
+                border: '1px solid #FFF',
+                backgroundColor: 'rgba(116, 139, 125, 0.64)',
+                color: '#000',
+                fontFamily: '"Plus Jakarta Sans", sans-serif',
+                fontSize: '20px', 
+                fontStyle: 'normal',
+                fontWeight: 700,
+                lineHeight: '28px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -262,13 +286,22 @@ export const Registrarse = () => {
                 cursor: 'pointer'
               }}
             >
-              <span style={{ fontWeight: 'bold', fontSize: '18px' }}>G</span> Continuar con Google
+              <span style={{ fontWeight: 'bold', fontSize: '22px' }}>G</span> Continuar con Google
             </button>
 
-            {/* Link Iniciar Sesión */}
-            <p style={{ textAlign: 'center', fontSize: '14px', color: '#cbd5e1', margin: '8px 0 0 0' }}>
+            {/* iniciar sesion */}
+            <p style={{ 
+              textAlign: 'center', 
+              color: '#FFF',
+              fontFamily: '"Plus Jakarta Sans", sans-serif',
+              fontSize: '16px', 
+              fontStyle: 'normal',
+              fontWeight: 700,
+              lineHeight: '28px',
+              margin: '8px 0 0 0' 
+            }}>
               ¿Ya tienes cuenta?{' '}
-              <Link to="/login" style={{ color: '#ffffff', fontWeight: 'bold', textDecoration: 'underline' }}>
+              <Link to="/login" style={{ color: '#ffffff', fontWeight: 700, textDecoration: 'underline' }}>
                 Iniciá sesión
               </Link>
             </p>
