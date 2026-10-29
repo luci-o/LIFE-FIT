@@ -78,19 +78,25 @@ if (dias.some((d) => !Number.isInteger(d) || d < 1 || d > 7)) {
     
     const cantidad = await transaction(async (client) => {
       await client.query(
-        `DELETE FROM "EJERCICIOS" WHERE "ID_PERFIL" = $1 AND "FECHA" >= CURRENT_DATE`,
+        `DELETE FROM "EJERCICIOS"
+         WHERE "ID_PERFIL" = $1
+           AND "FECHA" >= CURRENT_DATE
+           AND "REALIZADO" IS DISTINCT FROM TRUE`,
         [req.params.id]
-      )    
+      );
+
       let n = 0;
       for (const dia of Object.keys(plan)) {
         for (const ej of plan[dia]) {
-          await client.query(
+          const r = await client.query(
             `INSERT INTO "EJERCICIOS"
               ("ID_PERFIL","EJERCICIO","SERIES","REPETICIONES","FECHA")
-             VALUES ($1,$2,$3,$4, date_trunc('week', CURRENT_DATE)::date + ($5::int - 1))`,
+             SELECT $1, $2, $3, $4, f.fecha
+             FROM (SELECT date_trunc('week', CURRENT_DATE)::date + ($5::int - 1) AS fecha) f
+             WHERE f.fecha >= CURRENT_DATE`,
             [req.params.id, ej.ejercicio, ej.series ?? null, ej.repeticiones ?? null, Number(dia)]
           );
-          n++;
+          n += r.rowCount;
         }
       }
       return n;
