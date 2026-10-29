@@ -1,282 +1,189 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { usoAutenticacion } from "../../context/AuthContext";
-import { peticionApi } from "../../services/api";
+import { useNavigate } from 'react-router-dom';
+import logoBg from '../../assets/Group 75.png';
 
-export const Bienvenida: React.FC = () => {
+export const Bienvenida = () => {
   const navigate = useNavigate();
-  const { iniciarSesion } = usoAutenticacion();
-
-  const [email, setEmail] = useState("");
-  const [usuario, setUsuario] = useState("");
-  const [contrasena, setContrasena] = useState("");
-  const [aceptaTerminos, setAceptaTerminos] = useState(false);
-  const [error, setError] = useState("");
-  const [cargando, setCargando] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!aceptaTerminos) {
-      setError("Debes aceptar los términos y condiciones para continuar.");
-      return;
-    }
-
-    setError("");
-    setCargando(true);
-
-    try {
-      const cuerpoPeticion = {
-        nombre: usuario,
-        mail: email,
-        password: contrasena,
-        edad: 25,                  // Valores por defecto para cumplir con el backend
-        peso: 70,
-        altura: 170,
-        objetivo: "bajar peso",     // "bajar peso", "ganar fuerza", "mejorar resistencia"
-        tiempoDisponible: 60,
-        diasPorSemana: 3,
-        nivel: "principiante",      // "principiante", "intermedio", "avanzado"
-        lugar: "gym",               // "gym", "hogar", "aire libre"
-      };
-
-      const respuesta = await peticionApi("/usuarios", {
-        method: "POST",
-        body: JSON.stringify(cuerpoPeticion),
-      });
-
-      // Guardar Token en localStorage
-      if (respuesta.token) {
-        localStorage.setItem("token", respuesta.token);
-      }
-
-      iniciarSesion(respuesta);
-      navigate("/dashboard");
-    } catch (err: any) {
-      setError(err.message || "Ocurrió un error al intentar registrarse.");
-    } finally {
-      setCargando(false);
-    }
-  };
 
   return (
-    <div style={estilos.contenedorPrincipal}>
-      <header style={estilos.header}>
-        <div style={estilos.logoContenedor}>
-          <h1 style={estilos.logoTexto}>Life Fit</h1>
+    <div style={{
+      backgroundColor: '#090d16',
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      color: '#ffffff',
+      fontFamily: '"Plus Jakarta Sans", sans-serif',
+      overflow: 'hidden'
+    }}>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+
+      {/* Header Superior Compacto */}
+      <header style={{
+        padding: '0px 24px',
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: 'rgba(42, 52, 71, 0.60)',
+        backdropFilter: 'blur(10px)',
+        height: '70px',
+        overflow: 'hidden',
+        zIndex: 10
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <img 
+            src={logoBg} 
+            alt="Life Fit Logo" 
+            style={{ 
+              width: '55px', 
+              height: 'auto' 
+            }}
+          />
+
+          <h1 style={{
+            color: '#FFF',
+            fontFamily: '"Plus Jakarta Sans", sans-serif',
+            fontSize: '64px',
+            fontStyle: 'normal',
+            fontWeight: 800,
+            lineHeight: '0.9',
+            letterSpacing: '-1.5px',
+            margin: 0,
+            padding: 0
+          }}>
+            Life Fit
+          </h1>
+        </div>
+      </header>
+
+      {/* Línea Separadora Superior (#2E3648) */}
+      <div style={{
+        width: '100%',
+        height: '1px',
+        backgroundColor: '#2E3648',
+        zIndex: 10
+      }} />
+
+      {/* Contenido Principal */}
+      <main style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'relative',
+        padding: '20px',
+        textAlign: 'center'
+      }}>
+        
+        {/* Logo Isotipo Protagonista */}
+        <div style={{
+          position: 'relative',
+          marginBottom: '32px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <div style={{
+            position: 'absolute',
+            width: '280px',
+            height: '280px',
+            borderRadius: '50%',
+            backgroundColor: 'rgba(0, 230, 118, 0.25)',
+            filter: 'blur(60px)',
+            zIndex: 1
+          }} />
+
+          <img 
+            src={logoBg} 
+            alt="Life Fit Hero Logo" 
+            style={{
+              width: '220px',
+              maxWidth: '80vw',
+              height: 'auto',
+              filter: 'drop-shadow(0px 0px 16px #00E676)',
+              position: 'relative',
+              zIndex: 2
+            }} 
+          />
         </div>
 
-        <nav style={estilos.navContenedor}>
-          <button 
+        {/* Textos Principales */}
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '600px', marginBottom: '40px' }}>
+          <h2 style={{
+            fontSize: '48px',
+            fontWeight: 800,
+            color: '#FFFFFF',
+            margin: '0 0 16px 0',
+            lineHeight: '1.1',
+            letterSpacing: '-1px'
+          }}>
+            Transformá tu estilo de vida
+          </h2>
+          <p style={{
+            fontSize: '20px',
+            fontWeight: 600,
+            color: 'rgba(255, 255, 255, 0.70)',
+            margin: 0,
+            lineHeight: '1.4'
+          }}>
+            Tu asistente inteligente de entrenamiento y nutrición, todo en un solo lugar.
+          </p>
+        </div>
+
+        {/* Acciones Principales */}
+        <div style={{
+          position: 'relative',
+          zIndex: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          width: '100%',
+          maxWidth: '360px'
+        }}>
+          {/* Botón Crear Cuenta -> Coincide con /registro en App.tsx */}
+          <button
             type="button"
-            onClick={() => navigate("/bienvenida")} 
-            style={{ ...estilos.btnNav, ...estilos.btnNavActivo }}
-          >
-            Bienvenido
-          </button>
-          <button 
-            type="button"
-            onClick={() => navigate("/acerca-de")} 
-            style={estilos.btnNav}
-          >
-            Acerca de
-          </button>
-          <button 
-            type="button"
-            onClick={() => navigate("/crear-cuenta")} 
-            style={{ ...estilos.btnNav, ...estilos.btnNavDestacado }}
+            onClick={() => navigate('/registro')}
+            style={{
+              width: '100%',
+              padding: '18px 24px',
+              borderRadius: '20px',
+              border: '1px solid #FFF',
+              backgroundColor: '#00E676',
+              color: '#000000',
+              fontFamily: '"Plus Jakarta Sans", sans-serif',
+              fontSize: '22px',
+              fontWeight: 800,
+              cursor: 'pointer',
+              boxShadow: '0px 0px 20px rgba(0, 230, 118, 0.4)'
+            }}
           >
             Crear cuenta
           </button>
-        </nav>
-      </header>
 
-      <main style={estilos.main}>
-        <div style={estilos.tarjeta}>
-          <h2 style={estilos.tituloTarjeta}>Bienvenido</h2>
-
-          <form onSubmit={handleSubmit} style={estilos.formulario}>
-            {error && <div style={estilos.mensajeError}>{error}</div>}
-
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              style={estilos.input}
-            />
-
-            <input
-              type="text"
-              placeholder="Usuario"
-              value={usuario}
-              onChange={(e) => setUsuario(e.target.value)}
-              required
-              style={estilos.input}
-            />
-
-            <input
-              type="password"
-              placeholder="Contraseña"
-              value={contrasena}
-              onChange={(e) => setContrasena(e.target.value)}
-              required
-              style={estilos.input}
-            />
-
-            <label style={estilos.labelCheckbox}>
-              <input
-                type="checkbox"
-                checked={aceptaTerminos}
-                onChange={(e) => setAceptaTerminos(e.target.checked)}
-                style={estilos.checkbox}
-              />
-              Acepto los términos y condiciones
-            </label>
-
-            <button type="submit" disabled={cargando} style={estilos.btnSubmit}>
-              {cargando ? "Cargando..." : "Unirse a Life Fit"}
-            </button>
-          </form>
+          {/* Botón Iniciar Sesión -> Coincide con /login en App.tsx */}
+          <button
+            type="button"
+            onClick={() => navigate('/login')}
+            style={{
+              width: '100%',
+              padding: '18px 24px',
+              borderRadius: '20px',
+              border: '1px solid #FFF',
+              backgroundColor: 'rgba(217, 217, 217, 0.15)',
+              backdropFilter: 'blur(10px)',
+              color: '#FFFFFF',
+              fontFamily: '"Plus Jakarta Sans", sans-serif',
+              fontSize: '22px',
+              fontWeight: 700,
+              cursor: 'pointer'
+            }}
+          >
+            Iniciar sesión
+          </button>
         </div>
+
       </main>
     </div>
   );
-};
-
-const estilos: { [key: string]: React.CSSProperties } = {
-  contenedorPrincipal: {
-    minHeight: "100vh",
-    backgroundColor: "#03200e",
-    backgroundImage: "radial-gradient(circle at center, #0a4d25 0%, #021408 100%)",
-    color: "#ffffff",
-    display: "flex",
-    flexDirection: "column",
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "20px 40px",
-    position: "relative",
-  },
-  logoContenedor: {
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-  },
-  logoTexto: {
-    fontSize: "1.8rem",
-    fontWeight: "bold",
-    margin: 0,
-  },
-  navContenedor: {
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
-    padding: "6px 8px",
-    borderRadius: "30px",
-    display: "flex",
-    gap: "7px",
-    border: "1px solid rgba(255, 255, 255, 0.1)",
-    position: "absolute",
-    left: "50%",
-    transform: "translateX(-50%)",
-  },
-  btnNav: {
-    background: "transparent",
-    border: "none",
-    color: "#ffffff",
-    padding: "8px 18px",
-    borderRadius: "20px",
-    cursor: "pointer",
-    fontSize: "0.9rem",
-    fontWeight: "500",
-  },
-  btnNavActivo: {
-    fontWeight: "bold",
-  },
-  btnNavDestacado: {
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
-    border: "1px solid rgba(255, 255, 255, 0.3)",
-  },
-  main: {
-    flex: 1,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "20px",
-  },
-  tarjeta: {
-    backgroundColor: "rgba(4, 38, 18, 0.75)",
-    backdropFilter: "blur(10px)",
-    borderRadius: "24px",
-    padding: "40px 30px",
-    width: "100%",
-    maxWidth: "380px",
-    border: "1px solid rgba(255, 255, 255, 0.08)",
-    boxShadow: "0 20px 40px rgba(0,0,0,0.5)",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  tituloTarjeta: {
-    fontSize: "1.6rem",
-    fontWeight: "bold",
-    marginBottom: "25px",
-    textAlign: "center",
-  },
-  formulario: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    gap: "16px",
-  },
-  mensajeError: {
-    backgroundColor: "rgba(255, 0, 0, 0.2)",
-    border: "1px solid red",
-    color: "#ff8888",
-    padding: "8px",
-    borderRadius: "8px",
-    fontSize: "0.85rem",
-    textAlign: "center",
-  },
-  input: {
-    width: "100%",
-    padding: "14px 18px",
-    borderRadius: "25px",
-    backgroundColor: "rgba(18, 18, 18, 0.6)",
-    border: "1px solid rgba(255, 255, 255, 0.15)",
-    color: "#ffffff",
-    fontSize: "0.95rem",
-    outline: "none",
-    boxSizing: "border-box",
-  },
-  labelCheckbox: {
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-    fontSize: "0.8rem",
-    color: "#cccccc",
-    cursor: "pointer",
-    margin: "5px 0 10px 0",
-  },
-  checkbox: {
-    cursor: "pointer",
-    accentColor: "#00ff66",
-  },
-  btnSubmit: {
-    width: "100%",
-    padding: "14px",
-    borderRadius: "25px",
-    backgroundColor: "#022910",
-    border: "1px solid rgba(0, 255, 100, 0.3)",
-    color: "#ffffff",
-    fontWeight: "bold",
-    fontSize: "1rem",
-    cursor: "pointer",
-    transition: "all 0.3s ease",
-  },
 };
 
 export default Bienvenida;
