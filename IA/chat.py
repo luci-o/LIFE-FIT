@@ -621,6 +621,26 @@ def responder_chat(
 ):
     intencion, confianza = predecir_intencion(mensaje)
 
+    # Las consultas explicitas sobre dias tienen prioridad.
+    texto_dia = mensaje.lower()
+    consulta_dia = re.search(
+        r"\b(?:dia|d?a)\s+([1-7])\b",
+        texto_dia
+    )
+
+    if consulta_dia and any(
+        palabra in texto_dia
+        for palabra in ("ejercicio", "rutina", "entreno", "tengo")
+    ):
+        numero_dia = consulta_dia.group(1)
+
+        if numero_dia not in rutina:
+            return f"No ten?s una rutina cargada para el d?a {numero_dia}."
+
+        return formatear_rutina_completa({
+            numero_dia: rutina[numero_dia]
+        })
+
     if confianza < 0.25:
         return (
             "No entendí bien tu consulta. "

@@ -52,12 +52,17 @@ def consultar_chat(
             ejercicio_actual=ejercicio_actual
         )
 
+       
         return {
             "ok": True,
-            "respuesta": resultado["respuesta_chat"],
             "rutina": resultado["rutina"],
-            "menu": resultado["menu"]
+            "menu": resultado["menu"],
+            "respuesta": resultado["respuesta_chat"],
+            "advertencia_alimentacion": resultado.get(
+                "advertencia_alimentacion"
+            )
         }
+
 
     except ValueError as error:
         return {
@@ -92,7 +97,10 @@ def crear_plan(respuestas):
             "ok": True,
             "rutina": resultado["rutina"],
             "menu": resultado["menu"],
-            "respuesta": resultado["respuesta_chat"]
+            "respuesta": resultado["respuesta_chat"],
+            "advertencia_alimentacion": resultado.get(
+                "advertencia_alimentacion"
+            )
         }
 
     except (ValueError, TypeError, KeyError) as error:

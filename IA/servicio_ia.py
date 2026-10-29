@@ -166,12 +166,13 @@ def procesar_solicitud(
             rutina,
             perfil_entrenamiento=perfil_actual
         )
-
     perfil_alimentario = usuario.get("alimentacion")
     registro_menu = obtener_ultimo_menu(usuario_id)
+    motivo_menu = None
 
     if perfil_alimentario is None:
         menu = None
+        motivo_menu = "No se proporcionó un perfil alimentario."
 
     elif (
         registro_menu is not None
@@ -180,9 +181,7 @@ def procesar_solicitud(
         menu = registro_menu["menu"]
 
     else:
-        resultado_menu = generar_menu_semanal(
-            perfil_alimentario
-        )
+        resultado_menu = generar_menu_semanal(perfil_alimentario)
 
         if resultado_menu.get("ok"):
             menu = resultado_menu["menu"]
@@ -194,13 +193,20 @@ def procesar_solicitud(
             )
         else:
             menu = None
+            motivo_menu = resultado_menu.get(
+                "motivo",
+                "No se pudo generar un menú seguro."
+            )
+
     return {
         "ok": True,
         "evaluacion": evaluacion,
         "rutina": rutina,
         "menu": menu,
-        "respuesta_chat": respuesta_chat
+        "respuesta_chat": respuesta_chat,
+        "advertencia_alimentacion": motivo_menu
     }
+
 
 def procesar_adaptacion(usuario_id, zona_lesion=None, guardar=True):
     if zona_lesion is None:
@@ -378,11 +384,15 @@ def procesar_cuestionario_inicial(respuestas):
         mensaje="Mostrame mi rutina completa"
     )
 
+
     return {
         "ok": resultado["ok"],
         "rutina": resultado["rutina"],
         "menu": resultado["menu"],
-        "respuesta_chat": resultado["respuesta_chat"]
+        "respuesta_chat": resultado["respuesta_chat"],
+        "advertencia_alimentacion": resultado.get(
+            "advertencia_alimentacion"
+        )
     }
 
 
