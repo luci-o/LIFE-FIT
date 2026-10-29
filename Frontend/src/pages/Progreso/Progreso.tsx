@@ -1,235 +1,281 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { GoHome } from 'react-icons/go';
-import { FaDumbbell } from 'react-icons/fa';
-import { BiChat } from 'react-icons/bi';
-import { peticionApi } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
+import logoBg from '../../assets/Group 75.png';
 
-interface DatosProgreso {
-  nombreUsuario: string;
-  porcentajeMesTotal: number;
-  rutinaMes: number;
-  dietaMes: number;
-  rutinaSemana: number;
-  dietaSemana: number;
-}
+// Importación exacta de los iconos actualizados
+import { GoHome } from "react-icons/go";
+import { FaDumbbell } from "react-icons/fa";
+import { IoChatboxOutline } from "react-icons/io5";
+import { MdTimelapse } from "react-icons/md";
+import { LuSalad } from "react-icons/lu";
+import { HiMiniUserCircle } from "react-icons/hi2";
 
-
-const GraficoProgreso = ({ porcentaje }: { porcentaje: number }) => {
-  const radio = 36;
-  const circunferencia = 2 * Math.PI * radio;
-  const offset = circunferencia - (porcentaje / 100) * circunferencia;
+// Componente para los Gráficos Circulares
+const CircularProgress = ({ percentage }: { percentage: number }) => {
+  const radius = 32;
+  const strokeWidth = 10;
+  const normalizedRadius = radius - strokeWidth * 0.5;
+  const circumference = normalizedRadius * 2 * Math.PI;
+  const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
-    <div className="relative w-20 h-20 flex items-center justify-center flex-shrink-0">
-      <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-        {/* Círculo de fondo */}
+    <div style={{ position: 'relative', width: '70px', height: '70px', flexShrink: 0 }}>
+      <svg height="70" width="70" viewBox="0 0 70 70">
         <circle
-          cx="50"
-          cy="50"
-          r={radio}
-          className="text-[#111827]"
-          strokeWidth="18"
-          stroke="currentColor"
+          stroke="rgba(255, 255, 255, 0.1)"
           fill="transparent"
+          strokeWidth={strokeWidth}
+          r={normalizedRadius}
+          cx="35"
+          cy="35"
         />
-        {/* Círculo de progreso verde */}
         <circle
-          cx="50"
-          cy="50"
-          r={radio}
-          className="text-[#00e676] transition-all duration-700 ease-out"
-          strokeWidth="18"
-          strokeDasharray={circunferencia}
-          strokeDashoffset={offset}
-          strokeLinecap="round"
-          stroke="currentColor"
+          stroke="#00E676"
           fill="transparent"
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference + ' ' + circumference}
+          style={{ strokeDashoffset, transition: 'stroke-dashoffset 0.5s ease-in-out' }}
+          strokeLinecap="round"
+          r={normalizedRadius}
+          cx="35"
+          cy="35"
+          transform="rotate(-90 35 35)"
         />
       </svg>
     </div>
   );
 };
 
-export default function Progreso() {
+export const Progreso = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const [progreso, setProgreso] = useState<DatosProgreso>({
-    nombreUsuario: 'Leandro',
-    porcentajeMesTotal: 0,
-    rutinaMes: 0,
-    dietaMes: 0,
-    rutinaSemana: 0,
-    dietaSemana: 0,
-  });
-
-  const [cargando, setCargando] = useState<boolean>(true);
-  const idPerfil = localStorage.getItem('idPerfil') || '1';
-
-  useEffect(() => {
-    const cargarDatosProgreso = async () => {
-      try {
-        setCargando(true);
-        
-        // 1. Obtener perfil del usuario o métricas desde el backend
-        const perfil = await peticionApi(`/perfil/${idPerfil}`).catch(() => null);
-        const resumenProgreso = await peticionApi(`/perfil/${idPerfil}/progreso`).catch(() => null);
-
-        if (resumenProgreso) {
-          setProgreso({
-            nombreUsuario: perfil?.NOMBRE || perfil?.nombre || 'Leandro',
-            porcentajeMesTotal: resumenProgreso.porcentajeMesTotal || 60,
-            rutinaMes: resumenProgreso.rutinaMes || 70,
-            dietaMes: resumenProgreso.dietaMes || 50,
-            rutinaSemana: resumenProgreso.rutinaSemana || 80,
-            dietaSemana: resumenProgreso.dietaSemana || 80,
-          });
-        } else {
-          // Valores por defecto
-          setProgreso({
-            nombreUsuario: perfil?.NOMBRE || perfil?.nombre || 'Leandro',
-            porcentajeMesTotal: 60,
-            rutinaMes: 70,
-            dietaMes: 50,
-            rutinaSemana: 80,
-            dietaSemana: 80,
-          });
-        }
-      } catch (error) {
-        console.error('Error al cargar progreso:', error);
-      } finally {
-        setCargando(false);
-      }
-    };
-
-    cargarDatosProgreso();
-  }, [idPerfil]);
 
   return (
-    <div className="min-h-screen bg-[#0b0f19] flex flex-col items-center justify-between p-3 md:p-5 font-sans text-white">
-      {/* Navbar Superior */}
-      <nav className="flex items-center gap-6 bg-[#1f293d]/80 px-6 py-2 rounded-full shadow-md mb-3 border border-[#2d3a54]">
-        <button
-          onClick={() => navigate('/home')}
-          className={`p-1.5 rounded-2xl transition-colors text-2xl cursor-pointer ${
-            location.pathname === '/home'
-              ? 'text-[#00ff87] bg-[#2a3854] shadow-inner'
-              : 'text-gray-300 hover:text-white'
-          }`}
-          title="Inicio"
-        >
-          <GoHome />
-        </button>
+    <div style={{
+      backgroundColor: '#090d16',
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      color: '#ffffff',
+      fontFamily: '"Plus Jakarta Sans", sans-serif'
+    }}>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
 
-        <button
-          onClick={() => navigate('/rutinas')}
-          className={`p-1.5 rounded-2xl transition-colors text-2xl cursor-pointer ${
-            location.pathname === '/rutinas'
-              ? 'text-[#00ff87] bg-[#2a3854] shadow-inner'
-              : 'text-gray-300 hover:text-white'
-          }`}
-          title="Rutinas"
-        >
-          <FaDumbbell />
-        </button>
-
-        <button
-          onClick={() => navigate('/chat')}
-          className={`p-1.5 rounded-2xl transition-colors text-2xl cursor-pointer ${
-            location.pathname === '/chat'
-              ? 'text-[#00ff87] bg-[#2a3854] shadow-inner'
-              : 'text-gray-300 hover:text-white'
-          }`}
-          title="Chat"
-        >
-          <BiChat />
-        </button>
-      </nav>
-
-      {/* Contenedor Principal */}
-      <main className="w-full max-w-[95%] bg-[#1a2332] border-2 border-[#00e676] rounded-[40px] p-6 md:p-10 flex flex-col justify-between min-h-[85vh] shadow-2xl relative overflow-hidden flex-1">
-        
-        {/* Encabezado */}
-        <div>
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-2">
-            Tu progreso, {progreso.nombreUsuario}
+      {/* Header Superior */}
+      <header style={{
+        padding: '0px 24px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: 'rgba(42, 52, 71, 0.60)',
+        backdropFilter: 'blur(10px)',
+        height: '70px',
+        zIndex: 10
+      }}>
+        {/* Logo "Life Fit" */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <img src={logoBg} alt="Life Fit Logo" style={{ width: '45px', height: 'auto' }} />
+          <h1 style={{
+            color: '#FFF',
+            fontFamily: '"Plus Jakarta Sans", sans-serif',
+            fontSize: '64px',
+            fontWeight: 800,
+            lineHeight: '0.9',
+            letterSpacing: '-1.5px',
+            margin: 0
+          }}>
+            Life Fit
           </h1>
-          <div className="w-full h-[1px] bg-[#2d3a54] my-4" />
-          <p className="text-[#00e676] text-lg md:text-2xl font-bold text-center my-6">
-            {progreso.nombreUsuario}, cumpliste con el {progreso.porcentajeMesTotal}% de los objetivos del mes, bien hecho.
-          </p>
         </div>
 
-        {cargando ? (
-          <div className="flex-1 flex items-center justify-center text-[#00e676] text-xl animate-pulse">
-            Cargando progreso...
+        {/* Navbar Flotante de Iconos */}
+        <nav style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
+          backgroundColor: 'rgba(255, 255, 255, 0.08)',
+          padding: '6px 18px',
+          borderRadius: '30px',
+          border: '1px solid rgba(255, 255, 255, 0.12)'
+        }}>
+          {/* Home -> /dashboard (GoHome) */}
+          <button 
+            onClick={() => navigate('/dashboard')} 
+            style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+          >
+            <GoHome size={22} />
+          </button>
+
+          {/* Mancuerna -> /rutinas */}
+          <button 
+            onClick={() => navigate('/rutinas')} 
+            style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+          >
+            <FaDumbbell size={20} />
+          </button>
+
+          {/* Mensaje -> /chat */}
+          <button 
+            onClick={() => navigate('/chat')} 
+            style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+          >
+            <IoChatboxOutline size={22} />
+          </button>
+
+          {/* Progreso -> Ícono Activo (Verde) */}
+          <button 
+            onClick={() => navigate('/progreso')}
+            style={{ 
+              backgroundColor: 'rgba(0, 230, 118, 0.25)', 
+              border: 'none',
+              borderRadius: '50%', 
+              width: '32px',
+              height: '32px',
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              cursor: 'pointer',
+              color: '#00E676'
+            }}
+          >
+            <MdTimelapse size={22} />
+          </button>
+
+          {/* Ensalada -> /alimentacion */}
+          <button 
+            onClick={() => navigate('/alimentacion')} 
+            style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+          >
+            <LuSalad size={22} />
+          </button>
+
+          {/* Usuario -> /perfil */}
+          <button 
+            onClick={() => navigate('/perfil')} 
+            style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+          >
+            <HiMiniUserCircle size={24} />
+          </button>
+        </nav>
+      </header>
+
+      {/* Línea Separadora Superior Exacta (#2E3648) */}
+      <div style={{
+        width: '100%',
+        height: '1px',
+        backgroundColor: '#2E3648',
+        zIndex: 10
+      }} />
+
+      {/* Contenido Principal */}
+      <main style={{
+        flex: 1,
+        padding: '30px 40px',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        width: '100%',
+        boxSizing: 'border-box'
+      }}>
+        
+        {/* Título Principal */}
+        <h2 style={{
+          fontSize: '42px',
+          fontWeight: 800,
+          margin: '0 0 24px 0',
+          color: '#FFFFFF'
+        }}>
+          Tu progreso, Leandro
+        </h2>
+
+        {/* Mensaje de Resumen */}
+        <p style={{
+          textAlign: 'center',
+          color: '#00E676',
+          fontSize: '22px',
+          fontWeight: 700,
+          marginBottom: '40px'
+        }}>
+          Leandro, cumpliste con el 60% de los objetivos del mes, bien hecho.
+        </p>
+
+        {/* Grilla de Tarjetas de Progreso */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
+          gap: '24px'
+        }}>
+          
+          {/* Tarjeta 1 */}
+          <div style={{
+            backgroundColor: 'rgba(30, 39, 56, 0.6)',
+            border: '1px solid #00E676',
+            borderRadius: '60px',
+            padding: '24px 36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '20px'
+          }}>
+            <p style={{ fontSize: '20px', fontWeight: 700, margin: 0, lineHeight: '1.3' }}>
+              Hiciste el <span style={{ color: '#00E676' }}>70%</span> de tu rutina en este mes
+            </p>
+            <CircularProgress percentage={70} />
           </div>
-        ) : (
-          /* Grid de Métricas con los estilos exactos asignados */
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
-            {/* Card 1: Rutina Mes */}
-            <div 
-              style={{
-                borderRadius: '164px',
-                border: '1px solid #00E676',
-                background: 'rgba(46, 54, 72, 0.60)'
-              }}
-              className="px-8 py-5 flex items-center justify-between shadow-lg"
-            >
-              <span className="text-lg md:text-xl font-bold max-w-[65%] leading-snug">
-                Hiciste el <span className="text-[#00e676]">{progreso.rutinaMes}%</span> de tu rutina en este mes
-              </span>
-              <GraficoProgreso porcentaje={progreso.rutinaMes} />
-            </div>
 
-            {/* Card 2: Dieta Mes */}
-            <div 
-              style={{
-                borderRadius: '164px',
-                border: '1px solid #00E676',
-                background: 'rgba(46, 54, 72, 0.60)'
-              }}
-              className="px-8 py-5 flex items-center justify-between shadow-lg"
-            >
-              <span className="text-lg md:text-xl font-bold max-w-[65%] leading-snug">
-                Cumpliste con el <span className="text-[#00e676]">{progreso.dietaMes}%</span> de la dieta en este mes
-              </span>
-              <GraficoProgreso porcentaje={progreso.dietaMes} />
-            </div>
-
-            {/* Card 3: Rutina Semana */}
-            <div 
-              style={{
-                borderRadius: '164px',
-                border: '1px solid #00E676',
-                background: 'rgba(46, 54, 72, 0.60)'
-              }}
-              className="px-8 py-5 flex items-center justify-between shadow-lg"
-            >
-              <span className="text-lg md:text-xl font-bold max-w-[65%] leading-snug">
-                Hiciste el <span className="text-[#00e676]">{progreso.rutinaSemana}%</span> de tu rutina de esta semana
-              </span>
-              <GraficoProgreso porcentaje={progreso.rutinaSemana} />
-            </div>
-
-            {/* Card 4: Dieta Semana */}
-            <div 
-              style={{
-                borderRadius: '164px',
-                border: '1px solid #00E676',
-                background: 'rgba(46, 54, 72, 0.60)'
-              }}
-              className="px-8 py-5 flex items-center justify-between shadow-lg"
-            >
-              <span className="text-lg md:text-xl font-bold max-w-[65%] leading-snug">
-                Cumpliste con el <span className="text-[#00e676]">{progreso.dietaSemana}%</span> de la dieta de esta semana
-              </span>
-              <GraficoProgreso porcentaje={progreso.dietaSemana} />
-            </div>
+          {/* Tarjeta 2 */}
+          <div style={{
+            backgroundColor: 'rgba(30, 39, 56, 0.6)',
+            border: '1px solid #00E676',
+            borderRadius: '60px',
+            padding: '24px 36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '20px'
+          }}>
+            <p style={{ fontSize: '20px', fontWeight: 700, margin: 0, lineHeight: '1.3' }}>
+              Cumpliste con el <span style={{ color: '#00E676' }}>50%</span> de la dieta en este mes
+            </p>
+            <CircularProgress percentage={50} />
           </div>
-        )}
+
+          {/* Tarjeta 3 */}
+          <div style={{
+            backgroundColor: 'rgba(30, 39, 56, 0.6)',
+            border: '1px solid #00E676',
+            borderRadius: '60px',
+            padding: '24px 36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '20px'
+          }}>
+            <p style={{ fontSize: '20px', fontWeight: 700, margin: 0, lineHeight: '1.3' }}>
+              Hiciste el <span style={{ color: '#00E676' }}>80%</span> de tu rutina de esta semana
+            </p>
+            <CircularProgress percentage={80} />
+          </div>
+
+          {/* Tarjeta 4 */}
+          <div style={{
+            backgroundColor: 'rgba(30, 39, 56, 0.6)',
+            border: '1px solid #00E676',
+            borderRadius: '60px',
+            padding: '24px 36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '20px'
+          }}>
+            <p style={{ fontSize: '20px', fontWeight: 700, margin: 0, lineHeight: '1.3' }}>
+              Cumpliste con el <span style={{ color: '#00E676' }}>80%</span> de la dieta de esta semana
+            </p>
+            <CircularProgress percentage={80} />
+          </div>
+
+        </div>
+
       </main>
     </div>
   );
-}
+};
+
+export default Progreso;
