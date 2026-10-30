@@ -41,22 +41,10 @@ const getPerfil = async (req, res) => {
 
 const createPerfil = async (req, res) => {
   const user = req.body;
-  const obligatorios = [
-    "nombre", "mail", "password", "edad", "peso", "altura",
-    "objetivo", "tiempoDisponible", "diasPorSemana", "nivel", "lugar",
-  ];
+  const obligatorios = ["nombre", "mail", "password"];
   const faltantes = obligatorios.filter((campo) => !user[campo]);
   if (faltantes.length > 0) {
     return res.status(400).json({ message: `Faltan completar: ${faltantes.join(", ")}` });
-  }
-  if (!OBJETIVOS.includes(user.objetivo)) {
-    return res.status(400).json({ message: `Objetivo inválido. Valores permitidos: ${OBJETIVOS.join(", ")}` });
-  }
-  if (!NIVELES.includes(user.nivel)) {
-    return res.status(400).json({ message: `Nivel inválido. Valores permitidos: ${NIVELES.join(", ")}` });
-  }
-  if (!LUGARES.includes(user.lugar)) {
-    return res.status(400).json({ message: `Lugar inválido. Valores permitidos: ${LUGARES.join(", ")}` });
   }
   try {
     const existe = await query(
@@ -64,68 +52,46 @@ const createPerfil = async (req, res) => {
       [user.mail]
     );
     if (existe.rows.length > 0) {
-      return res.status(400).json({ message: "Ese mail ya está registrado" });
+      return res.status(409).json({ message: "Ese mail ya está registrado" });
     }
     const hashedPassword = await bcrypt.hash(user.password, 10);
     const result = await query(
       `INSERT INTO "PERFIL USUARIO"
-        ("NOMBRE","EDAD","PESO","ALTURA","OBJETIVO",
-         "TIEMPO DISPONIBLE","DIAS POR SEMANA","NIVEL DE ENTRENAMIENTO","LUGAR DONDE ENTRENA",
-         "REGISTRO DEL USUARIO_MAIL","REGISTRO DEL USUARIO_CONTRASEÑA","NUTRICION_DIETA PERSONALIZADA")
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
-       RETURNING "ID PERFIL", "NOMBRE"`,
-      [user.nombre, user.edad, user.peso, user.altura, user.objetivo,
-       user.tiempoDisponible, user.diasPorSemana, user.nivel, user.lugar,
-       user.mail, hashedPassword, ""]
-    )
-    const idPerfil = result.rows[0]["ID PERFIL"]
-const lesiones = user.lesiones || [];
-for (const l of lesiones) {
-  await query(
-    `INSERT INTO "LESIONES"
-      ("ZONAS LESIONADAS","FECHA_INICIO","FECHA_FIN","DESCRIPCION","ID PERFIL")
-     VALUES ($1,$2,$3,$4,$5)`,
-    [l.zona ?? null, l.fechaInicio ?? null, l.fechaFin ?? null, l.descripcion ?? null, idPerfil]
-  );
-}
-    const preferencias = user.preferencias || [];
-    for (const p of preferencias) {
-      await query(
-        `INSERT INTO "PREFERNCIAS ALIMENTARIAS" ("COMIDAS RESTRINGIDAS","TIPO","ID PERFIL")
-         VALUES ($1,$2,$3)`,
-        [p, "PREFERENCIA", idPerfil]
-      );
-    }
-    const alergias = user.alergias || [];
-    for (const a of alergias) {
-      await query(
-        `INSERT INTO "PREFERNCIAS ALIMENTARIAS" ("COMIDAS RESTRINGIDAS","TIPO","ID PERFIL")
-         VALUES ($1,$2,$3)`,
-        [a, "ALERGIA", idPerfil]
-      );
-    }
+        ("NOMBRE","REGISTRO DEL USUARIO_MAIL","REGISTRO DEL USUARIO_CONTRASEÑA",
+         "NUTRICION_DIETA PERSONALIZADA")
+       VALUES ($1,$2,$3,$4)
+       RETURNING "ID PERFIL","NOMBRE"`,
+      [user.nombre, user.mail, hashedPassword, ""]
+    );
+    const idPerfil = result.rows[0]["ID PERFIL"];
     const token = jwt.sign(
       { idPerfil, nombre: user.nombre },
       SECRET,
       { expiresIn: "7d" }
     );
     res.status(201).json({
-      message: "Perfil creado",
+      message: "Cuenta creada",
       token,
       idPerfil,
       nombre: user.nombre,
     });
   } catch (error) {
     if (error.code === "23505") {
-      return res.status(400).json({ message: "Ese mail ya está registrado" });
+      return res.status(409).json({ message: "Ese mail ya está registrado" });
     }
     return res.status(500).json({ message: error.message });
   }
-};
+}
 
 const updatePerfil = async (req, res) => {
   const u = req.body;
 
+  const desconocidos = Object.keys(u).filter((campo) => !CAMPOS.includes(campo));
+  if (desconocidos.length > 0) {
+    return res.status(400).json({
+      message: `Estos campos no existen: ${desconocidos.join(", ")}. Los válidos son: ${CAMPOS.join(", ")}`,
+    });
+  }
   if (u.objetivo !== undefined && !OBJETIVOS.includes(u.objetivo)) {
     return res.status(400).json({ message: `Objetivo inválido. Valores permitidos: ${OBJETIVOS.join(", ")}` });
   }
@@ -137,28 +103,78 @@ const updatePerfil = async (req, res) => {
   }
 
   try {
-    const result = await query(
-      `UPDATE "PERFIL USUARIO" SET
-         "PESO"                   = COALESCE($1, "PESO"),
-         "ALTURA"                 = COALESCE($2, "ALTURA"),
-         "OBJETIVO"               = COALESCE($3, "OBJETIVO"),
-         "TIEMPO DISPONIBLE"      = COALESCE($4, "TIEMPO DISPONIBLE"),
-         "DIAS POR SEMANA"        = COALESCE($5, "DIAS POR SEMANA"),
-         "NIVEL DE ENTRENAMIENTO" = COALESCE($6, "NIVEL DE ENTRENAMIENTO"),
-         "LUGAR DONDE ENTRENA"    = COALESCE($7, "LUGAR DONDE ENTRENA")
-       WHERE "ID PERFIL" = $8
-       RETURNING "ID PERFIL","NOMBRE","EDAD","PESO","ALTURA","OBJETIVO",
-                 "TIEMPO DISPONIBLE","DIAS POR SEMANA","NIVEL DE ENTRENAMIENTO",
-                 "LUGAR DONDE ENTRENA","REGISTRO DEL USUARIO_MAIL"`,
-      [ u.peso ?? null, u.altura ?? null,
-       u.objetivo ?? null, u.tiempoDisponible ?? null, u.diasPorSemana ?? null,
-       u.nivel ?? null, u.lugar ?? null, req.params.id]
-    );
+    const perfil = await transaction(async (client) => {
+      const result = await client.query(
+        `UPDATE "PERFIL USUARIO" SET
+           "FECHA_NACIMIENTO"       = COALESCE($1, "FECHA_NACIMIENTO"),
+           "PESO"                   = COALESCE($2, "PESO"),
+           "ALTURA"                 = COALESCE($3, "ALTURA"),
+           "OBJETIVO"               = COALESCE($4, "OBJETIVO"),
+           "TIEMPO DISPONIBLE"      = COALESCE($5, "TIEMPO DISPONIBLE"),
+           "DIAS POR SEMANA"        = COALESCE($6, "DIAS POR SEMANA"),
+           "NIVEL DE ENTRENAMIENTO" = COALESCE($7, "NIVEL DE ENTRENAMIENTO"),
+           "LUGAR DONDE ENTRENA"    = COALESCE($8, "LUGAR DONDE ENTRENA")
+         WHERE "ID PERFIL" = $9
+         RETURNING "ID PERFIL","NOMBRE","FECHA_NACIMIENTO",
+                   EXTRACT(YEAR FROM age("FECHA_NACIMIENTO"))::int AS "EDAD",
+                   "PESO","ALTURA","OBJETIVO","TIEMPO DISPONIBLE",
+                   "DIAS POR SEMANA","NIVEL DE ENTRENAMIENTO",
+                   "LUGAR DONDE ENTRENA","REGISTRO DEL USUARIO_MAIL"`,
+        [u.fechaNacimiento ?? null, u.peso ?? null, u.altura ?? null,
+         u.objetivo ?? null, u.tiempoDisponible ?? null, u.diasPorSemana ?? null,
+         u.nivel ?? null, u.lugar ?? null, req.params.id]
+      );
+      if (result.rows.length === 0) {
+        return null;
+      }
 
-    if (result.rows.length === 0) {
+      if (u.lesiones !== undefined) {
+        await client.query(`DELETE FROM "LESIONES" WHERE "ID PERFIL" = $1`, [req.params.id]);
+        for (const l of u.lesiones) {
+          await client.query(
+            `INSERT INTO "LESIONES"
+              ("ZONAS LESIONADAS","FECHA_INICIO","FECHA_FIN","DESCRIPCION","ID PERFIL")
+             VALUES ($1,$2,$3,$4,$5)`,
+            [l.zona ?? null, l.fechaInicio ?? null, l.fechaFin ?? null, l.descripcion ?? null, req.params.id]
+          );
+        }
+      }
+
+      if (u.preferencias !== undefined) {
+        await client.query(
+          `DELETE FROM "PREFERNCIAS ALIMENTARIAS" WHERE "ID PERFIL" = $1 AND "TIPO" = 'PREFERENCIA'`,
+          [req.params.id]
+        );
+        for (const p of u.preferencias) {
+          await client.query(
+            `INSERT INTO "PREFERNCIAS ALIMENTARIAS" ("COMIDAS RESTRINGIDAS","TIPO","ID PERFIL")
+             VALUES ($1,'PREFERENCIA',$2)`,
+            [p, req.params.id]
+          );
+        }
+      }
+
+      if (u.alergias !== undefined) {
+        await client.query(
+          `DELETE FROM "PREFERNCIAS ALIMENTARIAS" WHERE "ID PERFIL" = $1 AND "TIPO" = 'ALERGIA'`,
+          [req.params.id]
+        );
+        for (const a of u.alergias) {
+          await client.query(
+            `INSERT INTO "PREFERNCIAS ALIMENTARIAS" ("COMIDAS RESTRINGIDAS","TIPO","ID PERFIL")
+             VALUES ($1,'ALERGIA',$2)`,
+            [a, req.params.id]
+          );
+        }
+      }
+
+      return result.rows[0];
+    });
+
+    if (perfil === null) {
       return res.status(404).json({ message: "Perfil no encontrado" });
     }
-    res.json({ message: "Perfil actualizado", perfil: result.rows[0] });
+    res.json({ message: "Perfil actualizado", perfil });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
