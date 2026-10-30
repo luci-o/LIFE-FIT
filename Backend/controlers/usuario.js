@@ -1,4 +1,4 @@
-import { query } from "../DB/db.js";
+import { query, transaction } from "../DB/db.js";
 import pkg from "pg";
 const { Client } = pkg;
 import bcrypt from "bcrypt";
@@ -8,7 +8,15 @@ import { SECRET } from "../middleware/Auth.js";
 const OBJETIVOS = ["bajar peso", "ganar fuerza", "mejorar resistencia"];
 const NIVELES   = ["principiante", "intermedio", "avanzado"];
 const LUGARES   = ["gym", "hogar", "aire libre"];
-
+const CAMPOS    = [
+  "fechaNacimiento", "peso", "altura", "objetivo", "tiempoDisponible",
+  "diasPorSemana", "nivel", "lugar", "lesiones", "preferencias", "alergias",
+]
+const REQUERIDOS = [
+  "FECHA_NACIMIENTO", "PESO", "ALTURA", "OBJETIVO",
+  "TIEMPO DISPONIBLE", "DIAS POR SEMANA",
+  "NIVEL DE ENTRENAMIENTO", "LUGAR DONDE ENTRENA",
+];
 
 const getPerfil = async (req, res) => {
   try {
@@ -212,7 +220,8 @@ const login = async (req, res) => {
       message: "Login correcto",
       token,
       idPerfil: perfil["ID PERFIL"],
-      nombre: perfil["NOMBRE"]
+      nombre: perfil["NOMBRE"],
+      perfilCompleto: REQUERIDOS.every((columna) => perfil[columna] !== null),
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
