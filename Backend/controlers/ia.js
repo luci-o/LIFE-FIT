@@ -92,7 +92,7 @@ if (dias.some((d) => !Number.isInteger(d) || d < 1 || d > 7)) {
             `INSERT INTO "EJERCICIOS"
               ("ID_PERFIL","EJERCICIO","SERIES","REPETICIONES","FECHA")
              SELECT $1, $2, $3, $4, f.fecha
-             FROM (SELECT date_trunc('week', CURRENT_DATE)::date + ($5::int - 1) AS fecha) f
+             FROM (SELECT date_trunc('week', CURRENT_DATE)::date + 7 + ($5::int - 1) AS fecha) f
              WHERE f.fecha >= CURRENT_DATE`,
             [req.params.id, ej.ejercicio, ej.series ?? null, ej.repeticiones ?? null, Number(dia)]
           );

@@ -621,16 +621,68 @@ def responder_chat(
 ):
     intencion, confianza = predecir_intencion(mensaje)
 
+    import unicodedata
+
+    texto_normalizado = unicodedata.normalize(
+        "NFKD", mensaje.strip().lower()
+    )
+    texto_normalizado = "".join(
+        c for c in texto_normalizado
+        if not unicodedata.combining(c)
+    )
+
+    # Una orden explicita de cambio tiene prioridad sobre el clasificador.
+    if (
+        any(palabra in texto_normalizado for palabra in (
+            "cambia", "cambi?", "cambiar",
+            "reemplaza", "reemplaz?", "reemplazar",
+            "sustituir"
+        ))
+        and "ejercicio" in texto_normalizado
+    ):
+        intencion = "cambiar_ejercicio"
+        confianza = 1.0
+
+    # Obtener el dia desde el mensaje cuando no viene del backend.
+    if dia_actual is None:
+        coincidencia = re.search(
+            r"\b(?:dia|día|d.a)\s+([1-7])\b",
+            texto_normalizado
+        )
+        if coincidencia:
+            dia_actual = int(coincidencia.group(1))
+
     # Las consultas explicitas sobre dias tienen prioridad.
-    texto_dia = mensaje.lower()
+    import unicodedata
+
+    texto_dia = unicodedata.normalize(
+        "NFKD", mensaje.lower()
+    )
+    texto_dia = "".join(
+        caracter for caracter in texto_dia
+        if not unicodedata.combining(caracter)
+    )
     consulta_dia = re.search(
-        r"\b(?:dia|d?a)\s+([1-7])\b",
+        r"\b(?:dia|día|d.a)\s+([1-7])\b",
         texto_dia
     )
 
-    if consulta_dia and any(
+    es_pedido_de_cambio = any(
         palabra in texto_dia
-        for palabra in ("ejercicio", "rutina", "entreno", "tengo")
+        for palabra in (
+            "cambia", "cambi?", "cambiar",
+            "reemplaza", "reemplaz?", "reemplazar",
+            "sustitui", "sustitu?", "sustituir"
+        )
+    )
+
+    if (
+        consulta_dia
+        and not es_pedido_de_cambio
+        and any(
+            palabra in texto_dia
+            for palabra in ("ejercicio", "rutina", "entreno", "tengo")
+        )
     ):
         numero_dia = consulta_dia.group(1)
 
