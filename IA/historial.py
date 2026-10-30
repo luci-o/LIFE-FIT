@@ -1,3 +1,4 @@
+from filelock import FileLock
 
 import json
 import os
@@ -64,28 +65,29 @@ def guardar_historial(historial):
 
 
 def registrar_rutina(usuario_id, rutina, perfil_entrenamiento=None):
-    if not isinstance(rutina, dict) or not rutina:
-        raise ValueError("No se puede guardar una rutina vacia.")
+    with FileLock(RUTA_HISTORIAL + '.lock', timeout=30):
+        if not isinstance(rutina, dict) or not rutina:
+            raise ValueError("No se puede guardar una rutina vacia.")
 
-    historial = cargar_historial()
-    usuario_id = str(usuario_id)
+        historial = cargar_historial()
+        usuario_id = str(usuario_id)
 
-    usuario = historial.setdefault(
-        usuario_id,
-        {"rutinas": [], "sesiones": []}
-    )
+        usuario = historial.setdefault(
+            usuario_id,
+            {"rutinas": [], "sesiones": []}
+        )
 
-    registro = {
-        "fecha": datetime.now().isoformat(),
-        "rutina": rutina
-    }
+        registro = {
+            "fecha": datetime.now().isoformat(),
+            "rutina": rutina
+        }
 
-    if perfil_entrenamiento is not None:
-        registro["perfil_entrenamiento"] = perfil_entrenamiento
+        if perfil_entrenamiento is not None:
+            registro["perfil_entrenamiento"] = perfil_entrenamiento
 
-    usuario["rutinas"].append(registro)
+        usuario["rutinas"].append(registro)
 
-    guardar_historial(historial)
+        guardar_historial(historial)
 
 
 def registrar_sesion(
@@ -97,35 +99,36 @@ def registrar_sesion(
     duracion_minutos=None,
     rutina_fecha=None
 ):
-    if duracion_minutos is not None:
-        if (
-            isinstance(duracion_minutos, bool)
-            or not isinstance(duracion_minutos, (int, float))
-            or not 0 < duracion_minutos <= 300
-        ):
-            raise ValueError(
-                "La duraci?n debe estar entre 1 y 300 minutos."
-            )
+    with FileLock(RUTA_HISTORIAL + '.lock', timeout=30):
+        if duracion_minutos is not None:
+            if (
+                isinstance(duracion_minutos, bool)
+                or not isinstance(duracion_minutos, (int, float))
+                or not 0 < duracion_minutos <= 300
+            ):
+                raise ValueError(
+                    "La duraci?n debe estar entre 1 y 300 minutos."
+                )
 
-    historial = cargar_historial()
-    usuario_id = str(usuario_id)
+        historial = cargar_historial()
+        usuario_id = str(usuario_id)
 
-    usuario = historial.setdefault(
-        usuario_id,
-        {"rutinas": [], "sesiones": []}
-    )
+        usuario = historial.setdefault(
+            usuario_id,
+            {"rutinas": [], "sesiones": []}
+        )
 
-    usuario["sesiones"].append({
-        "rutina_fecha": rutina_fecha,
-        "fecha": datetime.now().isoformat(),
-        "dia": dia,
-        "completada": completada,
-        "dificultad_percibida": dificultad_percibida,
-        "comentario": comentario,
-        "duracion_minutos": duracion_minutos
-    })
+        usuario["sesiones"].append({
+            "rutina_fecha": rutina_fecha,
+            "fecha": datetime.now().isoformat(),
+            "dia": dia,
+            "completada": completada,
+            "dificultad_percibida": dificultad_percibida,
+            "comentario": comentario,
+            "duracion_minutos": duracion_minutos
+        })
 
-    guardar_historial(historial)
+        guardar_historial(historial)
 
 def obtener_historial_usuario(usuario_id):
     historial = cargar_historial()
@@ -174,19 +177,20 @@ def registrar_adaptacion(
     usuario_id,
     fecha_ultima_sesion
 ):
-    historial = cargar_historial()
-    usuario_id = str(usuario_id)
+    with FileLock(RUTA_HISTORIAL + '.lock', timeout=30):
+        historial = cargar_historial()
+        usuario_id = str(usuario_id)
 
-    if usuario_id not in historial:
-        return False
+        if usuario_id not in historial:
+            return False
 
-    historial[usuario_id]["ultima_adaptacion"] = (
-        fecha_ultima_sesion
-    )
+        historial[usuario_id]["ultima_adaptacion"] = (
+            fecha_ultima_sesion
+        )
 
-    guardar_historial(historial)
+        guardar_historial(historial)
 
-    return True
+        return True
 
 
 def guardar_resultado_adaptacion(
@@ -195,107 +199,123 @@ def guardar_resultado_adaptacion(
     fechas_utilizadas,
     rutina_adaptada=None
 ):
+    import hashlib
+
     if accion not in ("subir", "bajar", "mantener"):
         return False
 
     if (
-        len(fechas_utilizadas) != 5
-        or not all(fechas_utilizadas)
+        not isinstance(fechas_utilizadas, list)
+        or len(fechas_utilizadas) != 5
+        or not all(isinstance(f, str) and f for f in fechas_utilizadas)
     ):
         return False
 
-    historial = cargar_historial()
-    usuario_id = str(usuario_id)
-
-    usuario = historial.get(usuario_id)
-
-    if usuario is None or not usuario.get("rutinas"):
+    if accion in ("subir", "bajar") and rutina_adaptada is None:
         return False
 
-    ultima_adaptacion = usuario.get(
-        "ultima_adaptacion"
-    )
+    contenido = {
+        "accion": accion,
+        "fechas": fechas_utilizadas,
+        "rutina": rutina_adaptada
+    }
 
-    pendientes = [
-        sesion
-        for sesion in usuario.get("sesiones", [])
-        if (
-            ultima_adaptacion is None
-            or sesion.get("fecha", "") > ultima_adaptacion
-        )
-    ]
+    identificador = hashlib.sha256(
+        json.dumps(
+            contenido,
+            sort_keys=True,
+            ensure_ascii=False
+        ).encode("utf-8")
+    ).hexdigest()
 
-    if len(pendientes) < 5:
-        return False
+    with FileLock(RUTA_HISTORIAL + ".lock", timeout=30):
+        historial = cargar_historial()
+        usuario_id = str(usuario_id)
+        usuario = historial.get(usuario_id)
 
-    fechas_actuales = [
-        sesion.get("fecha")
-        for sesion in pendientes[:5]
-    ]
+        if usuario is None or not usuario.get("rutinas"):
+            return False
 
-    if (
-        fechas_actuales != fechas_utilizadas
-        or not all(fechas_actuales)
-    ):
-        return False
+        confirmacion_anterior = usuario.get("ultima_confirmacion")
 
-    if (
-        accion in ("subir", "bajar")
-        and rutina_adaptada is None
-    ):
-        return False
+        if confirmacion_anterior == identificador:
+            return True
 
-    if rutina_adaptada is not None:
-        usuario["rutinas"].append({
-            "fecha": datetime.now().isoformat(),
-            "rutina": rutina_adaptada
-        })
+        ultima_adaptacion = usuario.get("ultima_adaptacion")
 
-    usuario["ultima_adaptacion"] = fechas_actuales[-1]
+        pendientes = [
+            sesion
+            for sesion in usuario.get("sesiones", [])
+            if (
+                ultima_adaptacion is None
+                or sesion.get("fecha", "") > ultima_adaptacion
+            )
+        ]
 
-    guardar_historial(historial)
+        if len(pendientes) < 5:
+            return False
 
-    return True
+        fechas_actuales = [
+            sesion.get("fecha")
+            for sesion in pendientes[:5]
+        ]
+
+        if fechas_actuales != fechas_utilizadas:
+            return False
+
+        if rutina_adaptada is not None:
+            usuario["rutinas"].append({
+                "fecha": datetime.now().isoformat(),
+                "rutina": rutina_adaptada
+            })
+
+        usuario["ultima_adaptacion"] = fechas_actuales[-1]
+        usuario["ultima_confirmacion"] = identificador
+
+        guardar_historial(historial)
+        return True
+
 
 
 def guardar_restricciones_adicionales(
     usuario_id,
     zonas
 ):
-    from chat import normalizar_zonas_lesion
+    with FileLock(RUTA_HISTORIAL + '.lock', timeout=30):
+        from chat import normalizar_zonas_lesion
 
-    historial = cargar_historial()
-    usuario_id = str(usuario_id)
+        historial = cargar_historial()
+        usuario_id = str(usuario_id)
 
-    usuario = historial.setdefault(
-        usuario_id,
-        {"rutinas": [], "sesiones": []}
-    )
+        usuario = historial.setdefault(
+            usuario_id,
+            {"rutinas": [], "sesiones": []}
+        )
 
-    restricciones_actuales = normalizar_zonas_lesion(
-        usuario.get("restricciones_adicionales", [])
-    )
+        restricciones_actuales = normalizar_zonas_lesion(
+            usuario.get("restricciones_adicionales", [])
+        )
 
-    restricciones_nuevas = normalizar_zonas_lesion(
-        zonas
-    )
+        restricciones_nuevas = normalizar_zonas_lesion(
+            zonas
+        )
 
-    restricciones_combinadas = sorted(
-        restricciones_actuales | restricciones_nuevas
-    )
+        restricciones_combinadas = sorted(
+            restricciones_actuales | restricciones_nuevas
+        )
 
-    if restricciones_combinadas == sorted(
-        restricciones_actuales
-    ):
+        if restricciones_combinadas == sorted(
+            restricciones_actuales
+        ):
+            return restricciones_combinadas
+
+        usuario["restricciones_adicionales"] = (
+            restricciones_combinadas
+        )
+
+        guardar_historial(historial)
+
         return restricciones_combinadas
-
-    usuario["restricciones_adicionales"] = (
-        restricciones_combinadas
-    )
-
-    guardar_historial(historial)
-
-    return restricciones_combinadas
 def obtener_dataset_entrenamiento():
     historial = cargar_historial()
     registros = []
@@ -333,23 +353,24 @@ def obtener_dataset_entrenamiento():
 
     return registros
 def registrar_menu(usuario_id, menu, perfil_alimentario=None):
-    historial = cargar_historial()
-    usuario_id = str(usuario_id)
+    with FileLock(RUTA_HISTORIAL + '.lock', timeout=30):
+        historial = cargar_historial()
+        usuario_id = str(usuario_id)
 
-    usuario = historial.setdefault(
-        usuario_id,
-        {"rutinas": [], "sesiones": []}
-    )
+        usuario = historial.setdefault(
+            usuario_id,
+            {"rutinas": [], "sesiones": []}
+        )
 
-    usuario.setdefault("menus", [])
+        usuario.setdefault("menus", [])
 
-    usuario["menus"].append({
-        "fecha": datetime.now().isoformat(),
-        "menu": menu,
-        "perfil_alimentario": perfil_alimentario
-    })
+        usuario["menus"].append({
+            "fecha": datetime.now().isoformat(),
+            "menu": menu,
+            "perfil_alimentario": perfil_alimentario
+        })
 
-    guardar_historial(historial)
+        guardar_historial(historial)
 
 
 def obtener_ultimo_menu(usuario_id):
