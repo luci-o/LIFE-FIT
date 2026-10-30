@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-
 import Bienvenida from "./pages/Bienvenida/Bienvenida.tsx";
 import InicioSesion from "./pages/InicioSesion/InicioSesion.tsx";
 import Registrarse from "./pages/Registrarse/Registrarse.tsx";
@@ -18,13 +17,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {}
-        <Route path="/" element={<Bienvenida />} />
+      
+        <Route path="/" element={<PaginaPrincipal />} />
+        
+        <Route path="/bienvenida" element={<Bienvenida />} />
         <Route path="/login" element={<InicioSesion />} />
         <Route path="/registro" element={<Registrarse />} />
         <Route path="/formulario" element={<Formulario />} />
 
-        {}
         <Route path="/dashboard" element={<PaginaPrincipal />} />
         <Route path="/rutinas" element={<Rutinas />} />
         <Route path="/alimentacion" element={<Alimentacion />} />
@@ -34,7 +34,6 @@ function App() {
         <Route path="/perfil" element={<PerfilUsuario />} />
         <Route path="/actualizacion-semanal" element={<Actualizacion />} />
 
-        {}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

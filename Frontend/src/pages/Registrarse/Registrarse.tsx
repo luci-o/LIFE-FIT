@@ -51,16 +51,15 @@ export const Registrarse = () => {
 
   const inputStyle: React.CSSProperties = {
     width: '100%',
-    padding: '16px 20px',
-    borderRadius: '20px',
+    padding: '14px 20px',
+    borderRadius: '18px',
     border: '1px solid #FFF',
     backgroundColor: 'rgba(217, 217, 217, 0.20)',
     color: '#FFF',
     fontFamily: '"Plus Jakarta Sans", sans-serif',
-    fontSize: '28px',
+    fontSize: '24px',
     fontWeight: 700,
     fontStyle: 'normal',
-    lineHeight: '28px',
     boxSizing: 'border-box',
     outline: 'none'
   };
@@ -77,39 +76,70 @@ export const Registrarse = () => {
     }}>
       <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
 
-{/* Navbar Superior Compacto Exacto a Figma */}
-<header style={{
-  padding: '8px 24px',
-  display: 'flex',
-  alignItems: 'center',
-  backgroundColor: 'rgba(42, 52, 71, 0.60)',
-  backdropFilter: 'blur(10px)',
-  zIndex: 10
-}}>
-  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-    <img 
-      src={logoBg} 
-      alt="Life Fit Logo" 
-      style={{
-        width: '36px',
-        height: 'auto'
-      }}
-    />
+      {/* Estilo para los placeholders */}
+      <style>{`
+        input::placeholder {
+          color: #FFF;
+          font-family: "Plus Jakarta Sans", sans-serif;
+          font-size: 32px;
+          font-style: normal;
+          font-weight: 700;
+          opacity: 0.95;
+        }
+      `}</style>
 
-    <h1 style={{
-      color: '#FFF',
-      fontFamily: '"Plus Jakarta Sans", sans-serif',
-      fontSize: '36px',
-      fontStyle: 'normal',
-      fontWeight: 800,
-      lineHeight: '1',
-      letterSpacing: '-1.2px',
-      margin: 0
-    }}>
-      Life Fit
-    </h1>
-  </div>
-</header>
+      {/* Navbar Superior */}
+      <header style={{
+        padding: '0px 24px',
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: 'rgba(42, 52, 71, 0.60)',
+        backdropFilter: 'blur(10px)',
+        height: '65px',
+        overflow: 'hidden',
+        zIndex: 10
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <img 
+            src={logoBg} 
+            alt="Life Fit Logo" 
+            style={{
+              width: '80px',
+              height: 'auto'
+            }}
+          />
+
+          <h1 style={{
+            color: '#FFF',
+            fontFamily: '"Plus Jakarta Sans", sans-serif',
+            fontSize: '52px',
+            fontStyle: 'normal',
+            fontWeight: 800,
+            lineHeight: '1',
+            letterSpacing: '-1px',
+            margin: 0,
+            padding: 0
+          }}>
+            Life Fit
+          </h1>
+        </div>
+      </header>
+
+      {/* Título Superior "Crear cuenta" */}
+      <div style={{
+        textAlign: 'center',
+        padding: '14px 0 8px 0',
+        zIndex: 10
+      }}>
+        <h2 style={{
+          fontSize: '32px',
+          fontWeight: 800,
+          margin: 0,
+          color: '#FFF'
+        }}>
+          Crear cuenta
+        </h2>
+      </div>
 
       {/* Línea Separadora Superior Exacta (#2E3648) */}
       <div style={{
@@ -129,16 +159,16 @@ export const Registrarse = () => {
         paddingBottom: 0
       }}>
         
-        {/* logo de fondo */}
+        {/* Logo de Fondo con Resplandor Verde */}
         <img 
           src={logoBg} 
           alt="Life Fit Background Logo" 
           style={{
             position: 'absolute',
-            width: '800px',
-            maxWidth: '95vw',
+            width: '720px',
+            maxWidth: '92vw',
             height: 'auto',
-            top: '60%',
+            top: '58%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             opacity: 0.6,
@@ -148,13 +178,13 @@ export const Registrarse = () => {
           }} 
         />
 
-        {/* tarjeta general */}
+        {/* Tarjeta General */}
         <div style={{
           position: 'relative',
           zIndex: 2,
           width: '100%',
-          maxWidth: '440px',
-          padding: '36px 32px 28px 32px',
+          maxWidth: '420px',
+          padding: '32px 28px 26px 28px',
           boxSizing: 'border-box'
         }}>
          
@@ -168,17 +198,17 @@ export const Registrarse = () => {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              borderTopLeftRadius: '30px',
-              borderTopRightRadius: '30px',
+              borderTopLeftRadius: '28px',
+              borderTopRightRadius: '28px',
               borderBottomLeftRadius: '0px',
               borderBottomRightRadius: '0px',
               zIndex: -1
             }} 
           />
 
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
             
-            {/* usuario */}
+            {/* Campo Usuario */}
             <input
               type="text"
               placeholder="Usuario"
@@ -187,7 +217,7 @@ export const Registrarse = () => {
               style={inputStyle}
             />
 
-            {/* email */}
+            {/* Campo Email */}
             <input
               type="email"
               placeholder="Email"
@@ -196,7 +226,7 @@ export const Registrarse = () => {
               style={inputStyle}
             />
 
-            {/* contraseña */}
+            {/* Campo Contraseña */}
             <div style={{ position: 'relative', width: '100%' }}>
               <input
                 type={mostrarPassword ? 'text' : 'password'}
@@ -205,7 +235,7 @@ export const Registrarse = () => {
                 onChange={(e) => setContrasena(e.target.value)}
                 style={{
                   ...inputStyle,
-                  paddingRight: '56px'
+                  paddingRight: '52px'
                 }}
               />
               <button
@@ -228,7 +258,7 @@ export const Registrarse = () => {
                   src={ojoIcono} 
                   alt="Mostrar u ocultar contraseña" 
                   style={{
-                    width: '28px',
+                    width: '24px',
                     height: 'auto',
                     filter: mostrarPassword ? 'none' : 'opacity(0.6)'
                   }}
@@ -242,66 +272,63 @@ export const Registrarse = () => {
               </p>
             )}
 
-            {/* btn crear cuenta */}
+            {/* Botón Crear Cuenta */}
             <button
               type="submit"
               style={{
                 width: '100%',
-                padding: '14px',
-                borderRadius: '20px',
+                padding: '13px',
+                borderRadius: '18px',
                 border: '1px solid #FFF',
                 backgroundColor: '#00E676',
                 color: '#000',
                 fontFamily: '"Plus Jakarta Sans", sans-serif',
-                fontSize: '24px',
+                fontSize: '22px',
                 fontStyle: 'normal',
-                fontWeight: 700,
-                lineHeight: '28px',
+                fontWeight: 800,
                 cursor: 'pointer',
-                marginTop: '6px'
+                marginTop: '2px'
               }}
             >
               Crear cuenta
             </button>
 
-            {/* btn google */}
+            {/* Botón Google */}
             <button
               type="button"
               style={{
                 width: '100%',
-                padding: '12px',
-                borderRadius: '20px',
+                padding: '11px',
+                borderRadius: '18px',
                 border: '1px solid #FFF',
                 backgroundColor: 'rgba(116, 139, 125, 0.64)',
                 color: '#000',
                 fontFamily: '"Plus Jakarta Sans", sans-serif',
-                fontSize: '20px', 
+                fontSize: '18px', 
                 fontStyle: 'normal',
-                fontWeight: 700,
-                lineHeight: '28px',
+                fontWeight: 800,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '10px',
+                gap: '8px',
                 cursor: 'pointer'
               }}
             >
-              <span style={{ fontWeight: 'bold', fontSize: '22px' }}>G</span> Continuar con Google
+              <span style={{ fontWeight: 'bold', fontSize: '20px' }}>G</span> Continuar con Google
             </button>
 
-            {/* iniciar sesion */}
+            {/* Link ¿Ya tienes cuenta? Iniciá sesión */}
             <p style={{ 
               textAlign: 'center', 
               color: '#FFF',
               fontFamily: '"Plus Jakarta Sans", sans-serif',
               fontSize: '16px', 
               fontStyle: 'normal',
-              fontWeight: 700,
-              lineHeight: '28px',
-              margin: '8px 0 0 0' 
+              fontWeight: 800,
+              margin: '2px 0 0 0' 
             }}>
               ¿Ya tienes cuenta?{' '}
-              <Link to="/login" style={{ color: '#ffffff', fontWeight: 700, textDecoration: 'underline' }}>
+              <Link to="/login" style={{ color: '#ffffff', fontWeight: 800, textDecoration: 'underline' }}>
                 Iniciá sesión
               </Link>
             </p>
