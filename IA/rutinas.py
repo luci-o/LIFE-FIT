@@ -502,10 +502,15 @@ def agregar_parametros_plan(plan_semanal, dificultad):
             else parametros["series"]
         )
 
-        rutina["repeticiones"] = rutina["grupo_muscular"].apply(
-            lambda grupo:
-            "por tiempo" if grupo == "cardio"
-            else parametros["repeticiones"]
+        rutina["repeticiones"] = rutina.apply(
+            lambda ejercicio:
+            "por tiempo"
+            if ejercicio.get("tipo_ejecucion") == "tiempo"
+            or ejercicio["grupo_muscular"] == "cardio"
+            else "15-20 segundos"
+            if ejercicio.get("tipo_ejecucion") == "isometrico"
+            else parametros["repeticiones"],
+            axis=1
         )
 
         plan_con_parametros[dia] = rutina
@@ -649,7 +654,14 @@ def generar_plan_personalizado(
             nuevo = candidatos.iloc[0].to_dict()
             nuevo.pop("azar", None)
             nuevo["series"] = parametros["series"]
-            nuevo["repeticiones"] = parametros["repeticiones"]
+            nuevo["repeticiones"] = (
+                "por tiempo"
+                if nuevo.get("tipo_ejecucion") == "tiempo"
+                or nuevo.get("grupo_muscular") == "cardio"
+                else "15-20 segundos"
+                if nuevo.get("tipo_ejecucion") == "isometrico"
+                else parametros["repeticiones"]
+            )
 
             rutina = pd.concat(
                 [rutina, pd.DataFrame([nuevo])],

@@ -9,7 +9,8 @@
     "imagen": "images/sentadilla.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "flexiones",
@@ -19,7 +20,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "pecho",
     "imagen": "images/flexiones.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "remo con banda",
@@ -31,7 +33,8 @@
     "imagen": "images/remo_con_banda.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "puente de gluteos",
@@ -41,7 +44,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "gluteos",
     "imagen": "images/puente_gluteos.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "plancha",
@@ -53,7 +57,8 @@
     "imagen": "images/plancha.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "isometrico"
   },
   {
     "ejercicio": "zancadas",
@@ -65,7 +70,8 @@
     "imagen": "images/zancadas.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "press de hombros",
@@ -75,7 +81,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "hombros",
     "imagen": "images/press_hombros.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "bicicleta estatica",
@@ -87,7 +94,8 @@
     "imagen": "images/bicicleta_estatica.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "peso muerto rumano",
@@ -100,7 +108,8 @@
     "restricciones": [
       "Espalda",
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "curl de biceps",
@@ -110,7 +119,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "biceps",
     "imagen": "images/curl_de_biceps.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "press banca",
@@ -120,7 +130,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "pecho",
     "imagen": "images/press_banca.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "abdominales bicicleta",
@@ -132,7 +143,8 @@
     "imagen": "images/abdominales_bicicleta.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "step ups",
@@ -144,7 +156,8 @@
     "imagen": "images/step_ups.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "mountain climbers",
@@ -157,7 +170,8 @@
     "restricciones": [
       "Pierna",
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "remo invertido",
@@ -169,7 +183,8 @@
     "imagen": "images/remo_invertido.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "crunch en polea",
@@ -181,7 +196,8 @@
     "imagen": "images/crunch_en_polea.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "pallof press",
@@ -191,7 +207,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "core",
     "imagen": "images/pallof_press.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "press inclinado",
@@ -201,7 +218,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "pecho",
     "imagen": "images/press_inclinado.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "remo en polea",
@@ -213,7 +231,8 @@
     "imagen": "images/remo_en_polea.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "extension de triceps",
@@ -223,7 +242,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "triceps",
     "imagen": "images/extension_de_triceps.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "press frances",
@@ -233,7 +253,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "triceps",
     "imagen": "images/press_frances.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "elevacion de talones",
@@ -245,7 +266,8 @@
     "imagen": "images/elevacion_de_talones.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "crunch abdominal",
@@ -257,7 +279,8 @@
     "imagen": "images/crunch_abdominal.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "rueda abdominal",
@@ -269,7 +292,8 @@
     "imagen": "images/rueda_abdominal.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "remo con banda de pie",
@@ -281,7 +305,8 @@
     "imagen": "images/remo_con_banda_de_pie.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "sentadilla a silla",
@@ -293,7 +318,8 @@
     "imagen": "images/sentadilla_a_silla.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "elevaciones de rodillas",
@@ -305,7 +331,8 @@
     "imagen": "images/elevaciones_de_rodillas.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "superman",
@@ -317,7 +344,8 @@
     "imagen": "images/superman.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "flexiones de pared",
@@ -327,7 +355,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "pecho",
     "imagen": "images/flexiones_de_pared.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "elevaciones laterales sin peso",
@@ -337,7 +366,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "hombros",
     "imagen": "images/elevaciones_laterales_sin_peso.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "marcha en el lugar",
@@ -349,7 +379,8 @@
     "imagen": "images/marcha_en_el_lugar.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "puente de gluteos unilateral",
@@ -361,7 +392,8 @@
     "imagen": "images/puente_de_gluteos_unilateral.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "press declinado",
@@ -371,7 +403,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "pecho",
     "imagen": "images/press_declinado.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "flexiones con rodillas apoyadas",
@@ -383,7 +416,8 @@
     "imagen": "images/flexiones_con_rodillas_apoyadas.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "remo pecho apoyado",
@@ -395,7 +429,8 @@
     "imagen": "images/remo_pecho_apoyado.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "encogimientos de hombros",
@@ -405,7 +440,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "hombros",
     "imagen": "images/encogimientos_de_hombros.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "curl con banda sentado",
@@ -415,7 +451,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "biceps",
     "imagen": "images/curl_con_banda_sentado.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "peso muerto con mancuernas",
@@ -427,7 +464,8 @@
     "imagen": "images/peso_muerto_con_mancuernas.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "abduccion de cadera",
@@ -439,7 +477,8 @@
     "imagen": "images/abduccion_de_cadera.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "aduccion de cadera",
@@ -451,7 +490,8 @@
     "imagen": "images/aduccion_de_cadera.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "elevaciones de piernas",
@@ -463,7 +503,8 @@
     "imagen": "images/elevaciones_de_piernas.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "mountain climbers lentos",
@@ -475,7 +516,8 @@
     "imagen": "images/mountain_climbers_lentos.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "escaladores",
@@ -487,7 +529,8 @@
     "imagen": "images/escaladores.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "burpees suaves",
@@ -499,7 +542,8 @@
     "imagen": "images/burpees_suaves.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "saltos laterales",
@@ -511,7 +555,8 @@
     "imagen": "images/saltos_laterales.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "subir y bajar escalon",
@@ -523,7 +568,8 @@
     "imagen": "images/subir_y_bajar_escalon.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "press banca con mancuernas",
@@ -535,7 +581,8 @@
     "imagen": "images/press_banca_con_mancuernas.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "press banca con barra",
@@ -547,7 +594,8 @@
     "imagen": "images/press_banca_barra.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "press inclinado con barra",
@@ -559,7 +607,8 @@
     "imagen": "images/press_inclinado_con_barra.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "press inclinado con mancuernas",
@@ -571,7 +620,8 @@
     "imagen": "images/press_inclinado_mancuernas.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "press en maquina",
@@ -583,7 +633,8 @@
     "imagen": "images/press_en_maquina.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "aperturas con mancuernas",
@@ -595,7 +646,8 @@
     "imagen": "images/aperturas_con_mancuernas.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "aperturas en maquina",
@@ -607,7 +659,8 @@
     "imagen": "images/aperturas_en_maquina.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "cruce de poleas",
@@ -619,7 +672,8 @@
     "imagen": "images/cruce_de_poleas.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "flexiones inclinadas",
@@ -631,7 +685,8 @@
     "imagen": "images/flexiones_inclinadas.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "flexiones diamante",
@@ -643,7 +698,8 @@
     "imagen": "images/flexiones_diamante.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "jalon al pecho",
@@ -655,7 +711,8 @@
     "imagen": "images/jalon_al_pecho.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "remo sentado en polea",
@@ -667,7 +724,8 @@
     "imagen": "images/remo_sentado_en_polea.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "remo con mancuerna",
@@ -679,7 +737,8 @@
     "imagen": "images/remo_con_mancuerna.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "remo con barra",
@@ -691,7 +750,8 @@
     "imagen": "images/remo_con_barra.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "remo en maquina",
@@ -703,7 +763,8 @@
     "imagen": "images/remo_en_maquina.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "pullover en polea",
@@ -715,7 +776,8 @@
     "imagen": "images/pullover_en_polea.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "pullover con mancuerna",
@@ -727,7 +789,8 @@
     "imagen": "images/pullover_con_mancuerna.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "dominadas asistidas",
@@ -739,7 +802,8 @@
     "imagen": "images/dominadas_asistidas.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "face pull",
@@ -751,7 +815,8 @@
     "imagen": "images/face_pull.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "remo con banda elastica",
@@ -763,7 +828,8 @@
     "imagen": "images/remo_con_banda_elastica.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "sentadilla goblet",
@@ -775,7 +841,8 @@
     "imagen": "images/sentadilla_goblet.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "sentadilla sumo",
@@ -787,7 +854,8 @@
     "imagen": "images/sentadilla_sumo.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "sentadilla en maquina",
@@ -799,7 +867,8 @@
     "imagen": "images/sentadilla_maquina.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "prensa de piernas",
@@ -811,7 +880,8 @@
     "imagen": "images/prensa_de_piernas.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "extension de piernas",
@@ -823,7 +893,8 @@
     "imagen": "images/extension_de_piernas.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "curl femoral",
@@ -835,7 +906,8 @@
     "imagen": "images/curl_femoral.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "peso muerto rumano con mancuernas",
@@ -847,7 +919,8 @@
     "imagen": "images/peso_muerto_rumano_con_mancuernas.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "hip thrust",
@@ -859,7 +932,8 @@
     "imagen": "images/hip_thrust.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "step up",
@@ -871,7 +945,8 @@
     "imagen": "images/step_up.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "zancadas hacia atras",
@@ -883,7 +958,8 @@
     "imagen": "images/zancadas_hacia_atras.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "elevacion de talones de pie",
@@ -895,7 +971,8 @@
     "imagen": "images/elevacion_de_talones_de_pie.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "elevacion de talones sentado",
@@ -907,7 +984,8 @@
     "imagen": "images/elevacion_de_talones_sentado.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "press militar con mancuernas",
@@ -919,7 +997,8 @@
     "imagen": "images/press_militar_con_mancuernas.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "press militar con barra",
@@ -931,7 +1010,8 @@
     "imagen": "images/press_militar_con_barra.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "press arnold",
@@ -943,7 +1023,8 @@
     "imagen": "images/press_arnold.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "elevaciones laterales",
@@ -955,7 +1036,8 @@
     "imagen": "images/elevaciones_laterales.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "elevaciones frontales",
@@ -967,7 +1049,8 @@
     "imagen": "images/elevaciones_frontales.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "pajaros con mancuernas",
@@ -979,7 +1062,8 @@
     "imagen": "images/pajaros_con_mancuernas.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "elevaciones laterales con banda",
@@ -991,7 +1075,8 @@
     "imagen": "images/elevaciones_laterales_con_banda.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "curl con mancuernas",
@@ -1001,7 +1086,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "biceps",
     "imagen": "images/curl_con_mancuernas.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "curl con barra",
@@ -1011,7 +1097,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "biceps",
     "imagen": "images/curl_con_barra.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "curl martillo",
@@ -1021,7 +1108,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "biceps",
     "imagen": "images/curl_martillo.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "curl predicador",
@@ -1031,7 +1119,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "biceps",
     "imagen": "images/curl_predicador.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "curl con banda",
@@ -1041,7 +1130,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "biceps",
     "imagen": "images/curl_con_banda.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "curl concentrado",
@@ -1051,7 +1141,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "biceps",
     "imagen": "images/curl_concentrado.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "extension de triceps en polea",
@@ -1063,7 +1154,8 @@
     "imagen": "images/extension_de_triceps_en_polea.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "extension de triceps con banda",
@@ -1075,7 +1167,8 @@
     "imagen": "images/extension_de_triceps_con_banda.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "extension de triceps por encima de la cabeza",
@@ -1087,7 +1180,8 @@
     "imagen": "images/extension_de_triceps_por_encima_de_la_cabeza.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "patada de triceps",
@@ -1099,7 +1193,8 @@
     "imagen": "images/patada_de_triceps.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "fondos asistidos",
@@ -1111,7 +1206,8 @@
     "imagen": "images/fondos_asistidos.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "fondos en banco",
@@ -1123,7 +1219,8 @@
     "imagen": "images/fondos_en_banco.png",
     "restricciones": [
       "Hombro"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "dead bug",
@@ -1135,7 +1232,8 @@
     "imagen": "images/dead_bug.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "bird dog",
@@ -1148,7 +1246,8 @@
     "restricciones": [
       "Espalda",
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "plancha lateral",
@@ -1160,7 +1259,8 @@
     "imagen": "images/plancha_lateral.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "isometrico"
   },
   {
     "ejercicio": "crunch bicicleta",
@@ -1172,7 +1272,8 @@
     "imagen": "images/crunch_bicicleta.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "reverse crunch",
@@ -1184,7 +1285,8 @@
     "imagen": "images/reverse_crunch.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "elevacion de piernas",
@@ -1196,7 +1298,8 @@
     "imagen": "images/elevacion_de_piernas.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "mountain climbers controlados",
@@ -1209,7 +1312,8 @@
     "restricciones": [
       "Espalda",
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "hollow hold",
@@ -1221,7 +1325,8 @@
     "imagen": "images/hollow_hold.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "isometrico"
   },
   {
     "ejercicio": "caminata rapida",
@@ -1233,7 +1338,8 @@
     "imagen": "images/caminata_rapida.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "caminata inclinada",
@@ -1245,7 +1351,8 @@
     "imagen": "images/caminata_inclinada.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "bicicleta",
@@ -1257,7 +1364,8 @@
     "imagen": "images/bicicleta.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "eliptico",
@@ -1269,7 +1377,8 @@
     "imagen": "images/eliptico.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "remo cardio",
@@ -1281,7 +1390,8 @@
     "imagen": "images/remo_cardio.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "shadow boxing",
@@ -1291,7 +1401,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "cardio",
     "imagen": "images/shadow_boxing.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "jumping jacks",
@@ -1303,7 +1414,8 @@
     "imagen": "images/jumping_jacks.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "trote suave",
@@ -1315,7 +1427,8 @@
     "imagen": "images/trote_suave.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "flexiones al aire libre",
@@ -1325,7 +1438,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "pecho",
     "imagen": "images/flexiones_aire_libre.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "flexiones con pausa",
@@ -1335,7 +1449,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "pecho",
     "imagen": "images/flexiones_con_pausa.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "flexiones declinadas en banco",
@@ -1345,7 +1460,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "pecho",
     "imagen": "images/flexiones_declinadas_banco.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "remo invertido en barra baja",
@@ -1357,7 +1473,8 @@
     "imagen": "images/remo_invertido_barra_baja.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "remo australiano",
@@ -1369,7 +1486,8 @@
     "imagen": "images/remo_australiano.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "dominadas",
@@ -1381,7 +1499,8 @@
     "imagen": "images/dominadas.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "sentadilla al banco",
@@ -1393,7 +1512,8 @@
     "imagen": "images/sentadilla_al_banco.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "sentadilla aire libre",
@@ -1405,7 +1525,8 @@
     "imagen": "images/sentadilla_aire_libre.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "zancadas caminando",
@@ -1417,7 +1538,8 @@
     "imagen": "images/zancadas_caminando.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "circulos de brazos",
@@ -1427,7 +1549,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "hombros",
     "imagen": "images/circulos_de_brazos.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "flexiones pike",
@@ -1437,7 +1560,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "hombros",
     "imagen": "images/flexiones_pike.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "flexiones pike elevadas",
@@ -1447,7 +1571,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "hombros",
     "imagen": "images/flexiones_pike_elevadas.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "remo supino en barra baja",
@@ -1457,7 +1582,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "biceps",
     "imagen": "images/remo_supino_barra_baja.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "remo supino cerrado",
@@ -1467,7 +1593,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "biceps",
     "imagen": "images/remo_supino_cerrado.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "fondos en banco asistidos",
@@ -1477,7 +1604,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "triceps",
     "imagen": "images/fondos_banco_asistidos.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "fondos en banco",
@@ -1487,7 +1615,8 @@
     "evitar_si_lesion": "nada",
     "musculo_principal": "triceps",
     "imagen": "images/fondos_en_banco.png",
-    "restricciones": []
+    "restricciones": [],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "plancha al aire libre",
@@ -1499,7 +1628,8 @@
     "imagen": "images/plancha_aire_libre.png",
     "restricciones": [
       "Espalda"
-    ]
+    ],
+    "tipo_ejecucion": "isometrico"
   },
   {
     "ejercicio": "mountain climbers controlados",
@@ -1512,7 +1642,8 @@
     "restricciones": [
       "Espalda",
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "repeticiones"
   },
   {
     "ejercicio": "carrera continua",
@@ -1524,7 +1655,8 @@
     "imagen": "images/carrera_continua.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
   },
   {
     "ejercicio": "carrera por intervalos",
@@ -1536,6 +1668,33 @@
     "imagen": "images/carrera_intervalos.png",
     "restricciones": [
       "Pierna"
-    ]
+    ],
+    "tipo_ejecucion": "tiempo"
+  },
+  {
+    "ejercicio": "presion de palmas frente al pecho",
+    "grupo_muscular": "pecho",
+    "dificultad": "Facil",
+    "lugar": "hogar",
+    "evitar_si_lesion": "Hombro",
+    "musculo_principal": "pecho",
+    "imagen": "",
+    "restricciones": [
+      "Hombro"
+    ],
+    "tipo_ejecucion": "isometrico"
+  },
+  {
+    "ejercicio": "flexiones con manos separadas",
+    "grupo_muscular": "pecho",
+    "dificultad": "Medio",
+    "lugar": "hogar",
+    "evitar_si_lesion": "Hombro",
+    "musculo_principal": "pecho",
+    "imagen": "",
+    "restricciones": [
+      "Hombro"
+    ],
+    "tipo_ejecucion": "repeticiones"
   }
 ]

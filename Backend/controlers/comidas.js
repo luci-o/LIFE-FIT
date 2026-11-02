@@ -5,7 +5,7 @@ const MOMENTOS = ["desayuno", "almuerzo", "merienda", "cena"]
 const verComidas = async (req, res) => {
   try {
     const result = await query(
-      `SELECT c."ID_COMIDA", c."FECHA", c."MOMENTO", c."REALIZADA",
+      `SELECT c."ID_COMIDA", c."FECHA"::text AS "FECHA", c."MOMENTO", c."REALIZADA",
               a."ID_ALIMENTO", a."NOMBRE", l."CANTIDAD"
        FROM "COMIDA" c
        LEFT JOIN "LLEVA" l     ON l."ID_COMIDA"   = c."ID_COMIDA"
@@ -36,9 +36,9 @@ const verComidas = async (req, res) => {
         });
       }
     }
-    res.json(comidas)
+    res.json(comidas);
   } catch (error) {
-    return res.status(500).json({ message: error.message })
+    return res.status(500).json({ message: error.message });
   }
 }
 
