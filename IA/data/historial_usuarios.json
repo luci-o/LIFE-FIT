@@ -17549,5 +17549,303 @@
         ],
         "ultima_adaptacion": "2026-10-30T12:04:16.945533",
         "ultima_confirmacion": "28f6129b4c6874854bec2cafc3aa77efeca0a1cb31498bd997124169550cce65"
+    },
+    "audit_baee6b93125b40a4a70cd7956993c0d4": {
+        "rutinas": [
+            {
+                "fecha": "2026-11-02T13:54:51.992577",
+                "rutina": {
+                    "1": [
+                        {
+                            "ejercicio": "flexiones inclinadas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones_inclinadas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "elevacion de talones de pie",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/elevacion_de_talones_de_pie.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "flexiones",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones.png",
+                            "restricciones": [],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "puente de gluteos unilateral",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/puente_de_gluteos_unilateral.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "flexiones con rodillas apoyadas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones_con_rodillas_apoyadas.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "zancadas hacia atras",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/zancadas_hacia_atras.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "flexiones de pared",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones_de_pared.png",
+                            "restricciones": [],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        }
+                    ],
+                    "2": [
+                        {
+                            "ejercicio": "remo con banda elastica",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_banda_elastica.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "curl con banda sentado",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_con_banda_sentado.png",
+                            "restricciones": [],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "remo con banda de pie",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_banda_de_pie.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "curl con banda",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_con_banda.png",
+                            "restricciones": [],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "remo con banda",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_banda.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "superman",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/superman.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        }
+                    ],
+                    "3": [
+                        {
+                            "ejercicio": "elevaciones laterales con banda",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/elevaciones_laterales_con_banda.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "extension de triceps con banda",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/extension_de_triceps_con_banda.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "dead bug",
+                            "grupo_muscular": "core",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/dead_bug.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "elevaciones laterales sin peso",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/elevaciones_laterales_sin_peso.png",
+                            "restricciones": [],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "elevaciones de rodillas",
+                            "grupo_muscular": "core",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "core",
+                            "imagen": "images/elevaciones_de_rodillas.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "mountain climbers controlados",
+                            "grupo_muscular": "core",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/mountain_climbers_controlados.png",
+                            "restricciones": [
+                                "Espalda",
+                                "Pierna"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "crunch abdominal",
+                            "grupo_muscular": "core",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/crunch_abdominal.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        }
+                    ]
+                },
+                "perfil_entrenamiento": {
+                    "edad": 25,
+                    "peso": 75,
+                    "objetivo": "ganar fuerza",
+                    "dias": 3,
+                    "tiempo": 60,
+                    "experiencia": "principiante",
+                    "lugar": "hogar",
+                    "zona_lesion": "nada",
+                    "estado_lesion": "ninguna"
+                }
+            }
+        ],
+        "sesiones": []
     }
 }
