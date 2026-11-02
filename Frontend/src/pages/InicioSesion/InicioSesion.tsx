@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { peticionApi } from '../../services/api';
 import logoBg from '../../assets/Group 75.png';
 import cardBg from '../../assets/Rectangle 188.png';
 import ojoIcono from '../../assets/bx_show.png';
@@ -22,29 +23,23 @@ export const InicioSesion = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/login', {
+ 
+      const data = await peticionApi('/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify({
-          nombre: usuario,
+          email: usuario,
           password: contrasena
         })
       });
 
-      const data = await response.json();
+   
+      if (data.idPerfil) localStorage.setItem('idPerfil', data.idPerfil);
+      if (data.token) localStorage.setItem('token', data.token);
 
-      if (response.ok) {
-        if (data.id) localStorage.setItem('idPerfil', data.id);
-        if (data.token) localStorage.setItem('token', data.token);
-        navigate('/dashboard');
-      } else {
-        setError(data.mensaje || 'Usuario o contraseña incorrectos.');
-      }
-    } catch (err) {
-      console.error('Error de red:', err);
-      setError('No se pudo conectar con el servidor.');
+      navigate('/dashboard');
+    } catch (err: any) {
+      console.error('Error de autenticación:', err);
+      setError(err.message || 'Usuario o contraseña incorrectos.');
     }
   };
 
@@ -86,7 +81,6 @@ export const InicioSesion = () => {
         }
       `}</style>
 
-   
       <header style={{
         padding: '0px 24px',
         display: 'flex',
@@ -123,7 +117,7 @@ export const InicioSesion = () => {
         </div>
       </header>
 
-     
+
       <div style={{
         textAlign: 'center',
         padding: '14px 0 8px 0',
@@ -139,7 +133,7 @@ export const InicioSesion = () => {
         </h2>
       </div>
 
-      {/* linea seeparadora */}
+   
       <div style={{
         width: '100%',
         height: '5px',
@@ -147,7 +141,7 @@ export const InicioSesion = () => {
         zIndex: 10
       }} />
 
-     
+ 
       <main style={{
         flex: 1,
         position: 'relative',
@@ -157,7 +151,7 @@ export const InicioSesion = () => {
         paddingBottom: 0
       }}>
         
-        {/* logo fonsdo*/}
+        {/* loogo fondo */}
         <img 
           src={logoBg} 
           alt="Life Fit Background Logo" 
@@ -176,7 +170,6 @@ export const InicioSesion = () => {
           }} 
         />
 
-        {/* ccard contenedora */}
         <div style={{
           position: 'relative',
           zIndex: 2,
@@ -206,10 +199,10 @@ export const InicioSesion = () => {
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
             
-            {/* usuario*/}
+            {/* usuairo*/}
             <input
               type="text"
-              placeholder="Usuario"
+              placeholder="Usuario o Email"
               value={usuario}
               onChange={(e) => setUsuario(e.target.value)}
               style={inputStyle}
@@ -255,7 +248,7 @@ export const InicioSesion = () => {
               </button>
             </div>
 
-            {/* olvidaste contra */}
+            {/* olvido contra */}
             <div style={{ textAlign: 'left', marginTop: '-2px', paddingLeft: '4px' }}>
               <a 
                 href="#olvidaste" 
@@ -276,7 +269,7 @@ export const InicioSesion = () => {
               </p>
             )}
 
-            {/* iniciar sesion */}
+            {/* inicio sesion */}
             <button
               type="submit"
               style={{
@@ -297,7 +290,7 @@ export const InicioSesion = () => {
               Iniciar sesión
             </button>
 
-            {/* guardar dato */}
+         
             <label style={{ 
               display: 'flex', 
               alignItems: 'center', 
@@ -321,7 +314,7 @@ export const InicioSesion = () => {
               Guardar datos
             </label>
 
-            {/* google */}
+         
             <button
               type="button"
               style={{
@@ -345,7 +338,6 @@ export const InicioSesion = () => {
               <span style={{ fontWeight: 'bold', fontSize: '20px' }}>G</span> Continuar con Google
             </button>
 
-          
             <p style={{ 
               textAlign: 'center', 
               color: '#FFF',

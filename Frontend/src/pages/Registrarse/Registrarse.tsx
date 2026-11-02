@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { peticionApi } from '../../services/api';
 import logoBg from '../../assets/Group 75.png';
 import cardBg from '../../assets/Rectangle 188.png';
 import ojoIcono from '../../assets/bx_show.png';
@@ -22,11 +23,9 @@ export const Registrarse = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/usuario', {
+    
+      const data = await peticionApi('/usuario', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify({
           nombre: usuario,
           email: email,
@@ -34,18 +33,14 @@ export const Registrarse = () => {
         })
       });
 
-      const data = await response.json();
+    
+      if (data.idPerfil) localStorage.setItem('idPerfil', data.idPerfil);
+      if (data.token) localStorage.setItem('token', data.token);
 
-      if (response.ok) {
-        if (data.id) localStorage.setItem('idPerfil', data.id);
-        if (data.token) localStorage.setItem('token', data.token);
-        navigate('/formulario');
-      } else {
-        setError(data.mensaje || 'Ocurrió un error al crear la cuenta.');
-      }
-    } catch (err) {
-      console.error('Error de red:', err);
-      setError('No se pudo conectar con el servidor.');
+      navigate('/formulario');
+    } catch (err: any) {
+      console.error('Error al registrarse:', err);
+      setError(err.message || 'Ocurrió un error al crear la cuenta.');
     }
   };
 
@@ -88,7 +83,7 @@ export const Registrarse = () => {
         }
       `}</style>
 
-      {/* Navbar Superior */}
+  
       <header style={{
         padding: '0px 24px',
         display: 'flex',
@@ -104,7 +99,7 @@ export const Registrarse = () => {
             src={logoBg} 
             alt="Life Fit Logo" 
             style={{
-              width: '80px',
+              width: '42px',
               height: 'auto'
             }}
           />
@@ -125,7 +120,6 @@ export const Registrarse = () => {
         </div>
       </header>
 
-      {/* Título Superior "Crear cuenta" */}
       <div style={{
         textAlign: 'center',
         padding: '14px 0 8px 0',
@@ -141,7 +135,7 @@ export const Registrarse = () => {
         </h2>
       </div>
 
-      {/* Línea Separadora Superior Exacta (#2E3648) */}
+ 
       <div style={{
         width: '100%',
         height: '1px',
@@ -149,7 +143,7 @@ export const Registrarse = () => {
         zIndex: 10
       }} />
 
-      {/* Área Central */}
+ 
       <main style={{
         flex: 1,
         position: 'relative',
@@ -159,7 +153,7 @@ export const Registrarse = () => {
         paddingBottom: 0
       }}>
         
-        {/* Logo de Fondo con Resplandor Verde */}
+        {/*logo fondo*/}
         <img 
           src={logoBg} 
           alt="Life Fit Background Logo" 
@@ -178,7 +172,7 @@ export const Registrarse = () => {
           }} 
         />
 
-        {/* Tarjeta General */}
+       
         <div style={{
           position: 'relative',
           zIndex: 2,
@@ -208,7 +202,7 @@ export const Registrarse = () => {
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
             
-            {/* Campo Usuario */}
+            {/*usuario */}
             <input
               type="text"
               placeholder="Usuario"
@@ -217,7 +211,7 @@ export const Registrarse = () => {
               style={inputStyle}
             />
 
-            {/* Campo Email */}
+            {/* mail */}
             <input
               type="email"
               placeholder="Email"
@@ -226,7 +220,7 @@ export const Registrarse = () => {
               style={inputStyle}
             />
 
-            {/* Campo Contraseña */}
+            {/* contraseña */}
             <div style={{ position: 'relative', width: '100%' }}>
               <input
                 type={mostrarPassword ? 'text' : 'password'}
@@ -272,7 +266,7 @@ export const Registrarse = () => {
               </p>
             )}
 
-            {/* Botón Crear Cuenta */}
+  
             <button
               type="submit"
               style={{
@@ -293,7 +287,7 @@ export const Registrarse = () => {
               Crear cuenta
             </button>
 
-            {/* Botón Google */}
+        
             <button
               type="button"
               style={{
@@ -317,7 +311,7 @@ export const Registrarse = () => {
               <span style={{ fontWeight: 'bold', fontSize: '20px' }}>G</span> Continuar con Google
             </button>
 
-            {/* Link ¿Ya tienes cuenta? Iniciá sesión */}
+         
             <p style={{ 
               textAlign: 'center', 
               color: '#FFF',
