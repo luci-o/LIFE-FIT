@@ -64,26 +64,28 @@ const enviarMensaje = async (req, res) => {
       `INSERT INTO "MENSAJE" ("ID_CONVERSACION","EMISOR","TEXTO") VALUES ($1,'USUARIO',$2)
        RETURNING "ID_MENSAJE","EMISOR","TEXTO","FECHA_HORA"`,
       [req.params.idConv, texto]
-    )
+    );
 
     let datosIA;
 
     try {
       const resultadoPerfil = await query(
-        `SELECT * FROM "PERFIL USUARIO"
+        `SELECT *,
+                COALESCE(EXTRACT(YEAR FROM age("FECHA_NACIMIENTO"))::int, "EDAD"::int) AS "EDAD_CALCULADA"
+         FROM "PERFIL USUARIO"
          WHERE "ID PERFIL" = $1`,
         [req.params.id]
       );
-    
+
       if (resultadoPerfil.rows.length === 0) {
         return res.status(404).json({
           message: "Perfil no encontrado",
           mensaje: mio.rows[0]
         });
       }
-    
+
       const p = resultadoPerfil.rows[0];
-    
+
       const lesiones = await query(
         `SELECT "ZONAS LESIONADAS" AS zona,
                 CASE WHEN "FECHA_FIN" IS NULL
@@ -99,12 +101,12 @@ const enviarMensaje = async (req, res) => {
          LIMIT 1`,
         [req.params.id]
       );
-    
+
       const lesion = lesiones.rows[0];
-    
+
       const usuario = {
         id: Number(req.params.id),
-        edad: Number(p["EDAD"]),
+        edad: Number(p["EDAD_CALCULADA"]),
         peso: Number(p["PESO"]),
         objetivo: p["OBJETIVO"],
         dias: Number(p["DIAS POR SEMANA"]),
@@ -114,12 +116,12 @@ const enviarMensaje = async (req, res) => {
         zona_lesion: lesion?.zona ?? "nada",
         estado_lesion: lesion?.estado ?? "ninguna"
       };
-    
+
       datosIA = await consultarIA("chat", {
         usuario,
         mensaje: texto
       });
-    
+
       if (datosIA.ok !== true ||
           typeof datosIA.respuesta !== "string") {
         return res.status(502).json({
@@ -127,28 +129,28 @@ const enviarMensaje = async (req, res) => {
           mensaje: mio.rows[0]
         });
       }
-    
+
     } catch (error) {
       console.error("Error del chat con Python:", error);
-    
+
       return res.status(502).json({
         message: "No se pudo ejecutar el chat de LIFE FIT AI.",
         mensaje: mio.rows[0]
       });
     }
-    
+
     const respuesta = datosIA.respuesta;
-    
+
     const suya = await query(
       `INSERT INTO "MENSAJE" ("ID_CONVERSACION","EMISOR","TEXTO") VALUES ($1,'IA',$2)
        RETURNING "ID_MENSAJE","EMISOR","TEXTO","FECHA_HORA"`,
       [req.params.idConv, respuesta]
-    )
+    );
     res.status(201).json({ mensaje: mio.rows[0], respuesta: suya.rows[0] });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
-}
+};
 const borrarConversacion = async (req, res) => {
   try {
     const result = await query(
