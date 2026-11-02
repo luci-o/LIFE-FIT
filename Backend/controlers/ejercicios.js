@@ -4,19 +4,29 @@ const getEjerciciosByPerfil = async (req, res) => {
   const { fecha } = req.query;
   try {
     const result = await query(
-      `SELECT "ID EJERCICIOS","EJERCICIO","SERIES","REPETICIONES",
-               "FECHA","DISTANCIA_KM","DURACION_MIN","REALIZADO"
-       FROM "EJERCICIOS"
-       WHERE "ID_PERFIL" = $1
-         AND ($2::date IS NULL OR "FECHA" = $2::date)
-       ORDER BY "FECHA", "ID EJERCICIOS"`,
+      `SELECT e."ID EJERCICIOS" AS "idEjercicio",
+              e."EJERCICIO"     AS "nombre",
+              e."SERIES"        AS "series",
+              e."REPETICIONES"  AS "repeticiones",
+              e."FECHA"::text   AS "fecha",
+              e."DISTANCIA_KM"  AS "distanciaKm",
+              e."DURACION_MIN"  AS "duracionMin",
+              e."REALIZADO"     AS "realizado",
+              (SELECT g."MUSCULO QUE TRABAJA"
+                 FROM "GRUPO MUSCULAR" g
+                WHERE g."ID EJERCICIOS" = e."ID EJERCICIOS"
+                LIMIT 1)        AS "grupoMuscular"
+       FROM "EJERCICIOS" e
+       WHERE e."ID_PERFIL" = $1
+         AND ($2::date IS NULL OR e."FECHA" = $2::date)
+       ORDER BY e."FECHA", e."ID EJERCICIOS"`,
       [req.params.id, fecha ?? null]
     );
     res.json(result.rows);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
-};
+}
 
 const guardarEjercicio = async (req, res) => {
   const { ejercicios } = req.body;
@@ -60,7 +70,9 @@ const marcarRealizado = async (req, res) => {
     const result = await query(
       `UPDATE "EJERCICIOS" SET "REALIZADO" = $1
        WHERE "ID EJERCICIOS" = $2 AND "ID_PERFIL" = $3
-       RETURNING "ID EJERCICIOS","EJERCICIO","REALIZADO"`,
+       RETURNING "ID EJERCICIOS" AS "idEjercicio",
+          "EJERCICIO"     AS "nombre",
+          "REALIZADO"     AS "realizado"`,
       [realizado, req.params.idEjercicio, req.params.id]
     );
     if (result.rows.length === 0) {

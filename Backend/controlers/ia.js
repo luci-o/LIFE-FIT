@@ -83,8 +83,7 @@ if (dias.some((d) => !Number.isInteger(d) || d < 1 || d > 7)) {
            AND "FECHA" >= CURRENT_DATE
            AND "REALIZADO" IS DISTINCT FROM TRUE`,
         [req.params.id]
-      );
-
+      )
       let n = 0;
       for (const dia of Object.keys(plan)) {
         for (const ej of plan[dia]) {
@@ -92,10 +91,19 @@ if (dias.some((d) => !Number.isInteger(d) || d < 1 || d > 7)) {
             `INSERT INTO "EJERCICIOS"
               ("ID_PERFIL","EJERCICIO","SERIES","REPETICIONES","FECHA")
              SELECT $1, $2, $3, $4, f.fecha
-             FROM (SELECT date_trunc('week', CURRENT_DATE)::date + 7 + ($5::int - 1) AS fecha) f
-             WHERE f.fecha >= CURRENT_DATE`,
+             FROM (SELECT date_trunc('week', CURRENT_DATE)::date + ($5::int - 1) AS fecha) f
+             WHERE f.fecha >= CURRENT_DATE
+             RETURNING "ID EJERCICIOS"`,
             [req.params.id, ej.ejercicio, ej.series ?? null, ej.repeticiones ?? null, Number(dia)]
           );
+          if (r.rows.length > 0 && ej.grupo_muscular) {
+            await client.query(
+              `INSERT INTO "GRUPO MUSCULAR" ("ID EJERCICIOS","MUSCULO QUE TRABAJA")
+               VALUES ($1, $2)`,
+              [r.rows[0]["ID EJERCICIOS"], ej.grupo_muscular]
+            );
+          }
+          
           n += r.rowCount;
         }
       }
