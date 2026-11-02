@@ -1,4 +1,20 @@
 
+def formatear_carga_ejercicio(ejercicio):
+    tipo = ejercicio.get("tipo_ejecucion", "repeticiones")
+    grupo = ejercicio.get("grupo_muscular", "")
+    series = ejercicio.get("series", "-")
+    cantidad = str(ejercicio.get("repeticiones", "-"))
+
+    if tipo == "tiempo" or grupo == "cardio":
+        return "por tiempo"
+
+    if tipo == "isometrico" or "segundos" in cantidad.lower():
+        return f"{series} series de {cantidad}"
+
+    return f"{series} series de {cantidad} repeticiones"
+
+
+
 import json
 import sys
 import os
@@ -46,8 +62,8 @@ def formatear_rutina_completa(rutina):
                 )
             else:
                 lineas.append(
-                    f"{numero}. {nombre} - {series} series "
-                    f"- {repeticiones} repeticiones"
+                    f"{numero}. {nombre} - "
+                    f"{formatear_carga_ejercicio(ejercicio)}"
                 )
 
         lineas.append("")
@@ -217,21 +233,6 @@ def cambiar_ejercicio_rutina(
         ~candidatos["grupo_muscular"].isin(grupos_bloqueados)
     ].copy()
 
-    familias_usadas = {
-        obtener_familia_ejercicio(
-            ejercicio.get("ejercicio", "")
-        )
-        for numero, ejercicio in enumerate(ejercicios_dia)
-        if numero != indice
-    }
-
-    candidatos = candidatos[
-        candidatos["ejercicio"].apply(
-            lambda nombre:
-            obtener_familia_ejercicio(nombre) not in familias_usadas
-        )
-    ].copy()
-
     if candidatos.empty:
         restricciones_original = set(
             ejercicio_anterior.get("restricciones") or []
@@ -278,10 +279,23 @@ def cambiar_ejercicio_rutina(
     indice_nuevo = random.choice(candidatos.index.tolist())
     nuevo = candidatos.loc[indice_nuevo].to_dict()
 
-    nuevo["series"] = ejercicio_anterior.get("series", "-")
-    nuevo["repeticiones"] = ejercicio_anterior.get(
-        "repeticiones", "-"
-    )
+    nuevo["series"] = ejercicio_anterior.get("series", 2)
+
+    tipo = nuevo.get("tipo_ejecucion", "repeticiones")
+
+    if tipo == "isometrico":
+        nuevo["repeticiones"] = "15-20 segundos"
+    elif tipo == "tiempo" or nuevo.get("grupo_muscular") == "cardio":
+        nuevo["series"] = "-"
+        nuevo["repeticiones"] = "por tiempo"
+    else:
+        repeticiones_anteriores = ejercicio_anterior.get(
+            "repeticiones", "8-10"
+        )
+        if "segundos" in str(repeticiones_anteriores) or repeticiones_anteriores == "por tiempo":
+            nuevo["repeticiones"] = "8-10"
+        else:
+            nuevo["repeticiones"] = repeticiones_anteriores
 
     ejercicios_dia[indice] = nuevo
 
@@ -783,7 +797,7 @@ def responder_chat(
         return (
             f"El siguiente ejercicio es {nombre}. "
             f"Tenés que hacer {series} series "
-            f"de {repeticiones} repeticiones."
+            f"de {repeticiones}."
         )
 
     if intencion == "cambiar_ejercicio":
@@ -932,7 +946,7 @@ def responder_chat(
 
         return (
             f"En {nombre} tenés que hacer "
-            f"{series} series de {repeticiones} repeticiones."
+            f"{formatear_carga_ejercicio(ejercicio)}."
         )
 
     if intencion == "musculo":

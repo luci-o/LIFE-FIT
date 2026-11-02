@@ -17,7 +17,11 @@ export function consultarIA(accion, datos) {
       ["puente_node.py"],
       {
         cwd: carpetaIA,
-        windowsHide: true
+        windowsHide: true,
+        env: {
+          ...process.env,
+          PYTHONIOENCODING: "utf-8"
+        }
       }
     );
 
