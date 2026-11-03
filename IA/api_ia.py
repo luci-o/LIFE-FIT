@@ -8,7 +8,8 @@ def consultar_chat(
     usuario,
     mensaje,
     dia_actual=None,
-    ejercicio_actual=None
+    ejercicio_actual=None,
+    diferir_guardado=False
 ):
     """Procesa una consulta y devuelve una respuesta estructurada."""
 
@@ -49,7 +50,8 @@ def consultar_chat(
             usuario=usuario,
             mensaje=mensaje,
             dia_actual=dia_actual,
-            ejercicio_actual=ejercicio_actual
+            ejercicio_actual=ejercicio_actual,
+            diferir_guardado=diferir_guardado
         )
 
        
@@ -58,6 +60,7 @@ def consultar_chat(
             "rutina": resultado["rutina"],
             "menu": resultado["menu"],
             "respuesta": resultado["respuesta_chat"],
+            "cambios_ejercicios": resultado.get("cambios_ejercicios", []),
             "advertencia_alimentacion": resultado.get(
                 "advertencia_alimentacion"
             )
@@ -69,6 +72,47 @@ def consultar_chat(
             "ok": False,
             "error": str(error)
         }
+
+def confirmar_rutina_chat(usuario, rutina):
+    """Registra una rutina que el backend ya confirmo en Neon."""
+    from historial import registrar_rutina
+    from validaciones import validar_perfil_entrenamiento
+
+    if not isinstance(usuario, dict) or not usuario.get("id"):
+        return {"ok": False, "error": "Usuario invalido."}
+
+    if not isinstance(rutina, dict) or not rutina:
+        return {"ok": False, "error": "Rutina invalida."}
+
+    try:
+        validar_perfil_entrenamiento(usuario)
+
+        campos = (
+            "edad", "peso", "objetivo", "dias", "tiempo",
+            "experiencia", "lugar", "zona_lesion", "estado_lesion"
+        )
+
+        perfil = {
+            campo: usuario.get(
+                campo,
+                "nada" if campo == "zona_lesion"
+                else "ninguna" if campo == "estado_lesion"
+                else None
+            )
+            for campo in campos
+        }
+
+        registrar_rutina(
+            usuario["id"],
+            rutina,
+            perfil_entrenamiento=perfil
+        )
+
+        return {"ok": True, "confirmado": True}
+
+    except Exception as error:
+        return {"ok": False, "error": str(error)}
+
 
 def crear_plan(respuestas):
     """Recibe el cuestionario y devuelve rutina y menú."""

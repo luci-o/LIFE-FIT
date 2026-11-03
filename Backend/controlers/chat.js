@@ -1,5 +1,6 @@
 import { query } from "../DB/db.js";
 import { consultarIA } from "../services/iaService.js";
+import { sincronizarCambioEjercicio } from "../services/sincronizarCambioEjercicio.js";
 const IA_URL = process.env.IA_URL || "http://localhost:5000"
 
 const esDelUsuario = async (idConv, idPerfil) => {
@@ -67,6 +68,7 @@ const enviarMensaje = async (req, res) => {
     );
 
     let datosIA;
+    let usuarioParaConfirmar;
 
     try {
       const resultadoPerfil = await query(
@@ -117,9 +119,12 @@ const enviarMensaje = async (req, res) => {
         estado_lesion: lesion?.estado ?? "ninguna"
       };
 
+      usuarioParaConfirmar = usuario;
+
       datosIA = await consultarIA("chat", {
         usuario,
-        mensaje: texto
+        mensaje: texto,
+        diferir_guardado: true
       });
 
       if (datosIA.ok !== true ||
@@ -137,6 +142,46 @@ const enviarMensaje = async (req, res) => {
         message: "No se pudo ejecutar el chat de LIFE FIT AI.",
         mensaje: mio.rows[0]
       });
+    }
+
+    const cambios = datosIA.cambios_ejercicios ?? [];
+
+    if (!Array.isArray(cambios) || cambios.length > 1) {
+      return res.status(409).json({
+        message: "La IA devolvio cambios que requieren revision."
+      });
+    }
+
+    if (cambios.length === 1) {
+      try {
+        await sincronizarCambioEjercicio(
+          Number(req.params.id),
+          cambios[0]
+        );
+
+        const confirmacion = await consultarIA(
+          "confirmar_rutina_chat",
+          {
+            usuario: usuarioParaConfirmar,
+            rutina: datosIA.rutina
+          }
+        );
+
+        if (confirmacion.ok !== true ||
+            confirmacion.confirmado !== true) {
+          throw new Error(
+            "Neon actualizado, pero fallo la confirmacion del historial: " +
+            (confirmacion.error || "Error desconocido")
+          );
+        }
+      } catch (error) {
+        console.error("Error sincronizando rutina:", error.message);
+
+        return res.status(409).json({
+          message: "No se pudo completar la sincronizacion de la rutina.",
+          detalle: error.message
+        });
+      }
     }
 
     const respuesta = datosIA.respuesta;
