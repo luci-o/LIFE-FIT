@@ -32,7 +32,8 @@ def procesar_solicitud(
     usuario,
     mensaje,
     dia_actual=None,
-    ejercicio_actual=None
+    ejercicio_actual=None,
+    diferir_guardado=False
 ):
     validar_perfil_entrenamiento(usuario)
 
@@ -84,11 +85,12 @@ def procesar_solicitud(
 
         evaluacion = resultado_rutina["evaluacion"]
 
-        registrar_rutina(
-            usuario_id,
-            rutina,
-            perfil_entrenamiento=perfil_actual
-        )
+        if not diferir_guardado:
+            registrar_rutina(
+                usuario_id,
+                rutina,
+                perfil_entrenamiento=perfil_actual
+            )
 
     rutina_antes_chat = json.dumps(
         rutina,
@@ -160,12 +162,37 @@ def procesar_solicitud(
         sort_keys=True
     )
 
+    cambios_ejercicios = []
+
     if rutina_despues_chat != rutina_antes_chat:
-        registrar_rutina(
-            usuario_id,
-            rutina,
-            perfil_entrenamiento=perfil_actual
-        )
+        rutina_previa = json.loads(rutina_antes_chat)
+
+        for dia, lista_nueva in rutina.items():
+            lista_anterior = rutina_previa.get(dia, [])
+
+            if len(lista_nueva) != len(lista_anterior):
+                continue
+
+            for indice, (anterior, nuevo) in enumerate(
+                zip(lista_anterior, lista_nueva), start=1
+            ):
+                if anterior.get("ejercicio") != nuevo.get("ejercicio"):
+                    cambios_ejercicios.append({
+                        "dia": int(dia),
+                        "posicion": indice,
+                        "anterior": anterior.get("ejercicio"),
+                        "nuevo": nuevo.get("ejercicio"),
+                        "series": nuevo.get("series"),
+                        "repeticiones": nuevo.get("repeticiones"),
+                        "grupo_muscular": nuevo.get("grupo_muscular")
+                    })
+
+        if not diferir_guardado:
+            registrar_rutina(
+                usuario_id,
+                rutina,
+                perfil_entrenamiento=perfil_actual
+            )
     perfil_alimentario = usuario.get("alimentacion")
     registro_menu = obtener_ultimo_menu(usuario_id)
     motivo_menu = None
@@ -204,6 +231,7 @@ def procesar_solicitud(
         "rutina": rutina,
         "menu": menu,
         "respuesta_chat": respuesta_chat,
+        "cambios_ejercicios": cambios_ejercicios,
         "advertencia_alimentacion": motivo_menu
     }
 

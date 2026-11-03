@@ -41,7 +41,15 @@ def responder(solicitud):
                     usuario=datos["usuario"],
                     mensaje=datos["mensaje"],
                     dia_actual=datos.get("dia_actual"),
-                    ejercicio_actual=datos.get("ejercicio_actual")
+                    ejercicio_actual=datos.get("ejercicio_actual"),
+                    diferir_guardado=datos.get("diferir_guardado", False)
+                )
+
+            if accion == "confirmar_rutina_chat":
+                from api_ia import confirmar_rutina_chat
+                return confirmar_rutina_chat(
+                    usuario=datos["usuario"],
+                    rutina=datos["rutina"]
                 )
 
             if accion == "registrar_entrenamiento":
