@@ -52,8 +52,10 @@ app.use((req, res) => {
   res.status(404).json({ message: `La ruta ${req.method} ${req.originalUrl} no existe` })
 })
 
-const server = app.listen(port, () => {
-  console.log(`LIFE-FIT is listening at http://localhost:${port}`);
-});
+const server = process.env.VERCEL
+  ? null
+  : app.listen(port, () => {
+      console.log(`LIFE-FIT is listening at http://localhost:${port}`);
+    });
 
 export { app, server };
