@@ -94,10 +94,10 @@ export async function sincronizarCambioEjercicio(
       return {
       ...actualizado.rows[0],
       anterior: {
-        id: fila.id,
-        nombre: fila.nombre,
-        series: fila.series,
-        repeticiones: fila.repeticiones
+        id: seleccionado.id,
+        nombre: seleccionado.nombre,
+        series: seleccionado.series,
+        repeticiones: seleccionado.repeticiones
       }
     };
     }
