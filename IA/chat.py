@@ -666,6 +666,113 @@ def responder_chat(
         if coincidencia:
             dia_actual = int(coincidencia.group(1))
 
+    # Responder preguntas sobre la ejecucion de ejercicios.
+    consulta_explicacion = (
+        re.search(
+            r"\b(como (hago|hacer|se hace|realizo|ejecuto)|"
+            r"explicame|explica|tecnica|paso a paso)\b",
+            texto_normalizado
+        )
+        and not re.search(
+            r"\b(cambiar|cambio|reemplazar|sustituir)\b",
+            texto_normalizado
+        )
+    )
+
+    if consulta_explicacion:
+        with open(
+            os.path.join(BASE_DIR, "data", "ejercicios.json"),
+            encoding="utf-8"
+        ) as archivo:
+            catalogo = json.load(archivo)
+
+        def normalizar_nombre(valor):
+            texto = unicodedata.normalize(
+                "NFKD", str(valor).lower()
+            )
+            return "".join(
+                c for c in texto
+                if not unicodedata.combining(c)
+            )
+
+        coincidencias = []
+        for item in catalogo:
+            nombre = normalizar_nombre(item.get("ejercicio", ""))
+            if nombre and re.search(
+                r"(?<!\w)" + re.escape(nombre) + r"(?!\w)",
+                texto_normalizado
+            ):
+                coincidencias.append(item)
+
+        elegido = None
+
+        if coincidencias:
+            elegido = max(
+                coincidencias,
+                key=lambda item: len(item.get("ejercicio", ""))
+            )
+        else:
+            numero = extraer_numero_ejercicio(texto_normalizado)
+            if numero is None:
+                numero = ejercicio_actual
+
+            if dia_actual is not None and numero is not None:
+                actual, error = obtener_ejercicio_actual(
+                    rutina, dia_actual, numero
+                )
+                if not error:
+                    nombre_actual = normalizar_nombre(
+                        actual.get("ejercicio", "")
+                    )
+                    elegido = next(
+                        (
+                            item for item in catalogo
+                            if normalizar_nombre(
+                                item.get("ejercicio", "")
+                            ) == nombre_actual
+                        ),
+                        None
+                    )
+
+        if elegido is None:
+            return (
+                "Decime el nombre del ejercicio que quer?s "
+                "que te explique, o su d?a y n?mero en la rutina."
+            )
+
+        nombre = elegido["ejercicio"]
+        pasos = elegido.get("como_hacerlo", [])
+        errores = elegido.get("errores_comunes", [])
+
+        if not pasos:
+            return (
+                f"Todav?a no tengo una explicaci?n t?cnica "
+                f"verificada para {nombre}."
+            )
+
+        respuesta = [f"C?mo hacer {nombre}:"]
+        respuesta.extend(
+            f"{numero}. {paso}"
+            for numero, paso in enumerate(pasos, 1)
+        )
+
+        respuesta.append(
+            "M?sculo principal: " +
+            str(elegido.get("musculo_principal", "no indicado"))
+        )
+
+        if errores:
+            respuesta.append(
+                "Errores comunes: " + "; ".join(errores) + "."
+            )
+
+        respuesta.append(
+            "Hac? el movimiento de forma controlada. "
+            "Si sent?s dolor, detenete."
+        )
+
+        return "\\n".join(respuesta)
+
     # Las consultas explicitas sobre dias tienen prioridad.
     import unicodedata
 
@@ -706,6 +813,43 @@ def responder_chat(
         return formatear_rutina_completa({
             numero_dia: rutina[numero_dia]
         })
+
+    # Reconocer preguntas sobre el siguiente ejercicio,
+    # incluso con errores comunes de escritura.
+    from difflib import get_close_matches
+
+    palabras = re.findall(r"[a-z0-9]+", texto_normalizado)
+
+    def palabra_parecida(opciones):
+        return any(
+            get_close_matches(palabra, opciones, n=1, cutoff=0.72)
+            for palabra in palabras
+        )
+
+    menciona_ejercicio = palabra_parecida(
+        ["ejercicio", "ejercicios", "ejersicio", "ejercisio"]
+    )
+
+    pregunta_siguiente = palabra_parecida(
+        ["siguiente", "sigue", "proximo", "prosimo", "siguientee"]
+    )
+
+    pregunta_ahora = (
+        palabra_parecida(["hago", "ago"])
+        and palabra_parecida(["ahora", "aora"])
+        and palabra_parecida(["que", "q"])
+    )
+
+    pide_cambio = palabra_parecida(
+        ["cambiar", "cambia", "reemplazar", "reemplaza", "sustituir"]
+    )
+
+    if (
+        ((menciona_ejercicio and pregunta_siguiente) or pregunta_ahora)
+        and not pide_cambio
+    ):
+        intencion = "siguiente_ejercicio"
+        confianza = 1.0
 
     if confianza < 0.25:
         return (

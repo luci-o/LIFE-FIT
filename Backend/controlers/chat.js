@@ -1,5 +1,6 @@
 import { query } from "../DB/db.js";
 import { consultarIA } from "../services/iaService.js";
+import { completarEjercicioChat } from "../services/completarEjercicioChat.js";
 import {
   sincronizarCambioEjercicio,
   revertirCambioEjercicio
@@ -69,6 +70,46 @@ const enviarMensaje = async (req, res) => {
        RETURNING "ID_MENSAJE","EMISOR","TEXTO","FECHA_HORA"`,
       [req.params.idConv, texto]
     );
+
+    // Detectar mensajes que confirman un ejercicio terminado.
+    const textoNormalizado = texto
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\\u0300-\\u036f]/g, "")
+      .replace(/[^a-z0-9 ]/g, " ")
+      .replace(/\\s+/g, " ")
+      .trim();
+
+    const confirmaEjercicio = /^(?:listo+|lista+|ya (?:termine+|lo hice|esta)|termine+|terminado|hecho|complete+|ya complete+)$/.test(
+      textoNormalizado
+    );
+
+    if (confirmaEjercicio) {
+      try {
+        const resultado = await completarEjercicioChat(
+          Number(req.params.id)
+        );
+
+        const suya = await query(
+          `INSERT INTO "MENSAJE"
+           ("ID_CONVERSACION", "EMISOR", "TEXTO")
+           VALUES ($1, 'IA', $2)
+           RETURNING "ID_MENSAJE", "EMISOR", "TEXTO", "FECHA_HORA"`,
+          [req.params.idConv, resultado.respuesta]
+        );
+
+        return res.status(201).json({
+          mensaje: mio.rows[0],
+          respuesta: suya.rows[0]
+        });
+      } catch (error) {
+        console.error("Error completando ejercicio:", error);
+
+        return res.status(500).json({
+          message: "No se pudo registrar el ejercicio."
+        });
+      }
+    }
 
     let datosIA;
     let usuarioParaConfirmar;

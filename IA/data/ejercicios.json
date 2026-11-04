@@ -10,7 +10,18 @@
     "restricciones": [
       "Pierna"
     ],
-    "tipo_ejecucion": "repeticiones"
+    "tipo_ejecucion": "repeticiones",
+    "como_hacerlo": [
+      "Parate con los pies aproximadamente al ancho de los hombros.",
+      "Flexion? las rodillas y llev? la cadera hacia atr?s, como si fueras a sentarte.",
+      "Baj? hasta donde puedas mantener una postura c?moda y estable.",
+      "Empuj? el suelo con los pies para volver a subir."
+    ],
+    "errores_comunes": [
+      "Despegar los talones del piso.",
+      "Redondear demasiado la espalda.",
+      "Forzar una profundidad que cause dolor."
+    ]
   },
   {
     "ejercicio": "flexiones",
@@ -21,7 +32,18 @@
     "musculo_principal": "pecho",
     "imagen": "images/flexiones.png",
     "restricciones": [],
-    "tipo_ejecucion": "repeticiones"
+    "tipo_ejecucion": "repeticiones",
+    "como_hacerlo": [
+      "Apoy? las manos en el piso, algo m?s separadas que los hombros.",
+      "Manten? el cuerpo alineado desde la cabeza hasta los talones.",
+      "Flexion? los codos y baj? el pecho de forma controlada.",
+      "Empuj? con las manos hasta volver a la posici?n inicial."
+    ],
+    "errores_comunes": [
+      "Dejar caer la cadera.",
+      "Levantar demasiado la cadera.",
+      "Mover el cuerpo sin control."
+    ]
   },
   {
     "ejercicio": "remo con banda",
@@ -34,7 +56,18 @@
     "restricciones": [
       "Espalda"
     ],
-    "tipo_ejecucion": "repeticiones"
+    "tipo_ejecucion": "repeticiones",
+    "como_hacerlo": [
+      "Sujet? una banda el?stica firmemente anclada frente a vos.",
+      "Manten? la espalda estable y los hombros relajados.",
+      "Llev? los codos hacia atr?s, acercando la banda al torso.",
+      "Volv? lentamente a la posici?n inicial."
+    ],
+    "errores_comunes": [
+      "Usar una banda mal asegurada.",
+      "Balancear el cuerpo para tirar.",
+      "Encoger los hombros."
+    ]
   },
   {
     "ejercicio": "puente de gluteos",
@@ -319,7 +352,18 @@
     "restricciones": [
       "Pierna"
     ],
-    "tipo_ejecucion": "repeticiones"
+    "tipo_ejecucion": "repeticiones",
+    "como_hacerlo": [
+      "Coloc? una silla firme detr?s tuyo.",
+      "Separ? los pies aproximadamente al ancho de los hombros.",
+      "Llev? la cadera hacia atr?s y baj? lentamente hasta tocar la silla.",
+      "Volv? a pararte empujando el suelo con los pies."
+    ],
+    "errores_comunes": [
+      "Dejarse caer sobre la silla.",
+      "Usar una silla inestable.",
+      "Forzar el movimiento si aparece dolor."
+    ]
   },
   {
     "ejercicio": "elevaciones de rodillas",
@@ -417,7 +461,18 @@
     "restricciones": [
       "Pierna"
     ],
-    "tipo_ejecucion": "repeticiones"
+    "tipo_ejecucion": "repeticiones",
+    "como_hacerlo": [
+      "Apoy? las manos y las rodillas en el piso.",
+      "Manten? alineados hombros, cadera y rodillas.",
+      "Flexion? los codos para acercar el pecho al suelo.",
+      "Empuj? con las manos para volver a subir."
+    ],
+    "errores_comunes": [
+      "Hundirse en la zona lumbar.",
+      "Abrir demasiado los codos.",
+      "Hacer el movimiento demasiado r?pido."
+    ]
   },
   {
     "ejercicio": "remo pecho apoyado",
