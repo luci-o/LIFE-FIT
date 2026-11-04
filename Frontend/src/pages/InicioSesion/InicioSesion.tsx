@@ -27,7 +27,7 @@ export const InicioSesion = () => {
       const data = await peticionApi('/login', {
         method: 'POST',
         body: JSON.stringify({
-          email: usuario,
+          mail: usuario,
           password: contrasena
         })
       });

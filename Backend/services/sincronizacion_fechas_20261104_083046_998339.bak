@@ -1,0 +1,75 @@
+import { transaction } from "../DB/db.js";
+
+export async function sincronizarCambioEjercicio(usuarioId, cambio) {
+  if (!Number.isInteger(Number(usuarioId)) || Number(usuarioId) < 1) {
+    throw new Error("Usuario invalido");
+  }
+
+  const { dia, posicion, anterior, nuevo, series, repeticiones } = cambio;
+
+  if (
+    !Number.isInteger(dia) || dia < 1 || dia > 7 ||
+    !Number.isInteger(posicion) || posicion < 1 ||
+    typeof anterior !== "string" || !anterior.trim() ||
+    typeof nuevo !== "string" || !nuevo.trim()
+  ) {
+    throw new Error("Cambio de ejercicio invalido");
+  }
+
+  return transaction(async (client) => {
+    // La rutina de prueba utiliza dias programados desde el lunes
+    // de la semana actual. No modificamos ejercicios realizados.
+    const resultado = await client.query(
+      `SELECT "ID EJERCICIOS" AS id, "EJERCICIO" AS nombre,
+              "FECHA"::text AS fecha, "REALIZADO" AS realizado
+       FROM "EJERCICIOS"
+       WHERE "ID_PERFIL" = $1
+         AND "FECHA" = date_trunc('week', CURRENT_DATE)::date
+                        + ($2::int - 1)
+       ORDER BY "ID EJERCICIOS"
+       FOR UPDATE`,
+      [usuarioId, dia]
+    );
+
+    const fila = resultado.rows[posicion - 1];
+
+    if (!fila) {
+      throw new Error("No se encontro el ejercicio en esa posicion");
+    }
+
+    if (fila.realizado === true) {
+      throw new Error("No se puede modificar un ejercicio realizado");
+    }
+
+    if (fila.nombre !== anterior) {
+      throw new Error("La rutina de Neon no coincide con la de Python");
+    }
+
+    const actualizado = await client.query(
+      `UPDATE "EJERCICIOS"
+       SET "EJERCICIO" = $1,
+           "SERIES" = $2,
+           "REPETICIONES" = $3
+       WHERE "ID EJERCICIOS" = $4
+         AND "ID_PERFIL" = $5
+         AND "REALIZADO" IS DISTINCT FROM TRUE
+       RETURNING "ID EJERCICIOS" AS id,
+                 "EJERCICIO" AS nombre,
+                 "SERIES" AS series,
+                 "REPETICIONES" AS repeticiones`,
+      [
+        nuevo,
+        series == null ? null : String(series),
+        repeticiones == null ? null : String(repeticiones),
+        fila.id,
+        usuarioId
+      ]
+    );
+
+    if (actualizado.rowCount !== 1) {
+      throw new Error("No se pudo actualizar el ejercicio");
+    }
+
+    return actualizado.rows[0];
+  });
+}

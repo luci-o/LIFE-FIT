@@ -1,6 +1,9 @@
 import { query } from "../DB/db.js";
 import { consultarIA } from "../services/iaService.js";
-import { sincronizarCambioEjercicio } from "../services/sincronizarCambioEjercicio.js";
+import {
+  sincronizarCambioEjercicio,
+  revertirCambioEjercicio
+} from "../services/sincronizarCambioEjercicio.js";
 const IA_URL = process.env.IA_URL || "http://localhost:5000"
 
 const esDelUsuario = async (idConv, idPerfil) => {
@@ -153,10 +156,19 @@ const enviarMensaje = async (req, res) => {
     }
 
     if (cambios.length === 1) {
+      let cambioGuardado = null;
+
       try {
-        await sincronizarCambioEjercicio(
+        const fechaRutina = await query(
+          `SELECT (
+             date_trunc('week', CURRENT_DATE)::date + 7
+           )::text AS inicio`
+        );
+
+        cambioGuardado = await sincronizarCambioEjercicio(
           Number(req.params.id),
-          cambios[0]
+          cambios[0],
+          fechaRutina.rows[0].inicio
         );
 
         const confirmacion = await consultarIA(
@@ -177,9 +189,30 @@ const enviarMensaje = async (req, res) => {
       } catch (error) {
         console.error("Error sincronizando rutina:", error.message);
 
+        if (cambioGuardado) {
+          try {
+            await revertirCambioEjercicio(
+              Number(req.params.id),
+              cambioGuardado
+            );
+
+            return res.status(409).json({
+              message: "No se pudo confirmar el cambio. Neon fue restaurado."
+            });
+          } catch (errorReversion) {
+            console.error(
+              "ALERTA: recuperacion fallida:",
+              errorReversion
+            );
+
+            return res.status(500).json({
+              message: "Error de sincronizacion. Se requiere revision."
+            });
+          }
+        }
+
         return res.status(409).json({
-          message: "No se pudo completar la sincronizacion de la rutina.",
-          detalle: error.message
+          message: "No se pudo guardar el cambio en Neon."
         });
       }
     }

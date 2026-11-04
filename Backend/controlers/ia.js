@@ -80,7 +80,7 @@ if (dias.some((d) => !Number.isInteger(d) || d < 1 || d > 7)) {
       await client.query(
         `DELETE FROM "EJERCICIOS"
          WHERE "ID_PERFIL" = $1
-           AND "FECHA" >= CURRENT_DATE
+           AND "FECHA" >= date_trunc('week', CURRENT_DATE)::date + 7
            AND "REALIZADO" IS DISTINCT FROM TRUE`,
         [req.params.id]
       )
@@ -91,7 +91,7 @@ if (dias.some((d) => !Number.isInteger(d) || d < 1 || d > 7)) {
             `INSERT INTO "EJERCICIOS"
               ("ID_PERFIL","EJERCICIO","SERIES","REPETICIONES","FECHA")
              SELECT $1, $2, $3, $4, f.fecha
-             FROM (SELECT date_trunc('week', CURRENT_DATE)::date + ($5::int - 1) AS fecha) f
+             FROM (SELECT date_trunc('week', CURRENT_DATE)::date + 7 + ($5::int - 1) AS fecha) f
              WHERE f.fecha >= CURRENT_DATE
              RETURNING "ID EJERCICIOS"`,
             [req.params.id, ej.ejercicio, ej.series ?? null, ej.repeticiones ?? null, Number(dia)]

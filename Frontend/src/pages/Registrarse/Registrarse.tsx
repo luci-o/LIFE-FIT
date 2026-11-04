@@ -28,7 +28,7 @@ export const Registrarse = () => {
         method: 'POST',
         body: JSON.stringify({
           nombre: usuario,
-          email: email,
+          mail: email,
           password: contrasena
         })
       });
