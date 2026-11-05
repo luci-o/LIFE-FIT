@@ -141,11 +141,18 @@ const updatePerfil = async (req, res) => {
            "NIVEL DE ENTRENAMIENTO" = COALESCE($7, "NIVEL DE ENTRENAMIENTO"),
            "LUGAR DONDE ENTRENA"    = COALESCE($8, "LUGAR DONDE ENTRENA")
          WHERE "ID PERFIL" = $9
-         RETURNING "ID PERFIL","NOMBRE","FECHA_NACIMIENTO",
-                   EXTRACT(YEAR FROM age("FECHA_NACIMIENTO"))::int AS "EDAD",
-                   "PESO","ALTURA","OBJETIVO","TIEMPO DISPONIBLE",
-                   "DIAS POR SEMANA","NIVEL DE ENTRENAMIENTO",
-                   "LUGAR DONDE ENTRENA","REGISTRO DEL USUARIO_MAIL"`,
+         RETURNING "ID PERFIL"                 AS "idPerfil",
+                   "NOMBRE"                    AS "nombre",
+                   "FECHA_NACIMIENTO"::text    AS "fechaNacimiento",
+                   EXTRACT(YEAR FROM age("FECHA_NACIMIENTO"))::int AS "edad",
+                   "PESO"                      AS "peso",
+                   "ALTURA"                    AS "altura",
+                   "OBJETIVO"                  AS "objetivo",
+                   "TIEMPO DISPONIBLE"         AS "tiempoDisponible",
+                   "DIAS POR SEMANA"           AS "diasPorSemana",
+                   "NIVEL DE ENTRENAMIENTO"    AS "nivel",
+                   "LUGAR DONDE ENTRENA"       AS "lugar",
+                   "REGISTRO DEL USUARIO_MAIL" AS "mail"`,
         [u.fechaNacimiento ?? null, u.peso ?? null, u.altura ?? null,
          u.objetivo ?? null, u.tiempoDisponible ?? null, u.diasPorSemana ?? null,
          u.nivel ?? null, u.lugar ?? null, req.params.id]
