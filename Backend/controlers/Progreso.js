@@ -3,7 +3,12 @@ import { query } from "../DB/db.js"
 const verProgreso = async (req, res) => {
   try {
     const result = await query(
-      `SELECT * FROM "PROGRESO" WHERE "ID PERFIL" = $1 ORDER BY "PROGRESO ID"`,
+      `SELECT "PROGRESO ID"             AS "idProgreso",
+              "EVOLUCION DEL PESO"      AS "peso",
+              "HISTORIAL DE DIETAS"     AS "historialDietas",
+              "HISTORIAL DE EJERCICIOS" AS "historialEjercicios",
+              "FECHA"::text             AS "fecha"
+       FROM "PROGRESO" WHERE "ID PERFIL" = $1 ORDER BY "PROGRESO ID"`,
       [req.params.id]
     );
     res.json(result.rows);
@@ -27,7 +32,9 @@ const registrarProgreso = async (req, res) => {
       `INSERT INTO "PROGRESO"
          ("EVOLUCION DEL PESO","HISTORIAL DE DIETAS","HISTORIAL DE EJERCICIOS","ID PERFIL")
        VALUES ($1,$2,$3,$4)
-       RETURNING "PROGRESO ID","EVOLUCION DEL PESO","FECHA"`,
+             RETURNING "PROGRESO ID"        AS "idProgreso",
+                 "EVOLUCION DEL PESO" AS "peso",
+                 "FECHA"::text        AS "fecha"`,
       [peso, historialDietas ?? null, historialEjercicios ?? null, req.params.id]
     );
     res.status(201).json({ message: "Progreso registrado", progreso: result.rows[0] });
