@@ -26,6 +26,7 @@ app.get("/usuario/:id", verificarToken, verificarUsuario, usuarios.getPerfil);
 app.put("/usuario/:id", verificarToken, verificarUsuario, usuarios.updatePerfil);
 app.delete("/usuario/:id", verificarToken, verificarUsuario, usuarios.deletePerfil);
 app.get("/perfil/:id", verificarToken, verificarUsuario, usuarios.getPerfil);
+app.put("/perfil/:id", verificarToken, verificarUsuario, usuarios.updatePerfil);
 app.get("/perfil/:id/rutina", verificarToken, verificarUsuario, ejercicios.getEjerciciosByPerfil);
 app.post("/perfil/:id/rutina", verificarToken, verificarUsuario, ejercicios.guardarEjercicio);
 app.post("/perfil/:id/rutina/generar", verificarToken, verificarUsuario, ia.generarRutina);
@@ -45,8 +46,6 @@ app.get("/perfil/:id/conversacion/:idConv/mensaje", verificarToken, verificarUsu
 app.post("/perfil/:id/conversacion/:idConv/mensaje", verificarToken, verificarUsuario, chat.enviarMensaje);
 app.post("/perfil/:id/entrenamientos", verificarToken, verificarUsuario, entrenamientos.registrar);
 app.post("/perfil/:id/entrenamientos/adaptar", verificarToken, verificarUsuario, entrenamientos.adaptar);
-app.post("/usuarios", usuarios.createPerfil)
-app.get("/usuarios/:id/nutricion", verificarToken, verificarUsuario, Nutricion.verDieta)
 
 app.use((req, res) => {
   res.status(404).json({ message: `La ruta ${req.method} ${req.originalUrl} no existe` })
