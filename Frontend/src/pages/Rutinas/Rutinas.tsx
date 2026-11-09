@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { usoAutenticacion } from "../../context/AuthContext";
-import { IoHomeOutline, IoChatbubbleOutline, IoPersonOutline } from "react-icons/io5";
-import { FaDumbbell, FaRunning, FaChartLine } from "react-icons/fa";
-import { GiLeg, GiKnifeFork } from "react-icons/gi";
-import { MdOutlineAccessibility } from "react-icons/md";
+import { peticionApi } from "../../services/api";
+import logoBg from "../../assets/Group 75.png";
+
+import { GoHome } from "react-icons/go";
+import { FaDumbbell, FaRunning } from "react-icons/fa";
+import { IoChatboxOutline } from "react-icons/io5";
+import { MdTimelapse, MdOutlineAccessibility } from "react-icons/md";
+import { LuSalad } from "react-icons/lu";
+import { HiMiniUserCircle } from "react-icons/hi2";
+import { GiLeg } from "react-icons/gi";
 import type { IconType } from "react-icons";
 
 interface Ejercicio {
-  id: string;
+  id: number;
   nombre: string;
-  series: number;
-  reps: number;
-  peso?: string;
+  series: string;
+  repeticiones: string;
   completado: boolean;
 }
 
@@ -23,58 +27,125 @@ interface Categoria {
   ejercicios: Ejercicio[];
 }
 
-function Rutinas() {
-  const { usuario } = usoAutenticacion();
-  const navigate = useNavigate();
+const ICONOS: Record<string, IconType> = {
+  piernas: GiLeg,
+  pesas: FaDumbbell,
+  pecho: FaDumbbell,
+  espalda: FaDumbbell,
+  hombros: FaDumbbell,
+  cuerpo: MdOutlineAccessibility,
+  cardio: FaRunning,
+  running: FaRunning,
+};
 
+const DATOS_DEFAULT: Categoria[] = [
+  {
+    id: "pesas",
+    nombre: "Pesas",
+    Icono: FaDumbbell,
+    ejercicios: [
+      { id: 101, nombre: "Sentadillas", series: "3", repeticiones: "10", completado: true },
+      { id: 102, nombre: "Vuelo laterales", series: "3", repeticiones: "10", completado: false },
+      { id: 103, nombre: "Levantamiento", series: "3", repeticiones: "10", completado: false },
+    ],
+  },
+  {
+    id: "piernas",
+    nombre: "Piernas",
+    Icono: GiLeg,
+    ejercicios: [
+      { id: 104, nombre: "Sentadillas", series: "3", repeticiones: "10", completado: false },
+      { id: 105, nombre: "Vuelo laterales", series: "3", repeticiones: "10", completado: false },
+      { id: 106, nombre: "Levantamiento", series: "3", repeticiones: "10", completado: false },
+    ],
+  },
+  {
+    id: "cuerpo",
+    nombre: "Cuerpo",
+    Icono: MdOutlineAccessibility,
+    ejercicios: [
+      { id: 107, nombre: "Abdominales", series: "3", repeticiones: "10", completado: false },
+      { id: 108, nombre: "Lagartijas", series: "3", repeticiones: "10", completado: false },
+      { id: 109, nombre: "Flexiones", series: "3", repeticiones: "10", completado: false },
+    ],
+  },
+  {
+    id: "running",
+    nombre: "Running",
+    Icono: FaRunning,
+    ejercicios: [
+      { id: 110, nombre: "Caminata", series: "-", repeticiones: "10Km", completado: false },
+      { id: 111, nombre: "Trote", series: "-", repeticiones: "10Km", completado: false },
+      { id: 112, nombre: "Running", series: "-", repeticiones: "10Km", completado: false },
+    ],
+  },
+];
+
+export function Rutinas() {
+  const navigate = useNavigate();
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    const datosDeEjemplo: Categoria[] = [
-      {
-        id: "pesas",
-        nombre: "Pesas",
-        Icono: FaDumbbell,
-        ejercicios: [
-          { id: "e1", nombre: "Sentadillas", series: 3, reps: 10, peso: "50kg", completado: false },
-          { id: "e2", nombre: "Swimgs", series: 3, reps: 10, peso: "30kg", completado: false },
-        ],
-      },
-      {
-        id: "piernas",
-        nombre: "Piernas",
-        Icono: GiLeg,
-        ejercicios: [
-          { id: "e3", nombre: "Peso muerto", series: 3, reps: 10, completado: false },
-          { id: "e4", nombre: "Elev. de gluteo", series: 3, reps: 10, completado: false },
-        ],
-      },
-      {
-        id: "cuerpo",
-        nombre: "Cuerpo",
-        Icono: MdOutlineAccessibility,
-        ejercicios: [
-          { id: "e5", nombre: "Abdominales", series: 3, reps: 10, completado: false },
-          { id: "e6", nombre: "Lagartijas", series: 3, reps: 10, completado: false },
-        ],
-      },
-      {
-        id: "running",
-        nombre: "Running",
-        Icono: FaRunning,
-        ejercicios: [
-          { id: "e7", nombre: "Running", series: 1, reps: 0, peso: "10 km", completado: false },
-          { id: "e8", nombre: "Trote", series: 1, reps: 0, peso: "10km", completado: false },
-        ],
-      },
-    ];
+    const cargar = async () => {
+      const idPerfil = localStorage.getItem("idPerfil");
+      if (!idPerfil) {
+        setCategorias(DATOS_DEFAULT);
+        setCargando(false);
+        return;
+      }
 
-    setCategorias(datosDeEjemplo);
-    setCargando(false);
-  }, [usuario]);
+      const hoy = new Date();
+      const fecha = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, "0")}-${String(hoy.getDate()).padStart(2, "0")}`;
 
-  const toggleEjercicio = (categoriaId: string, ejercicioId: string) => {
+      try {
+        const datos: any[] = await peticionApi(`/perfil/${idPerfil}/rutina?fecha=${fecha}`);
+
+        if (Array.isArray(datos) && datos.length > 0) {
+          const porGrupo = new Map<string, Ejercicio[]>();
+          for (const ej of datos) {
+            const grupo = ej.grupoMuscular || ej.grupo_muscular || "otros";
+            if (!porGrupo.has(grupo)) porGrupo.set(grupo, []);
+            
+            porGrupo.get(grupo)!.push({
+              id: ej.idEjercicio || ej.id_ejercicio || ej.id || Math.random(),
+              nombre: ej.nombre || "Ejercicio",
+              series: String(ej.series ?? "-"),
+              repeticiones: String(ej.repeticiones ?? ej.reps ?? "-"),
+              completado: ej.realizado === true || ej.completado === true,
+            });
+          }
+
+          setCategorias(
+            [...porGrupo].map(([grupo, ejercicios]) => ({
+              id: grupo,
+              nombre: grupo.charAt(0).toUpperCase() + grupo.slice(1),
+              Icono: ICONOS[grupo.toLowerCase()] ?? MdOutlineAccessibility,
+              ejercicios,
+            }))
+          );
+        } else {
+          setCategorias(DATOS_DEFAULT);
+        }
+      } catch (error) {
+        console.error("Error al cargar rutina:", error);
+        setCategorias(DATOS_DEFAULT);
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    cargar();
+  }, []);
+
+  const toggleEjercicio = async (categoriaId: string, ejercicioId: number) => {
+    const idPerfil = localStorage.getItem("idPerfil");
+    const categoria = categorias.find((c) => c.id === categoriaId);
+    const ejercicio = categoria?.ejercicios.find((e) => e.id === ejercicioId);
+    if (!ejercicio) return;
+
+    const nuevo = !ejercicio.completado;
+
     setCategorias((prev) =>
       prev.map((cat) =>
         cat.id !== categoriaId
@@ -82,11 +153,34 @@ function Rutinas() {
           : {
               ...cat,
               ejercicios: cat.ejercicios.map((ej) =>
-                ej.id !== ejercicioId ? ej : { ...ej, completado: !ej.completado }
+                ej.id !== ejercicioId ? ej : { ...ej, completado: nuevo }
               ),
             }
       )
     );
+
+    if (idPerfil) {
+      try {
+        await peticionApi(`/perfil/${idPerfil}/rutina/${ejercicioId}/realizado`, {
+          method: "PUT",
+          body: JSON.stringify({ realizado: nuevo }),
+        });
+      } catch (error) {
+        console.error("Error al guardar realizado:", error);
+        setCategorias((prev) =>
+          prev.map((cat) =>
+            cat.id !== categoriaId
+              ? cat
+              : {
+                  ...cat,
+                  ejercicios: cat.ejercicios.map((ej) =>
+                    ej.id !== ejercicioId ? ej : { ...ej, completado: !nuevo }
+                  ),
+                }
+          )
+        );
+      }
+    }
   };
 
   const totalEjercicios = categorias.reduce((acc, cat) => acc + cat.ejercicios.length, 0);
@@ -96,159 +190,183 @@ function Rutinas() {
   );
   const porcentaje = totalEjercicios === 0 ? 0 : Math.round((totalCompletados / totalEjercicios) * 100);
 
-  const fechaHoy = new Date().toLocaleDateString("es-AR", {
+  const fechaHoyStr = new Date().toLocaleDateString("es-AR", {
     weekday: "long",
     day: "numeric",
     month: "long",
   });
 
-  if (cargando) {
-    return (
-      <div className="min-h-screen bg-[#05140a] flex items-center justify-center text-white">
-        Cargando rutina...
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-[#0d3b20] via-[#05140a] to-[#010b05] text-[#f2fff6] font-sans flex flex-col">
-      <header className="flex items-center justify-between px-8 py-5">
-        <div className="flex items-center gap-2">
-          <svg viewBox="0 0 24 24" width="30" height="30">
-            <path
-              d="M12 21s-6.7-4.35-9.3-8.1C.8 10.1 1.4 6.3 4.6 4.9c2.2-1 4.6-.1 6 1.7 1.4-1.8 3.8-2.7 6-1.7 3.2 1.4 3.8 5.2 1.9 8-2.6 3.75-9.3 8.1-9.3 8.1z"
-              fill="none"
-              stroke="#39e07a"
-              strokeWidth={1.5}
-            />
-            <polyline
-              points="4 12 8 12 10 8 13 16 15 12 20 12"
-              fill="none"
-              stroke="#39e07a"
-              strokeWidth={1.5}
-              strokeLinejoin="round"
-              strokeLinecap="round"
-            />
-          </svg>
-          <span className="text-xl font-bold">Life Fit</span>
+    <div style={{
+      backgroundColor: '#090d16',
+      height: '100vh',
+      width: '100vw',
+      overflow: 'hidden',
+      color: '#ffffff',
+      fontFamily: '"Plus Jakarta Sans", sans-serif',
+      display: 'flex',
+      flexDirection: 'column',
+      boxSizing: 'border-box'
+    }}>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+
+      {/* HEADER CON LOGO DE ASSETS */}
+      <header style={{
+        padding: '0px 24px',
+        display: 'grid',
+        gridTemplateColumns: '1fr auto 1fr',
+        alignItems: 'center',
+        backgroundColor: 'rgba(42, 52, 71, 0.60)',
+        height: '65px',
+        zIndex: 10,
+        flexShrink: 0
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <img src={logoBg} alt="Life Fit Logo" style={{ width: '36px', height: 'auto' }} />
+          <h1 style={{ color: '#FFF', fontSize: '32px', fontWeight: 800, margin: 0, letterSpacing: '-0.5px' }}>
+            Life Fit
+          </h1>
         </div>
 
-        <nav className="flex items-center gap-3">
-          <button
-            onClick={() => navigate("/dashboard")}
-            className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 transition-colors text-white/80"
-          >
-            <IoHomeOutline size={18} />
+        {/* NAV */}
+        <nav style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
+          backgroundColor: 'rgba(255, 255, 255, 0.08)',
+          padding: '6px 18px',
+          borderRadius: '30px',
+          border: '1px solid rgba(255, 255, 255, 0.12)'
+        }}>
+          <button onClick={() => navigate('/dashboard')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <GoHome size={22} />
           </button>
-          <button
-            onClick={() => navigate("/rutinas")}
-            className="w-10 h-10 rounded-full flex items-center justify-center bg-green-500/20 text-green-400"
-          >
-            <FaDumbbell size={16} />
+          <button onClick={() => navigate('/rutinas')} style={{ backgroundColor: 'rgba(0, 230, 118, 0.25)', border: 'none', borderRadius: '50%', width: '32px', height: '32px', color: '#00E676', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <FaDumbbell size={18} />
           </button>
-          <button
-            onClick={() => navigate("/chat")}
-            className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 transition-colors text-white/80"
-          >
-            <IoChatbubbleOutline size={18} />
+          <button onClick={() => navigate('/chat')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <IoChatboxOutline size={22} />
           </button>
-          <button
-            onClick={() => navigate("/alimentacion")}
-            className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 transition-colors text-white/80"
-          >
-            <GiKnifeFork size={18} />
+          <button onClick={() => navigate('/progreso')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <MdTimelapse size={22} />
           </button>
-          <button
-            onClick={() => navigate("/progreso")}
-            className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 transition-colors text-white/80"
-          >
-            <FaChartLine size={16} />
+          <button onClick={() => navigate('/alimentacion')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <LuSalad size={22} />
           </button>
-          <button
-            onClick={() => navigate("/perfil")}
-            className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 transition-colors text-white/80"
-          >
-            <IoPersonOutline size={18} />
+          <button onClick={() => navigate('/perfil')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <HiMiniUserCircle size={24} />
           </button>
         </nav>
+        <div />
       </header>
 
-      <main className="flex-1 px-8 pb-10">
-        <h1 className="text-4xl font-extrabold mb-1">Rutina de hoy</h1>
-        <p className="text-white/70 mb-6">📅 {fechaHoy}</p>
+      {/* CONTENIDO PRINCIPAL */}
+      <main style={{ flex: 1, padding: '24px 40px', maxWidth: '1200px', margin: '0 auto', width: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
+        <h2 style={{ fontSize: '38px', fontWeight: 800, margin: '0 0 4px 0' }}>Rutina de hoy</h2>
+        <p style={{ color: '#A0AEC0', fontSize: '15px', fontWeight: 700, margin: '0 0 20px 0', textTransform: 'capitalize' }}>
+          📅 {fechaHoyStr}
+        </p>
 
-        <div className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 mb-8">
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-sm text-white/80">Progreso de hoy</span>
-            <span className="text-sm font-semibold text-green-400">
+        {/* BARRA DE PROGRESO */}
+        <div style={{
+          backgroundColor: 'rgba(25, 33, 46, 0.65)',
+          border: '1px solid rgba(255, 255, 255, 0.12)',
+          borderRadius: '16px',
+          padding: '16px 20px',
+          marginBottom: '28px'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+            <span style={{ fontSize: '14px', fontWeight: 700, color: '#A0AEC0' }}>Progreso de hoy</span>
+            <span style={{ fontSize: '14px', fontWeight: 800, color: '#00E676' }}>
               {totalCompletados} de {totalEjercicios} completados ({porcentaje}%)
             </span>
           </div>
-          <div className="w-full h-2.5 bg-white/10 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-green-500 rounded-full transition-all duration-300"
-              style={{ width: `${porcentaje}%` }}
-            />
+          <div style={{ width: '100%', height: '14px', backgroundColor: 'rgba(255, 255, 255, 0.08)', borderRadius: '10px', overflow: 'hidden' }}>
+            <div style={{
+              width: `${porcentaje}%`,
+              height: '100%',
+              backgroundColor: '#00E676',
+              borderRadius: '10px',
+              transition: 'width 0.4s ease'
+            }} />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {categorias.map((categoria) => {
-            const completadosCategoria = categoria.ejercicios.filter((e) => e.completado).length;
-            return (
-              <div
-                key={categoria.id}
-                className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col gap-3"
-              >
-                <div className="flex items-center gap-2">
-                <span className="text-green-400">
-  <categoria.Icono size={18} />
-</span>
-                  <span className="font-semibold">{categoria.nombre}</span>
+        {cargando ? (
+          <p style={{ color: '#A0AEC0', fontWeight: 700 }}>Cargando ejercicios...</p>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+            {categorias.map((categoria) => (
+              <div key={categoria.id} style={{
+                backgroundColor: 'rgba(25, 33, 46, 0.85)',
+                border: '1px solid #00E676',
+                borderRadius: '32px',
+                padding: '24px 20px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <h3 style={{ fontSize: '28px', fontWeight: 800, margin: 0, color: '#FFF' }}>{categoria.nombre}</h3>
+                  <div style={{
+                    backgroundColor: '#00E676',
+                    borderRadius: '10px',
+                    width: '32px',
+                    height: '32px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#000'
+                  }}>
+                    <categoria.Icono size={20} />
+                  </div>
                 </div>
 
-                <ul className="flex flex-col gap-2">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   {categoria.ejercicios.map((ejercicio) => (
-                    <li
+                    <div
                       key={ejercicio.id}
-                      className="flex items-center gap-3 bg-black/20 rounded-xl px-3 py-2"
+                      onClick={() => toggleEjercicio(categoria.id, ejercicio.id)}
+                      style={{
+                        backgroundColor: 'rgba(12, 17, 26, 0.7)',
+                        borderRadius: '14px',
+                        padding: '12px 14px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        cursor: 'pointer',
+                        userSelect: 'none'
+                      }}
                     >
-                      <button
-                        onClick={() => toggleEjercicio(categoria.id, ejercicio.id)}
-                        aria-label={`Marcar ${ejercicio.nombre} como completado`}
-                        className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-colors ${
-                          ejercicio.completado
-                            ? "bg-green-500 border-green-500 text-black"
-                            : "bg-transparent border-white/30 text-transparent"
-                        }`}
-                      >
-                        ✓
-                      </button>
-
-                      <div className="flex flex-col">
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium">{ejercicio.nombre}</span>
-                          {ejercicio.peso && (
-                            <span className="text-[10px] bg-green-500/20 text-green-400 rounded-full px-2 py-0.5">
-                              {ejercicio.peso}
-                            </span>
-                          )}
-                        </div>
-                        <span className="text-xs text-white/50">
-                          {ejercicio.series} series x {ejercicio.reps} reps
+                      <div>
+                        <p style={{ margin: 0, fontSize: '15px', fontWeight: 800, color: '#FFF' }}>{ejercicio.nombre}</p>
+                        <span style={{ fontSize: '12px', color: '#A0AEC0', fontWeight: 700 }}>
+                          {ejercicio.series !== "-" ? `${ejercicio.series} series × ` : ""}{ejercicio.repeticiones} reps
                         </span>
                       </div>
-                    </li>
-                  ))}
-                </ul>
 
-                <div className="text-center text-xs bg-black/20 rounded-lg py-1.5 text-white/70">
-                  {completadosCategoria} de {categoria.ejercicios.length}
+                      <div style={{
+                        width: '24px',
+                        height: '24px',
+                        borderRadius: '50%',
+                        border: ejercicio.completado ? 'none' : '2px solid rgba(255, 255, 255, 0.3)',
+                        backgroundColor: ejercicio.completado ? '#00E676' : 'transparent',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#000',
+                        fontSize: '13px',
+                        fontWeight: 900
+                      }}>
+                        {ejercicio.completado && '✓'}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { peticionApi } from '../../services/api';
-import logoBg from '../../assets/Group 75.png';
 
 import { GoHome } from "react-icons/go";
 import { FaDumbbell } from "react-icons/fa";
@@ -10,34 +9,38 @@ import { MdTimelapse } from "react-icons/md";
 import { LuSalad } from "react-icons/lu";
 import { HiMiniUserCircle } from "react-icons/hi2";
 
+const logoBg = ""; 
+
+const OBJETIVOS = ['bajar peso', 'ganar fuerza', 'mejorar resistencia'];
+const NIVELES = ['principiante', 'intermedio', 'avanzado'];
+const LUGARES = ['gym', 'hogar', 'aire libre'];
+
 interface PerfilUsuarioData {
   nombre: string;
-  apellido: string;
+  fechaNacimiento: string;
+  edad: number;
   peso: number;
   altura: number;
-  edad: number;
   objetivo: string;
-  alimentacion: string;
-  nivelEntrenamiento: string;
-  entrenaEn: string;
-  diasDisponibles: number;
-  horasDisponibles: number;
+  tiempoDisponible: number;
+  diasPorSemana: number;
+  nivel: string;
+  lugar: string;
 }
 
 export const PerfilUsuario = () => {
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState<PerfilUsuarioData>({
-    nombre: 'Usuario',
-    apellido: '',
-    peso: 70,
-    altura: 1.70,
-    edad: 25,
-    objetivo: 'Perder peso',
-    alimentacion: 'General',
-    nivelEntrenamiento: 'Bajo',
-    entrenaEn: 'Casa',
-    diasDisponibles: 5,
-    horasDisponibles: 14,
+    nombre: '',
+    fechaNacimiento: '',
+    edad: 0,
+    peso: 0,
+    altura: 0,
+    objetivo: '',
+    tiempoDisponible: 0,
+    diasPorSemana: 0,
+    nivel: '',
+    lugar: '',
   });
 
   useEffect(() => {
@@ -46,23 +49,20 @@ export const PerfilUsuario = () => {
       if (!idPerfil) return;
 
       try {
-    
         const data = await peticionApi(`/perfil/${idPerfil}`);
         if (data) {
-          setUsuario(prev => ({
-            ...prev,
-            nombre: data.nombre_completo || data.nombre || prev.nombre,
-            apellido: data.apellido || prev.apellido,
-            peso: data.peso_kg || data.peso || prev.peso,
-            altura: data.altura_cm ? data.altura_cm / 100 : (data.altura || prev.altura),
-            edad: data.edad || prev.edad,
-            objetivo: data.meta_objetivo || data.objetivo || prev.objetivo,
-            alimentacion: data.tipo_alimentacion || data.alimentacion || prev.alimentacion,
-            nivelEntrenamiento: data.nivel_entrenamiento || data.nivelEntrenamiento || prev.nivelEntrenamiento,
-            entrenaEn: data.lugar_entrenamiento || data.entrenaEn || prev.entrenaEn,
-            diasDisponibles: data.dias_disponibles || data.diasDisponibles || prev.diasDisponibles,
-            horasDisponibles: data.horas_disponibles || data.horasDisponibles || prev.horasDisponibles,
-          }));
+          setUsuario({
+            nombre: data.nombre || data.nombre_completo || '',
+            fechaNacimiento: data.fechaNacimiento || '',
+            edad: data.edad || 0,
+            peso: data.peso || data.peso_kg || 0,
+            altura: data.altura || data.altura_cm || 0,
+            objetivo: data.objetivo || data.meta_objetivo || '',
+            tiempoDisponible: data.tiempoDisponible || data.horas_disponibles || 0,
+            diasPorSemana: data.diasPorSemana || data.dias_disponibles || 0,
+            nivel: data.nivel || data.nivel_entrenamiento || '',
+            lugar: data.lugar || data.lugar_entrenamiento || '',
+          });
         }
       } catch (error) {
         console.error('Error al conectar con el backend:', error);
@@ -73,7 +73,7 @@ export const PerfilUsuario = () => {
   }, []);
 
   const handleChange = (campo: keyof PerfilUsuarioData, valor: any) => {
-    setUsuario(prev => ({ ...prev, [campo]: valor }));
+    setUsuario((prev) => ({ ...prev, [campo]: valor }));
   };
 
   const guardarCambios = async () => {
@@ -85,28 +85,20 @@ export const PerfilUsuario = () => {
     }
 
     try {
-    
-      const response = await peticionApi(`/perfil/${idPerfil}`, {
+      await peticionApi(`/perfil/${idPerfil}`, {
         method: 'PUT',
         body: JSON.stringify({
-          nombre_completo: `${usuario.nombre} ${usuario.apellido}`.trim(),
-          peso_kg: usuario.peso,
-          altura_cm: usuario.altura > 10 ? usuario.altura : usuario.altura * 100,
-          edad: usuario.edad,
-          meta_objetivo: usuario.objetivo,
-          tipo_alimentacion: usuario.alimentacion,
-          nivel_entrenamiento: usuario.nivelEntrenamiento,
-          lugar_entrenamiento: usuario.entrenaEn,
-          dias_disponibles: usuario.diasDisponibles,
-          horas_disponibles: usuario.horasDisponibles
-        })
+          peso: Number(usuario.peso),
+          altura: Number(usuario.altura),
+          objetivo: usuario.objetivo,
+          tiempoDisponible: Number(usuario.tiempoDisponible),
+          diasPorSemana: Number(usuario.diasPorSemana),
+          nivel: usuario.nivel,
+          lugar: usuario.lugar,
+        }),
       });
 
-      if (response) {
-        alert('¡Datos actualizados correctamente!');
-      } else {
-        alert('Error al actualizar los datos.');
-      }
+      alert('¡Datos actualizados correctamente!');
     } catch (error) {
       console.error('Error al guardar datos:', error);
       alert('Error al conectar con el servidor.');
@@ -116,27 +108,33 @@ export const PerfilUsuario = () => {
   return (
     <div style={{ 
       backgroundColor: '#090d16', 
-      minHeight: '100vh', 
+      height: '100vh',
+      width: '100vw',
+      overflow: 'hidden',
       color: '#ffffff', 
       fontFamily: '"Plus Jakarta Sans", sans-serif',
       display: 'flex',
-      flexDirection: 'column'
+      flexDirection: 'column',
+      boxSizing: 'border-box'
     }}>
       <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
 
-
+      {/* HEADER */}
       <header style={{
         padding: '0px 24px',
         display: 'grid',
         gridTemplateColumns: '1fr auto 1fr',
         alignItems: 'center',
         backgroundColor: 'rgba(42, 52, 71, 0.60)',
-        backdropFilter: 'blur(10px)',
         height: '65px',
-        zIndex: 10
+        border: 'none',
+        outline: 'none',
+        boxShadow: 'none',
+        zIndex: 10,
+        flexShrink: 0
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <img src={logoBg} alt="Life Fit Logo" style={{ width: '42px', height: 'auto' }} />
+          {logoBg && <img src={logoBg} alt="Life Fit Logo" style={{ width: '42px', height: 'auto' }} />}
           <h1 style={{
             color: '#FFF',
             fontSize: '52px',
@@ -149,7 +147,7 @@ export const PerfilUsuario = () => {
           </h1>
         </div>
 
-   
+        {/* NAV */}
         <nav style={{
           display: 'flex',
           alignItems: 'center',
@@ -174,7 +172,6 @@ export const PerfilUsuario = () => {
           <button onClick={() => navigate('/alimentacion')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
             <LuSalad size={22} />
           </button>
-          
           <button 
             onClick={() => navigate('/perfil')} 
             style={{ 
@@ -197,67 +194,67 @@ export const PerfilUsuario = () => {
         <div />
       </header>
 
-      <div style={{ width: '100%', height: '1px', backgroundColor: '#2E3648', zIndex: 10 }} />
-
-      <main style={{ flex: 1, padding: '30px 20px', maxWidth: '1000px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+      {/* CONTENIDO PRINCIPAL */}
+      <main style={{ flex: 1, padding: '20px', maxWidth: '1000px', margin: '0 auto', width: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
         <div style={{ 
           display: 'flex', 
           gap: '30px', 
           justifyContent: 'center',
-          alignItems: 'stretch'
+          alignItems: 'stretch',
+          height: '100%'
         }}>
           
-      
+          {/* TARJETA IZQUIERDA */}
           <div style={{ 
             flex: 1, 
             backgroundColor: 'rgba(25, 33, 46, 0.85)', 
             border: '1px solid #00E676',
             borderRadius: '24px', 
-            padding: '30px', 
+            padding: '24px', 
             boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between'
           }}>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
                 <div style={{ 
-                  width: '80px', 
-                  height: '80px', 
+                  width: '70px', 
+                  height: '70px', 
                   borderRadius: '50%', 
                   border: '2px solid #00E676', 
                   display: 'flex', 
                   alignItems: 'center', 
-                  justifyContent: 'center' 
+                  justifyContent: 'center',
+                  flexShrink: 0
                 }}>
-                  <svg width="45" height="45" viewBox="0 0 24 24" fill="#00E676">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="#00E676">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                   </svg>
                 </div>
 
                 <div>
-                  <h2 style={{ margin: 0, fontSize: '24px', fontWeight: 800 }}>{usuario.nombre} {usuario.apellido}</h2>
-                  <p style={{ margin: '6px 0 0 0', fontSize: '16px', color: '#c9d1d9', fontWeight: 700 }}>
-                    {usuario.peso}kg &nbsp; {usuario.altura}m &nbsp; {usuario.edad} años
+                  <h2 style={{ margin: 0, fontSize: '22px', fontWeight: 800 }}>{usuario.nombre || 'Usuario'}</h2>
+                  <p style={{ margin: '4px 0 0 0', fontSize: '15px', color: '#c9d1d9', fontWeight: 700 }}>
+                    {usuario.peso}kg &nbsp; {usuario.altura}cm &nbsp; {usuario.edad} años
                   </p>
                 </div>
               </div>
 
-              <div style={{ fontSize: '16px', lineHeight: '2.2', fontWeight: 700 }}>
-                <p style={{ margin: 0 }}><strong>Objetivo:</strong> {usuario.objetivo}</p>
-                <p style={{ margin: 0 }}><strong>Alimentación:</strong> {usuario.alimentacion}</p>
-                <p style={{ margin: 0 }}><strong>Nivel de entrenamiento:</strong> {usuario.nivelEntrenamiento}</p>
-                <p style={{ margin: 0 }}><strong>Entrena en:</strong> {usuario.entrenaEn}</p>
-                <p style={{ margin: 0 }}><strong>Días disponibles:</strong> {usuario.diasDisponibles}</p>
-                <p style={{ margin: 0 }}><strong>Horas disponibles:</strong> {usuario.horasDisponibles}</p>
+              <div style={{ fontSize: '15px', lineHeight: '2', fontWeight: 700 }}>
+                <p style={{ margin: 0 }}><strong>Objetivo:</strong> {usuario.objetivo || '-'}</p>
+                <p style={{ margin: 0 }}><strong>Nivel de entrenamiento:</strong> {usuario.nivel || '-'}</p>
+                <p style={{ margin: 0 }}><strong>Entrena en:</strong> {usuario.lugar || '-'}</p>
+                <p style={{ margin: 0 }}><strong>Días disponibles:</strong> {usuario.diasPorSemana}</p>
+                <p style={{ margin: 0 }}><strong>Horas disponibles:</strong> {usuario.tiempoDisponible}</p>
               </div>
             </div>
 
             <button 
               onClick={guardarCambios}
               style={{ 
-                marginTop: '30px', 
-                padding: '14px', 
+                marginTop: '20px', 
+                padding: '12px', 
                 backgroundColor: '#00E676', 
                 border: 'none', 
                 color: '#000', 
@@ -271,105 +268,133 @@ export const PerfilUsuario = () => {
             </button>
           </div>
 
-        
+          {/* TARJETA DERECHA */}
           <div style={{ 
             flex: 1, 
             backgroundColor: 'rgba(25, 33, 46, 0.85)', 
             border: '1px solid rgba(255, 255, 255, 0.2)',
             borderRadius: '24px', 
-            padding: '30px', 
-            boxShadow: '0 8px 24px rgba(0,0,0,0.3)' 
+            padding: '24px', 
+            boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
           }}>
-            <h2 style={{ margin: '0 0 20px 0', fontSize: '26px', fontWeight: 800 }}>Modificar datos ✏️</h2>
+            <h2 style={{ margin: '0 0 14px 0', fontSize: '24px', fontWeight: 800 }}>Modificar datos ✏️</h2>
 
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ fontSize: '14px', fontWeight: 700, display: 'block', marginBottom: '8px' }}>
-                Horas diarias disponibles <span style={{ backgroundColor: '#00E676', color: '#000', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold' }}>{usuario.horasDisponibles}</span>
+            {/* PESO Y ALTURA */}
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '14px' }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '13px', fontWeight: 700, display: 'block', marginBottom: '4px' }}>Peso (kg)</label>
+                <input 
+                  type="number" 
+                  value={usuario.peso || ''} 
+                  onChange={(e) => handleChange('peso', e.target.value)} 
+                  style={styleInput} 
+                />
+              </div>
+
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '13px', fontWeight: 700, display: 'block', marginBottom: '4px' }}>Altura (cm)</label>
+                <input 
+                  type="number" 
+                  value={usuario.altura || ''} 
+                  onChange={(e) => handleChange('altura', e.target.value)} 
+                  style={styleInput} 
+                />
+              </div>
+            </div>
+
+            {/* HORAS DISPONIBLES */}
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ fontSize: '13px', fontWeight: 700, display: 'block', marginBottom: '6px' }}>
+                Horas diarias disponibles <span style={{ backgroundColor: '#00E676', color: '#000', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold' }}>{usuario.tiempoDisponible}</span>
               </label>
               <input 
                 type="range" 
                 min="1" 
-                max="24" 
-                value={usuario.horasDisponibles} 
-                onChange={(e) => handleChange('horasDisponibles', Number(e.target.value))}
+                max="4" 
+                value={usuario.tiempoDisponible || 1} 
+                onChange={(e) => handleChange('tiempoDisponible', Number(e.target.value))}
                 style={{ width: '100%', accentColor: '#00E676' }}
               />
             </div>
 
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ fontSize: '14px', fontWeight: 700, display: 'block', marginBottom: '8px' }}>
-                Días a entrenar <span style={{ backgroundColor: '#00E676', color: '#000', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold' }}>{usuario.diasDisponibles}</span>
+            {/* DÍAS DISPONIBLES */}
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ fontSize: '13px', fontWeight: 700, display: 'block', marginBottom: '6px' }}>
+                Días a entrenar <span style={{ backgroundColor: '#00E676', color: '#000', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold' }}>{usuario.diasPorSemana}</span>
               </label>
               <input 
                 type="range" 
                 min="1" 
                 max="7" 
-                value={usuario.diasDisponibles} 
-                onChange={(e) => handleChange('diasDisponibles', Number(e.target.value))}
+                value={usuario.diasPorSemana || 1} 
+                onChange={(e) => handleChange('diasPorSemana', Number(e.target.value))}
                 style={{ width: '100%', accentColor: '#00E676' }}
               />
             </div>
 
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ fontSize: '14px', fontWeight: 700, display: 'block', marginBottom: '8px' }}>
-                Nivel de entrenamiento <span style={{ backgroundColor: '#00E676', color: '#000', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold' }}>{usuario.nivelEntrenamiento || 'Bajo'}</span>
+            {/* NIVEL */}
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ fontSize: '13px', fontWeight: 700, display: 'block', marginBottom: '6px' }}>
+                Nivel de entrenamiento <span style={{ backgroundColor: '#00E676', color: '#000', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold' }}>{usuario.nivel || 'principiante'}</span>
               </label>
               <input 
                 type="range" 
                 min="1" 
                 max="3" 
                 step="1"
-                value={usuario.nivelEntrenamiento === 'Alto' ? 3 : usuario.nivelEntrenamiento === 'Medio' ? 2 : 1} 
+                value={NIVELES.indexOf(usuario.nivel) !== -1 ? NIVELES.indexOf(usuario.nivel) + 1 : 1} 
                 onChange={(e) => {
-                  const map = ['Bajo', 'Medio', 'Alto'];
-                  handleChange('nivelEntrenamiento', map[Number(e.target.value) - 1]);
+                  handleChange('nivel', NIVELES[Number(e.target.value) - 1]);
                 }}
                 style={{ width: '100%', accentColor: '#00E676' }}
               />
             </div>
 
-            <div style={{ marginBottom: '20px' }}>
-              <p style={{ margin: '0 0 10px 0', fontSize: '14px', fontWeight: 700 }}>¿Dónde entrenás?</p>
-              <div style={{ display: 'flex', gap: '10px' }}>
-                {['Gym', 'Casa', 'Exterior'].map((lugar) => (
+            {/* LUGAR */}
+            <div style={{ marginBottom: '14px' }}>
+              <p style={{ margin: '0 0 6px 0', fontSize: '13px', fontWeight: 700 }}>¿Dónde entrenás?</p>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                {LUGARES.map((lugarItem) => (
                   <button
-                    key={lugar}
-                    onClick={() => handleChange('entrenaEn', lugar)}
+                    type="button"
+                    key={lugarItem}
+                    onClick={() => handleChange('lugar', lugarItem)}
                     style={{
                       flex: 1,
-                      padding: '10px',
+                      padding: '8px',
                       borderRadius: '12px',
                       border: 'none',
-                      backgroundColor: usuario.entrenaEn === lugar ? '#00E676' : 'rgba(255, 255, 255, 0.1)',
-                      color: usuario.entrenaEn === lugar ? '#000' : '#fff',
+                      backgroundColor: usuario.lugar === lugarItem ? '#00E676' : 'rgba(255, 255, 255, 0.1)',
+                      color: usuario.lugar === lugarItem ? '#000' : '#fff',
                       fontWeight: 800,
-                      cursor: 'pointer'
+                      fontSize: '13px',
+                      cursor: 'pointer',
+                      textTransform: 'capitalize'
                     }}
                   >
-                    {lugar}
+                    {lugarItem}
                   </button>
                 ))}
               </div>
             </div>
 
+            {/* OBJETIVO */}
             <div>
+              <label style={{ fontSize: '13px', fontWeight: 700, display: 'block', marginBottom: '4px' }}>Objetivo</label>
               <select 
                 value={usuario.objetivo} 
                 onChange={(e) => handleChange('objetivo', e.target.value)}
-                style={{ 
-                  width: '100%', 
-                  padding: '12px', 
-                  borderRadius: '12px', 
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)', 
-                  color: '#fff', 
-                  border: '1px solid rgba(255, 255, 255, 0.2)', 
-                  fontSize: '15px',
-                  fontWeight: 700 
-                }}
+                style={styleInput}
               >
-                <option value="Perder peso" style={{ color: '#000' }}>Objetivo: Perder peso</option>
-                <option value="Ganar masa muscular" style={{ color: '#000' }}>Objetivo: Ganar masa muscular</option>
-                <option value="Mantenimiento" style={{ color: '#000' }}>Objetivo: Mantenimiento</option>
+                <option value="" style={{ color: '#000' }}>Seleccionar objetivo</option>
+                {OBJETIVOS.map((o) => (
+                  <option key={o} value={o} style={{ color: '#000' }}>
+                    {o}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -379,6 +404,19 @@ export const PerfilUsuario = () => {
       </main>
     </div>
   );
+};
+
+const styleInput: React.CSSProperties = {
+  width: '100%', 
+  padding: '10px', 
+  borderRadius: '12px', 
+  backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+  color: '#fff', 
+  border: '1px solid rgba(255, 255, 255, 0.2)', 
+  fontSize: '13px',
+  fontWeight: 700,
+  outline: 'none',
+  boxSizing: 'border-box'
 };
 
 export default PerfilUsuario;
