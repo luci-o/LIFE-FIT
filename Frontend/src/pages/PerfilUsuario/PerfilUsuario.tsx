@@ -1,401 +1,498 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { peticionApi } from '../../services/api';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import logoBg from "../../assets/Group 75.png";
+import { usoAutenticacion } from "../../context/AuthContext";
 
+// Importación de íconos
 import { GoHome } from "react-icons/go";
-import { FaDumbbell } from "react-icons/fa";
+import { FaDumbbell, FaPencilAlt, FaTree } from "react-icons/fa";
 import { IoChatboxOutline } from "react-icons/io5";
 import { MdTimelapse } from "react-icons/md";
 import { LuSalad } from "react-icons/lu";
 import { HiMiniUserCircle } from "react-icons/hi2";
+import { BiHomeAlt } from "react-icons/bi";
 
-const logoBg = ""; 
-
-const OBJETIVOS = ['bajar peso', 'ganar fuerza', 'mejorar resistencia'];
-const NIVELES = ['principiante', 'intermedio', 'avanzado'];
-const LUGARES = ['gym', 'hogar', 'aire libre'];
-
-interface PerfilUsuarioData {
-  nombre: string;
-  fechaNacimiento: string;
-  edad: number;
-  peso: number;
-  altura: number;
-  objetivo: string;
-  tiempoDisponible: number;
-  diasPorSemana: number;
-  nivel: string;
-  lugar: string;
-}
-
-export const PerfilUsuario = () => {
+export const PerfilUsuario: React.FC = () => {
   const navigate = useNavigate();
-  const [usuario, setUsuario] = useState<PerfilUsuarioData>({
-    nombre: '',
-    fechaNacimiento: '',
-    edad: 0,
-    peso: 0,
-    altura: 0,
-    objetivo: '',
-    tiempoDisponible: 0,
-    diasPorSemana: 0,
-    nivel: '',
-    lugar: '',
+  const { usuario } = usoAutenticacion();
+
+  // Estado para habilitar/deshabilitar la edición mediante el lápiz
+  const [modoEdicion, setModoEdicion] = useState<boolean>(false);
+
+  // Estados de datos del usuario (evitamos error ts(2339) casteando a any)
+  const [datosFormulario, setDatosFormulario] = useState({
+    nombre: usuario?.nombre || "Leandro",
+    apellido: (usuario as any)?.apellido || "Kon",
+    peso: "50kg",
+    altura: "1,55m",
+    edad: "17 años",
+    alimentacion: "Vegano",
+    lesionado: true,
   });
 
+  // Estados modificables mediante controles
+  const [horas, setHoras] = useState<number>(14);
+  const [dias, setDias] = useState<number>(5);
+  const [nivel, setNivel] = useState<number>(2); // 1: Bajo, 2: Medio, 3: Alto
+  const [lugar, setLugar] = useState<'Gym' | 'Casa' | 'Exterior'>('Casa');
+  const [objetivo, setObjetivo] = useState<string>('Ganar fuerza');
+  const [terminoLesion, setTerminoLesion] = useState<boolean>(false);
+
+  // Cargar datos reales guardados del formulario al montar el componente
   useEffect(() => {
-    const obtenerPerfil = async () => {
-      const idPerfil = localStorage.getItem('idPerfil');
-      if (!idPerfil) return;
-
+    const perfilGuardado = localStorage.getItem("datosPerfilUsuario");
+    if (perfilGuardado) {
       try {
-        const data = await peticionApi(`/perfil/${idPerfil}`);
-        if (data) {
-          setUsuario({
-            nombre: data.nombre || data.nombre_completo || '',
-            fechaNacimiento: data.fechaNacimiento || '',
-            edad: data.edad || 0,
-            peso: data.peso || data.peso_kg || 0,
-            altura: data.altura || data.altura_cm || 0,
-            objetivo: data.objetivo || data.meta_objetivo || '',
-            tiempoDisponible: data.tiempoDisponible || data.horas_disponibles || 0,
-            diasPorSemana: data.diasPorSemana || data.dias_disponibles || 0,
-            nivel: data.nivel || data.nivel_entrenamiento || '',
-            lugar: data.lugar || data.lugar_entrenamiento || '',
-          });
-        }
-      } catch (error) {
-        console.error('Error al conectar con el backend:', error);
+        const datos = JSON.parse(perfilGuardado);
+        setDatosFormulario((prev) => ({ ...prev, ...datos }));
+        if (datos.horas) setHoras(datos.horas);
+        if (datos.dias) setDias(datos.dias);
+        if (datos.nivel) setNivel(datos.nivel);
+        if (datos.lugar) setLugar(datos.lugar);
+        if (datos.objetivo) setObjetivo(datos.objetivo);
+        if (datos.terminoLesion !== undefined) setTerminoLesion(datos.terminoLesion);
+      } catch (e) {
+        console.error("Error al leer datos del formulario:", e);
       }
-    };
-
-    obtenerPerfil();
+    }
   }, []);
 
-  const handleChange = (campo: keyof PerfilUsuarioData, valor: any) => {
-    setUsuario((prev) => ({ ...prev, [campo]: valor }));
+  const getNivelTexto = (val: number) => {
+    if (val === 1) return 'Bajo';
+    if (val === 2) return 'Medio';
+    return 'Alto';
   };
 
-  const guardarCambios = async () => {
-    const idPerfil = localStorage.getItem('idPerfil');
+  const estaLesionado = datosFormulario.lesionado && !terminoLesion;
 
-    if (!idPerfil) {
-      alert('No se encontró sesión iniciada.');
-      return;
-    }
+  const guardarCambios = () => {
+    const datosActualizados = {
+      ...datosFormulario,
+      horas,
+      dias,
+      nivel,
+      lugar,
+      objetivo,
+      terminoLesion,
+      lesionado: estaLesionado,
+    };
 
-    try {
-      await peticionApi(`/perfil/${idPerfil}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          peso: Number(usuario.peso),
-          altura: Number(usuario.altura),
-          objetivo: usuario.objetivo,
-          tiempoDisponible: Number(usuario.tiempoDisponible),
-          diasPorSemana: Number(usuario.diasPorSemana),
-          nivel: usuario.nivel,
-          lugar: usuario.lugar,
-        }),
-      });
-
-      alert('¡Datos actualizados correctamente!');
-    } catch (error) {
-      console.error('Error al guardar datos:', error);
-      alert('Error al conectar con el servidor.');
-    }
+    localStorage.setItem("datosPerfilUsuario", JSON.stringify(datosActualizados));
+    setModoEdicion(false); // Bloquea la edición nuevamente tras guardar
+    alert("¡Datos del perfil actualizados correctamente!");
   };
 
   return (
-    <div style={{ 
-      backgroundColor: '#090d16', 
+    <div style={{
+      backgroundColor: '#090d16',
       height: '100vh',
-      width: '100vw',
-      overflow: 'hidden',
-      color: '#ffffff', 
-      fontFamily: '"Plus Jakarta Sans", sans-serif',
       display: 'flex',
       flexDirection: 'column',
-      boxSizing: 'border-box'
+      color: '#ffffff',
+      fontFamily: '"Plus Jakarta Sans", sans-serif',
+      boxSizing: 'border-box',
+      overflow: 'hidden'
     }}>
-      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
 
-      {/* HEADER */}
+      {/* Header Superior Completo */}
       <header style={{
-        padding: '0px 24px',
-        display: 'grid',
-        gridTemplateColumns: '1fr auto 1fr',
-        alignItems: 'center',
-        backgroundColor: 'rgba(42, 52, 71, 0.60)',
-        height: '65px',
-        border: 'none',
-        outline: 'none',
-        boxShadow: 'none',
+        padding: '0',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#090d16',
         zIndex: 10,
         flexShrink: 0
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          {logoBg && <img src={logoBg} alt="Life Fit Logo" style={{ width: '42px', height: 'auto' }} />}
-          <h1 style={{
-            color: '#FFF',
-            fontSize: '52px',
-            fontWeight: 800,
-            lineHeight: '1',
-            letterSpacing: '-1px',
-            margin: 0
-          }}>
-            Life Fit
-          </h1>
-        </div>
-
-        {/* NAV */}
-        <nav style={{
+        <div style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.04)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+          padding: '10px 36px',
           display: 'flex',
           alignItems: 'center',
-          gap: '16px',
-          backgroundColor: 'rgba(255, 255, 255, 0.08)',
-          padding: '6px 18px',
-          borderRadius: '30px',
-          border: '1px solid rgba(255, 255, 255, 0.12)'
+          justifyContent: 'space-between',
+          position: 'relative',
+          width: '100%',
+          boxSizing: 'border-box'
         }}>
-          <button onClick={() => navigate('/dashboard')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            <GoHome size={22} />
-          </button>
-          <button onClick={() => navigate('/rutinas')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            <FaDumbbell size={20} />
-          </button>
-          <button onClick={() => navigate('/chat')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            <IoChatboxOutline size={22} />
-          </button>
-          <button onClick={() => navigate('/progreso')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            <MdTimelapse size={22} />
-          </button>
-          <button onClick={() => navigate('/alimentacion')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            <LuSalad size={22} />
-          </button>
-          <button 
-            onClick={() => navigate('/perfil')} 
-            style={{ 
-              backgroundColor: 'rgba(0, 230, 118, 0.25)', 
-              border: 'none', 
-              borderRadius: '50%', 
-              width: '32px', 
-              height: '32px', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              cursor: 'pointer', 
-              color: '#00E676' 
-            }}
-          >
-            <HiMiniUserCircle size={24} />
-          </button>
-        </nav>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src={logoBg} alt="Life Fit Logo" style={{ width: '48px', height: 'auto' }} />
+            <h1 style={{
+              color: '#FFF',
+              fontFamily: '"Plus Jakarta Sans", sans-serif',
+              fontSize: '42px',
+              fontWeight: 800,
+              lineHeight: '1',
+              letterSpacing: '-1px',
+              margin: 0
+            }}>
+              Life Fit
+            </h1>
+          </div>
 
-        <div />
+          <nav style={{
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+            padding: '6px 18px',
+            borderRadius: '30px',
+            border: '1px solid rgba(255, 255, 255, 0.12)'
+          }}>
+            <button onClick={() => navigate('/dashboard')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <GoHome size={22} />
+            </button>
+            <button onClick={() => navigate('/rutinas')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <FaDumbbell size={20} />
+            </button>
+            <button onClick={() => navigate('/chat')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <IoChatboxOutline size={22} />
+            </button>
+            <button onClick={() => navigate('/progreso')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <MdTimelapse size={22} />
+            </button>
+            <button onClick={() => navigate('/alimentacion')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <LuSalad size={22} />
+            </button>
+            <button 
+              onClick={() => navigate('/perfil')} 
+              style={{ 
+                backgroundColor: 'rgba(0, 230, 118, 0.25)', 
+                border: 'none', 
+                borderRadius: '50%', 
+                width: '32px', 
+                height: '32px', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                cursor: 'pointer', 
+                color: '#00E676' 
+              }}
+            >
+              <HiMiniUserCircle size={24} />
+            </button>
+          </nav>
+        </div>
       </header>
 
-      {/* CONTENIDO PRINCIPAL */}
-      <main style={{ flex: 1, padding: '20px', maxWidth: '1000px', margin: '0 auto', width: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
-        <div style={{ 
-          display: 'flex', 
-          gap: '30px', 
-          justifyContent: 'center',
-          alignItems: 'stretch',
-          height: '100%'
+      <div style={{
+        width: '100%',
+        height: '1px',
+        backgroundColor: '#2E3648',
+        zIndex: 10,
+        flexShrink: 0
+      }} />
+
+      {/* Contenido Principal */}
+      <main style={{
+        flex: 1,
+        padding: '24px 36px',
+        maxWidth: '1280px',
+        margin: '0 auto',
+        width: '100%',
+        boxSizing: 'border-box',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1.15fr',
+          gap: '32px',
+          width: '100%',
+          alignItems: 'stretch'
         }}>
-          
-          {/* TARJETA IZQUIERDA */}
-          <div style={{ 
-            flex: 1, 
-            backgroundColor: 'rgba(25, 33, 46, 0.85)', 
-            border: '1px solid #00E676',
-            borderRadius: '24px', 
-            padding: '24px', 
-            boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+
+          {/* COLUMNA IZQUIERDA: Rectangle 185 */}
+          <div style={{
+            backgroundColor: '#2E343E',
+            borderRadius: '45px',
+            padding: '36px 32px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)'
           }}>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
-                <div style={{ 
-                  width: '70px', 
-                  height: '70px', 
-                  borderRadius: '50%', 
-                  border: '2px solid #00E676', 
-                  display: 'flex', 
-                  alignItems: 'center', 
+              <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '24px' }}>
+                <div style={{
+                  width: '100px',
+                  height: '100px',
+                  borderRadius: '50%',
+                  backgroundColor: '#FFFFFF',
+                  display: 'flex',
+                  alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0
                 }}>
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="#00E676">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                  </svg>
+                  <HiMiniUserCircle size={90} color="#2E343E" />
                 </div>
 
                 <div>
-                  <h2 style={{ margin: 0, fontSize: '22px', fontWeight: 800 }}>{usuario.nombre || 'Usuario'}</h2>
-                  <p style={{ margin: '4px 0 0 0', fontSize: '15px', color: '#c9d1d9', fontWeight: 700 }}>
-                    {usuario.peso}kg &nbsp; {usuario.altura}cm &nbsp; {usuario.edad} años
-                  </p>
+                  <h2 style={{ margin: 0, fontSize: '28px', fontWeight: 700, color: '#FFF' }}>
+                    {datosFormulario.nombre} {datosFormulario.apellido}
+                  </h2>
+                  <div style={{ display: 'flex', gap: '12px', margin: '6px 0', fontSize: '20px', fontWeight: 600, color: '#E0E0E0' }}>
+                    <span>{datosFormulario.peso}</span>
+                    <span>{datosFormulario.altura}</span>
+                    <span>{datosFormulario.edad}</span>
+                  </div>
+                  <span style={{ fontSize: '20px', fontWeight: 800, color: estaLesionado ? '#FF5252' : '#00E676', letterSpacing: '0.5px' }}>
+                    {estaLesionado ? 'LESIONADO' : 'SALUDABLE'}
+                  </span>
                 </div>
               </div>
 
-              <div style={{ fontSize: '15px', lineHeight: '2', fontWeight: 700 }}>
-                <p style={{ margin: 0 }}><strong>Objetivo:</strong> {usuario.objetivo || '-'}</p>
-                <p style={{ margin: 0 }}><strong>Nivel de entrenamiento:</strong> {usuario.nivel || '-'}</p>
-                <p style={{ margin: 0 }}><strong>Entrena en:</strong> {usuario.lugar || '-'}</p>
-                <p style={{ margin: 0 }}><strong>Días disponibles:</strong> {usuario.diasPorSemana}</p>
-                <p style={{ margin: 0 }}><strong>Horas disponibles:</strong> {usuario.tiempoDisponible}</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '20px', fontWeight: 600, color: '#FFF' }}>
+                <p style={{ margin: 0 }}>Objetivo: <span style={{ fontWeight: 500 }}>{objetivo}</span></p>
+                <p style={{ margin: 0 }}>Alimentación: <span style={{ fontWeight: 500 }}>{datosFormulario.alimentacion}</span></p>
+                <p style={{ margin: 0 }}>Nivel de entrenamiento: <span style={{ fontWeight: 500 }}>{getNivelTexto(nivel)}</span></p>
+                <p style={{ margin: 0 }}>Entrena en: <span style={{ fontWeight: 500 }}>{lugar}</span></p>
+                <p style={{ margin: 0 }}>Días disponibles: <span style={{ fontWeight: 500 }}>{dias}</span></p>
+                <p style={{ margin: 0 }}>Horas disponibles: <span style={{ fontWeight: 500 }}>{horas}</span></p>
               </div>
             </div>
 
-            <button 
-              onClick={guardarCambios}
-              style={{ 
-                marginTop: '20px', 
-                padding: '12px', 
-                backgroundColor: '#00E676', 
-                border: 'none', 
-                color: '#000', 
-                borderRadius: '18px', 
-                fontSize: '16px', 
-                fontWeight: 800, 
-                cursor: 'pointer' 
-              }}
-            >
-              Guardar datos
-            </button>
+            <div style={{ marginTop: '28px' }}>
+              <button 
+                onClick={guardarCambios}
+                style={{
+                  border: '1.5px solid #00E676',
+                  backgroundColor: 'transparent',
+                  color: '#00E676',
+                  borderRadius: '24px',
+                  padding: '12px 24px',
+                  fontSize: '18px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                Guardar datos
+              </button>
+            </div>
           </div>
 
-          {/* TARJETA DERECHA */}
-          <div style={{ 
-            flex: 1, 
-            backgroundColor: 'rgba(25, 33, 46, 0.85)', 
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            borderRadius: '24px', 
-            padding: '24px', 
-            boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+          {/* COLUMNA DERECHA: Modificar Datos (Controlada por el Lápiz) */}
+          <div style={{
+            backgroundColor: '#2E343E',
+            borderRadius: '45px',
+            padding: '32px 36px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+            opacity: modoEdicion ? 1 : 0.85,
+            transition: 'opacity 0.2s ease'
           }}>
-            <h2 style={{ margin: '0 0 14px 0', fontSize: '24px', fontWeight: 800 }}>Modificar datos ✏️</h2>
-
-            {/* PESO Y ALTURA */}
-            <div style={{ display: 'flex', gap: '12px', marginBottom: '14px' }}>
-              <div style={{ flex: 1 }}>
-                <label style={{ fontSize: '13px', fontWeight: 700, display: 'block', marginBottom: '4px' }}>Peso (kg)</label>
-                <input 
-                  type="number" 
-                  value={usuario.peso || ''} 
-                  onChange={(e) => handleChange('peso', e.target.value)} 
-                  style={styleInput} 
-                />
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '20px' }}>
+                <h2 style={{ fontSize: '34px', fontWeight: 700, margin: 0, color: '#FFF' }}>
+                  Modificar datos
+                </h2>
+                {/* Lápiz con toggle para habilitar/deshabilitar controles */}
+                <div
+                  onClick={() => setModoEdicion(!modoEdicion)}
+                  style={{
+                    cursor: 'pointer',
+                    padding: '6px',
+                    borderRadius: '50%',
+                    backgroundColor: modoEdicion ? 'rgba(0, 230, 118, 0.25)' : 'transparent',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  <FaPencilAlt size={24} color="#00E676" />
+                </div>
               </div>
 
-              <div style={{ flex: 1 }}>
-                <label style={{ fontSize: '13px', fontWeight: 700, display: 'block', marginBottom: '4px' }}>Altura (cm)</label>
-                <input 
-                  type="number" 
-                  value={usuario.altura || ''} 
-                  onChange={(e) => handleChange('altura', e.target.value)} 
-                  style={styleInput} 
-                />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                    <label style={{ fontSize: '16px', fontWeight: 600, color: '#FFF' }}>Horas diarias disponibles</label>
+                    <span style={{ backgroundColor: '#00E676', color: '#000', padding: '2px 10px', borderRadius: '12px', fontSize: '13px', fontWeight: 800 }}>
+                      {horas}
+                    </span>
+                  </div>
+                  <input 
+                    type="range" 
+                    min="1" 
+                    max="24" 
+                    value={horas} 
+                    disabled={!modoEdicion}
+                    onChange={(e) => setHoras(Number(e.target.value))}
+                    style={{ 
+                      width: '100%', 
+                      accentColor: '#00E676', 
+                      cursor: modoEdicion ? 'pointer' : 'not-allowed' 
+                    }} 
+                  />
+                </div>
+
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                    <label style={{ fontSize: '16px', fontWeight: 600, color: '#FFF' }}>Días disponibles (por semana)</label>
+                    <span style={{ backgroundColor: '#00E676', color: '#000', padding: '2px 10px', borderRadius: '12px', fontSize: '13px', fontWeight: 800 }}>
+                      {dias}
+                    </span>
+                  </div>
+                  <input 
+                    type="range" 
+                    min="1" 
+                    max="7" 
+                    value={dias} 
+                    disabled={!modoEdicion}
+                    onChange={(e) => setDias(Number(e.target.value))}
+                    style={{ 
+                      width: '100%', 
+                      accentColor: '#00E676', 
+                      cursor: modoEdicion ? 'pointer' : 'not-allowed' 
+                    }} 
+                  />
+                </div>
+
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                    <label style={{ fontSize: '16px', fontWeight: 600, color: '#FFF' }}>Nivel de entrenamiento</label>
+                    <span style={{ backgroundColor: '#00E676', color: '#000', padding: '2px 12px', borderRadius: '12px', fontSize: '13px', fontWeight: 800 }}>
+                      {getNivelTexto(nivel)}
+                    </span>
+                  </div>
+                  <input 
+                    type="range" 
+                    min="1" 
+                    max="3" 
+                    value={nivel} 
+                    disabled={!modoEdicion}
+                    onChange={(e) => setNivel(Number(e.target.value))}
+                    style={{ 
+                      width: '100%', 
+                      accentColor: '#00E676', 
+                      cursor: modoEdicion ? 'pointer' : 'not-allowed' 
+                    }} 
+                  />
+                </div>
               </div>
-            </div>
 
-            {/* HORAS DISPONIBLES */}
-            <div style={{ marginBottom: '14px' }}>
-              <label style={{ fontSize: '13px', fontWeight: 700, display: 'block', marginBottom: '6px' }}>
-                Horas diarias disponibles <span style={{ backgroundColor: '#00E676', color: '#000', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold' }}>{usuario.tiempoDisponible}</span>
-              </label>
-              <input 
-                type="range" 
-                min="1" 
-                max="4" 
-                value={usuario.tiempoDisponible || 1} 
-                onChange={(e) => handleChange('tiempoDisponible', Number(e.target.value))}
-                style={{ width: '100%', accentColor: '#00E676' }}
-              />
-            </div>
-
-            {/* DÍAS DISPONIBLES */}
-            <div style={{ marginBottom: '14px' }}>
-              <label style={{ fontSize: '13px', fontWeight: 700, display: 'block', marginBottom: '6px' }}>
-                Días a entrenar <span style={{ backgroundColor: '#00E676', color: '#000', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold' }}>{usuario.diasPorSemana}</span>
-              </label>
-              <input 
-                type="range" 
-                min="1" 
-                max="7" 
-                value={usuario.diasPorSemana || 1} 
-                onChange={(e) => handleChange('diasPorSemana', Number(e.target.value))}
-                style={{ width: '100%', accentColor: '#00E676' }}
-              />
-            </div>
-
-            {/* NIVEL */}
-            <div style={{ marginBottom: '14px' }}>
-              <label style={{ fontSize: '13px', fontWeight: 700, display: 'block', marginBottom: '6px' }}>
-                Nivel de entrenamiento <span style={{ backgroundColor: '#00E676', color: '#000', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold' }}>{usuario.nivel || 'principiante'}</span>
-              </label>
-              <input 
-                type="range" 
-                min="1" 
-                max="3" 
-                step="1"
-                value={NIVELES.indexOf(usuario.nivel) !== -1 ? NIVELES.indexOf(usuario.nivel) + 1 : 1} 
-                onChange={(e) => {
-                  handleChange('nivel', NIVELES[Number(e.target.value) - 1]);
-                }}
-                style={{ width: '100%', accentColor: '#00E676' }}
-              />
-            </div>
-
-            {/* LUGAR */}
-            <div style={{ marginBottom: '14px' }}>
-              <p style={{ margin: '0 0 6px 0', fontSize: '13px', fontWeight: 700 }}>¿Dónde entrenás?</p>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                {LUGARES.map((lugarItem) => (
-                  <button
-                    type="button"
-                    key={lugarItem}
-                    onClick={() => handleChange('lugar', lugarItem)}
+              <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                <p style={{ fontSize: '16px', fontWeight: 600, color: '#FFF', margin: '0 0 10px 0' }}>¿Dónde entrenás?</p>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '14px' }}>
+                  <div 
+                    onClick={() => modoEdicion && setLugar('Gym')}
                     style={{
-                      flex: 1,
-                      padding: '8px',
-                      borderRadius: '12px',
-                      border: 'none',
-                      backgroundColor: usuario.lugar === lugarItem ? '#00E676' : 'rgba(255, 255, 255, 0.1)',
-                      color: usuario.lugar === lugarItem ? '#000' : '#fff',
-                      fontWeight: 800,
-                      fontSize: '13px',
-                      cursor: 'pointer',
-                      textTransform: 'capitalize'
+                      border: lugar === 'Gym' ? '1.5px solid #00E676' : '1px solid rgba(255, 255, 255, 0.4)',
+                      borderRadius: '16px',
+                      padding: '10px 18px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: '4px',
+                      cursor: modoEdicion ? 'pointer' : 'not-allowed',
+                      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                      width: '75px'
                     }}
                   >
-                    {lugarItem}
-                  </button>
-                ))}
+                    <FaDumbbell size={22} color={lugar === 'Gym' ? '#00E676' : '#FFF'} />
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: lugar === 'Gym' ? '#00E676' : '#FFF' }}>Gym</span>
+                  </div>
+
+                  <div 
+                    onClick={() => modoEdicion && setLugar('Casa')}
+                    style={{
+                      border: lugar === 'Casa' ? '1.5px solid #00E676' : '1px solid rgba(255, 255, 255, 0.4)',
+                      borderRadius: '16px',
+                      padding: '10px 18px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: '4px',
+                      cursor: modoEdicion ? 'pointer' : 'not-allowed',
+                      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                      width: '75px'
+                    }}
+                  >
+                    <BiHomeAlt size={24} color={lugar === 'Casa' ? '#00E676' : '#FFF'} />
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: lugar === 'Casa' ? '#00E676' : '#FFF' }}>Casa</span>
+                  </div>
+
+                  <div 
+                    onClick={() => modoEdicion && setLugar('Exterior')}
+                    style={{
+                      border: lugar === 'Exterior' ? '1.5px solid #00E676' : '1px solid rgba(255, 255, 255, 0.4)',
+                      borderRadius: '16px',
+                      padding: '10px 18px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: '4px',
+                      cursor: modoEdicion ? 'pointer' : 'not-allowed',
+                      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                      width: '75px'
+                    }}
+                  >
+                    <FaTree size={22} color={lugar === 'Exterior' ? '#00E676' : '#FFF'} />
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: lugar === 'Exterior' ? '#00E676' : '#FFF' }}>Exterior</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ marginTop: '18px', display: 'flex', justifyContent: 'center' }}>
+                <select 
+                  value={objetivo}
+                  disabled={!modoEdicion}
+                  onChange={(e) => setObjetivo(e.target.value)}
+                  style={{
+                    backgroundColor: '#1E232B',
+                    color: '#FFF',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '14px',
+                    padding: '10px 18px',
+                    fontSize: '15px',
+                    fontWeight: 700,
+                    width: '80%',
+                    cursor: modoEdicion ? 'pointer' : 'not-allowed'
+                  }}
+                >
+                  <option value="Ganar fuerza">Objetivo: Ganar fuerza</option>
+                  <option value="Perder peso">Objetivo: Perder peso</option>
+                  <option value="Ganar masa muscular">Objetivo: Ganar masa muscular</option>
+                  <option value="Mantenerse en forma">Objetivo: Mantenerse en forma</option>
+                </select>
               </div>
             </div>
 
-            {/* OBJETIVO */}
-            <div>
-              <label style={{ fontSize: '13px', fontWeight: 700, display: 'block', marginBottom: '4px' }}>Objetivo</label>
-              <select 
-                value={usuario.objetivo} 
-                onChange={(e) => handleChange('objetivo', e.target.value)}
-                style={styleInput}
+            <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+              <div 
+                onClick={() => modoEdicion && setTerminoLesion(!terminoLesion)}
+                style={{
+                  backgroundColor: '#1E232B',
+                  borderRadius: '12px',
+                  padding: '8px 18px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  cursor: modoEdicion ? 'pointer' : 'not-allowed'
+                }}
               >
-                <option value="" style={{ color: '#000' }}>Seleccionar objetivo</option>
-                {OBJETIVOS.map((o) => (
-                  <option key={o} value={o} style={{ color: '#000' }}>
-                    {o}
-                  </option>
-                ))}
-              </select>
+                <span style={{ fontSize: '14px', fontWeight: 600, color: '#FFF' }}>¿Terminó tu lesión?</span>
+                <div style={{
+                  width: '20px',
+                  height: '20px',
+                  borderRadius: '4px',
+                  backgroundColor: terminoLesion ? '#00E676' : 'transparent',
+                  border: terminoLesion ? 'none' : '2px solid #FFF',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  {terminoLesion && <span style={{ color: '#000', fontSize: '12px', fontWeight: 900 }}>✓</span>}
+                </div>
+              </div>
             </div>
 
           </div>
@@ -404,19 +501,6 @@ export const PerfilUsuario = () => {
       </main>
     </div>
   );
-};
-
-const styleInput: React.CSSProperties = {
-  width: '100%', 
-  padding: '10px', 
-  borderRadius: '12px', 
-  backgroundColor: 'rgba(255, 255, 255, 0.1)', 
-  color: '#fff', 
-  border: '1px solid rgba(255, 255, 255, 0.2)', 
-  fontSize: '13px',
-  fontWeight: 700,
-  outline: 'none',
-  boxSizing: 'border-box'
 };
 
 export default PerfilUsuario;

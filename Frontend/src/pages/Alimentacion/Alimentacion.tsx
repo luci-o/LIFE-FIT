@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { peticionApi } from "../../services/api";
 import logoBg from "../../assets/Group 75.png";
 
+// Importación de íconos
 import { GoHome } from "react-icons/go";
 import { FaDumbbell } from "react-icons/fa";
 import { IoChatboxOutline } from "react-icons/io5";
@@ -10,6 +11,8 @@ import { MdTimelapse } from "react-icons/md";
 import { LuSalad } from "react-icons/lu";
 import { HiMiniUserCircle } from "react-icons/hi2";
 import { BiCoffeeTogo } from "react-icons/bi";
+import { IoCalendarOutline } from "react-icons/io5";
+import { MdOutlineLunchDining, MdOutlineCookie, MdOutlineLocalPizza } from "react-icons/md";
 
 interface PlanComidas {
   desayuno: string[];
@@ -21,11 +24,23 @@ interface PlanComidas {
 export const Alimentacion: React.FC = () => {
   const navigate = useNavigate();
 
+  // Fecha dinámicamente sincronizada con el día actual
+  const obtenerFechaActual = () => {
+    const hoy = new Date();
+    const opciones: Intl.DateTimeFormatOptions = { 
+      weekday: 'long', 
+      day: 'numeric', 
+      month: 'long' 
+    };
+    const fechaFormateada = hoy.toLocaleDateString('es-ES', opciones);
+    return fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
+  };
+
   const [comidas, setComidas] = useState<PlanComidas>({
-    desayuno: ["Café expresso", "Huevos revueltos", "Frutos secos", "Agua"],
-    almuerzo: ["Limonada con menta", "Salmón a la plancha", "Papas hervidas", "Ensalada de frutas"],
-    merienda: ["Licuado de banana", "Tostadas integrales", "Sandía"],
-    cena: ["Bife de chorizo", "Ensalada mixta", "Agua", "Banana"],
+    desayuno: ["Café espresso", "Huevos revueltos", "Frutos secos", "Agua"],
+    almuerzo: ["Limonada", "Salmón a la plancha", "Papas hervidas", "Ensalada de frutas"],
+    merienda: ["Licuado de banana", "Tostadas de pan integral", "Sandía", "Manzana"],
+    cena: ["Bife de chorizo", "Rúcula y parmesano", "Agua", "Banana"],
   });
 
   const [completados, setCompletados] = useState<{ [key: string]: boolean }>({
@@ -42,7 +57,6 @@ export const Alimentacion: React.FC = () => {
       try {
         const idPerfil = localStorage.getItem("idPerfil");
         if (idPerfil) {
-          // URL corregida según indicación de Chhoue (/perfil/)
           const respuesta = await peticionApi(`/perfil/${idPerfil}/nutricion`);
           if (respuesta && respuesta.dieta) {
             setComidas(respuesta.dieta);
@@ -65,6 +79,20 @@ export const Alimentacion: React.FC = () => {
     }));
   };
 
+  // Mapeo de íconos por comida
+  const obtenerIconoComida = (seccion: keyof PlanComidas) => {
+    switch (seccion) {
+      case 'desayuno':
+        return <BiCoffeeTogo size={28} color="#00E676" />;
+      case 'almuerzo':
+        return <MdOutlineLunchDining size={28} color="#00E676" />;
+      case 'merienda':
+        return <MdOutlineCookie size={28} color="#00E676" />;
+      case 'cena':
+        return <MdOutlineLocalPizza size={28} color="#00E676" />;
+    }
+  };
+
   return (
     <div style={{
       backgroundColor: '#090d16',
@@ -73,98 +101,132 @@ export const Alimentacion: React.FC = () => {
       flexDirection: 'column',
       color: '#ffffff',
       fontFamily: '"Plus Jakarta Sans", sans-serif',
+      boxSizing: 'border-box',
       overflow: 'hidden'
     }}>
       <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
 
-      {/* Header unificado */}
+      {/* Header Superior Completo */}
       <header style={{
-        padding: '0px 24px',
-        display: 'grid',
-        gridTemplateColumns: '1fr auto 1fr',
-        alignItems: 'center',
-        backgroundColor: 'rgba(42, 52, 71, 0.60)',
-        backdropFilter: 'blur(10px)',
-        height: '65px',
-        zIndex: 10
+        padding: '0',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#090d16',
+        zIndex: 10,
+        flexShrink: 0
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <img src={logoBg} alt="Life Fit Logo" style={{ width: '42px', height: 'auto' }} />
-          <h1 style={{
-            color: '#FFF',
-            fontFamily: '"Plus Jakarta Sans", sans-serif',
-            fontSize: '52px',
-            fontWeight: 800,
-            lineHeight: '1',
-            letterSpacing: '-1px',
-            margin: 0
-          }}>
-            Life Fit
-          </h1>
-        </div>
-
-        {/* Navbar Flotante */}
-        <nav style={{
+        {/* FRANJA GRIS SUPERIOR */}
+        <div style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.04)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+          padding: '10px 36px',
           display: 'flex',
           alignItems: 'center',
-          gap: '16px',
-          backgroundColor: 'rgba(255, 255, 255, 0.08)',
-          padding: '6px 18px',
-          borderRadius: '30px',
-          border: '1px solid rgba(255, 255, 255, 0.12)'
+          justifyContent: 'space-between',
+          position: 'relative',
+          width: '100%',
+          boxSizing: 'border-box'
         }}>
-          <button onClick={() => navigate('/dashboard')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            <GoHome size={22} />
-          </button>
-          <button onClick={() => navigate('/rutinas')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            <FaDumbbell size={20} />
-          </button>
-          <button onClick={() => navigate('/chat')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            <IoChatboxOutline size={22} />
-          </button>
-          <button onClick={() => navigate('/progreso')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            <MdTimelapse size={22} />
-          </button>
-          {/* Alimentación -> Activo */}
-          <button 
-            onClick={() => navigate('/alimentacion')} 
-            style={{ 
-              backgroundColor: 'rgba(0, 230, 118, 0.25)', 
-              border: 'none', 
-              borderRadius: '50%', 
-              width: '32px', 
-              height: '32px', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              cursor: 'pointer', 
-              color: '#00E676' 
-            }}
-          >
-            <LuSalad size={22} />
-          </button>
-          <button onClick={() => navigate('/perfil')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-            <HiMiniUserCircle size={24} />
-          </button>
-        </nav>
+          {/* Logo "Life Fit" - LOGO AGRANDADO A 48px */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src={logoBg} alt="Life Fit Logo" style={{ width: '48px', height: 'auto' }} />
+            <h1 style={{
+              color: '#FFF',
+              fontFamily: '"Plus Jakarta Sans", sans-serif',
+              fontSize: '42px',
+              fontWeight: 800,
+              lineHeight: '1',
+              letterSpacing: '-1px',
+              margin: 0
+            }}>
+              Life Fit
+            </h1>
+          </div>
 
-        <div />
+          {/* Navbar Flotante Centrado Absoluto */}
+          <nav style={{
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+            padding: '6px 18px',
+            borderRadius: '30px',
+            border: '1px solid rgba(255, 255, 255, 0.12)'
+          }}>
+            <button onClick={() => navigate('/dashboard')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <GoHome size={22} />
+            </button>
+            <button onClick={() => navigate('/rutinas')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <FaDumbbell size={20} />
+            </button>
+            <button onClick={() => navigate('/chat')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <IoChatboxOutline size={22} />
+            </button>
+            <button onClick={() => navigate('/progreso')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <MdTimelapse size={22} />
+            </button>
+            {/* Alimentación -> Activo */}
+            <button 
+              onClick={() => navigate('/alimentacion')} 
+              style={{ 
+                backgroundColor: 'rgba(0, 230, 118, 0.25)', 
+                border: 'none', 
+                borderRadius: '50%', 
+                width: '32px', 
+                height: '32px', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                cursor: 'pointer', 
+                color: '#00E676' 
+              }}
+            >
+              <LuSalad size={22} />
+            </button>
+            <button onClick={() => navigate('/perfil')} style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <HiMiniUserCircle size={24} />
+            </button>
+          </nav>
+        </div>
+
+        {/* Título y Fecha Dinámica */}
+        <div style={{ padding: '6px 36px 8px 36px' }}>
+          <h2 style={{
+            fontSize: '44px',
+            fontWeight: 800,
+            margin: 0,
+            color: '#FFFFFF',
+            letterSpacing: '-1.5px'
+          }}>
+            Comidas de hoy
+          </h2>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
+            <IoCalendarOutline size={18} color="#00E676" />
+            <span style={{ fontSize: '18px', fontWeight: 700, color: '#A1A8BD' }}>
+              {obtenerFechaActual()}
+            </span>
+          </div>
+        </div>
       </header>
 
-      {/* Título Superior */}
-      <div style={{ padding: '12px 0 2px 24px', zIndex: 10 }}>
-        <h2 style={{ fontSize: '44px', fontWeight: 800, margin: 0, color: '#FFFFFF', letterSpacing: '-1px' }}>
-          Comidas de hoy
-        </h2>
-      </div>
-
-      <div style={{ width: '100%', height: '1px', backgroundColor: '#2E3648', zIndex: 10 }} />
+      {/* Línea Separadora Gris Exacta (#2E3648) */}
+      <div style={{
+        width: '100%',
+        height: '6px',
+        backgroundColor: '#2E3648',
+        zIndex: 10,
+        flexShrink: 0
+      }} />
 
       {/* Contenido Principal */}
       <main style={{
         flex: 1,
-        padding: '20px 40px',
-        maxWidth: '1280px',
+        padding: '24px 36px',
+        maxWidth: '1440px',
         margin: '0 auto',
         width: '100%',
         boxSizing: 'border-box',
@@ -178,38 +240,48 @@ export const Alimentacion: React.FC = () => {
           <div style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "20px",
+            gap: "28px",
             alignItems: "stretch"
           }}>
             {(['desayuno', 'almuerzo', 'merienda', 'cena'] as (keyof PlanComidas)[]).map((seccion) => (
               <div 
                 key={seccion}
                 style={{
-                  backgroundColor: 'rgba(25, 33, 46, 0.7)',
+                  backgroundColor: '#121824',
                   border: '1.5px solid #00E676',
-                  borderRadius: '28px',
-                  padding: '20px 16px',
+                  borderRadius: '65px',
+                  padding: '32px 20px',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+                  boxShadow: '0 0 15px rgba(0, 230, 118, 0.12)'
                 }}
               >
-                <h3 style={{ fontSize: '22px', fontWeight: 800, color: '#FFF', margin: '0 0 4px 0', textTransform: 'capitalize' }}>
-                  {seccion}
-                </h3>
+                {/* Cabecera de la Card */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+                  <h3 style={{
+                    fontSize: '28px',
+                    fontWeight: 800,
+                    color: '#FFF',
+                    margin: 0,
+                    textTransform: 'capitalize'
+                  }}>
+                    {seccion}
+                  </h3>
+                  {obtenerIconoComida(seccion)}
+                </div>
 
-                <BiCoffeeTogo size={26} color="#00E676" style={{ marginBottom: '12px' }} />
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', marginBottom: '16px', flex: 1 }}>
+                {/* Ítems de Comida */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', marginBottom: '24px', flex: 1, justifyContent: 'center' }}>
                   {comidas[seccion].map((item, idx) => (
                     <div key={idx} style={{
-                      backgroundColor: 'rgba(18, 24, 36, 0.9)',
-                      border: '1px solid rgba(255, 255, 255, 0.3)',
-                      borderRadius: '14px',
-                      padding: '8px 10px',
+                      backgroundColor: '#0B0F17',
+                      border: '1px solid rgba(255, 255, 255, 0.15)',
+                      borderRadius: '16px',
+                      padding: '12px 8px',
                       textAlign: 'center',
-                      fontSize: '13px',
+                      fontSize: '14px',
                       fontWeight: 700,
                       color: '#FFF'
                     }}>
@@ -218,15 +290,16 @@ export const Alimentacion: React.FC = () => {
                   ))}
                 </div>
 
+                {/* Botón Listo */}
                 <button
                   onClick={() => marcarComoListo(seccion)}
                   style={{
-                    width: '80%',
-                    padding: '8px',
-                    borderRadius: '12px',
-                    border: '1px solid #00E676',
-                    backgroundColor: completados[seccion] ? '#00E676' : 'rgba(255, 255, 255, 0.15)',
-                    color: completados[seccion] ? '#000' : '#FFF',
+                    width: '65%',
+                    padding: '10px',
+                    borderRadius: '20px',
+                    border: completados[seccion] ? 'none' : '1px solid rgba(255, 255, 255, 0.3)',
+                    backgroundColor: completados[seccion] ? '#00E676' : '#B2C0D4',
+                    color: completados[seccion] ? '#000' : '#111',
                     fontFamily: '"Plus Jakarta Sans", sans-serif',
                     fontSize: '15px',
                     fontWeight: 800,
@@ -234,7 +307,7 @@ export const Alimentacion: React.FC = () => {
                     transition: 'all 0.2s ease'
                   }}
                 >
-                  {completados[seccion] ? '✓ Listo' : 'Listo'}
+                  Listo
                 </button>
               </div>
             ))}
