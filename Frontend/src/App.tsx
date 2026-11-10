@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 
 import Bienvenida from "./pages/Bienvenida/Bienvenida.tsx";
 import InicioSesion from "./pages/InicioSesion/InicioSesion.tsx";
@@ -13,26 +14,37 @@ import Chat from "./pages/Chat/Chat.tsx";
 import PerfilUsuario from "./pages/PerfilUsuario/PerfilUsuario.tsx";
 import Actualizacion from "./pages/Actualizacion/Actualizacion.tsx";
 
+function RutaProtegida() {
+  const token = localStorage.getItem("token");
+  const idPerfil = localStorage.getItem("idPerfil");
+
+  if (!token || !idPerfil) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Outlet />;
+}
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-      
-        <Route path="/" element={<PaginaPrincipal />} />
-        
+        <Route path="/" element={<Bienvenida />} />
         <Route path="/bienvenida" element={<Bienvenida />} />
         <Route path="/login" element={<InicioSesion />} />
         <Route path="/registro" element={<Registrarse />} />
-        <Route path="/formulario" element={<Formulario />} />
 
-        <Route path="/dashboard" element={<PaginaPrincipal />} />
-        <Route path="/rutinas" element={<Rutinas />} />
-        <Route path="/alimentacion" element={<Alimentacion />} />
-        <Route path="/progreso" element={<Progreso />} />
-        <Route path="/logros" element={<Logros />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/perfil" element={<PerfilUsuario />} />
-        <Route path="/actualizacion-semanal" element={<Actualizacion />} />
+        <Route element={<RutaProtegida />}>
+          <Route path="/formulario" element={<Formulario />} />
+          <Route path="/dashboard" element={<PaginaPrincipal />} />
+          <Route path="/rutinas" element={<Rutinas />} />
+          <Route path="/alimentacion" element={<Alimentacion />} />
+          <Route path="/progreso" element={<Progreso />} />
+          <Route path="/logros" element={<Logros />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/perfil" element={<PerfilUsuario />} />
+          <Route path="/actualizacion-semanal" element={<Actualizacion />} />
+        </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

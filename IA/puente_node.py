@@ -4,6 +4,7 @@
 import contextlib
 import json
 import sys
+import math
 
 
 def responder(solicitud):
@@ -94,7 +95,14 @@ def responder(solicitud):
                 "ok": False,
                 "error": str(error)
             }
-
+def limpiar_json(valor):
+    if isinstance(valor, dict):
+        return {k: limpiar_json(v) for k, v in valor.items()}
+    if isinstance(valor, (list, tuple)):
+        return [limpiar_json(v) for v in valor]
+    if isinstance(valor, float) and not math.isfinite(valor):
+        return None
+    return valor
 
 def main():
     try:
@@ -122,7 +130,7 @@ def main():
         }
 
     print(json.dumps(
-        resultado,
+        limpiar_json(resultado),
         ensure_ascii=True,
         allow_nan=False
     ))

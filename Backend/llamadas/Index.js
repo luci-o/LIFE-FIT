@@ -39,6 +39,12 @@ app.post("/perfil/:id/nutricion", verificarToken, verificarUsuario, Nutricion.gu
 app.get("/perfil/:id/comidas", verificarToken, verificarUsuario, comidas.verComidas);
 app.post("/perfil/:id/comidas", verificarToken, verificarUsuario, comidas.crearComida);
 app.put("/perfil/:id/comidas/:idComida/realizada", verificarToken, verificarUsuario, comidas.marcarComidaRealizada);
+app.put(
+  "/perfil/:id/comidas/hoy",
+  verificarToken,
+  verificarUsuario,
+  comidas.registrarComidaDelDia
+);
 app.get("/perfil/:id/conversacion", verificarToken, verificarUsuario, chat.listarConversaciones);
 app.post("/perfil/:id/conversacion", verificarToken, verificarUsuario, chat.crearConversacion);
 app.delete("/perfil/:id/conversacion/:idConv", verificarToken, verificarUsuario, chat.borrarConversacion);

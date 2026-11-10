@@ -37,50 +37,6 @@ const ICONOS: Record<string, IconType> = {
   cardio: FaRunning,
   running: FaRunning,
 };
-
-const DATOS_DEFAULT: Categoria[] = [
-  {
-    id: "pesas",
-    nombre: "Pesas",
-    Icono: FaDumbbell,
-    ejercicios: [
-      { id: 101, nombre: "Sentadillas", series: "3", repeticiones: "10", completado: true },
-      { id: 102, nombre: "Vuelo laterales", series: "3", repeticiones: "10", completado: false },
-      { id: 103, nombre: "Levantamiento", series: "3", repeticiones: "10", completado: false },
-    ],
-  },
-  {
-    id: "piernas",
-    nombre: "Piernas",
-    Icono: GiLeg,
-    ejercicios: [
-      { id: 104, nombre: "Sentadillas", series: "3", repeticiones: "10", completado: false },
-      { id: 105, nombre: "Vuelo laterales", series: "3", repeticiones: "10", completado: false },
-      { id: 106, nombre: "Levantamiento", series: "3", repeticiones: "10", completado: false },
-    ],
-  },
-  {
-    id: "cuerpo",
-    nombre: "Cuerpo",
-    Icono: MdOutlineAccessibility,
-    ejercicios: [
-      { id: 107, nombre: "Abdominales", series: "3", repeticiones: "10", completado: false },
-      { id: 108, nombre: "Lagartijas", series: "3", repeticiones: "10", completado: false },
-      { id: 109, nombre: "Flexiones", series: "3", repeticiones: "10", completado: false },
-    ],
-  },
-  {
-    id: "running",
-    nombre: "Running",
-    Icono: FaRunning,
-    ejercicios: [
-      { id: 110, nombre: "Caminata", series: "-", repeticiones: "10Km", completado: false },
-      { id: 111, nombre: "Trote", series: "-", repeticiones: "10Km", completado: false },
-      { id: 112, nombre: "Running", series: "-", repeticiones: "10Km", completado: false },
-    ],
-  },
-];
-
 export function Rutinas() {
   const navigate = useNavigate();
   const [categorias, setCategorias] = useState<Categoria[]>([]);
@@ -90,16 +46,12 @@ export function Rutinas() {
     const cargar = async () => {
       const idPerfil = localStorage.getItem("idPerfil");
       if (!idPerfil) {
-        setCategorias(DATOS_DEFAULT);
+        setCategorias([]);
         setCargando(false);
         return;
       }
-
-      const hoy = new Date();
-      const fecha = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, "0")}-${String(hoy.getDate()).padStart(2, "0")}`;
-
       try {
-        const datos: any[] = await peticionApi(`/perfil/${idPerfil}/rutina?fecha=${fecha}`);
+        const datos: any[] = await peticionApi(`/perfil/${idPerfil}/rutina`);
 
         if (Array.isArray(datos) && datos.length > 0) {
           const porGrupo = new Map<string, Ejercicio[]>();
@@ -125,11 +77,11 @@ export function Rutinas() {
             }))
           );
         } else {
-          setCategorias(DATOS_DEFAULT);
+          setCategorias([]);
         }
       } catch (error) {
         console.error("Error al cargar rutina:", error);
-        setCategorias(DATOS_DEFAULT);
+        setCategorias([]);
       } finally {
         setCargando(false);
       }

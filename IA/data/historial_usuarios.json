@@ -18736,5 +18736,1808 @@
             }
         ],
         "sesiones": []
+    },
+    "33": {
+        "rutinas": [
+            {
+                "fecha": "2026-11-10T18:33:35.741605",
+                "rutina": {
+                    "1": [
+                        {
+                            "ejercicio": "shadow boxing",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/shadow_boxing.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "elevacion de talones de pie",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/elevacion_de_talones_de_pie.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "elevaciones de rodillas",
+                            "grupo_muscular": "core",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "core",
+                            "imagen": "images/elevaciones_de_rodillas.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "marcha en el lugar",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/marcha_en_el_lugar.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "zancadas hacia atras",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/zancadas_hacia_atras.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "crunch abdominal",
+                            "grupo_muscular": "core",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/crunch_abdominal.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "subir y bajar escalon",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/subir_y_bajar_escalon.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "puente de gluteos",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "gluteos",
+                            "imagen": "images/puente_gluteos.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "bird dog",
+                            "grupo_muscular": "core",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/bird_dog.png",
+                            "restricciones": [
+                                "Espalda",
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "mountain climbers controlados",
+                            "grupo_muscular": "core",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/mountain_climbers_controlados.png",
+                            "restricciones": [
+                                "Espalda",
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "dead bug",
+                            "grupo_muscular": "core",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/dead_bug.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        }
+                    ],
+                    "2": [
+                        {
+                            "ejercicio": "marcha en el lugar",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/marcha_en_el_lugar.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "flexiones de pared",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones_de_pared.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "remo con banda",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_banda.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": [
+                                "Sujet? una banda el?stica firmemente anclada frente a vos.",
+                                "Manten? la espalda estable y los hombros relajados.",
+                                "Llev? los codos hacia atr?s, acercando la banda al torso.",
+                                "Volv? lentamente a la posici?n inicial."
+                            ],
+                            "errores_comunes": [
+                                "Usar una banda mal asegurada.",
+                                "Balancear el cuerpo para tirar.",
+                                "Encoger los hombros."
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "subir y bajar escalon",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/subir_y_bajar_escalon.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "flexiones con rodillas apoyadas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones_con_rodillas_apoyadas.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": [
+                                "Apoy? las manos y las rodillas en el piso.",
+                                "Manten? alineados hombros, cadera y rodillas.",
+                                "Flexion? los codos para acercar el pecho al suelo.",
+                                "Empuj? con las manos para volver a subir."
+                            ],
+                            "errores_comunes": [
+                                "Hundirse en la zona lumbar.",
+                                "Abrir demasiado los codos.",
+                                "Hacer el movimiento demasiado r?pido."
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "superman",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/superman.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "shadow boxing",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/shadow_boxing.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "flexiones",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": [
+                                "Apoy? las manos en el piso, algo m?s separadas que los hombros.",
+                                "Manten? el cuerpo alineado desde la cabeza hasta los talones.",
+                                "Flexion? los codos y baj? el pecho de forma controlada.",
+                                "Empuj? con las manos hasta volver a la posici?n inicial."
+                            ],
+                            "errores_comunes": [
+                                "Dejar caer la cadera.",
+                                "Levantar demasiado la cadera.",
+                                "Mover el cuerpo sin control."
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "remo con banda de pie",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_banda_de_pie.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "presion de palmas frente al pecho",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "isometrico",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "15-20 segundos"
+                        },
+                        {
+                            "ejercicio": "remo con banda elastica",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_banda_elastica.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        }
+                    ]
+                },
+                "perfil_entrenamiento": {
+                    "edad": 15,
+                    "peso": 70,
+                    "objetivo": "mejorar resistencia",
+                    "dias": 2,
+                    "tiempo": 120,
+                    "experiencia": "principiante",
+                    "lugar": "hogar",
+                    "zona_lesion": "nada",
+                    "estado_lesion": "ninguna"
+                }
+            }
+        ],
+        "sesiones": [],
+        "menus": [
+            {
+                "fecha": "2026-11-10T18:33:35.931091",
+                "menu": [
+                    {
+                        "dia": 1,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_001",
+                                "comida": "avena con fruta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_006",
+                                "comida": "ensalada con legumbres"
+                            },
+                            "merienda": {
+                                "id": "comida_014",
+                                "comida": "fruta con avena"
+                            },
+                            "cena": {
+                                "id": "comida_057",
+                                "comida": "lentejas con arroz"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 2,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_002",
+                                "comida": "yogur con fruta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_010",
+                                "comida": "arroz con lentejas"
+                            },
+                            "merienda": {
+                                "id": "comida_007",
+                                "comida": "sandwich de pollo"
+                            },
+                            "cena": {
+                                "id": "comida_008",
+                                "comida": "omelette con verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 3,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_003",
+                                "comida": "tostadas con huevo"
+                            },
+                            "almuerzo": {
+                                "id": "comida_004",
+                                "comida": "arroz con pollo"
+                            },
+                            "merienda": {
+                                "id": "comida_009",
+                                "comida": "fruta con yogur"
+                            },
+                            "cena": {
+                                "id": "comida_012",
+                                "comida": "wrap de verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 4,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_013",
+                                "comida": "tostadas con palta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_005",
+                                "comida": "pasta con verduras"
+                            },
+                            "merienda": {
+                                "id": "comida_015",
+                                "comida": "hummus con tostadas"
+                            },
+                            "cena": {
+                                "id": "comida_017",
+                                "comida": "ensalada de arroz y verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 5,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_023",
+                                "comida": "avena con banana"
+                            },
+                            "almuerzo": {
+                                "id": "comida_011",
+                                "comida": "pollo con verduras"
+                            },
+                            "merienda": {
+                                "id": "comida_021",
+                                "comida": "yogur con avena"
+                            },
+                            "cena": {
+                                "id": "comida_019",
+                                "comida": "lentejas con verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 6,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_024",
+                                "comida": "avena con manzana"
+                            },
+                            "almuerzo": {
+                                "id": "comida_016",
+                                "comida": "sandwich de huevo"
+                            },
+                            "merienda": {
+                                "id": "comida_022",
+                                "comida": "fruta con frutos secos"
+                            },
+                            "cena": {
+                                "id": "comida_020",
+                                "comida": "wrap de pollo"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 7,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_025",
+                                "comida": "tostadas con queso untable"
+                            },
+                            "almuerzo": {
+                                "id": "comida_018",
+                                "comida": "pasta con pollo"
+                            },
+                            "merienda": {
+                                "id": "comida_045",
+                                "comida": "fruta con yogur y avena"
+                            },
+                            "cena": {
+                                "id": "comida_032",
+                                "comida": "arroz con huevo"
+                            }
+                        }
+                    }
+                ],
+                "perfil_alimentario": {
+                    "tipo_alimentacion": "general",
+                    "alergias": [],
+                    "intolerancias": [],
+                    "alimentos_evitar": [],
+                    "objetivo": "mejorar resistencia"
+                }
+            }
+        ]
+    },
+    "34": {
+        "rutinas": [
+            {
+                "fecha": "2026-11-10T18:39:18.546831",
+                "rutina": {
+                    "1": [
+                        {
+                            "ejercicio": "flexiones con manos separadas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "remo con banda",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_banda.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": [
+                                "Sujet? una banda el?stica firmemente anclada frente a vos.",
+                                "Manten? la espalda estable y los hombros relajados.",
+                                "Llev? los codos hacia atr?s, acercando la banda al torso.",
+                                "Volv? lentamente a la posici?n inicial."
+                            ],
+                            "errores_comunes": [
+                                "Usar una banda mal asegurada.",
+                                "Balancear el cuerpo para tirar.",
+                                "Encoger los hombros."
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "flexiones diamante",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones_diamante.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "remo con banda de pie",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_banda_de_pie.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "flexiones",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": [
+                                "Apoy? las manos en el piso, algo m?s separadas que los hombros.",
+                                "Manten? el cuerpo alineado desde la cabeza hasta los talones.",
+                                "Flexion? los codos y baj? el pecho de forma controlada.",
+                                "Empuj? con las manos hasta volver a la posici?n inicial."
+                            ],
+                            "errores_comunes": [
+                                "Dejar caer la cadera.",
+                                "Levantar demasiado la cadera.",
+                                "Mover el cuerpo sin control."
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "superman",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/superman.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "2": [
+                        {
+                            "ejercicio": "elevaciones laterales sin peso",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/elevaciones_laterales_sin_peso.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "curl con banda",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_con_banda.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "fondos en banco",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/fondos_en_banco.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "hollow hold",
+                            "grupo_muscular": "core",
+                            "dificultad": "Medio",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/hollow_hold.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "isometrico",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "15-20 segundos"
+                        },
+                        {
+                            "ejercicio": "elevaciones laterales con banda",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/elevaciones_laterales_con_banda.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "curl con banda sentado",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_con_banda_sentado.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ]
+                },
+                "perfil_entrenamiento": {
+                    "edad": 15,
+                    "peso": 80,
+                    "objetivo": "ganar fuerza",
+                    "dias": 2,
+                    "tiempo": 60,
+                    "experiencia": "intermedio",
+                    "lugar": "hogar",
+                    "zona_lesion": "Pierna",
+                    "estado_lesion": "actual"
+                }
+            },
+            {
+                "fecha": "2026-11-10T18:45:27.578101",
+                "rutina": {
+                    "1": [
+                        {
+                            "ejercicio": "flexiones con manos separadas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": null,
+                            "errores_comunes": null,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "remo con banda",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_banda.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": [
+                                "Sujet? una banda el?stica firmemente anclada frente a vos.",
+                                "Manten? la espalda estable y los hombros relajados.",
+                                "Llev? los codos hacia atr?s, acercando la banda al torso.",
+                                "Volv? lentamente a la posici?n inicial."
+                            ],
+                            "errores_comunes": [
+                                "Usar una banda mal asegurada.",
+                                "Balancear el cuerpo para tirar.",
+                                "Encoger los hombros."
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "flexiones diamante",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones_diamante.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": null,
+                            "errores_comunes": null,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "remo con banda de pie",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_banda_de_pie.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": null,
+                            "errores_comunes": null,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "flexiones",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": [
+                                "Apoy? las manos en el piso, algo m?s separadas que los hombros.",
+                                "Manten? el cuerpo alineado desde la cabeza hasta los talones.",
+                                "Flexion? los codos y baj? el pecho de forma controlada.",
+                                "Empuj? con las manos hasta volver a la posici?n inicial."
+                            ],
+                            "errores_comunes": [
+                                "Dejar caer la cadera.",
+                                "Levantar demasiado la cadera.",
+                                "Mover el cuerpo sin control."
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "superman",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/superman.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": null,
+                            "errores_comunes": null,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "2": [
+                        {
+                            "ejercicio": "elevaciones laterales sin peso",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/elevaciones_laterales_sin_peso.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": null,
+                            "errores_comunes": null,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "curl con banda",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_con_banda.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": null,
+                            "errores_comunes": null,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "extension de triceps con banda",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/extension_de_triceps_con_banda.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": null,
+                            "errores_comunes": null,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "hollow hold",
+                            "grupo_muscular": "core",
+                            "dificultad": "Medio",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/hollow_hold.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "isometrico",
+                            "como_hacerlo": null,
+                            "errores_comunes": null,
+                            "series": 3,
+                            "repeticiones": "15-20 segundos"
+                        },
+                        {
+                            "ejercicio": "elevaciones laterales con banda",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/elevaciones_laterales_con_banda.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": null,
+                            "errores_comunes": null,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "curl con banda sentado",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_con_banda_sentado.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": null,
+                            "errores_comunes": null,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ]
+                },
+                "perfil_entrenamiento": {
+                    "edad": 15,
+                    "peso": 80,
+                    "objetivo": "ganar fuerza",
+                    "dias": 2,
+                    "tiempo": 60,
+                    "experiencia": "intermedio",
+                    "lugar": "hogar",
+                    "zona_lesion": "Pierna",
+                    "estado_lesion": "actual"
+                }
+            }
+        ],
+        "sesiones": [],
+        "menus": [
+            {
+                "fecha": "2026-11-10T18:39:18.657776",
+                "menu": [
+                    {
+                        "dia": 1,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_003",
+                                "comida": "tostadas con huevo"
+                            },
+                            "almuerzo": {
+                                "id": "comida_004",
+                                "comida": "arroz con pollo"
+                            },
+                            "merienda": {
+                                "id": "comida_007",
+                                "comida": "sandwich de pollo"
+                            },
+                            "cena": {
+                                "id": "comida_020",
+                                "comida": "wrap de pollo"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 2,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_029",
+                                "comida": "huevo revuelto con tostadas"
+                            },
+                            "almuerzo": {
+                                "id": "comida_018",
+                                "comida": "pasta con pollo"
+                            },
+                            "merienda": {
+                                "id": "comida_048",
+                                "comida": "sandwich de huevo y tomate"
+                            },
+                            "cena": {
+                                "id": "comida_054",
+                                "comida": "pollo con arroz y verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 3,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_063",
+                                "comida": "huevo revuelto con tomate"
+                            },
+                            "almuerzo": {
+                                "id": "comida_035",
+                                "comida": "pasta con atún"
+                            },
+                            "merienda": {
+                                "id": "comida_009",
+                                "comida": "fruta con yogur"
+                            },
+                            "cena": {
+                                "id": "comida_060",
+                                "comida": "pasta con verduras y huevo"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 4,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_001",
+                                "comida": "avena con fruta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_043",
+                                "comida": "wrap de pollo y verduras"
+                            },
+                            "merienda": {
+                                "id": "comida_014",
+                                "comida": "fruta con avena"
+                            },
+                            "cena": {
+                                "id": "comida_077",
+                                "comida": "pollo con verduras y arroz"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 5,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_002",
+                                "comida": "yogur con fruta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_052",
+                                "comida": "pollo con arroz"
+                            },
+                            "merienda": {
+                                "id": "comida_015",
+                                "comida": "hummus con tostadas"
+                            },
+                            "cena": {
+                                "id": "comida_008",
+                                "comida": "omelette con verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 6,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_013",
+                                "comida": "tostadas con palta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_053",
+                                "comida": "pollo con papa"
+                            },
+                            "merienda": {
+                                "id": "comida_021",
+                                "comida": "yogur con avena"
+                            },
+                            "cena": {
+                                "id": "comida_012",
+                                "comida": "wrap de verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 7,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_023",
+                                "comida": "avena con banana"
+                            },
+                            "almuerzo": {
+                                "id": "comida_068",
+                                "comida": "pollo con batata"
+                            },
+                            "merienda": {
+                                "id": "comida_022",
+                                "comida": "fruta con frutos secos"
+                            },
+                            "cena": {
+                                "id": "comida_017",
+                                "comida": "ensalada de arroz y verduras"
+                            }
+                        }
+                    }
+                ],
+                "perfil_alimentario": {
+                    "tipo_alimentacion": "general",
+                    "alergias": [],
+                    "intolerancias": [],
+                    "alimentos_evitar": [],
+                    "objetivo": "ganar fuerza"
+                }
+            }
+        ]
+    },
+    "35": {
+        "rutinas": [
+            {
+                "fecha": "2026-11-10T19:00:57.723702",
+                "rutina": {
+                    "1": [
+                        {
+                            "ejercicio": "subir y bajar escalon",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/subir_y_bajar_escalon.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "puente de gluteos unilateral",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/puente_de_gluteos_unilateral.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "crunch abdominal",
+                            "grupo_muscular": "core",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/crunch_abdominal.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "marcha en el lugar",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/marcha_en_el_lugar.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "zancadas hacia atras",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/zancadas_hacia_atras.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "bird dog",
+                            "grupo_muscular": "core",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/bird_dog.png",
+                            "restricciones": [
+                                "Espalda",
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "shadow boxing",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/shadow_boxing.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "sentadilla a silla",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/sentadilla_a_silla.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": [
+                                "Coloc? una silla firme detr?s tuyo.",
+                                "Separ? los pies aproximadamente al ancho de los hombros.",
+                                "Llev? la cadera hacia atr?s y baj? lentamente hasta tocar la silla.",
+                                "Volv? a pararte empujando el suelo con los pies."
+                            ],
+                            "errores_comunes": [
+                                "Dejarse caer sobre la silla.",
+                                "Usar una silla inestable.",
+                                "Forzar el movimiento si aparece dolor."
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "dead bug",
+                            "grupo_muscular": "core",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/dead_bug.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "mountain climbers controlados",
+                            "grupo_muscular": "core",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "core",
+                            "imagen": "images/mountain_climbers_controlados.png",
+                            "restricciones": [
+                                "Espalda",
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "puente de gluteos",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "gluteos",
+                            "imagen": "images/puente_gluteos.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        }
+                    ],
+                    "2": [
+                        {
+                            "ejercicio": "shadow boxing",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/shadow_boxing.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "flexiones",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": [
+                                "Apoy? las manos en el piso, algo m?s separadas que los hombros.",
+                                "Manten? el cuerpo alineado desde la cabeza hasta los talones.",
+                                "Flexion? los codos y baj? el pecho de forma controlada.",
+                                "Empuj? con las manos hasta volver a la posici?n inicial."
+                            ],
+                            "errores_comunes": [
+                                "Dejar caer la cadera.",
+                                "Levantar demasiado la cadera.",
+                                "Mover el cuerpo sin control."
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "superman",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/superman.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "marcha en el lugar",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/marcha_en_el_lugar.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "presion de palmas frente al pecho",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "isometrico",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "15-20 segundos"
+                        },
+                        {
+                            "ejercicio": "remo con banda de pie",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_banda_de_pie.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "subir y bajar escalon",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/subir_y_bajar_escalon.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "flexiones con rodillas apoyadas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones_con_rodillas_apoyadas.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": [
+                                "Apoy? las manos y las rodillas en el piso.",
+                                "Manten? alineados hombros, cadera y rodillas.",
+                                "Flexion? los codos para acercar el pecho al suelo.",
+                                "Empuj? con las manos para volver a subir."
+                            ],
+                            "errores_comunes": [
+                                "Hundirse en la zona lumbar.",
+                                "Abrir demasiado los codos.",
+                                "Hacer el movimiento demasiado r?pido."
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "remo con banda",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_banda.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": [
+                                "Sujet? una banda el?stica firmemente anclada frente a vos.",
+                                "Manten? la espalda estable y los hombros relajados.",
+                                "Llev? los codos hacia atr?s, acercando la banda al torso.",
+                                "Volv? lentamente a la posici?n inicial."
+                            ],
+                            "errores_comunes": [
+                                "Usar una banda mal asegurada.",
+                                "Balancear el cuerpo para tirar.",
+                                "Encoger los hombros."
+                            ],
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "remo con banda elastica",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_con_banda_elastica.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "flexiones inclinadas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "hogar",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/flexiones_inclinadas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        }
+                    ]
+                },
+                "perfil_entrenamiento": {
+                    "edad": 15,
+                    "peso": 70,
+                    "objetivo": "mejorar resistencia",
+                    "dias": 2,
+                    "tiempo": 120,
+                    "experiencia": "principiante",
+                    "lugar": "hogar",
+                    "zona_lesion": "nada",
+                    "estado_lesion": "ninguna"
+                }
+            }
+        ],
+        "sesiones": [],
+        "menus": [
+            {
+                "fecha": "2026-11-10T19:00:57.837872",
+                "menu": [
+                    {
+                        "dia": 1,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_001",
+                                "comida": "avena con fruta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_006",
+                                "comida": "ensalada con legumbres"
+                            },
+                            "merienda": {
+                                "id": "comida_014",
+                                "comida": "fruta con avena"
+                            },
+                            "cena": {
+                                "id": "comida_057",
+                                "comida": "lentejas con arroz"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 2,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_002",
+                                "comida": "yogur con fruta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_010",
+                                "comida": "arroz con lentejas"
+                            },
+                            "merienda": {
+                                "id": "comida_007",
+                                "comida": "sandwich de pollo"
+                            },
+                            "cena": {
+                                "id": "comida_008",
+                                "comida": "omelette con verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 3,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_003",
+                                "comida": "tostadas con huevo"
+                            },
+                            "almuerzo": {
+                                "id": "comida_004",
+                                "comida": "arroz con pollo"
+                            },
+                            "merienda": {
+                                "id": "comida_009",
+                                "comida": "fruta con yogur"
+                            },
+                            "cena": {
+                                "id": "comida_012",
+                                "comida": "wrap de verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 4,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_013",
+                                "comida": "tostadas con palta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_005",
+                                "comida": "pasta con verduras"
+                            },
+                            "merienda": {
+                                "id": "comida_015",
+                                "comida": "hummus con tostadas"
+                            },
+                            "cena": {
+                                "id": "comida_017",
+                                "comida": "ensalada de arroz y verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 5,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_023",
+                                "comida": "avena con banana"
+                            },
+                            "almuerzo": {
+                                "id": "comida_011",
+                                "comida": "pollo con verduras"
+                            },
+                            "merienda": {
+                                "id": "comida_021",
+                                "comida": "yogur con avena"
+                            },
+                            "cena": {
+                                "id": "comida_019",
+                                "comida": "lentejas con verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 6,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_024",
+                                "comida": "avena con manzana"
+                            },
+                            "almuerzo": {
+                                "id": "comida_016",
+                                "comida": "sandwich de huevo"
+                            },
+                            "merienda": {
+                                "id": "comida_022",
+                                "comida": "fruta con frutos secos"
+                            },
+                            "cena": {
+                                "id": "comida_020",
+                                "comida": "wrap de pollo"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 7,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_025",
+                                "comida": "tostadas con queso untable"
+                            },
+                            "almuerzo": {
+                                "id": "comida_018",
+                                "comida": "pasta con pollo"
+                            },
+                            "merienda": {
+                                "id": "comida_045",
+                                "comida": "fruta con yogur y avena"
+                            },
+                            "cena": {
+                                "id": "comida_032",
+                                "comida": "arroz con huevo"
+                            }
+                        }
+                    }
+                ],
+                "perfil_alimentario": {
+                    "tipo_alimentacion": "general",
+                    "alergias": [],
+                    "intolerancias": [],
+                    "alimentos_evitar": [],
+                    "objetivo": "mejorar resistencia"
+                }
+            }
+        ]
     }
 }

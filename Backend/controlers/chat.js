@@ -201,10 +201,10 @@ const enviarMensaje = async (req, res) => {
 
       try {
         const fechaRutina = await query(
-          `SELECT (
-             date_trunc('week', CURRENT_DATE)::date + 7
-           )::text AS inicio`
-        );
+  `SELECT (
+     date_trunc('week', CURRENT_DATE)::date
+   )::text AS inicio`
+);
 
         cambioGuardado = await sincronizarCambioEjercicio(
           Number(req.params.id),

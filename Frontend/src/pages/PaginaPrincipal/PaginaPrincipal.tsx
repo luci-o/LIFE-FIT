@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import logoBg from '../../assets/Group 75.png';
 
-// Importación de iconos estandarizados
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { peticionApi } from "../../services/api";
+import logoBg from "../../assets/Group 75.png";
+
 import { GoHome } from "react-icons/go";
 import { FaDumbbell } from "react-icons/fa";
 import { IoChatboxOutline } from "react-icons/io5";
@@ -11,424 +12,880 @@ import { LuSalad } from "react-icons/lu";
 import { HiMiniUserCircle } from "react-icons/hi2";
 import { BiCoffeeTogo } from "react-icons/bi";
 
-// Tipos estandarizados
-type TipoComida = 'Desayuno' | 'Almuerzo' | 'Merienda' | 'Cena' | 'Todas completadas';
+type TipoComida =
+  | "Desayuno"
+  | "Almuerzo"
+  | "Merienda"
+  | "Cena"
+  | "Todas completadas";
+
+type ComidaDelDia = "Desayuno" | "Almuerzo" | "Merienda" | "Cena";
 
 interface ComidaItem {
   nombre: string;
 }
 
-const menuPorComida: Record<TipoComida, ComidaItem[]> = {
-  Desayuno: [
-    { nombre: 'Café espresso' },
-    { nombre: 'Huevos revueltos' },
-    { nombre: 'Frutos secos' },
-    { nombre: 'Agua' }
+interface Ejercicio {
+  id: number;
+  nombre: string;
+  series: string;
+  realizado: boolean;
+}
+
+interface RegistroComida {
+  fecha: string;
+  momento: string;
+  realizada: boolean;
+}
+
+interface EjercicioAPI {
+  idEjercicio: number;
+  nombre: string;
+  series: number | null;
+  repeticiones: number | null;
+  realizado: boolean;
+}
+
+interface DiaMenu {
+  dia: number | string;
+  comidas: Record<string, { comida?: string } | string>;
+}
+
+const ORDEN_COMIDAS: ComidaDelDia[] = [
+  "Desayuno",
+  "Almuerzo",
+  "Merienda",
+  "Cena",
+];
+
+const CLAVES_COMIDA: Record<ComidaDelDia, string> = {
+  Desayuno: "desayuno",
+  Almuerzo: "almuerzo",
+  Merienda: "merienda",
+  Cena: "cena",
+};
+
+const MENU_VACIO: Record<TipoComida, ComidaItem[]> = {
+  Desayuno: [],
+  Almuerzo: [],
+  Merienda: [],
+  Cena: [],
+  "Todas completadas": [
+    { nombre: "Completaste todas las comidas de hoy." },
   ],
-  Almuerzo: [
-    { nombre: 'Pechuga de pollo a la plancha' },
-    { nombre: 'Arroz integral' },
-    { nombre: 'Ensalada mixta' },
-    { nombre: 'Agua' }
-  ],
-  Merienda: [
-    { nombre: 'Yogur griego con avena' },
-    { nombre: 'Manzana verde' },
-    { nombre: 'Té verde' }
-  ],
-  Cena: [
-    { nombre: 'Filete de merluza' },
-    { nombre: 'Vegetales al vapor' },
-    { nombre: 'Infusión relajante' }
-  ],
-  'Todas completadas': [
-    { nombre: '¡Has completado todas tus comidas de hoy!' }
-  ]
+};
+
+const obtenerFechaLocal = () => {
+  const hoy = new Date();
+
+  return [
+    hoy.getFullYear(),
+    String(hoy.getMonth() + 1).padStart(2, "0"),
+    String(hoy.getDate()).padStart(2, "0"),
+  ].join("-");
 };
 
 export const PaginaPrincipal = () => {
   const navigate = useNavigate();
 
-  // Estado de la próxima comida
-  const [proximaComida, setProximaComida] = useState<TipoComida>('Desayuno');
+  const [nombreUsuario, setNombreUsuario] = useState("Usuario");
 
-  // Estado de los ejercicios completados
-  const [ejerciciosCompletados, setEjerciciosCompletados] = useState<{ [key: string]: boolean }>({
-    ex1: true,
-    ex2: true,
+  const [proximaComida, setProximaComida] =
+    useState<TipoComida>("Desayuno");
+
+  const [menuPorComida, setMenuPorComida] =
+    useState<Record<TipoComida, ComidaItem[]>>(MENU_VACIO);
+
+  const [comidasRealizadas, setComidasRealizadas] = useState<
+    Record<ComidaDelDia, boolean>
+  >({
+    Desayuno: false,
+    Almuerzo: false,
+    Merienda: false,
+    Cena: false,
   });
 
-  const totalEjercicios = 14;
-  const completadosCount = Object.values(ejerciciosCompletados).filter(Boolean).length;
-  const porcentaje = Math.round((completadosCount / totalEjercicios) * 100);
+  const [cargandoComidas, setCargandoComidas] = useState(true);
+  const [guardandoComida, setGuardandoComida] = useState(false);
+  const [errorComidas, setErrorComidas] = useState("");
 
-  // Avanza de comida al presionar "Listo"
-  const marcarComidaLista = () => {
-    setProximaComida((prev) => {
-      if (prev === 'Desayuno') return 'Almuerzo';
-      if (prev === 'Almuerzo') return 'Merienda';
-      if (prev === 'Merienda') return 'Cena';
-      return 'Todas completadas';
-    });
+  const [ejercicios, setEjercicios] = useState<Ejercicio[]>([]);
+  const [cargandoEjercicios, setCargandoEjercicios] = useState(true);
+
+  useEffect(() => {
+    const cargarPerfil = async () => {
+      const idPerfil = localStorage.getItem("idPerfil");
+
+      if (!idPerfil) return;
+
+      try {
+        const perfil = await peticionApi(
+          `/perfil/${idPerfil}`
+        );
+
+        setNombreUsuario(perfil.nombre || "Usuario");
+      } catch (error) {
+        console.error("Error cargando perfil:", error);
+      }
+    };
+
+    cargarPerfil();
+  }, []);
+
+  useEffect(() => {
+    const cargarComidas = async () => {
+      const idPerfil = localStorage.getItem("idPerfil");
+
+      if (!idPerfil) {
+        setCargandoComidas(false);
+        return;
+      }
+
+      try {
+        const [respuesta, registros] = await Promise.all([
+          peticionApi(`/perfil/${idPerfil}/nutricion`),
+          peticionApi(`/perfil/${idPerfil}/comidas`),
+        ]);
+
+        const menu: DiaMenu[] | null =
+          typeof respuesta?.dieta === "string"
+            ? JSON.parse(respuesta.dieta)
+            : respuesta?.dieta;
+
+        const diaSemana = (new Date().getDay() + 6) % 7 + 1;
+
+        const diaActual = Array.isArray(menu)
+          ? menu.find(
+              (dia) => Number(dia.dia) === diaSemana
+            )
+          : undefined;
+
+        const nuevoMenu = { ...MENU_VACIO };
+
+        for (const momento of ORDEN_COMIDAS) {
+          const detalle =
+            diaActual?.comidas?.[CLAVES_COMIDA[momento]];
+
+          const nombre =
+            typeof detalle === "string"
+              ? detalle
+              : detalle?.comida;
+
+          nuevoMenu[momento] =
+            typeof nombre === "string" && nombre.trim()
+              ? [{ nombre }]
+              : [];
+        }
+
+        setMenuPorComida(nuevoMenu);
+
+        const estados: Record<ComidaDelDia, boolean> = {
+          Desayuno: false,
+          Almuerzo: false,
+          Merienda: false,
+          Cena: false,
+        };
+
+        if (Array.isArray(registros)) {
+          for (const registro of registros as RegistroComida[]) {
+            if (
+              String(registro.fecha).slice(0, 10) !==
+              obtenerFechaLocal()
+            ) {
+              continue;
+            }
+
+            const momento = ORDEN_COMIDAS.find(
+              (tipo) =>
+                CLAVES_COMIDA[tipo] === registro.momento
+            );
+
+            if (momento) {
+              estados[momento] = registro.realizada === true;
+            }
+          }
+        }
+
+        setComidasRealizadas(estados);
+
+        const pendiente = ORDEN_COMIDAS.find(
+          (momento) =>
+            nuevoMenu[momento].length > 0 &&
+            !estados[momento]
+        );
+
+        if (pendiente) {
+          setProximaComida(pendiente);
+        } else if (
+          ORDEN_COMIDAS.every(
+            (momento) => estados[momento]
+          )
+        ) {
+          setProximaComida("Todas completadas");
+        } else {
+          setProximaComida("Desayuno");
+        }
+      } catch (error) {
+        console.error("Error cargando alimentación:", error);
+
+        setErrorComidas(
+          "No se pudo cargar el menú de hoy."
+        );
+      } finally {
+        setCargandoComidas(false);
+      }
+    };
+
+    cargarComidas();
+  }, []);
+
+  useEffect(() => {
+    const cargarEjercicios = async () => {
+      const idPerfil = localStorage.getItem("idPerfil");
+
+      if (!idPerfil) {
+        setCargandoEjercicios(false);
+        return;
+      }
+
+      try {
+        const fecha = obtenerFechaLocal();
+
+        const datos = await peticionApi(
+          `/perfil/${idPerfil}/rutina?fecha=${fecha}`
+        );
+
+        const lista: EjercicioAPI[] = Array.isArray(datos)
+          ? datos
+          : [];
+
+        setEjercicios(
+          lista.map((ej) => ({
+            id: Number(ej.idEjercicio),
+            nombre: ej.nombre || "Ejercicio",
+            series: `${ej.series ?? "-"} series × ${
+              ej.repeticiones ?? "-"
+            } reps`,
+            realizado: ej.realizado === true,
+          }))
+        );
+      } catch (error) {
+        console.error("Error cargando ejercicios:", error);
+      } finally {
+        setCargandoEjercicios(false);
+      }
+    };
+
+    cargarEjercicios();
+  }, []);
+
+  const marcarComidaLista = async () => {
+    if (
+      proximaComida === "Todas completadas" ||
+      guardandoComida
+    ) {
+      return;
+    }
+
+    if (menuPorComida[proximaComida].length === 0) {
+      return;
+    }
+
+    const idPerfil = localStorage.getItem("idPerfil");
+
+    if (!idPerfil) return;
+
+    setGuardandoComida(true);
+    setErrorComidas("");
+
+    try {
+      await peticionApi(
+        `/perfil/${idPerfil}/comidas/hoy`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            momento: CLAVES_COMIDA[proximaComida],
+            realizada: true,
+          }),
+        }
+      );
+
+      const actualizados = {
+        ...comidasRealizadas,
+        [proximaComida]: true,
+      };
+
+      setComidasRealizadas(actualizados);
+
+      const siguiente = ORDEN_COMIDAS.find(
+        (momento) =>
+          menuPorComida[momento].length > 0 &&
+          !actualizados[momento]
+      );
+
+      setProximaComida(
+        siguiente ?? "Todas completadas"
+      );
+    } catch (error) {
+      console.error("Error guardando comida:", error);
+
+      setErrorComidas(
+        "No se pudo guardar la comida."
+      );
+    } finally {
+      setGuardandoComida(false);
+    }
   };
 
-  // Tilda/destilda ejercicios
-  const toggleEjercicio = (id: string) => {
-    setEjerciciosCompletados((prev) => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
+  const toggleEjercicio = async (id: number) => {
+    const idPerfil = localStorage.getItem("idPerfil");
+
+    if (!idPerfil) return;
+
+    const ejercicio = ejercicios.find(
+      (e) => e.id === id
+    );
+
+    if (!ejercicio) return;
+
+    const nuevoEstado = !ejercicio.realizado;
+
+    try {
+      await peticionApi(
+        `/perfil/${idPerfil}/rutina/${id}/realizado`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            realizado: nuevoEstado,
+          }),
+        }
+      );
+
+      setEjercicios((prev) =>
+        prev.map((e) =>
+          e.id === id
+            ? { ...e, realizado: nuevoEstado }
+            : e
+        )
+      );
+    } catch (error) {
+      console.error(
+        "Error guardando ejercicio:",
+        error
+      );
+    }
   };
+
+  const totalEjercicios = ejercicios.length;
+
+  const completadosCount = ejercicios.filter(
+    (e) => e.realizado
+  ).length;
+
+  const porcentaje =
+    totalEjercicios > 0
+      ? Math.round(
+          (completadosCount / totalEjercicios) * 100
+        )
+      : 0;
 
   const itemsComida = menuPorComida[proximaComida];
 
-  return (
-    <div style={{
-      backgroundColor: '#090d16',
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      color: '#ffffff',
-      fontFamily: '"Plus Jakarta Sans", sans-serif',
-      boxSizing: 'border-box',
-      overflow: 'hidden'
-    }}>
-      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  const botonNavegacion = (
+    ruta: string,
+    icono: React.ReactNode,
+    activo = false
+  ) => (
+    <button
+      onClick={() => navigate(ruta)}
+      style={{
+        backgroundColor: activo
+          ? "rgba(0, 230, 118, 0.25)"
+          : "transparent",
+        border: "none",
+        borderRadius: "50%",
+        width: "36px",
+        height: "36px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: activo ? "#00E676" : "#FFF",
+        cursor: "pointer",
+      }}
+    >
+      {icono}
+    </button>
+  );
 
-      {/* Header Superior Completo */}
-      <header style={{
-        padding: '0',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: '#090d16',
-        zIndex: 10,
-        flexShrink: 0
-      }}>
-        {/* FRANJA GRIS SUPERIOR (Logo, Life Fit y Navbar) */}
-        <div style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.04)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
-          padding: '10px 36px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          position: 'relative',
-          width: '100%',
-          boxSizing: 'border-box'
-        }}>
-          {/* Logo "Life Fit" */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <img src={logoBg} alt="Life Fit Logo" style={{ width: '38px', height: 'auto' }} />
-            <h1 style={{
-              color: '#FFF',
-              fontFamily: '"Plus Jakarta Sans", sans-serif',
-              fontSize: '42px',
-              fontWeight: 800,
-              lineHeight: '1',
-              letterSpacing: '-1px',
-              margin: 0
-            }}>
+  return (
+    <div
+      style={{
+        backgroundColor: "#090d16",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        color: "#FFF",
+        fontFamily: '"Plus Jakarta Sans", sans-serif',
+        boxSizing: "border-box",
+      }}
+    >
+      <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap"
+        rel="stylesheet"
+      />
+
+      <header
+        style={{
+          backgroundColor: "#090d16",
+          flexShrink: 0,
+        }}
+      >
+        <div
+          style={{
+            backgroundColor:
+              "rgba(255, 255, 255, 0.04)",
+            borderBottom:
+              "1px solid rgba(255, 255, 255, 0.05)",
+            padding: "10px 36px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            position: "relative",
+            boxSizing: "border-box",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <img
+              src={logoBg}
+              alt="Life Fit"
+              style={{
+                width: "38px",
+                height: "auto",
+              }}
+            />
+
+            <h1
+              style={{
+                color: "#FFF",
+                fontSize: "42px",
+                fontWeight: 800,
+                letterSpacing: "-1px",
+                margin: 0,
+              }}
+            >
               Life Fit
             </h1>
           </div>
 
-          {/* Navbar Flotante Centrado Absoluto */}
-          <nav style={{
-            position: 'absolute',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '16px',
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-            padding: '6px 18px',
-            borderRadius: '30px',
-            border: '1px solid rgba(255, 255, 255, 0.12)'
-          }}>
-            {/* Home -> Activo (Verde) */}
-            <button 
-              onClick={() => navigate('/dashboard')}
-              style={{ 
-                backgroundColor: 'rgba(0, 230, 118, 0.25)', 
-                border: 'none',
-                borderRadius: '50%', 
-                width: '32px',
-                height: '32px',
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                cursor: 'pointer',
-                color: '#00E676'
-              }}
-            >
-              <GoHome size={22} />
-            </button>
+          <nav
+            style={{
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              backgroundColor:
+                "rgba(255, 255, 255, 0.08)",
+              padding: "6px 18px",
+              borderRadius: "30px",
+              border:
+                "1px solid rgba(255, 255, 255, 0.12)",
+            }}
+          >
+            {botonNavegacion(
+              "/dashboard",
+              <GoHome size={22} />,
+              true
+            )}
 
-            {/* Rutinas */}
-            <button 
-              onClick={() => navigate('/rutinas')} 
-              style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-            >
+            {botonNavegacion(
+              "/rutinas",
               <FaDumbbell size={20} />
-            </button>
+            )}
 
-            {/* Chat */}
-            <button 
-              onClick={() => navigate('/chat')} 
-              style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-            >
+            {botonNavegacion(
+              "/chat",
               <IoChatboxOutline size={22} />
-            </button>
+            )}
 
-            {/* Progreso */}
-            <button 
-              onClick={() => navigate('/progreso')}
-              style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-            >
+            {botonNavegacion(
+              "/progreso",
               <MdTimelapse size={22} />
-            </button>
+            )}
 
-            {/* Alimentación */}
-            <button 
-              onClick={() => navigate('/alimentacion')} 
-              style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-            >
+            {botonNavegacion(
+              "/alimentacion",
               <LuSalad size={22} />
-            </button>
+            )}
 
-            {/* Usuario */}
-            <button 
-              onClick={() => navigate('/perfil')} 
-              style={{ background: 'none', border: 'none', color: '#FFF', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-            >
+            {botonNavegacion(
+              "/perfil",
               <HiMiniUserCircle size={24} />
-            </button>
+            )}
           </nav>
         </div>
 
-        {/* Título "Bienvenido, Leandro" pegado bien arriba */}
-        <div style={{ padding: '6px 36px 4px 36px' }}>
-          <h2 style={{
-            fontSize: '44px',
-            fontWeight: 800,
-            margin: 0,
-            color: '#FFFFFF',
-            letterSpacing: '-1.5px'
-          }}>
-            Bienvenido, Leandro
+        <div
+          style={{
+            padding: "6px 36px 4px 36px",
+          }}
+        >
+          <h2
+            style={{
+              fontSize: "44px",
+              fontWeight: 800,
+              margin: 0,
+              color: "#FFF",
+              letterSpacing: "-1.5px",
+            }}
+          >
+            Bienvenido, {nombreUsuario}
           </h2>
         </div>
       </header>
 
-      {/* Línea Separadora Gris Exacta (#2E3648) */}
-      <div style={{
-        width: '100%',
-        height: '6px',
-        backgroundColor: '#2E3648',
-        zIndex: 10,
-        flexShrink: 0
-      }} />
+      <div
+        style={{
+          width: "100%",
+          height: "6px",
+          backgroundColor: "#2E3648",
+          flexShrink: 0,
+        }}
+      />
 
-      {/* Contenido Principal */}
-      <main style={{
-        flex: 1,
-        padding: '16px 48px 24px 48px',
-        maxWidth: '1400px',
-        margin: '0 auto',
-        width: '100%',
-        boxSizing: 'border-box',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center'
-      }}>
-        
-        {/* Grilla principal con la columna izquierda estirada */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1.1fr 1.5fr',
-          gap: '50px',
-          alignItems: 'stretch'
-        }}>
-
-          {/* COLUMNA IZQUIERDA: Próxima Comida */}
-          <div style={{
-            backgroundColor: '#121824',
-            border: '1.5px solid #00E676',
-            borderRadius: '60px',
-            padding: '36px 36px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            boxShadow: '0 0 15px rgba(0, 230, 118, 0.15)'
-          }}>
-            <h3 style={{
-              fontSize: '24px',
-              fontWeight: 700,
-              color: 'rgba(255, 255, 255, 0.70)',
-              margin: '0 0 6px 0',
-              textAlign: 'center'
-            }}>
+      <main
+        style={{
+          flex: 1,
+          padding: "24px 48px",
+          maxWidth: "1400px",
+          margin: "0 auto",
+          width: "100%",
+          boxSizing: "border-box",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "minmax(0, 1.1fr) minmax(0, 1.5fr)",
+            gap: "50px",
+            alignItems: "stretch",
+            width: "100%",
+          }}
+        >
+          {/* PRÓXIMA COMIDA */}
+          <section
+            style={{
+              backgroundColor: "#121824",
+              border: "1.5px solid #00E676",
+              borderRadius: "60px",
+              padding: "36px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "space-between",
+              boxShadow:
+                "0 0 15px rgba(0, 230, 118, 0.15)",
+            }}
+          >
+            <h3
+              style={{
+                fontSize: "24px",
+                fontWeight: 700,
+                color: "rgba(255, 255, 255, 0.70)",
+                margin: "0 0 6px 0",
+                textAlign: "center",
+              }}
+            >
               Tu próxima comida es:
             </h3>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
-              <span style={{ fontSize: '32px', fontWeight: 800, color: '#FFF' }}>{proximaComida}</span>
-              {proximaComida !== 'Todas completadas' && <BiCoffeeTogo size={32} color="#00E676" />}
-            </div>
-
-            {/* Ítems de Comida Dinámicos */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', width: '100%', marginBottom: '28px' }}>
-              {itemsComida.map((item: ComidaItem, index: number) => (
-                <div key={index} style={{
-                  backgroundColor: '#0B0F17',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '20px',
-                  padding: '14px',
-                  textAlign: 'center',
-                  fontSize: '15px',
-                  fontWeight: 700,
-                  color: '#FFF'
-                }}>
-                  {item.nombre}
-                </div>
-              ))}
-            </div>
-
-            {/* Botón Listo con evento onClick */}
-            {proximaComida !== 'Todas completadas' && (
-              <button 
-                onClick={marcarComidaLista}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                marginBottom: "20px",
+              }}
+            >
+              <span
                 style={{
-                  width: '55%',
-                  padding: '12px',
-                  borderRadius: '20px',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
-                  backgroundColor: '#2A3447',
-                  color: '#FFF',
-                  fontFamily: '"Plus Jakarta Sans", sans-serif',
-                  fontSize: '16px',
-                  fontWeight: 700,
-                  cursor: 'pointer'
+                  fontSize: "32px",
+                  fontWeight: 800,
                 }}
               >
-                Listo
-              </button>
-            )}
-          </div>
+                {proximaComida}
+              </span>
 
-          {/* COLUMNA DERECHA: Progreso de Ejercicios */}
-          <div style={{
-            backgroundColor: '#121824',
-            border: '1.5px solid #00E676',
-            borderRadius: '36px',
-            padding: '28px 32px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            boxShadow: '0 0 15px rgba(0, 230, 118, 0.15)'
-          }}>
+              {proximaComida !==
+                "Todas completadas" && (
+                <BiCoffeeTogo
+                  size={32}
+                  color="#00E676"
+                />
+              )}
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "14px",
+                width: "100%",
+                marginBottom: "28px",
+              }}
+            >
+              {cargandoComidas ? (
+                <p>Cargando menú...</p>
+              ) : itemsComida.length === 0 ? (
+                <p
+                  style={{
+                    color: "#A1A8BD",
+                    textAlign: "center",
+                  }}
+                >
+                  No hay un menú generado para hoy.
+                </p>
+              ) : (
+                itemsComida.map((item, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      backgroundColor: "#0B0F17",
+                      border:
+                        "1px solid rgba(255, 255, 255, 0.2)",
+                      borderRadius: "20px",
+                      padding: "14px",
+                      textAlign: "center",
+                      fontSize: "15px",
+                      fontWeight: 700,
+                      color: "#FFF",
+                    }}
+                  >
+                    {item.nombre}
+                  </div>
+                ))
+              )}
+            </div>
+
+            {errorComidas && (
+              <p
+                style={{
+                  color: "#FF8888",
+                  textAlign: "center",
+                }}
+              >
+                {errorComidas}
+              </p>
+            )}
+
+            {proximaComida !==
+              "Todas completadas" &&
+              itemsComida.length > 0 &&
+              !cargandoComidas && (
+                <button
+                  onClick={marcarComidaLista}
+                  disabled={guardandoComida}
+                  style={{
+                    width: "55%",
+                    padding: "12px",
+                    borderRadius: "20px",
+                    border:
+                      "1px solid rgba(255, 255, 255, 0.3)",
+                    backgroundColor: "#2A3447",
+                    color: "#FFF",
+                    fontFamily: "inherit",
+                    fontSize: "16px",
+                    fontWeight: 700,
+                    cursor: guardandoComida
+                      ? "wait"
+                      : "pointer",
+                  }}
+                >
+                  {guardandoComida
+                    ? "Guardando..."
+                    : "Listo"}
+                </button>
+              )}
+          </section>
+
+          {/* PROGRESO DE EJERCICIOS */}
+          <section
+            style={{
+              backgroundColor: "#121824",
+              border: "1.5px solid #00E676",
+              borderRadius: "36px",
+              padding: "28px 32px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              boxShadow:
+                "0 0 15px rgba(0, 230, 118, 0.15)",
+            }}
+          >
             <div>
-              <h3 style={{
-                fontSize: '26px',
-                fontWeight: 800,
-                color: '#A1A8BD',
-                textAlign: 'center',
-                margin: '0 0 6px 0'
-              }}>
+              <h3
+                style={{
+                  fontSize: "26px",
+                  fontWeight: 800,
+                  color: "#A1A8BD",
+                  textAlign: "center",
+                  margin: "0 0 6px 0",
+                }}
+              >
                 Progreso de ejercicios de hoy
               </h3>
 
-              <p style={{
-                textAlign: 'center',
-                color: '#00E676',
-                fontSize: '15px',
-                fontWeight: 700,
-                margin: '0 0 16px 0'
-              }}>
+              <p
+                style={{
+                  textAlign: "center",
+                  color: "#00E676",
+                  fontSize: "15px",
+                  fontWeight: 700,
+                  margin: "0 0 16px 0",
+                }}
+              >
                 {completadosCount} de {totalEjercicios} completados ({porcentaje}%)
               </p>
 
-              {/* Barra de Progreso */}
-              <div style={{
-                width: '100%',
-                height: '16px',
-                backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                borderRadius: '20px',
-                overflow: 'hidden',
-                marginBottom: '28px'
-              }}>
-                <div style={{
-                  width: `${porcentaje}%`,
-                  height: '100%',
-                  backgroundColor: '#00E676',
-                  borderRadius: '20px',
-                  transition: 'width 0.4s ease'
-                }} />
+              <div
+                style={{
+                  width: "100%",
+                  height: "16px",
+                  backgroundColor:
+                    "rgba(255, 255, 255, 0.15)",
+                  borderRadius: "20px",
+                  overflow: "hidden",
+                  marginBottom: "28px",
+                }}
+              >
+                <div
+                  style={{
+                    width: `${porcentaje}%`,
+                    height: "100%",
+                    backgroundColor: "#00E676",
+                    borderRadius: "20px",
+                    transition: "width 0.4s ease",
+                  }}
+                />
               </div>
             </div>
 
-            {/* Lista de Ejercicios */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '16px'
-            }}>
-              {[
-                { id: 'ex1', nombre: 'Sentadillas', series: '3 series × 10 reps' },
-                { id: 'ex2', nombre: 'Sentadillas', series: '3 series × 10 reps' },
-                { id: 'ex3', nombre: 'Vuelo laterales', series: '3 series × 10 reps' },
-                { id: 'ex4', nombre: 'Vuelo laterales', series: '3 series × 10 reps' },
-                { id: 'ex5', nombre: 'Levantamiento', series: '3 series × 10 reps' },
-                { id: 'ex6', nombre: 'Levantamiento', series: '3 series × 10 reps' }
-              ].map((ej) => (
-                <div 
-                  key={ej.id}
-                  onClick={() => toggleEjercicio(ej.id)}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "16px",
+              }}
+            >
+              {cargandoEjercicios ? (
+                <p
                   style={{
-                    backgroundColor: '#0B0F17',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    borderRadius: '18px',
-                    padding: '12px 16px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    cursor: 'pointer'
+                    color: "#A1A8BD",
+                    gridColumn: "1 / -1",
+                    textAlign: "center",
                   }}
                 >
-                  <div>
-                    <h4 style={{ margin: 0, fontSize: '16px', fontWeight: 800, color: '#FFF' }}>
-                      {ej.nombre}
-                    </h4>
-                    <span style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.6)', fontWeight: 600 }}>
-                      {ej.series}
-                    </span>
-                  </div>
+                  Cargando ejercicios...
+                </p>
+              ) : ejercicios.length === 0 ? (
+                <p
+                  style={{
+                    color: "#A1A8BD",
+                    gridColumn: "1 / -1",
+                    textAlign: "center",
+                  }}
+                >
+                  No hay ejercicios programados para hoy.
+                </p>
+              ) : (
+                ejercicios.map((ej) => (
+                  <div
+                    key={ej.id}
+                    onClick={() =>
+                      toggleEjercicio(ej.id)
+                    }
+                    style={{
+                      backgroundColor: "#0B0F17",
+                      border:
+                        "1px solid rgba(255, 255, 255, 0.2)",
+                      borderRadius: "18px",
+                      padding: "12px 16px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: "12px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <div>
+                      <h4
+                        style={{
+                          margin: 0,
+                          fontSize: "16px",
+                          fontWeight: 800,
+                          color: "#FFF",
+                        }}
+                      >
+                        {ej.nombre}
+                      </h4>
 
-                  {/* Checkbox personalizado estilo Figma */}
-                  <div style={{
-                    width: '22px',
-                    height: '22px',
-                    borderRadius: '6px',
-                    border: ejerciciosCompletados[ej.id] ? 'none' : '2px solid rgba(255, 255, 255, 0.5)',
-                    backgroundColor: ejerciciosCompletados[ej.id] ? '#00E676' : 'transparent',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    transition: 'all 0.2s ease'
-                  }}>
-                    {ejerciciosCompletados[ej.id] && (
-                      <span style={{ color: '#000', fontSize: '13px', fontWeight: 'bold' }}>✓</span>
-                    )}
+                      <span
+                        style={{
+                          fontSize: "13px",
+                          color:
+                            "rgba(255, 255, 255, 0.6)",
+                          fontWeight: 600,
+                        }}
+                      >
+                        {ej.series}
+                      </span>
+                    </div>
+
+                    <div
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                        minWidth: "22px",
+                        borderRadius: "6px",
+                        border: ej.realizado
+                          ? "none"
+                          : "2px solid rgba(255, 255, 255, 0.5)",
+                        backgroundColor: ej.realizado
+                          ? "#00E676"
+                          : "transparent",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {ej.realizado && (
+                        <span
+                          style={{
+                            color: "#000",
+                            fontSize: "13px",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          ✓
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
-
-          </div>
-
+          </section>
         </div>
-
       </main>
     </div>
   );

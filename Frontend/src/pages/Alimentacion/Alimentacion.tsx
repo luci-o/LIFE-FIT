@@ -37,14 +37,14 @@ export const Alimentacion: React.FC = () => {
   };
 
   const [comidas, setComidas] = useState<PlanComidas>({
-    desayuno: ["Café espresso", "Huevos revueltos", "Frutos secos", "Agua"],
-    almuerzo: ["Limonada", "Salmón a la plancha", "Papas hervidas", "Ensalada de frutas"],
-    merienda: ["Licuado de banana", "Tostadas de pan integral", "Sandía", "Manzana"],
-    cena: ["Bife de chorizo", "Rúcula y parmesano", "Agua", "Banana"],
-  });
+  desayuno: [],
+  almuerzo: [],
+  merienda: [],
+  cena: [],
+});
 
   const [completados, setCompletados] = useState<{ [key: string]: boolean }>({
-    desayuno: true,
+    desayuno: false,
     almuerzo: false,
     merienda: false,
     cena: false,
@@ -58,9 +58,36 @@ export const Alimentacion: React.FC = () => {
         const idPerfil = localStorage.getItem("idPerfil");
         if (idPerfil) {
           const respuesta = await peticionApi(`/perfil/${idPerfil}/nutricion`);
-          if (respuesta && respuesta.dieta) {
-            setComidas(respuesta.dieta);
-          }
+          if (respuesta?.dieta) {
+  const menu = typeof respuesta.dieta === "string"
+    ? JSON.parse(respuesta.dieta)
+    : respuesta.dieta;
+
+  if (Array.isArray(menu)) {
+    const hoy = new Date();
+    const numeroDia = (hoy.getDay() + 6) % 7 + 1;
+
+    const diaActual = menu.find(
+      (dia) => Number(dia.dia) === numeroDia
+    );
+
+    if (diaActual?.comidas) {
+      const nombres = (tipo: keyof PlanComidas): string[] => {
+        const comida = diaActual.comidas[tipo];
+        return typeof comida?.comida === "string"
+          ? [comida.comida]
+          : [];
+      };
+
+      setComidas({
+        desayuno: nombres("desayuno"),
+        almuerzo: nombres("almuerzo"),
+        merienda: nombres("merienda"),
+        cena: nombres("cena"),
+      });
+    }
+  }
+}
         }
       } catch (err) {
         console.log("Cargando dieta basada en el perfil del usuario...");
@@ -70,14 +97,69 @@ export const Alimentacion: React.FC = () => {
     };
 
     cargarDieta();
+    const cargarCompletados = async () => {
+  const idPerfil = localStorage.getItem("idPerfil");
+  if (!idPerfil) return;
+
+  try {
+    const registros = await peticionApi(
+      `/perfil/${idPerfil}/comidas`
+    );
+
+    const fechaHoy = new Date();
+    const hoy =
+      `${fechaHoy.getFullYear()}-` +
+      `${String(fechaHoy.getMonth() + 1).padStart(2, "0")}-` +
+      `${String(fechaHoy.getDate()).padStart(2, "0")}`;
+
+    const estados = {
+      desayuno: false,
+      almuerzo: false,
+      merienda: false,
+      cena: false,
+    };
+
+    for (const registro of registros) {
+      const momento = registro.momento as keyof PlanComidas;
+
+      if (registro.fecha === hoy && momento in estados) {
+        estados[momento] = registro.realizada === true;
+      }
+    }
+
+    setCompletados(estados);
+  } catch (error) {
+    console.error("Error recuperando comidas:", error);
+  }
+};
+
+cargarCompletados();
   }, []);
 
-  const marcarComoListo = (seccion: keyof PlanComidas) => {
+const marcarComoListo = async (seccion: keyof PlanComidas) => {
+  const idPerfil = localStorage.getItem("idPerfil");
+  if (!idPerfil) return;
+
+  const nuevoEstado = !completados[seccion];
+
+  try {
+    await peticionApi(`/perfil/${idPerfil}/comidas/hoy`, {
+      method: "PUT",
+      body: JSON.stringify({
+        momento: seccion,
+        realizada: nuevoEstado,
+      }),
+    });
+
     setCompletados((prev) => ({
       ...prev,
-      [seccion]: !prev[seccion],
+      [seccion]: nuevoEstado,
     }));
-  };
+  } catch (error) {
+    console.error("Error guardando comida:", error);
+    alert("No se pudo guardar la comida.");
+  }
+};
 
   // Mapeo de íconos por comida
   const obtenerIconoComida = (seccion: keyof PlanComidas) => {

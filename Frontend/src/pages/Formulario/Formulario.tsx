@@ -22,6 +22,10 @@ export const Formulario: React.FC = () => {
     nivel: '',
     lugar: '',
     zonaLesion: '',
+    tipoAlimentacion: '',
+alergias: '',
+intolerancias: '',
+alimentosEvitar: '',
   });
 
   const cambiar = (campo: string, valor: string) => {
@@ -38,7 +42,15 @@ export const Formulario: React.FC = () => {
       navigate('/login');
       return;
     }
+const convertirLista = (texto: string): string[] => {
+  const limpio = texto.trim().toLowerCase();
 
+  if (["ninguna", "ninguno", "no"].includes(limpio)) {
+    return [];
+  }
+
+  return texto.split(",").map((x) => x.trim()).filter(Boolean);
+};
     try {
       await peticionApi(`/perfil/${idPerfil}`, {
         method: 'PUT',
@@ -54,11 +66,21 @@ export const Formulario: React.FC = () => {
           lesiones: datos.zonaLesion
             ? [{ zona: datos.zonaLesion, fechaInicio: null, fechaFin: null, descripcion: null }]
             : [],
-          preferencias: [],
-          alergias: [],
+          preferencias: convertirLista(datos.alimentosEvitar),
+alergias: convertirLista(datos.alergias),
         }),
-      });
-      navigate('/dashboard');
+         });
+await peticionApi(`/perfil/${idPerfil}/rutina/generar`, {
+  method: 'POST',
+  body: JSON.stringify({
+    tipo_alimentacion: datos.tipoAlimentacion,
+    alergias: convertirLista(datos.alergias),
+    intolerancias: convertirLista(datos.intolerancias),
+    alimentos_a_evitar: convertirLista(datos.alimentosEvitar),
+  }),
+});
+
+      navigate('/rutinas');
     } catch (err: any) {
       setError(err.message || 'No se pudo guardar el perfil.');
     } finally {
@@ -181,7 +203,54 @@ export const Formulario: React.FC = () => {
               {ZONAS.map((z) => <option key={z} value={z} style={{ color: '#000' }}>{z}</option>)}
             </select>
           </div>
+<div>
+  <label>Tipo de alimentación</label>
+  <select
+    required
+    value={datos.tipoAlimentacion}
+    onChange={(e) => cambiar('tipoAlimentacion', e.target.value)}
+    style={styleSelect}
+  >
+    <option value="">Seleccionar</option>
+    <option value="omnivora">Omnívora</option>
+    <option value="vegetariana">Vegetariana</option>
+    <option value="vegana">Vegana</option>
+    <option value="otra">Otra</option>
+  </select>
+</div>
 
+<div>
+  <label>Alergias alimentarias</label>
+  <input
+    required
+    placeholder="Ej: maní, leche o ninguna"
+    value={datos.alergias}
+    onChange={(e) => cambiar('alergias', e.target.value)}
+    style={styleInput}
+  />
+</div>
+
+<div>
+  <label>Intolerancias alimentarias</label>
+  <input
+    required
+    placeholder="Ej: lactosa o ninguna"
+    value={datos.intolerancias}
+    onChange={(e) => cambiar('intolerancias', e.target.value)}
+    style={styleInput}
+  />
+</div>
+
+<div>
+  <label>Alimentos que preferís evitar</label>
+  <input
+    required
+    placeholder="Ej: pescado o ninguno"
+    value={datos.alimentosEvitar}
+    onChange={(e) => cambiar('alimentosEvitar', e.target.value)}
+    style={styleInput}
+  />
+</div>
           {error && <p style={{ color: '#ff5252', fontWeight: '700' }}>{error}</p>}
 
           <button

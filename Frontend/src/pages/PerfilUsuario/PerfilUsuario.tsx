@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logoBg from "../../assets/Group 75.png";
-import { usoAutenticacion } from "../../context/AuthContext";
-
+import { peticionApi } from "../../services/api";
 // Importación de íconos
 import { GoHome } from "react-icons/go";
 import { FaDumbbell, FaPencilAlt, FaTree } from "react-icons/fa";
@@ -14,21 +13,21 @@ import { BiHomeAlt } from "react-icons/bi";
 
 export const PerfilUsuario: React.FC = () => {
   const navigate = useNavigate();
-  const { usuario } = usoAutenticacion();
+
 
   // Estado para habilitar/deshabilitar la edición mediante el lápiz
   const [modoEdicion, setModoEdicion] = useState<boolean>(false);
 
   // Estados de datos del usuario (evitamos error ts(2339) casteando a any)
-  const [datosFormulario, setDatosFormulario] = useState({
-    nombre: usuario?.nombre || "Leandro",
-    apellido: (usuario as any)?.apellido || "Kon",
-    peso: "50kg",
-    altura: "1,55m",
-    edad: "17 años",
-    alimentacion: "Vegano",
-    lesionado: true,
-  });
+ const [datosFormulario, setDatosFormulario] = useState({
+  nombre: "Usuario",
+  apellido: "",
+  peso: "Sin datos",
+  altura: "Sin datos",
+  edad: "Sin datos",
+  alimentacion: "No especificada",
+  lesionado: false,
+});
 
   // Estados modificables mediante controles
   const [horas, setHoras] = useState<number>(14);
@@ -37,25 +36,76 @@ export const PerfilUsuario: React.FC = () => {
   const [lugar, setLugar] = useState<'Gym' | 'Casa' | 'Exterior'>('Casa');
   const [objetivo, setObjetivo] = useState<string>('Ganar fuerza');
   const [terminoLesion, setTerminoLesion] = useState<boolean>(false);
+  const [lesionesRegistradas, setLesionesRegistradas] = useState<{
+  zona: string;
+  fechaInicio: string | null;
+  fechaFin: string | null;
+  descripcion: string | null;
+}[]>([]);
 
   // Cargar datos reales guardados del formulario al montar el componente
-  useEffect(() => {
-    const perfilGuardado = localStorage.getItem("datosPerfilUsuario");
-    if (perfilGuardado) {
-      try {
-        const datos = JSON.parse(perfilGuardado);
-        setDatosFormulario((prev) => ({ ...prev, ...datos }));
-        if (datos.horas) setHoras(datos.horas);
-        if (datos.dias) setDias(datos.dias);
-        if (datos.nivel) setNivel(datos.nivel);
-        if (datos.lugar) setLugar(datos.lugar);
-        if (datos.objetivo) setObjetivo(datos.objetivo);
-        if (datos.terminoLesion !== undefined) setTerminoLesion(datos.terminoLesion);
-      } catch (e) {
-        console.error("Error al leer datos del formulario:", e);
+ useEffect(() => {
+  const cargarPerfil = async () => {
+    const idPerfil = localStorage.getItem("idPerfil");
+    if (!idPerfil) return;
+
+    try {
+      const perfil = await peticionApi(`/perfil/${idPerfil}`);    
+setLesionesRegistradas(
+  Array.isArray(perfil.lesiones) ? perfil.lesiones : []
+);
+      setDatosFormulario({
+        nombre: perfil.nombre || "Usuario",
+        apellido: "",
+        peso: perfil.peso != null ? `${perfil.peso} kg` : "Sin datos",
+        altura: perfil.altura != null ? `${perfil.altura} cm` : "Sin datos",
+        edad: perfil.edad != null ? `${perfil.edad} años` : "Sin datos",
+        alimentacion: "No especificada",
+        lesionado: Array.isArray(perfil.lesiones) &&
+          perfil.lesiones.some(
+            (lesion: { fechaFin?: string | null }) => !lesion.fechaFin
+          ),
+      });
+
+      if (perfil.tiempoDisponible != null) {
+        setHoras(Number(perfil.tiempoDisponible));
       }
+
+      if (perfil.diasPorSemana != null) {
+        setDias(Number(perfil.diasPorSemana));
+      }
+
+      const niveles: Record<string, number> = {
+        principiante: 1,
+        intermedio: 2,
+        avanzado: 3,
+      };
+
+      setNivel(niveles[perfil.nivel] || 1);
+
+      const lugares: Record<string, "Gym" | "Casa" | "Exterior"> = {
+        gym: "Gym",
+        hogar: "Casa",
+        "aire libre": "Exterior",
+      };
+
+      setLugar(lugares[perfil.lugar] || "Casa");
+
+      const objetivos: Record<string, string> = {
+        "bajar peso": "Perder peso",
+        "ganar fuerza": "Ganar fuerza",
+        "mejorar resistencia": "Mantenerse en forma",
+      };
+
+      setObjetivo(objetivos[perfil.objetivo] || "Ganar fuerza");
+
+    } catch (error) {
+      console.error("Error cargando perfil:", error);
     }
-  }, []);
+  };
+
+  cargarPerfil();
+}, []);
 
   const getNivelTexto = (val: number) => {
     if (val === 1) return 'Bajo';
@@ -63,25 +113,80 @@ export const PerfilUsuario: React.FC = () => {
     return 'Alto';
   };
 
-  const estaLesionado = datosFormulario.lesionado && !terminoLesion;
+ const estaLesionado = lesionesRegistradas.some(
+  (lesion) => !lesion.fechaFin
+) && !terminoLesion;
 
-  const guardarCambios = () => {
-    const datosActualizados = {
-      ...datosFormulario,
-      horas,
-      dias,
-      nivel,
-      lugar,
-      objetivo,
-      terminoLesion,
-      lesionado: estaLesionado,
-    };
+const guardarCambios = async () => {
+  const idPerfil = localStorage.getItem("idPerfil");
+  if (!idPerfil) {
+    alert("No se encontró el perfil.");
+    return;
+  }
 
-    localStorage.setItem("datosPerfilUsuario", JSON.stringify(datosActualizados));
-    setModoEdicion(false); // Bloquea la edición nuevamente tras guardar
-    alert("¡Datos del perfil actualizados correctamente!");
+  const objetivos: Record<string, string> = {
+    "Ganar fuerza": "ganar fuerza",
+    "Perder peso": "bajar peso",
+    "Ganar masa muscular": "ganar fuerza",
+    "Mantenerse en forma": "mejorar resistencia",
   };
 
+  const niveles: Record<number, string> = {
+    1: "principiante",
+    2: "intermedio",
+    3: "avanzado",
+  };
+
+  const lugares: Record<string, string> = {
+    Gym: "gym",
+    Casa: "hogar",
+    Exterior: "aire libre",
+  };
+const hoy = new Date();
+const fechaHoy = [
+  hoy.getFullYear(),
+  String(hoy.getMonth() + 1).padStart(2, "0"),
+  String(hoy.getDate()).padStart(2, "0")
+].join("-");
+
+const lesionesActualizadas = lesionesRegistradas.map((lesion) => ({
+  ...lesion,
+  fechaFin: terminoLesion && !lesion.fechaFin
+    ? fechaHoy
+    : lesion.fechaFin
+}));
+  try {
+    await peticionApi(`/perfil/${idPerfil}`, {
+      
+      method: "PUT",
+      body: JSON.stringify({
+        objetivo: objetivos[objetivo],
+        tiempoDisponible: horas,
+        diasPorSemana: dias,
+        nivel: niveles[nivel],
+        lugar: lugares[lugar],
+        ...(terminoLesion ? { lesiones: lesionesActualizadas } : {}),
+      }),
+    });
+if (terminoLesion) {
+  setLesionesRegistradas(lesionesActualizadas);
+  setTerminoLesion(false);
+}
+    setModoEdicion(false);
+    alert("Perfil actualizado correctamente en Neon.");
+  } catch (error) {
+    console.error("Error guardando perfil:", error);
+    alert("No se pudieron guardar los cambios.");
+  }
+};
+const cerrarSesion = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("idPerfil");
+  localStorage.removeItem("usuario");
+  localStorage.removeItem("datosPerfilUsuario");
+
+  navigate("/login", { replace: true });
+};
   return (
     <div style={{
       backgroundColor: '#090d16',
@@ -241,7 +346,7 @@ export const PerfilUsuario: React.FC = () => {
                     <span>{datosFormulario.edad}</span>
                   </div>
                   <span style={{ fontSize: '20px', fontWeight: 800, color: estaLesionado ? '#FF5252' : '#00E676', letterSpacing: '0.5px' }}>
-                    {estaLesionado ? 'LESIONADO' : 'SALUDABLE'}
+                    {estaLesionado ? 'LESIÓN REGISTRADA' : 'SIN LESIONES ACTIVAS REGISTRADAS'}
                   </span>
                 </div>
               </div>
@@ -273,6 +378,22 @@ export const PerfilUsuario: React.FC = () => {
               >
                 Guardar datos
               </button>
+              <button
+  onClick={cerrarSesion}
+  style={{
+    marginTop: "12px",
+    padding: "12px 24px",
+    border: "1.5px solid #FF5252",
+    borderRadius: "24px",
+    backgroundColor: "transparent",
+    color: "#FF5252",
+    fontSize: "18px",
+    fontWeight: 700,
+    cursor: "pointer",
+  }}
+>
+  Cerrar sesión
+</button>
             </div>
           </div>
 

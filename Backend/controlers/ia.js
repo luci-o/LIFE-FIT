@@ -5,7 +5,10 @@ const IA_URL = process.env.IA_URL || "http://localhost:5000"
 const generarRutina = async (req, res) => {
   try {
     const perfil = await query(
-      `SELECT * FROM "PERFIL USUARIO" WHERE "ID PERFIL" = $1`,
+      `SELECT *,
+        EXTRACT(YEAR FROM age("FECHA_NACIMIENTO"))::int AS "EDAD_CALCULADA"
+ FROM "PERFIL USUARIO"
+ WHERE "ID PERFIL" = $1`,
       [req.params.id]
     )
     if (perfil.rows.length === 0) {
@@ -26,7 +29,7 @@ const generarRutina = async (req, res) => {
     const lesion = lesiones.rows[0];
     const datosIA = {
       id:            Number(req.params.id),
-      edad:          Number(p["EDAD"]),
+      edad: Number(p["EDAD_CALCULADA"]),
       peso:          Number(p["PESO"]),
       objetivo:      p["OBJETIVO"],
       dias:          Number(p["DIAS POR SEMANA"]),
@@ -40,15 +43,34 @@ const generarRutina = async (req, res) => {
     let datos;
 
     try {
-      datos = await consultarIA("crear_plan", {
-        respuestas: {
-          ...datosIA,
-          tipo_alimentacion: "omnivora",
-          alergias: [],
-          intolerancias: [],
-          alimentos_a_evitar: []
-        }
-      });
+const {
+  tipo_alimentacion,
+  alergias,
+  intolerancias,
+  alimentos_a_evitar
+} = req.body;
+
+if (
+  !["omnivora", "vegetariana", "vegana", "otra"].includes(tipo_alimentacion) ||
+  !Array.isArray(alergias) ||
+  !Array.isArray(intolerancias) ||
+  !Array.isArray(alimentos_a_evitar)
+) {
+  return res.status(400).json({
+    message: "Faltan datos alimentarios o tienen un formato incorrecto."
+  });
+}
+
+datos = await consultarIA("crear_plan", {
+  respuestas: {
+    ...datosIA,
+    tipo_alimentacion,
+    alergias,
+    intolerancias,
+    alimentos_a_evitar
+  }
+});    
+      
     } catch (error) {
       console.error("Error de conexión con Python:", error);
     
@@ -77,10 +99,20 @@ if (dias.some((d) => !Number.isInteger(d) || d < 1 || d > 7)) {
 }
     
     const cantidad = await transaction(async (client) => {
+      const menuParaGuardar = Array.isArray(datos.menu)
+  ? JSON.stringify(datos.menu)
+  : null;
+
+await client.query(
+  `UPDATE "PERFIL USUARIO"
+   SET "NUTRICION_DIETA PERSONALIZADA" = $1
+   WHERE "ID PERFIL" = $2`,
+  [menuParaGuardar, req.params.id]
+);
       await client.query(
         `DELETE FROM "EJERCICIOS"
          WHERE "ID_PERFIL" = $1
-           AND "FECHA" >= date_trunc('week', CURRENT_DATE)::date + 7
+           AND "FECHA" >= date_trunc('week', CURRENT_DATE)::date + 0
            AND "REALIZADO" IS DISTINCT FROM TRUE`,
         [req.params.id]
       )
@@ -91,7 +123,7 @@ if (dias.some((d) => !Number.isInteger(d) || d < 1 || d > 7)) {
             `INSERT INTO "EJERCICIOS"
               ("ID_PERFIL","EJERCICIO","SERIES","REPETICIONES","FECHA")
              SELECT $1, $2, $3, $4, f.fecha
-             FROM (SELECT date_trunc('week', CURRENT_DATE)::date + 7 + ($5::int - 1) AS fecha) f
+             FROM (SELECT date_trunc('week', CURRENT_DATE)::date + 0 + ($5::int - 1) AS fecha) f
              WHERE f.fecha >= CURRENT_DATE
              RETURNING "ID EJERCICIOS"`,
             [req.params.id, ej.ejercicio, ej.series ?? null, ej.repeticiones ?? null, Number(dia)]

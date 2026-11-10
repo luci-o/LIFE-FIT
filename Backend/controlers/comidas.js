@@ -117,6 +117,47 @@ const marcarComidaRealizada = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 }
+const registrarComidaDelDia = async (req, res) => {
+  const { momento, realizada } = req.body;
 
-const comidas = { verComidas, crearComida, marcarComidaRealizada };
+  if (!MOMENTOS.includes(momento) || typeof realizada !== "boolean") {
+    return res.status(400).json({ message: "Datos de comida inválidos" });
+  }
+
+  try {
+    const perfil = await query(
+      `SELECT "NUTRICION_DIETA PERSONALIZADA" AS dieta
+       FROM "PERFIL USUARIO"
+       WHERE "ID PERFIL" = $1`,
+      [req.params.id]
+    );
+
+    if (!perfil.rows[0]?.dieta) {
+      return res.status(409).json({ message: "No hay un menú generado" });
+    }
+
+    const resultado = await query(
+      `INSERT INTO "COMIDA"
+         ("ID_PERFIL", "FECHA", "MOMENTO", "REALIZADA")
+       VALUES ($1,
+         (NOW() AT TIME ZONE 'America/Argentina/Buenos_Aires')::date,
+         $2, $3)
+       ON CONFLICT ("ID_PERFIL", "FECHA", "MOMENTO")
+       DO UPDATE SET "REALIZADA" = EXCLUDED."REALIZADA"
+       RETURNING "ID_COMIDA", "REALIZADA"`,
+      [req.params.id, momento, realizada]
+    );
+
+    res.json({ message: "Comida actualizada", comida: resultado.rows[0] });
+  } catch (error) {
+    console.error("Error guardando comida:", error);
+    res.status(500).json({ message: "No se pudo guardar la comida" });
+  }
+};
+const comidas = {
+  verComidas,
+  crearComida,
+  marcarComidaRealizada,
+  registrarComidaDelDia
+};
 export default comidas;

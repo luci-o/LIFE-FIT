@@ -68,14 +68,29 @@ const verResumen = async (req, res) => {
       [req.params.id]
     );
 
-    const dieta = await query(
-      `SELECT ${CORTES.replaceAll("%C", `"REALIZADA"`)}
-       FROM "COMIDA"
-       WHERE "ID_PERFIL" = $1
-         AND "FECHA" >= date_trunc('month', CURRENT_DATE)::date
-         AND "FECHA" <= CURRENT_DATE`,
-      [req.params.id]
-    )
+const dieta = await query(
+  `SELECT
+     COUNT(*) FILTER (
+       WHERE "REALIZADA" = TRUE
+       AND "FECHA" >= date_trunc('week', CURRENT_DATE)::date
+     ) AS hechos_semana,
+
+     COUNT(DISTINCT "FECHA") FILTER (
+       WHERE "FECHA" >= date_trunc('week', CURRENT_DATE)::date
+     ) * 4 AS total_semana,
+
+     COUNT(*) FILTER (
+       WHERE "REALIZADA" = TRUE
+     ) AS hechos_mes,
+
+     COUNT(DISTINCT "FECHA") * 4 AS total_mes
+
+   FROM "COMIDA"
+   WHERE "ID_PERFIL" = $1
+     AND "FECHA" >= date_trunc('month', CURRENT_DATE)::date
+     AND "FECHA" <= CURRENT_DATE`,
+  [req.params.id]
+);
     const pct = (hechos, total) => {
       const t = Number(total);
       return t === 0 ? null : Math.round((Number(hechos) * 100) / t);

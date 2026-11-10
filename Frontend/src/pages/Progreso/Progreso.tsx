@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import logoBg from '../../assets/Group 75.png';
-import { usoAutenticacion } from '../../context/AuthContext';
+import { useEffect, useState } from 'react';
+import { peticionApi } from '../../services/api';
 
 // Importación de íconos
 import { GoHome } from "react-icons/go";
@@ -61,14 +62,56 @@ const CircularProgress = ({ percentage }: { percentage: number }) => {
 
 export const Progreso = () => {
   const navigate = useNavigate();
-  const { usuario } = usoAutenticacion();
-  const nombreUsuario = usuario?.nombre || "Leandro";
+
+  const [nombreUsuario, setNombreUsuario] = useState("Usuario");
+
+useEffect(() => {
+  const cargarNombre = async () => {
+    const idPerfil = localStorage.getItem("idPerfil");
+    if (!idPerfil) return;
+
+    try {
+      const perfil = await peticionApi(`/perfil/${idPerfil}`);
+      setNombreUsuario(perfil.nombre || "Usuario");
+    } catch (error) {
+      console.error("Error cargando usuario:", error);
+    }
+  };
+
+  cargarNombre();
+}, []);
 
   // Porcentajes de los objetivos del usuario (pueden venir de un state, API o Context)
-  const rutinaMes = 50;
-  const dietaMes = 40;
-  const rutinaSemana = 60;
-  const dietaSemana = 50;
+const [resumen, setResumen] = useState({
+  rutinaMes: 0,
+  dietaMes: 0,
+  rutinaSemana: 0,
+  dietaSemana: 0,
+});
+
+useEffect(() => {
+  const cargarProgreso = async () => {
+    const idPerfil = localStorage.getItem('idPerfil');
+    if (!idPerfil) return;
+
+    try {
+      const datos = await peticionApi(`/perfil/${idPerfil}/progreso/resumen`);
+
+      setResumen({
+        rutinaMes: datos.rutinaMes ?? 0,
+        dietaMes: datos.dietaMes ?? 0,
+        rutinaSemana: datos.rutinaSemana ?? 0,
+        dietaSemana: datos.dietaSemana ?? 0,
+      });
+    } catch (error) {
+      console.error('Error cargando progreso:', error);
+    }
+  };
+
+  cargarProgreso();
+}, []);
+
+const { rutinaMes, dietaMes, rutinaSemana, dietaSemana } = resumen;
 
   // Promedio general del progreso
   const promedioGeneral = Math.round((rutinaMes + dietaMes + rutinaSemana + dietaSemana) / 4);
