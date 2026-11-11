@@ -147,10 +147,16 @@ export const PaginaPrincipal = () => {
           peticionApi(`/perfil/${idPerfil}/comidas`),
         ]);
 
-        const menu: DiaMenu[] | null =
-          typeof respuesta?.dieta === "string"
-            ? JSON.parse(respuesta.dieta)
-            : respuesta?.dieta;
+        
+const dietaRecibida = respuesta?.dieta;
+
+const menu: DiaMenu[] | null =
+  typeof dietaRecibida === "string"
+    ? dietaRecibida.trim()
+      ? JSON.parse(dietaRecibida)
+      : null
+    : dietaRecibida ?? null;
+
 
         const diaSemana = (new Date().getDay() + 6) % 7 + 1;
 

@@ -166,8 +166,11 @@ const enviarMensaje = async (req, res) => {
       usuarioParaConfirmar = usuario;
 
       
+
+
 const hoy = await query(
-  `SELECT "ID EJERCICIOS"
+  `SELECT "ID EJERCICIOS" AS id,
+          "REALIZADO" AS realizado
    FROM "EJERCICIOS"
    WHERE "ID_PERFIL" = $1
      AND "FECHA" = CURRENT_DATE
@@ -177,13 +180,19 @@ const hoy = await query(
 
 const ejerciciosHoy = hoy.rows;
 
+const primerPendiente = ejerciciosHoy.findIndex(
+  (ej) => ej.realizado !== true
+);
+
 const diaActual = ejerciciosHoy.length > 0
   ? 1
   : null;
 
-const ejercicioActual = ejerciciosHoy.length > 0
-  ? 1
-  : null;
+const ejercicioActual = ejerciciosHoy.length === 0
+  ? null
+  : primerPendiente === -1
+    ? ejerciciosHoy.length
+    : primerPendiente + 1;
 
 datosIA = await consultarIA("chat", {
   usuario,
@@ -192,6 +201,7 @@ datosIA = await consultarIA("chat", {
   ejercicio_actual: ejercicioActual,
   diferir_guardado: true
 });
+
 
 
       if (datosIA.ok !== true ||

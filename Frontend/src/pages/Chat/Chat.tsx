@@ -135,9 +135,9 @@ export default function Chat() {
      
       <nav className="flex items-center gap-6 bg-[#1f293d]/80 px-6 py-2 rounded-full shadow-md mb-3 border border-[#2d3a54]">
         <button
-          onClick={() => navigate('/home')}
+          onClick={() => navigate('/dashboard')}
           className={`p-1.5 rounded-2xl transition-colors text-2xl cursor-pointer ${
-            location.pathname === '/home'
+            location.pathname === '/dashboard'
               ? 'text-[#00ff87] bg-[#2a3854] shadow-inner'
               : 'text-gray-300 hover:text-white'
           }`}
