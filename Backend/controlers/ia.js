@@ -97,11 +97,24 @@ const dias = Object.keys(plan).map(Number);
 if (dias.some((d) => !Number.isInteger(d) || d < 1 || d > 7)) {
   return res.status(502).json({ message: "La IA devolvió días con un formato inesperado" });
 }
-    
+const totalGenerado = Object.values(plan).reduce(
+  (total, ejercicios) =>
+    total + (Array.isArray(ejercicios) ? ejercicios.length : 0),
+  0
+);
+
+console.log("PLAN GENERADO:", JSON.stringify(plan));
+console.log("TOTAL EJERCICIOS:", totalGenerado);
+
+if (totalGenerado === 0) {
+  return res.status(502).json({
+    message: "La IA generó una rutina sin ejercicios"
+  });
+}    
     const cantidad = await transaction(async (client) => {
-      const menuParaGuardar = Array.isArray(datos.menu)
+     const menuParaGuardar = Array.isArray(datos.menu)
   ? JSON.stringify(datos.menu)
-  : null;
+  : "";
 
 await client.query(
   `UPDATE "PERFIL USUARIO"
@@ -110,34 +123,51 @@ await client.query(
   [menuParaGuardar, req.params.id]
 );
       await client.query(
-        `DELETE FROM "EJERCICIOS"
-         WHERE "ID_PERFIL" = $1
-           AND "FECHA" >= date_trunc('week', CURRENT_DATE)::date + 0
-           AND "REALIZADO" IS DISTINCT FROM TRUE`,
-        [req.params.id]
-      )
+  `DELETE FROM "EJERCICIOS"
+   WHERE "ID_PERFIL" = $1
+     AND "FECHA" >= CURRENT_DATE
+     AND "FECHA" < CURRENT_DATE + 7
+     AND "REALIZADO" IS DISTINCT FROM TRUE`,
+  [req.params.id]
+);
       let n = 0;
-      for (const dia of Object.keys(plan)) {
-        for (const ej of plan[dia]) {
-          const r = await client.query(
-            `INSERT INTO "EJERCICIOS"
-              ("ID_PERFIL","EJERCICIO","SERIES","REPETICIONES","FECHA")
-             SELECT $1, $2, $3, $4, f.fecha
-             FROM (SELECT date_trunc('week', CURRENT_DATE)::date + 0 + ($5::int - 1) AS fecha) f
-             WHERE f.fecha >= CURRENT_DATE
-             RETURNING "ID EJERCICIOS"`,
-            [req.params.id, ej.ejercicio, ej.series ?? null, ej.repeticiones ?? null, Number(dia)]
-          );
-          if (r.rows.length > 0 && ej.grupo_muscular) {
-            await client.query(
-              `INSERT INTO "GRUPO MUSCULAR" ("ID EJERCICIOS","MUSCULO QUE TRABAJA")
-               VALUES ($1, $2)`,
-              [r.rows[0]["ID EJERCICIOS"], ej.grupo_muscular]
-            );
-          }
-          
-          n += r.rowCount;
-        }
+      
+     const diasPlan = Object.keys(plan).sort(
+  (a, b) => Number(a) - Number(b)
+);
+
+for (const [indice, dia] of diasPlan.entries()) {
+  const desplazamiento = Math.floor(
+    (indice * 7) / diasPlan.length
+  );
+
+  for (const ej of plan[dia]) {
+    const r = await client.query(
+      `INSERT INTO "EJERCICIOS"
+        ("ID_PERFIL","EJERCICIO","SERIES","REPETICIONES","FECHA")
+       VALUES ($1,$2,$3,$4,CURRENT_DATE + $5::int)
+       RETURNING "ID EJERCICIOS"`,
+      [
+        req.params.id,
+        ej.ejercicio,
+        ej.series ?? null,
+        ej.repeticiones ?? null,
+        desplazamiento
+      ]
+    );
+
+    if (r.rows.length > 0 && ej.grupo_muscular) {
+      await client.query(
+        `INSERT INTO "GRUPO MUSCULAR"
+          ("ID EJERCICIOS","MUSCULO QUE TRABAJA")
+         VALUES ($1,$2)`,
+        [r.rows[0]["ID EJERCICIOS"], ej.grupo_muscular]
+      );
+    }
+
+    n += r.rowCount;
+  }
+
       }
       return n;
     });

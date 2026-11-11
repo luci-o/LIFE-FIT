@@ -165,11 +165,34 @@ const enviarMensaje = async (req, res) => {
 
       usuarioParaConfirmar = usuario;
 
-      datosIA = await consultarIA("chat", {
-        usuario,
-        mensaje: texto,
-        diferir_guardado: true
-      });
+      
+const hoy = await query(
+  `SELECT "ID EJERCICIOS"
+   FROM "EJERCICIOS"
+   WHERE "ID_PERFIL" = $1
+     AND "FECHA" = CURRENT_DATE
+   ORDER BY "ID EJERCICIOS"`,
+  [req.params.id]
+);
+
+const ejerciciosHoy = hoy.rows;
+
+const diaActual = ejerciciosHoy.length > 0
+  ? 1
+  : null;
+
+const ejercicioActual = ejerciciosHoy.length > 0
+  ? 1
+  : null;
+
+datosIA = await consultarIA("chat", {
+  usuario,
+  mensaje: texto,
+  dia_actual: diaActual,
+  ejercicio_actual: ejercicioActual,
+  diferir_guardado: true
+});
+
 
       if (datosIA.ok !== true ||
           typeof datosIA.respuesta !== "string") {
