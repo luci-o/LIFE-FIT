@@ -20539,5 +20539,1158 @@
                 }
             }
         ]
+    },
+    "39": {
+        "rutinas": [
+            {
+                "fecha": "2026-11-11T14:22:14.931501",
+                "rutina": {
+                    "1": [
+                        {
+                            "ejercicio": "eliptico",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/eliptico.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "elevacion de talones sentado",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/elevacion_de_talones_sentado.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "press en maquina",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/press_en_maquina.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "bicicleta",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/bicicleta.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "abduccion de cadera",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/abduccion_de_cadera.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "aperturas en maquina",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/aperturas_en_maquina.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "caminata inclinada",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/caminata_inclinada.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "elevacion de talones",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/elevacion_de_talones.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "bicicleta estatica",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/bicicleta_estatica.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "extension de piernas",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/extension_de_piernas.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "curl femoral",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/curl_femoral.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        }
+                    ],
+                    "2": [
+                        {
+                            "ejercicio": "eliptico",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/eliptico.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "remo en maquina",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_en_maquina.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "caminata inclinada",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/caminata_inclinada.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "face pull",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/face_pull.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "bicicleta",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/bicicleta.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "remo sentado en polea",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/remo_sentado_en_polea.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        },
+                        {
+                            "ejercicio": "bicicleta estatica",
+                            "grupo_muscular": "cardio",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "cardio",
+                            "imagen": "images/bicicleta_estatica.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "tiempo",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": "-",
+                            "repeticiones": "por tiempo"
+                        },
+                        {
+                            "ejercicio": "jalon al pecho",
+                            "grupo_muscular": "espalda",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Espalda",
+                            "musculo_principal": "espalda",
+                            "imagen": "images/jalon_al_pecho.png",
+                            "restricciones": [
+                                "Espalda"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 2,
+                            "repeticiones": "8-10"
+                        }
+                    ]
+                },
+                "perfil_entrenamiento": {
+                    "edad": 15,
+                    "peso": 70,
+                    "objetivo": "bajar peso",
+                    "dias": 2,
+                    "tiempo": 120,
+                    "experiencia": "principiante",
+                    "lugar": "gym",
+                    "zona_lesion": "nada",
+                    "estado_lesion": "ninguna"
+                }
+            },
+            {
+                "fecha": "2026-11-11T14:24:37.866089",
+                "rutina": {
+                    "1": [
+                        {
+                            "ejercicio": "press banca con barra",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/press_banca_barra.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "hip thrust",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "gluteos",
+                            "imagen": "images/hip_thrust.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press banca",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/press_banca.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "prensa de piernas",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/prensa_de_piernas.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press banca con mancuernas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/press_banca_con_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "zancadas",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/zancadas.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press inclinado con mancuernas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho superior",
+                            "imagen": "images/press_inclinado_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "sentadilla",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/sentadilla.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": [
+                                "Parate con los pies aproximadamente al ancho de los hombros.",
+                                "Flexion? las rodillas y llev? la cadera hacia atr?s, como si fueras a sentarte.",
+                                "Baj? hasta donde puedas mantener una postura c?moda y estable.",
+                                "Empuj? el suelo con los pies para volver a subir."
+                            ],
+                            "errores_comunes": [
+                                "Despegar los talones del piso.",
+                                "Redondear demasiado la espalda.",
+                                "Forzar una profundidad que cause dolor."
+                            ],
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "cruce de poleas",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/cruce_de_poleas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press en maquina",
+                            "grupo_muscular": "pecho",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "pecho",
+                            "imagen": "images/press_en_maquina.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "aduccion de cadera",
+                            "grupo_muscular": "piernas",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Pierna",
+                            "musculo_principal": "piernas",
+                            "imagen": "images/aduccion_de_cadera.png",
+                            "restricciones": [
+                                "Pierna"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "2": [
+                        {
+                            "ejercicio": "curl con barra",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_con_barra.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "curl predicador",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_predicador.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "curl concentrado",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_concentrado.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "curl de biceps",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_de_biceps.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "curl martillo",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_martillo.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "curl con mancuernas",
+                            "grupo_muscular": "biceps",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "biceps",
+                            "imagen": "images/curl_con_mancuernas.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ],
+                    "3": [
+                        {
+                            "ejercicio": "press militar con mancuernas",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/press_militar_con_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press frances",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/press_frances.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pallof press",
+                            "grupo_muscular": "core",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "core",
+                            "imagen": "images/pallof_press.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press arnold",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/press_arnold.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "patada de triceps",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/patada_de_triceps.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "pajaros con mancuernas",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/pajaros_con_mancuernas.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "fondos asistidos",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/fondos_asistidos.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "press de hombros",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/press_hombros.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "extension de triceps por encima de la cabeza",
+                            "grupo_muscular": "triceps",
+                            "dificultad": "Medio",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "triceps",
+                            "imagen": "images/extension_de_triceps_por_encima_de_la_cabeza.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "elevaciones laterales",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "Hombro",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/elevaciones_laterales.png",
+                            "restricciones": [
+                                "Hombro"
+                            ],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        },
+                        {
+                            "ejercicio": "encogimientos de hombros",
+                            "grupo_muscular": "hombros",
+                            "dificultad": "Facil",
+                            "lugar": "gym",
+                            "evitar_si_lesion": "nada",
+                            "musculo_principal": "hombros",
+                            "imagen": "images/encogimientos_de_hombros.png",
+                            "restricciones": [],
+                            "tipo_ejecucion": "repeticiones",
+                            "como_hacerlo": NaN,
+                            "errores_comunes": NaN,
+                            "series": 3,
+                            "repeticiones": "10-12"
+                        }
+                    ]
+                },
+                "perfil_entrenamiento": {
+                    "edad": 24,
+                    "peso": 70,
+                    "objetivo": "ganar fuerza",
+                    "dias": 3,
+                    "tiempo": 180,
+                    "experiencia": "intermedio",
+                    "lugar": "gym",
+                    "zona_lesion": "Espalda",
+                    "estado_lesion": "actual"
+                }
+            }
+        ],
+        "sesiones": [],
+        "menus": [
+            {
+                "fecha": "2026-11-11T14:22:15.223994",
+                "menu": [
+                    {
+                        "dia": 1,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_001",
+                                "comida": "avena con fruta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_004",
+                                "comida": "arroz con pollo"
+                            },
+                            "merienda": {
+                                "id": "comida_007",
+                                "comida": "sandwich de pollo"
+                            },
+                            "cena": {
+                                "id": "comida_008",
+                                "comida": "omelette con verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 2,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_002",
+                                "comida": "yogur con fruta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_005",
+                                "comida": "pasta con verduras"
+                            },
+                            "merienda": {
+                                "id": "comida_009",
+                                "comida": "fruta con yogur"
+                            },
+                            "cena": {
+                                "id": "comida_012",
+                                "comida": "wrap de verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 3,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_003",
+                                "comida": "tostadas con huevo"
+                            },
+                            "almuerzo": {
+                                "id": "comida_006",
+                                "comida": "ensalada con legumbres"
+                            },
+                            "merienda": {
+                                "id": "comida_014",
+                                "comida": "fruta con avena"
+                            },
+                            "cena": {
+                                "id": "comida_017",
+                                "comida": "ensalada de arroz y verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 4,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_013",
+                                "comida": "tostadas con palta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_010",
+                                "comida": "arroz con lentejas"
+                            },
+                            "merienda": {
+                                "id": "comida_015",
+                                "comida": "hummus con tostadas"
+                            },
+                            "cena": {
+                                "id": "comida_019",
+                                "comida": "lentejas con verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 5,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_023",
+                                "comida": "avena con banana"
+                            },
+                            "almuerzo": {
+                                "id": "comida_011",
+                                "comida": "pollo con verduras"
+                            },
+                            "merienda": {
+                                "id": "comida_021",
+                                "comida": "yogur con avena"
+                            },
+                            "cena": {
+                                "id": "comida_020",
+                                "comida": "wrap de pollo"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 6,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_024",
+                                "comida": "avena con manzana"
+                            },
+                            "almuerzo": {
+                                "id": "comida_016",
+                                "comida": "sandwich de huevo"
+                            },
+                            "merienda": {
+                                "id": "comida_022",
+                                "comida": "fruta con frutos secos"
+                            },
+                            "cena": {
+                                "id": "comida_032",
+                                "comida": "arroz con huevo"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 7,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_025",
+                                "comida": "tostadas con queso untable"
+                            },
+                            "almuerzo": {
+                                "id": "comida_018",
+                                "comida": "pasta con pollo"
+                            },
+                            "merienda": {
+                                "id": "comida_045",
+                                "comida": "fruta con yogur y avena"
+                            },
+                            "cena": {
+                                "id": "comida_054",
+                                "comida": "pollo con arroz y verduras"
+                            }
+                        }
+                    }
+                ],
+                "perfil_alimentario": {
+                    "tipo_alimentacion": "general",
+                    "alergias": [],
+                    "intolerancias": [],
+                    "alimentos_evitar": [],
+                    "objetivo": "bajar peso"
+                }
+            },
+            {
+                "fecha": "2026-11-11T14:24:38.052063",
+                "menu": [
+                    {
+                        "dia": 1,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_003",
+                                "comida": "tostadas con huevo"
+                            },
+                            "almuerzo": {
+                                "id": "comida_005",
+                                "comida": "pasta con verduras"
+                            },
+                            "merienda": {
+                                "id": "comida_048",
+                                "comida": "sandwich de huevo y tomate"
+                            },
+                            "cena": {
+                                "id": "comida_060",
+                                "comida": "pasta con verduras y huevo"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 2,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_029",
+                                "comida": "huevo revuelto con tostadas"
+                            },
+                            "almuerzo": {
+                                "id": "comida_006",
+                                "comida": "ensalada con legumbres"
+                            },
+                            "merienda": {
+                                "id": "comida_009",
+                                "comida": "fruta con yogur"
+                            },
+                            "cena": {
+                                "id": "comida_008",
+                                "comida": "omelette con verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 3,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_063",
+                                "comida": "huevo revuelto con tomate"
+                            },
+                            "almuerzo": {
+                                "id": "comida_010",
+                                "comida": "arroz con lentejas"
+                            },
+                            "merienda": {
+                                "id": "comida_014",
+                                "comida": "fruta con avena"
+                            },
+                            "cena": {
+                                "id": "comida_012",
+                                "comida": "wrap de verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 4,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_001",
+                                "comida": "avena con fruta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_016",
+                                "comida": "sandwich de huevo"
+                            },
+                            "merienda": {
+                                "id": "comida_015",
+                                "comida": "hummus con tostadas"
+                            },
+                            "cena": {
+                                "id": "comida_017",
+                                "comida": "ensalada de arroz y verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 5,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_002",
+                                "comida": "yogur con fruta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_031",
+                                "comida": "arroz con verduras"
+                            },
+                            "merienda": {
+                                "id": "comida_021",
+                                "comida": "yogur con avena"
+                            },
+                            "cena": {
+                                "id": "comida_019",
+                                "comida": "lentejas con verduras"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 6,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_013",
+                                "comida": "tostadas con palta"
+                            },
+                            "almuerzo": {
+                                "id": "comida_034",
+                                "comida": "pasta con salsa de tomate"
+                            },
+                            "merienda": {
+                                "id": "comida_022",
+                                "comida": "fruta con frutos secos"
+                            },
+                            "cena": {
+                                "id": "comida_032",
+                                "comida": "arroz con huevo"
+                            }
+                        }
+                    },
+                    {
+                        "dia": 7,
+                        "comidas": {
+                            "desayuno": {
+                                "id": "comida_023",
+                                "comida": "avena con banana"
+                            },
+                            "almuerzo": {
+                                "id": "comida_036",
+                                "comida": "pasta con lentejas"
+                            },
+                            "merienda": {
+                                "id": "comida_045",
+                                "comida": "fruta con yogur y avena"
+                            },
+                            "cena": {
+                                "id": "comida_055",
+                                "comida": "omelette con queso y verduras"
+                            }
+                        }
+                    }
+                ],
+                "perfil_alimentario": {
+                    "tipo_alimentacion": "vegetariana",
+                    "alergias": [],
+                    "intolerancias": [],
+                    "alimentos_evitar": [],
+                    "objetivo": "ganar fuerza"
+                }
+            }
+        ]
     }
 }
